@@ -49,6 +49,28 @@ public class MonsterController : MonoBehaviour
             col.size = new Vector2(0.8f, 0.8f);
         }
         _hpBar = MonsterHPBar.Create(transform, def.hp);
+        ValidateAnimations();
+    }
+
+    void ValidateAnimations()
+    {
+        if (Def.animationDef == null) return;
+        string[] required = { "idle", "walk", "attack", "hit", "die" };
+        foreach (var state in required)
+        {
+            if (!Def.animationDef.HasClip(state))
+                Debug.LogWarning($"[MonsterController] {Def.name}: missing animation clip for '{state}'");
+        }
+    }
+
+    public void PlayAnimation(string stateName)
+    {
+        if (Def.animationDef == null) return;
+        var entry = Def.animationDef.GetEntry(stateName);
+        if (entry == null || entry.clip == null) return;
+        // Future: trigger actual Animator state when Animator is attached
+        var animator = GetComponent<Animator>();
+        if (animator != null) animator.Play(stateName, 0, 0f);
     }
 
     public void UpdateAI(Vector2 playerPos, float now)
