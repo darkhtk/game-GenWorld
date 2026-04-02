@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Rendering.Universal;
 using TMPro;
 using UnityEngine.UI;
 
@@ -145,12 +144,20 @@ public static class SceneSetupTool
         // DayNightCycle
         var dayNightObj = new GameObject("DayNightCycle");
         dayNightObj.AddComponent<DayNightCycle>();
-        // Light2D must be on camera or separate object — wire globalLight if URP Light2D available
+        // Light2D — try to add via reflection (URP may not be available)
         var lightObj = new GameObject("GlobalLight2D");
-        var light2d = lightObj.AddComponent<UnityEngine.Rendering.Universal.Light2D>();
-        light2d.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Global;
-        light2d.intensity = 1f;
-        Wire(dayNightObj.GetComponent<DayNightCycle>(), "globalLight", light2d);
+        var light2dType = System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
+        if (light2dType != null)
+        {
+            var light2d = lightObj.AddComponent(light2dType);
+            var ltProp = light2dType.GetProperty("lightType");
+            if (ltProp != null) ltProp.SetValue(light2d, 3); // 3 = Global
+            Wire(dayNightObj.GetComponent<DayNightCycle>(), "globalLight", light2d as Component);
+        }
+        else
+        {
+            Debug.LogWarning("[SceneSetup] URP Light2D not found — DayNightCycle will not have lighting control");
+        }
 
         // UI Canvas + UIManager
         var canvas = CreateCanvas("UICanvas");
