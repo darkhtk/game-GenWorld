@@ -17,9 +17,32 @@ public class EnhanceUI : MonoBehaviour
     [SerializeField] Transform slotListContent;
     [SerializeField] GameObject enhanceSlotPrefab;
 
+    [Header("Result")]
+    [SerializeField] TextMeshProUGUI resultText;
+
     static readonly Color AffordableColor = new(0.4f, 1f, 0.4f);
     static readonly Color UnaffordableColor = new(0.4f, 0.4f, 0.4f);
     static readonly string[] SlotLabels = { "Weapon", "Helmet", "Armor", "Boots", "Accessory" };
+
+    static readonly (float success, float destroy, int gold)[] EnhanceTable =
+    {
+        (1.0f,  0.00f, 100),   // +0→+1
+        (0.9f,  0.00f, 200),   // +1→+2
+        (0.8f,  0.00f, 400),   // +2→+3
+        (0.7f,  0.00f, 700),   // +3→+4
+        (0.6f,  0.05f, 1200),  // +4→+5
+        (0.5f,  0.10f, 2000),  // +5→+6
+        (0.4f,  0.15f, 3500),  // +6→+7
+        (0.3f,  0.20f, 5000),  // +7→+8
+        (0.2f,  0.25f, 8000),  // +8→+9
+        (0.1f,  0.30f, 12000), // +9→+10
+    };
+
+    public static (float success, float destroy, int gold) GetEnhanceInfo(int level)
+    {
+        if (level < 0 || level >= EnhanceTable.Length) return (0, 0, 0);
+        return EnhanceTable[level];
+    }
 
     readonly List<GameObject> _entries = new();
 
@@ -95,8 +118,10 @@ public class EnhanceUI : MonoBehaviour
                 ? def.name : inst.itemId;
         }
 
-        int cost = GameConfig.EnhanceCost(enhLevel);
-        bool canAfford = hasEquip && gold >= cost;
+        var info = GetEnhanceInfo(enhLevel);
+        int cost = info.gold;
+        bool maxed = enhLevel >= EnhanceTable.Length;
+        bool canAfford = hasEquip && !maxed && gold >= cost;
 
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
 
@@ -119,19 +144,52 @@ public class EnhanceUI : MonoBehaviour
         }
 
         if (texts.Length > 2)
-            texts[2].text = hasEquip ? $"Cost: {cost}G" : "";
+        {
+            if (!hasEquip) texts[2].text = "";
+            else if (maxed) texts[2].text = "MAX";
+            else texts[2].text = $"Cost: {cost}G | {info.success * 100:F0}% success" +
+                (info.destroy > 0 ? $" | {info.destroy * 100:F0}% destroy" : "");
+        }
 
         var btn = go.GetComponent<Button>();
         if (btn == null) btn = go.AddComponent<Button>();
         btn.interactable = canAfford;
         string captured = slotName;
-        btn.onClick.AddListener(() =>
-        {
-            _onEnhance?.Invoke(captured);
-            Refresh();
-        });
+        btn.onClick.AddListener(() => TryEnhance(captured));
 
         _entries.Add(go);
+    }
+
+    void TryEnhance(string slotName)
+    {
+        if (_equipment == null || !_equipment.TryGetValue(slotName, out var inst) || inst == null) return;
+        var info = GetEnhanceInfo(inst.enhanceLevel);
+        if (info.gold <= 0) return;
+
+        _spendGold?.Invoke(info.gold);
+
+        float roll = UnityEngine.Random.value;
+        if (roll < info.success)
+        {
+            inst.enhanceLevel++;
+            _onEnhance?.Invoke(slotName);
+            ShowResult($"<color=#66ff66>Success! +{inst.enhanceLevel}</color>");
+        }
+        else if (roll < info.success + info.destroy)
+        {
+            _equipment.Remove(slotName);
+            ShowResult("<color=#ff4444>Equipment Destroyed!</color>");
+        }
+        else
+        {
+            ShowResult("<color=#ffaa44>Enhancement Failed...</color>");
+        }
+        Refresh();
+    }
+
+    void ShowResult(string text)
+    {
+        if (resultText != null) resultText.text = text;
     }
 
     void ClearEntries()
