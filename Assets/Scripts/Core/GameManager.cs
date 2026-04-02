@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     float _lastAutoPotionTime;
     float _lastAutoSaveTime;
     string _lastRegionId = "";
+    int _lastHudHp = -1, _lastHudMp = -1;
 
     // Dialogue state
     readonly List<DialogueEntry> _dialogueHistory = new();
@@ -121,7 +122,7 @@ public class GameManager : MonoBehaviour
         RefreshHud();
         AutoUsePotion();
 
-        RegionTracker.UpdatePlayerRegion(player.Position.x, player.Position.y);
+        RegionTracker.UpdatePlayerRegion(playerPos.x, playerPos.y);
         HandleRegionTransition();
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -364,9 +365,12 @@ public class GameManager : MonoBehaviour
     void RefreshHud()
     {
         if (uiManager == null || uiManager.Hud == null) return;
-        var hud = uiManager.Hud;
+        int hp = PlayerState.Hp, mp = PlayerState.Mp;
+        if (hp == _lastHudHp && mp == _lastHudMp) return;
+        _lastHudHp = hp;
+        _lastHudMp = mp;
         var s = PlayerState.CurrentStats;
-        hud.UpdateBars(PlayerState.Hp, s.maxHp, PlayerState.Mp, s.maxMp);
+        uiManager.Hud.UpdateBars(hp, s.maxHp, mp, s.maxMp);
     }
 
     void PushInitialUiState()

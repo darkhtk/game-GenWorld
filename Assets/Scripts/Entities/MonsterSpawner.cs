@@ -7,6 +7,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] GameObject monsterPrefab;
 
     readonly List<MonsterController> _monsters = new();
+    readonly List<string> _nightPoolBuffer = new();
 
     const float DespawnDistance = 50f * GameConfig.TileSize;
     const float DespawnCheckInterval = 2f;
@@ -31,14 +32,16 @@ public class MonsterSpawner : MonoBehaviour
         string[] monsterPool = region.monsterIds;
         if (isNight && region.nightMonsterIds != null && region.nightMonsterIds.Length > 0)
         {
-            var combined = new System.Collections.Generic.List<string>(region.monsterIds);
-            combined.AddRange(region.nightMonsterIds);
-            monsterPool = combined.ToArray();
+            _nightPoolBuffer.Clear();
+            _nightPoolBuffer.AddRange(region.monsterIds);
+            _nightPoolBuffer.AddRange(region.nightMonsterIds);
         }
 
         for (int i = 0; i < count; i++)
         {
-            string monsterId = monsterPool[Random.Range(0, monsterPool.Length)];
+            string monsterId = _nightPoolBuffer.Count > 0
+                ? _nightPoolBuffer[Random.Range(0, _nightPoolBuffer.Count)]
+                : monsterPool[Random.Range(0, monsterPool.Length)];
             if (!monsterDefs.TryGetValue(monsterId, out var def)) continue;
 
             Vector2 pos = Vector2.zero;
