@@ -1,0 +1,20 @@
+"AppBuild"
+{
+    "AppID" "0"
+    "Desc" "GenWorld RPG Build"
+    "ContentRoot" "../Build/Windows"
+    "BuildOutput" "../Build/SteamOutput"
+    "Depots"
+    {
+        "0"
+        {
+            "FileMapping"
+            {
+                "LocalPath" "*"
+                "DepotPath" "."
+                "recursive" "1"
+            }
+            "FileExclusion" "*.pdb"
+        }
+    }
+}
