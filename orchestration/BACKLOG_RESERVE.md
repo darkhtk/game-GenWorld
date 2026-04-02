@@ -71,3 +71,27 @@ EffectSystem·ComboSystem의 스킬 발동 애니메이션과 AreaEffect VFX 타
 
 ### ~~🎨 A-001: 누락 애니메이션 클립 제작/확보~~ ✅ 완료
 VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_react (6프레임 느낌표 팝업), vfx_npc_talk (4프레임 말풍선)
+
+---
+
+### 폴리시 / 완성도 (Polish) — 보통
+
+33. **R-033 로딩 화면 진행 바** — BootScene에서 데이터 로딩 시 진행률 표시. `BootSceneController.cs` 개선.
+34. **R-034 설정 메뉴 (볼륨/해상도)** — PauseMenuUI에 오디오 볼륨, 화면 해상도, 전체화면 토글 추가.
+35. **R-035 키 바인딩 표시** — 설정 또는 HUD에 현재 조작키 안내 표시. 새 UI 패널.
+36. **R-036 사망 화면 + 부활 옵션** — 플레이어 사망 시 결과 화면 + 마을 부활/제자리 부활 선택. 새 UI.
+37. **R-037 경험치 획득 플로팅 텍스트** — 몬스터 처치 시 +XP 텍스트 표시. `DamageText.SpawnText` 활용.
+38. **R-038 골드 변동 플로팅 텍스트** — 골드 획득/소비 시 +/-G 텍스트 표시.
+39. **R-039 자동 포션 사용** — HP가 일정 % 이하일 때 자동으로 HP 포션 사용. 설정 토글.
+40. **R-040 NPC 대화 시 카메라 줌인** — 대화 시작 시 Cinemachine 줌인, 종료 시 복원.
+41. **R-041 지역 진입 알림** — 새 지역 진입 시 화면 중앙에 지역명 페이드인/아웃 표시.
+42. **R-042 게임 통계 화면** — 플레이 시간, 처치 몬스터 수, 사용 스킬 횟수 등 통계 UI.
+
+### 🎨 에셋 2차 (감독관 전용)
+
+43. **🎨 A-002 등급별 아이템 프레임** — common/uncommon/rare/epic/legendary 등급별 인벤토리 슬롯 테두리 5종. `Assets/Art/Sprites/UI/`
+44. **🎨 A-003 지역 진입 배너 스프라이트** — 8개 지역별 진입 알림 배경 배너. `Assets/Art/Sprites/UI/`
+45. **🎨 A-004 몬스터 사망 애니메이션 시트** — 12종 몬스터별 사망 4프레임 스프라이트시트. `Assets/Art/Sprites/`
+46. **🎨 A-005 NPC 대화 포트레이트** — 8명 NPC 대화창 얼굴 이미지 (64×64). `Assets/Art/Sprites/Portraits/`
+47. **🎨 A-006 스킬트리 배경 + 노드** — 3개 트리(melee/ranged/magic) 배경 + 스킬 노드 아이콘. `Assets/Art/Sprites/UI/SkillTree/`
+48. **🎨 A-007 장비 세트 아이콘** — 8개 장비 세트별 세트 효과 아이콘. `Assets/Art/Sprites/Icons/`
