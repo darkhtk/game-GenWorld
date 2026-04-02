@@ -329,16 +329,29 @@ public class GameManager : MonoBehaviour
         return sb.Length > 0 ? sb.ToString() : null;
     }
 
+    const float MinZoom = 4f;
+    const float MaxZoom = 20f;
+    const float ZoomSpeed = 2f;
+
     void LateUpdate()
     {
-        // Camera follow player
         var cam = Camera.main;
-        if (cam != null && player != null)
+        if (cam == null) return;
+
+        // Camera follow player
+        if (player != null)
         {
             var pos = player.transform.position;
             float z = cam.transform.position.z;
             if (z >= 0f) z = -10f;
             cam.transform.position = new Vector3(pos.x, pos.y, z);
+        }
+
+        // Mouse wheel zoom
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.01f)
+        {
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scroll * ZoomSpeed, MinZoom, MaxZoom);
         }
     }
 

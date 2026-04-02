@@ -143,6 +143,7 @@
 | R-039 Settings UI v2 | 2026-04-03 | REVIEW-R039-v2 ✅ (Steam) |
 | R-040 SteamPipe v2 | 2026-04-03 | REVIEW-R040-v2 ✅ (Steam) |
 | R-041 QA 체크리스트 v2 | 2026-04-03 | REVIEW-R041-v2 ✅ (Steam) |
+| V-001 HUD 바 스타일링 | 2026-04-03 | 자가진행 ✅ (폴리시) |
 
 ## 📋 Backlog
 

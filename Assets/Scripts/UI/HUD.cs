@@ -321,14 +321,40 @@ public class HUD : MonoBehaviour
 
     public void UpdateSkillBar(string[] equipped, float[] cooldowns)
     {
+        if (_skillIconCache == null) LoadSkillIconCache();
+
         for (int i = 0; i < GameConfig.SkillSlotCount; i++)
         {
             bool hasSkill = i < equipped.Length && !string.IsNullOrEmpty(equipped[i]);
             if (i < skillIcons.Length && skillIcons[i] != null)
+            {
                 skillIcons[i].enabled = hasSkill;
+                if (hasSkill && _skillIconCache != null)
+                {
+                    string skillId = equipped[i];
+                    if (!_skillIconCache.TryGetValue($"skill_icons_{skillId}", out var spr))
+                        _skillIconCache.TryGetValue(skillId, out spr);
+                    if (spr != null)
+                    {
+                        skillIcons[i].sprite = spr;
+                        skillIcons[i].color = Color.white;
+                    }
+                }
+            }
             if (i < skillCooldownOverlays.Length && skillCooldownOverlays[i] != null)
                 skillCooldownOverlays[i].fillAmount = 0f;
         }
+    }
+
+    Dictionary<string, Sprite> _skillIconCache;
+
+    void LoadSkillIconCache()
+    {
+        _skillIconCache = new Dictionary<string, Sprite>();
+        var sprites = Resources.LoadAll<Sprite>("Skills/skill_icons");
+        if (sprites == null) return;
+        foreach (var s in sprites)
+            _skillIconCache[s.name] = s;
     }
 
     public void UpdateGold(int amount)
