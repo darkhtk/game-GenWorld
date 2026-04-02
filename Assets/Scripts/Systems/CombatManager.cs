@@ -265,7 +265,10 @@ public class CombatManager : MonoBehaviour
             healPlayer = amount =>
             {
                 if (PlayerState != null)
+                {
                     PlayerState.Hp = Mathf.Min(PlayerState.Hp + amount, stats.maxHp);
+                    ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, Color.green);
+                }
             }
         };
     }
@@ -300,7 +303,10 @@ public class CombatManager : MonoBehaviour
             healPlayer = amount =>
             {
                 if (PlayerState != null)
+                {
                     PlayerState.Hp = Mathf.Min(PlayerState.Hp + amount, stats.maxHp);
+                    ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, Color.green);
+                }
             },
             runner = _actionRunner
         };
@@ -313,7 +319,16 @@ public class CombatManager : MonoBehaviour
         m.LastHitByPlayerTime = Time.time;
         int dmg = CombatSystem.CalcDamage(Mathf.RoundToInt(baseDmg), m.EffectiveDef, isCrit);
         bool dead = m.TakeDamage(dmg);
-        ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
+
+        Color? dmgColor = null;
+        if (tintColor != 0)
+        {
+            float r = ((tintColor >> 16) & 0xFF) / 255f;
+            float g = ((tintColor >> 8) & 0xFF) / 255f;
+            float b = (tintColor & 0xFF) / 255f;
+            dmgColor = new Color(r, g, b);
+        }
+        ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit, dmgColor);
         if (dead) _onMonsterDeath?.Invoke(m);
         return dead;
     }
