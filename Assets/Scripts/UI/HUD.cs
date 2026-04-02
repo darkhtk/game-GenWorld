@@ -162,10 +162,13 @@ public class HUD : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        _cachedPlayer = FindFirstObjectByType<PlayerController>();
+    }
+
     void UpdateDodgeFromPlayer()
     {
-        if (_cachedPlayer == null)
-            _cachedPlayer = FindFirstObjectByType<PlayerController>();
         if (_cachedPlayer != null)
             UpdateDodgeCooldown(_cachedPlayer.GetDodgeCooldownFraction());
     }
@@ -182,8 +185,21 @@ public class HUD : MonoBehaviour
 
     public void UpdateBars(int hp, int maxHp, int mp, int maxMp)
     {
+        float hpRatio = maxHp > 0 ? (float)hp / maxHp : 0f;
         if (hpFill != null)
-            hpFill.fillAmount = maxHp > 0 ? (float)hp / maxHp : 0f;
+        {
+            hpFill.fillAmount = hpRatio;
+            // Low HP pulsing warning (below 25%)
+            if (hpRatio > 0f && hpRatio < 0.25f)
+            {
+                float pulse = 0.7f + 0.3f * Mathf.Sin(Time.time * 6f);
+                hpFill.color = new Color(1f, 0.15f, 0.15f, pulse);
+            }
+            else
+            {
+                hpFill.color = HpColor;
+            }
+        }
         if (mpFill != null)
             mpFill.fillAmount = maxMp > 0 ? (float)mp / maxMp : 0f;
         if (hpText != null)
