@@ -31,10 +31,10 @@ Phase 7 complete — returning to Loop
 - [x] Phase 5 — AI systems
 - [x] Phase 7 — Integration Hardening (4 steps)
 
-## Test Suites (14 files)
-InventorySystem, StatsSystem, CombatSystem, EffectSystem, SkillSystem,
-LootSystem, CraftingSystem, QuestSystem, NPCBrain, PromptBuilder,
-AIManager, RegionTracker, SaveSystem
+## Test Suites (13 files, 123 tests)
+InventorySystem(9), StatsSystem(7), CombatSystem(7), EffectSystem(14),
+SkillSystem(17), LootSystem(5), CraftingSystem(6), QuestSystem(13),
+NPCBrain(9), PromptBuilder(12), AIManager(8), RegionTracker(9), SaveSystem(7)
 
 ## Issues
 - None blocking
