@@ -177,6 +177,17 @@ public class GameManager : MonoBehaviour
         uiManager.OnUseMpPotion = () => UsePotion("mp_potion");
     }
 
+    void AutoUsePotion()
+    {
+        if (!AutoPotionEnabled || PlayerState == null) return;
+        if (Time.time - _lastAutoPotionTime < 1f) return;
+        float hpPct = (float)PlayerState.Hp / PlayerState.CurrentStats.maxHp;
+        if (hpPct > 0.3f) return;
+        if (Inventory.GetCount("hp_potion") <= 0) return;
+        _lastAutoPotionTime = Time.time;
+        UsePotion("hp_potion");
+    }
+
     void UsePotion(string potionId)
     {
         if (!Inventory.RemoveItem(potionId, 1)) return;
