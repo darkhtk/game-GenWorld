@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     float _lastDodgeTime = -999f;
     const float DodgeCooldown = 0.8f;
     const float DodgeDuration = 0.2f;
-    const float DodgeSpeed = 400f;
+    const float DodgeSpeed = 12f;
 
     float _moveSpeed;
     Vector2 _dodgeDir;

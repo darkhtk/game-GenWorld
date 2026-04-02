@@ -10,7 +10,7 @@ public class VillageNPC : MonoBehaviour
 
     Vector2 _patrolCenter;
     Vector2? _patrolTarget;
-    float _speed = 30f;
+    float _speed = 1f;
     int _currentPatrolRadius;
     string _currentActivity;
     string _lastPeriod;

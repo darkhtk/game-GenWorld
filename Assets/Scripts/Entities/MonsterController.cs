@@ -158,9 +158,9 @@ public class MonsterController : MonoBehaviour
 
     void DoPatrol(float speed)
     {
-        if (_patrolTarget == null || (Position - _patrolTarget.Value).sqrMagnitude < 64f)
+        if (_patrolTarget == null || (Position - _patrolTarget.Value).sqrMagnitude < 0.25f)
         {
-            _patrolTarget = _spawnPos + Random.insideUnitCircle * 64f;
+            _patrolTarget = _spawnPos + Random.insideUnitCircle * 2f;
         }
         MoveToward(_patrolTarget.Value, speed * 0.5f);
     }

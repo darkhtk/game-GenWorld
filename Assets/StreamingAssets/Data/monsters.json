@@ -1,483 +1,1433 @@
 {
   "monsters": [
     {
-      "id": "wolf", "name": "늑대", "region": "forest",
-      "hp": 40, "atk": 8, "def": 2, "spd": 90,
-      "xp": 15, "gold": 5,
-      "detectRange": 150, "attackRange": 32, "attackCooldown": 1200,
+      "id": "wolf",
+      "name": "늑대",
+      "region": "forest",
+      "hp": 40,
+      "atk": 8,
+      "def": 2,
+      "spd": 2.81,
+      "xp": 15,
+      "gold": 5,
+      "detectRange": 4.69,
+      "attackRange": 1.0,
+      "attackCooldown": 1200,
       "drops": [
-        { "itemId": "leather", "chance": 0.6, "minCount": 1, "maxCount": 2 },
-        { "itemId": "wolf_fang", "chance": 0.3, "minCount": 1, "maxCount": 1 }
+        {
+          "itemId": "leather",
+          "chance": 0.6,
+          "minCount": 1,
+          "maxCount": 2
+        },
+        {
+          "itemId": "wolf_fang",
+          "chance": 0.3,
+          "minCount": 1,
+          "maxCount": 1
+        }
       ],
       "sprite": "monster_wolf"
     },
     {
-      "id": "goblin", "name": "고블린", "region": "forest",
-      "hp": 55, "atk": 12, "def": 4, "spd": 80,
-      "xp": 25, "gold": 10,
-      "detectRange": 130, "attackRange": 100, "attackCooldown": 1500,
-      "ranged": { "projectileSpeed": 55, "projectileColor": 9868950, "projectileSize": 5 },
+      "id": "goblin",
+      "name": "고블린",
+      "region": "forest",
+      "hp": 55,
+      "atk": 12,
+      "def": 4,
+      "spd": 2.5,
+      "xp": 25,
+      "gold": 10,
+      "detectRange": 4.06,
+      "attackRange": 3.12,
+      "attackCooldown": 1500,
+      "ranged": {
+        "projectileSpeed": 1.72,
+        "projectileColor": 9868950,
+        "projectileSize": 5
+      },
       "attackPatterns": [
-        { "name": "stone_throw", "actions": [
-          { "type": "spawn_projectile", "speed": 55, "color": 9868950 }
-        ]}
+        {
+          "name": "stone_throw",
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "speed": 55,
+              "color": 9868950
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "leather", "chance": 0.4, "minCount": 1, "maxCount": 1 },
-        { "itemId": "wood", "chance": 0.5, "minCount": 1, "maxCount": 3 },
-        { "itemId": "herb", "chance": 0.3, "minCount": 1, "maxCount": 2 }
+        {
+          "itemId": "leather",
+          "chance": 0.4,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "itemId": "wood",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 3
+        },
+        {
+          "itemId": "herb",
+          "chance": 0.3,
+          "minCount": 1,
+          "maxCount": 2
+        }
       ],
       "sprite": "monster_goblin"
     },
     {
-      "id": "treant", "name": "나무정령", "region": "forest",
-      "hp": 90, "atk": 15, "def": 8, "spd": 50,
-      "xp": 40, "gold": 18,
-      "detectRange": 100, "attackRange": 40, "attackCooldown": 1500,
+      "id": "treant",
+      "name": "나무정령",
+      "region": "forest",
+      "hp": 90,
+      "atk": 15,
+      "def": 8,
+      "spd": 1.56,
+      "xp": 40,
+      "gold": 18,
+      "detectRange": 3.12,
+      "attackRange": 1.25,
+      "attackCooldown": 1500,
       "attackPatterns": [
-        { "name": "smash", "actions": [
-          { "type": "deal_damage", "aoe": 40 },
-          { "type": "screen_shake", "duration": 150, "intensity": 0.005 }
-        ]}
+        {
+          "name": "smash",
+          "actions": [
+            {
+              "type": "deal_damage",
+              "aoe": 40
+            },
+            {
+              "type": "screen_shake",
+              "duration": 150,
+              "intensity": 0.005
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "wood", "chance": 0.8, "minCount": 2, "maxCount": 5 },
-        { "itemId": "herb", "chance": 0.5, "minCount": 1, "maxCount": 3 },
-        { "itemId": "treant_core", "chance": 0.15, "minCount": 1, "maxCount": 1 }
+        {
+          "itemId": "wood",
+          "chance": 0.8,
+          "minCount": 2,
+          "maxCount": 5
+        },
+        {
+          "itemId": "herb",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 3
+        },
+        {
+          "itemId": "treant_core",
+          "chance": 0.15,
+          "minCount": 1,
+          "maxCount": 1
+        }
       ],
       "sprite": "monster_treant"
     },
-
     {
-      "id": "bat", "name": "박쥐", "region": "cave",
-      "hp": 30, "atk": 10, "def": 3, "spd": 110,
-      "xp": 20, "gold": 8,
-      "detectRange": 160, "attackRange": 28, "attackCooldown": 800,
-      "drops": [{ "itemId": "ore", "chance": 0.5, "minCount": 1, "maxCount": 2 }],
+      "id": "bat",
+      "name": "박쥐",
+      "region": "cave",
+      "hp": 30,
+      "atk": 10,
+      "def": 3,
+      "spd": 3.44,
+      "xp": 20,
+      "gold": 8,
+      "detectRange": 5.0,
+      "attackRange": 0.88,
+      "attackCooldown": 800,
+      "drops": [
+        {
+          "itemId": "ore",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 2
+        }
+      ],
       "sprite": "monster_bat"
     },
     {
-      "id": "golem", "name": "골렘", "region": "cave",
-      "hp": 120, "atk": 20, "def": 15, "spd": 40,
-      "xp": 50, "gold": 25,
-      "detectRange": 100, "attackRange": 40, "attackCooldown": 2000,
+      "id": "golem",
+      "name": "골렘",
+      "region": "cave",
+      "hp": 120,
+      "atk": 20,
+      "def": 15,
+      "spd": 1.25,
+      "xp": 50,
+      "gold": 25,
+      "detectRange": 3.12,
+      "attackRange": 1.25,
+      "attackCooldown": 2000,
       "attackPatterns": [
-        { "name": "ground_pound", "actions": [
-          { "type": "deal_damage", "aoe": 48 },
-          { "type": "screen_shake", "duration": 300, "intensity": 0.01 }
-        ]}
+        {
+          "name": "ground_pound",
+          "actions": [
+            {
+              "type": "deal_damage",
+              "aoe": 48
+            },
+            {
+              "type": "screen_shake",
+              "duration": 300,
+              "intensity": 0.01
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "ore", "chance": 0.7, "minCount": 2, "maxCount": 4 },
-        { "itemId": "gem", "chance": 0.2, "minCount": 1, "maxCount": 1 }
+        {
+          "itemId": "ore",
+          "chance": 0.7,
+          "minCount": 2,
+          "maxCount": 4
+        },
+        {
+          "itemId": "gem",
+          "chance": 0.2,
+          "minCount": 1,
+          "maxCount": 1
+        }
       ],
       "sprite": "monster_golem"
     },
     {
-      "id": "crystal_slime", "name": "크리스탈 슬라임", "region": "cave",
-      "hp": 200, "atk": 25, "def": 12, "spd": 60,
-      "xp": 80, "gold": 40,
-      "detectRange": 120, "attackRange": 120, "attackCooldown": 2000,
-      "ranged": { "projectileSpeed": 48, "projectileColor": 6737151, "projectileSize": 7 },
+      "id": "crystal_slime",
+      "name": "크리스탈 슬라임",
+      "region": "cave",
+      "hp": 200,
+      "atk": 25,
+      "def": 12,
+      "spd": 1.88,
+      "xp": 80,
+      "gold": 40,
+      "detectRange": 3.75,
+      "attackRange": 3.75,
+      "attackCooldown": 2000,
+      "ranged": {
+        "projectileSpeed": 1.5,
+        "projectileColor": 6737151,
+        "projectileSize": 7
+      },
       "attackPatterns": [
-        { "name": "crystal_shot", "actions": [
-          { "type": "spawn_projectile", "speed": 48, "color": 6737151,
-            "onHit": [
-              { "type": "apply_effect", "effect": "slow", "duration": 2000, "value": 0.5 }
-            ]
-          }
-        ]},
-        { "name": "crystal_burst", "weight": 0.5, "windupMs": 500, "actions": [
-          { "type": "spawn_projectile", "pattern": "radial", "count": 6, "speed": 40, "range": 100, "color": 6737151 }
-        ]}
+        {
+          "name": "crystal_shot",
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "speed": 48,
+              "color": 6737151,
+              "onHit": [
+                {
+                  "type": "apply_effect",
+                  "effect": "slow",
+                  "duration": 2000,
+                  "value": 0.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "crystal_burst",
+          "weight": 0.5,
+          "windupMs": 500,
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "pattern": "radial",
+              "count": 6,
+              "speed": 40,
+              "range": 100,
+              "color": 6737151
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "crystal", "chance": 0.6, "minCount": 1, "maxCount": 3 },
-        { "itemId": "gem", "chance": 0.4, "minCount": 1, "maxCount": 2 }
+        {
+          "itemId": "crystal",
+          "chance": 0.6,
+          "minCount": 1,
+          "maxCount": 3
+        },
+        {
+          "itemId": "gem",
+          "chance": 0.4,
+          "minCount": 1,
+          "maxCount": 2
+        }
       ],
       "sprite": "monster_crystal_slime"
     },
-
     {
-      "id": "spider", "name": "독거미", "region": "swamp",
-      "hp": 45, "atk": 14, "def": 4, "spd": 95,
-      "xp": 25, "gold": 10,
-      "detectRange": 140, "attackRange": 90, "attackCooldown": 1200,
-      "ranged": { "projectileSpeed": 60, "projectileColor": 11141375, "projectileSize": 5 },
+      "id": "spider",
+      "name": "독거미",
+      "region": "swamp",
+      "hp": 45,
+      "atk": 14,
+      "def": 4,
+      "spd": 2.97,
+      "xp": 25,
+      "gold": 10,
+      "detectRange": 4.38,
+      "attackRange": 2.81,
+      "attackCooldown": 1200,
+      "ranged": {
+        "projectileSpeed": 1.88,
+        "projectileColor": 11141375,
+        "projectileSize": 5
+      },
       "attackPatterns": [
-        { "name": "venom_spit", "actions": [
-          { "type": "spawn_projectile", "speed": 60, "color": 11141375,
-            "onHit": [
-              { "type": "apply_effect", "effect": "dot", "duration": 3000, "value": 0.3 }
-            ]
-          }
-        ]}
+        {
+          "name": "venom_spit",
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "speed": 60,
+              "color": 11141375,
+              "onHit": [
+                {
+                  "type": "apply_effect",
+                  "effect": "dot",
+                  "duration": 3000,
+                  "value": 0.3
+                }
+              ]
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "venom", "chance": 0.5, "minCount": 1, "maxCount": 2 },
-        { "itemId": "herb", "chance": 0.3, "minCount": 1, "maxCount": 1 }
+        {
+          "itemId": "venom",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 2
+        },
+        {
+          "itemId": "herb",
+          "chance": 0.3,
+          "minCount": 1,
+          "maxCount": 1
+        }
       ],
       "sprite": "monster_spider"
     },
     {
-      "id": "lizardman", "name": "리자드맨", "region": "swamp",
-      "hp": 100, "atk": 22, "def": 10, "spd": 70,
-      "xp": 55, "gold": 28,
-      "detectRange": 130, "attackRange": 38, "attackCooldown": 1200,
+      "id": "lizardman",
+      "name": "리자드맨",
+      "region": "swamp",
+      "hp": 100,
+      "atk": 22,
+      "def": 10,
+      "spd": 2.19,
+      "xp": 55,
+      "gold": 28,
+      "detectRange": 4.06,
+      "attackRange": 1.19,
+      "attackCooldown": 1200,
       "drops": [
-        { "itemId": "scale", "chance": 0.6, "minCount": 1, "maxCount": 3 },
-        { "itemId": "venom", "chance": 0.3, "minCount": 1, "maxCount": 1 }
+        {
+          "itemId": "scale",
+          "chance": 0.6,
+          "minCount": 1,
+          "maxCount": 3
+        },
+        {
+          "itemId": "venom",
+          "chance": 0.3,
+          "minCount": 1,
+          "maxCount": 1
+        }
       ],
       "sprite": "monster_lizardman"
     },
     {
-      "id": "hydra", "name": "히드라", "region": "swamp",
-      "hp": 200, "atk": 22, "def": 10, "spd": 50,
-      "xp": 120, "gold": 60,
-      "detectRange": 110, "attackRange": 130, "attackCooldown": 2200,
-      "ranged": { "projectileSpeed": 42, "projectileColor": 3407871, "projectileSize": 8 },
+      "id": "hydra",
+      "name": "히드라",
+      "region": "swamp",
+      "hp": 200,
+      "atk": 22,
+      "def": 10,
+      "spd": 1.56,
+      "xp": 120,
+      "gold": 60,
+      "detectRange": 3.44,
+      "attackRange": 4.06,
+      "attackCooldown": 2200,
+      "ranged": {
+        "projectileSpeed": 1.31,
+        "projectileColor": 3407871,
+        "projectileSize": 8
+      },
       "attackPatterns": [
-        { "name": "acid_spray", "actions": [
-          { "type": "spawn_projectile", "pattern": "fan", "count": 3, "spread": 0.4, "speed": 42, "color": 3407871 }
-        ]},
-        { "name": "poison_pool", "weight": 0.4, "windupMs": 600, "actions": [
-          { "type": "spawn_area", "aoe": 60, "duration": 4000, "tickInterval": 800,
-            "onTick": [
-              { "type": "deal_damage", "aoe": 60, "ratio": 0.2 },
-              { "type": "apply_effect", "effect": "slow", "aoe": 60, "duration": 1000, "value": 0.5 }
-            ]
-          }
-        ]}
+        {
+          "name": "acid_spray",
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "pattern": "fan",
+              "count": 3,
+              "spread": 0.4,
+              "speed": 42,
+              "color": 3407871
+            }
+          ]
+        },
+        {
+          "name": "poison_pool",
+          "weight": 0.4,
+          "windupMs": 600,
+          "actions": [
+            {
+              "type": "spawn_area",
+              "aoe": 60,
+              "duration": 4000,
+              "tickInterval": 800,
+              "onTick": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 60,
+                  "ratio": 0.2
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "slow",
+                  "aoe": 60,
+                  "duration": 1000,
+                  "value": 0.5
+                }
+              ]
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "scale", "chance": 0.8, "minCount": 2, "maxCount": 5 },
-        { "itemId": "magic_essence", "chance": 0.3, "minCount": 1, "maxCount": 2 }
+        {
+          "itemId": "scale",
+          "chance": 0.8,
+          "minCount": 2,
+          "maxCount": 5
+        },
+        {
+          "itemId": "magic_essence",
+          "chance": 0.3,
+          "minCount": 1,
+          "maxCount": 2
+        }
       ],
       "sprite": "monster_hydra"
     },
-
     {
-      "id": "fire_imp", "name": "화염 임프", "region": "volcano",
-      "hp": 70, "atk": 25, "def": 6, "spd": 100,
-      "xp": 40, "gold": 20,
-      "detectRange": 150, "attackRange": 110, "attackCooldown": 1300,
-      "ranged": { "projectileSpeed": 60, "projectileColor": 16744448, "projectileSize": 6 },
+      "id": "fire_imp",
+      "name": "화염 임프",
+      "region": "volcano",
+      "hp": 70,
+      "atk": 25,
+      "def": 6,
+      "spd": 3.12,
+      "xp": 40,
+      "gold": 20,
+      "detectRange": 4.69,
+      "attackRange": 3.44,
+      "attackCooldown": 1300,
+      "ranged": {
+        "projectileSpeed": 1.88,
+        "projectileColor": 16744448,
+        "projectileSize": 6
+      },
       "attackPatterns": [
-        { "name": "fireball", "actions": [
-          { "type": "spawn_projectile", "speed": 60, "color": 16744448,
-            "onArrive": [
-              { "type": "deal_damage", "aoe": 32 }
-            ]
-          }
-        ]}
+        {
+          "name": "fireball",
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "speed": 60,
+              "color": 16744448,
+              "onArrive": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 32
+                }
+              ]
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "lava_stone", "chance": 0.5, "minCount": 1, "maxCount": 2 }
+        {
+          "itemId": "lava_stone",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 2
+        }
       ],
       "sprite": "monster_fire_imp"
     },
     {
-      "id": "dragonkin", "name": "용족", "region": "volcano",
-      "hp": 180, "atk": 35, "def": 18, "spd": 65,
-      "xp": 90, "gold": 50,
-      "detectRange": 140, "attackRange": 44, "attackCooldown": 1400,
+      "id": "dragonkin",
+      "name": "용족",
+      "region": "volcano",
+      "hp": 180,
+      "atk": 35,
+      "def": 18,
+      "spd": 2.03,
+      "xp": 90,
+      "gold": 50,
+      "detectRange": 4.38,
+      "attackRange": 1.38,
+      "attackCooldown": 1400,
       "attackPatterns": [
-        { "name": "claw_swipe", "actions": [
-          { "type": "deal_damage", "cone": 1.0 }
-        ]},
-        { "name": "flame_breath", "weight": 0.5, "windupMs": 500, "actions": [
-          { "type": "deal_damage", "aoe": 60, "cone": 0.8, "ratio": 0.7 },
-          { "type": "apply_effect", "effect": "dot", "aoe": 60, "cone": 0.8, "duration": 3000, "value": 0.2 }
-        ]}
+        {
+          "name": "claw_swipe",
+          "actions": [
+            {
+              "type": "deal_damage",
+              "cone": 1.0
+            }
+          ]
+        },
+        {
+          "name": "flame_breath",
+          "weight": 0.5,
+          "windupMs": 500,
+          "actions": [
+            {
+              "type": "deal_damage",
+              "aoe": 60,
+              "cone": 0.8,
+              "ratio": 0.7
+            },
+            {
+              "type": "apply_effect",
+              "effect": "dot",
+              "aoe": 60,
+              "cone": 0.8,
+              "duration": 3000,
+              "value": 0.2
+            }
+          ]
+        }
       ],
       "drops": [
-        { "itemId": "dragon_scale", "chance": 0.5, "minCount": 1, "maxCount": 2 },
-        { "itemId": "lava_stone", "chance": 0.4, "minCount": 1, "maxCount": 3 }
+        {
+          "itemId": "dragon_scale",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 2
+        },
+        {
+          "itemId": "lava_stone",
+          "chance": 0.4,
+          "minCount": 1,
+          "maxCount": 3
+        }
       ],
       "sprite": "monster_dragonkin"
     },
     {
-      "id": "dragon", "name": "드래곤", "region": "volcano",
-      "hp": 400, "atk": 35, "def": 20, "spd": 55,
-      "xp": 200, "gold": 100,
-      "detectRange": 160, "attackRange": 150, "attackCooldown": 2500,
-      "ranged": { "projectileSpeed": 45, "projectileColor": 16727040, "projectileSize": 10 },
+      "id": "dragon",
+      "name": "드래곤",
+      "region": "volcano",
+      "hp": 400,
+      "atk": 35,
+      "def": 20,
+      "spd": 1.72,
+      "xp": 200,
+      "gold": 100,
+      "detectRange": 5.0,
+      "attackRange": 4.69,
+      "attackCooldown": 2500,
+      "ranged": {
+        "projectileSpeed": 1.41,
+        "projectileColor": 16727040,
+        "projectileSize": 10
+      },
       "attackPatterns": [
-        { "name": "fire_breath", "actions": [
-          { "type": "spawn_projectile", "speed": 45, "color": 16727040,
-            "onArrive": [
-              { "type": "deal_damage", "aoe": 56 },
-              { "type": "screen_shake", "duration": 200, "intensity": 0.008 }
-            ]
-          }
-        ]},
-        { "name": "meteor_rain", "weight": 0.3, "windupMs": 800, "actions": [
-          { "type": "spawn_projectile", "pattern": "scatter", "count": 3, "trajectory": "arc",
-            "speed": 100, "scatterRadius": 50, "color": 16727040,
-            "onArrive": [
-              { "type": "deal_damage", "aoe": 40, "ratio": 0.6 }
-            ]
-          }
-        ]},
-        { "name": "tail_sweep", "weight": 0.3, "windupMs": 400, "actions": [
-          { "type": "deal_damage", "aoe": 70 },
-          { "type": "apply_effect", "effect": "knockback", "aoe": 70, "value": 80 }
-        ]}
-      ],
-      "drops": [
-        { "itemId": "dragon_scale", "chance": 0.8, "minCount": 2, "maxCount": 5 },
-        { "itemId": "legendary_essence", "chance": 0.15, "minCount": 1, "maxCount": 1 }
-      ],
-      "sprite": "monster_dragon"
-    },
-
-    {
-      "id": "cave_boss", "name": "크리스탈 골렘", "region": "deep_cave", "rank": "boss",
-      "hp": 350, "atk": 30, "def": 20, "spd": 35,
-      "xp": 150, "gold": 80,
-      "detectRange": 120, "attackRange": 50, "attackCooldown": 2000,
-      "attackPatterns": [
-        { "name": "crystal_smash", "weight": 2, "actions": [
-          { "type": "deal_damage", "aoe": 56 },
-          { "type": "screen_shake", "duration": 300, "intensity": 0.012 }
-        ]},
-        { "name": "crystal_barrage", "weight": 1, "windupMs": 600, "actions": [
-          { "type": "spawn_projectile", "pattern": "radial", "count": 8, "speed": 50, "range": 120, "color": 6737151 }
-        ]}
-      ],
-      "phases": [
         {
-          "hpPercent": 60,
-          "statMult": { "cooldown": 0.8 },
-          "attackPatterns": [
-            { "name": "crystal_smash", "weight": 2, "actions": [
-              { "type": "deal_damage", "aoe": 56 },
-              { "type": "screen_shake", "duration": 300, "intensity": 0.012 }
-            ]},
-            { "name": "crystal_barrage", "weight": 1, "windupMs": 600, "actions": [
-              { "type": "spawn_projectile", "pattern": "radial", "count": 8, "speed": 50, "range": 120, "color": 6737151 }
-            ]},
-            { "name": "stomp", "weight": 1, "windupMs": 500, "actions": [
-              { "type": "deal_damage", "aoe": 80, "ratio": 0.5 },
-              { "type": "apply_effect", "effect": "stun", "aoe": 80, "duration": 1000 },
-              { "type": "screen_shake", "duration": 400, "intensity": 0.015 }
-            ]}
+          "name": "fire_breath",
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "speed": 45,
+              "color": 16727040,
+              "onArrive": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 56
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 200,
+                  "intensity": 0.008
+                }
+              ]
+            }
           ]
         },
         {
-          "hpPercent": 30,
-          "statMult": { "atk": 1.5, "spd": 1.5, "cooldown": 0.6 },
-          "attackPatterns": [
-            { "name": "crystal_smash", "weight": 1, "actions": [
-              { "type": "deal_damage", "aoe": 64 },
-              { "type": "screen_shake", "duration": 400, "intensity": 0.02 }
-            ]},
-            { "name": "crystal_storm", "weight": 2, "windupMs": 500, "actions": [
-              { "type": "spawn_projectile", "pattern": "radial", "count": 16, "speed": 60, "range": 140, "color": 6737151 }
-            ]}
+          "name": "meteor_rain",
+          "weight": 0.3,
+          "windupMs": 800,
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "pattern": "scatter",
+              "count": 3,
+              "trajectory": "arc",
+              "speed": 100,
+              "scatterRadius": 50,
+              "color": 16727040,
+              "onArrive": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 40,
+                  "ratio": 0.6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tail_sweep",
+          "weight": 0.3,
+          "windupMs": 400,
+          "actions": [
+            {
+              "type": "deal_damage",
+              "aoe": 70
+            },
+            {
+              "type": "apply_effect",
+              "effect": "knockback",
+              "aoe": 70,
+              "value": 80
+            }
           ]
         }
       ],
       "drops": [
-        { "itemId": "crystal", "chance": 0.9, "minCount": 3, "maxCount": 6 },
-        { "itemId": "gem", "chance": 0.6, "minCount": 2, "maxCount": 4 },
-        { "itemId": "magic_essence", "chance": 0.3, "minCount": 1, "maxCount": 2 }
+        {
+          "itemId": "dragon_scale",
+          "chance": 0.8,
+          "minCount": 2,
+          "maxCount": 5
+        },
+        {
+          "itemId": "legendary_essence",
+          "chance": 0.15,
+          "minCount": 1,
+          "maxCount": 1
+        }
+      ],
+      "sprite": "monster_dragon"
+    },
+    {
+      "id": "cave_boss",
+      "name": "크리스탈 골렘",
+      "region": "deep_cave",
+      "rank": "boss",
+      "hp": 350,
+      "atk": 30,
+      "def": 20,
+      "spd": 1.09,
+      "xp": 150,
+      "gold": 80,
+      "detectRange": 3.75,
+      "attackRange": 1.56,
+      "attackCooldown": 2000,
+      "attackPatterns": [
+        {
+          "name": "crystal_smash",
+          "weight": 2,
+          "actions": [
+            {
+              "type": "deal_damage",
+              "aoe": 56
+            },
+            {
+              "type": "screen_shake",
+              "duration": 300,
+              "intensity": 0.012
+            }
+          ]
+        },
+        {
+          "name": "crystal_barrage",
+          "weight": 1,
+          "windupMs": 600,
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "pattern": "radial",
+              "count": 8,
+              "speed": 50,
+              "range": 120,
+              "color": 6737151
+            }
+          ]
+        }
+      ],
+      "phases": [
+        {
+          "hpPercent": 60,
+          "statMult": {
+            "cooldown": 0.8
+          },
+          "attackPatterns": [
+            {
+              "name": "crystal_smash",
+              "weight": 2,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 56
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 300,
+                  "intensity": 0.012
+                }
+              ]
+            },
+            {
+              "name": "crystal_barrage",
+              "weight": 1,
+              "windupMs": 600,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "radial",
+                  "count": 8,
+                  "speed": 50,
+                  "range": 120,
+                  "color": 6737151
+                }
+              ]
+            },
+            {
+              "name": "stomp",
+              "weight": 1,
+              "windupMs": 500,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 80,
+                  "ratio": 0.5
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "stun",
+                  "aoe": 80,
+                  "duration": 1000
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 400,
+                  "intensity": 0.015
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "hpPercent": 30,
+          "statMult": {
+            "atk": 1.5,
+            "spd": 1.5,
+            "cooldown": 0.6
+          },
+          "attackPatterns": [
+            {
+              "name": "crystal_smash",
+              "weight": 1,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 64
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 400,
+                  "intensity": 0.02
+                }
+              ]
+            },
+            {
+              "name": "crystal_storm",
+              "weight": 2,
+              "windupMs": 500,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "radial",
+                  "count": 16,
+                  "speed": 60,
+                  "range": 140,
+                  "color": 6737151
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "drops": [
+        {
+          "itemId": "crystal",
+          "chance": 0.9,
+          "minCount": 3,
+          "maxCount": 6
+        },
+        {
+          "itemId": "gem",
+          "chance": 0.6,
+          "minCount": 2,
+          "maxCount": 4
+        },
+        {
+          "itemId": "magic_essence",
+          "chance": 0.3,
+          "minCount": 1,
+          "maxCount": 2
+        }
       ],
       "sprite": "monster_golem"
     },
     {
-      "id": "swamp_lord", "name": "늪의 군주", "region": "dark_swamp", "rank": "boss",
-      "hp": 500, "atk": 35, "def": 18, "spd": 45,
-      "xp": 250, "gold": 120,
-      "detectRange": 140, "attackRange": 140, "attackCooldown": 2200,
-      "ranged": { "projectileSpeed": 50, "projectileColor": 3407871, "projectileSize": 9 },
+      "id": "swamp_lord",
+      "name": "늪의 군주",
+      "region": "dark_swamp",
+      "rank": "boss",
+      "hp": 500,
+      "atk": 35,
+      "def": 18,
+      "spd": 1.41,
+      "xp": 250,
+      "gold": 120,
+      "detectRange": 4.38,
+      "attackRange": 4.38,
+      "attackCooldown": 2200,
+      "ranged": {
+        "projectileSpeed": 1.56,
+        "projectileColor": 3407871,
+        "projectileSize": 9
+      },
       "attackPatterns": [
-        { "name": "toxic_spray", "weight": 2, "actions": [
-          { "type": "spawn_projectile", "pattern": "fan", "count": 5, "spread": 0.6, "speed": 50, "color": 3407871,
-            "onHit": [
-              { "type": "apply_effect", "effect": "dot", "duration": 4000, "value": 0.3 }
-            ]
-          }
-        ]},
-        { "name": "swamp_pool", "weight": 1, "windupMs": 600, "actions": [
-          { "type": "spawn_area", "aoe": 80, "duration": 5000, "tickInterval": 600,
-            "onTick": [
-              { "type": "deal_damage", "aoe": 80, "ratio": 0.15 },
-              { "type": "apply_effect", "effect": "slow", "aoe": 80, "duration": 1500, "value": 0.4 }
-            ]
-          }
-        ]},
-        { "name": "tentacle_grab", "weight": 1, "windupMs": 400, "actions": [
-          { "type": "deal_damage", "ratio": 1.5 },
-          { "type": "apply_effect", "effect": "stun", "duration": 1500 }
-        ]}
+        {
+          "name": "toxic_spray",
+          "weight": 2,
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "pattern": "fan",
+              "count": 5,
+              "spread": 0.6,
+              "speed": 50,
+              "color": 3407871,
+              "onHit": [
+                {
+                  "type": "apply_effect",
+                  "effect": "dot",
+                  "duration": 4000,
+                  "value": 0.3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "swamp_pool",
+          "weight": 1,
+          "windupMs": 600,
+          "actions": [
+            {
+              "type": "spawn_area",
+              "aoe": 80,
+              "duration": 5000,
+              "tickInterval": 600,
+              "onTick": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 80,
+                  "ratio": 0.15
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "slow",
+                  "aoe": 80,
+                  "duration": 1500,
+                  "value": 0.4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tentacle_grab",
+          "weight": 1,
+          "windupMs": 400,
+          "actions": [
+            {
+              "type": "deal_damage",
+              "ratio": 1.5
+            },
+            {
+              "type": "apply_effect",
+              "effect": "stun",
+              "duration": 1500
+            }
+          ]
+        }
       ],
       "phases": [
         {
           "hpPercent": 60,
           "attackPatterns": [
-            { "name": "toxic_spray", "weight": 2, "actions": [
-              { "type": "spawn_projectile", "pattern": "fan", "count": 5, "spread": 0.6, "speed": 50, "color": 3407871,
-                "onHit": [{ "type": "apply_effect", "effect": "dot", "duration": 4000, "value": 0.3 }]
-              }
-            ]},
-            { "name": "swamp_pool", "weight": 1, "windupMs": 600, "actions": [
-              { "type": "spawn_area", "aoe": 80, "duration": 5000, "tickInterval": 600,
-                "onTick": [
-                  { "type": "deal_damage", "aoe": 80, "ratio": 0.15 },
-                  { "type": "apply_effect", "effect": "slow", "aoe": 80, "duration": 1500, "value": 0.4 }
-                ]
-              }
-            ]},
-            { "name": "tentacle_grab", "weight": 2, "windupMs": 400, "actions": [
-              { "type": "deal_damage", "ratio": 1.5 },
-              { "type": "apply_effect", "effect": "stun", "duration": 1500 }
-            ]}
+            {
+              "name": "toxic_spray",
+              "weight": 2,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "fan",
+                  "count": 5,
+                  "spread": 0.6,
+                  "speed": 50,
+                  "color": 3407871,
+                  "onHit": [
+                    {
+                      "type": "apply_effect",
+                      "effect": "dot",
+                      "duration": 4000,
+                      "value": 0.3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "swamp_pool",
+              "weight": 1,
+              "windupMs": 600,
+              "actions": [
+                {
+                  "type": "spawn_area",
+                  "aoe": 80,
+                  "duration": 5000,
+                  "tickInterval": 600,
+                  "onTick": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 80,
+                      "ratio": 0.15
+                    },
+                    {
+                      "type": "apply_effect",
+                      "effect": "slow",
+                      "aoe": 80,
+                      "duration": 1500,
+                      "value": 0.4
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "tentacle_grab",
+              "weight": 2,
+              "windupMs": 400,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "ratio": 1.5
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "stun",
+                  "duration": 1500
+                }
+              ]
+            }
           ]
         },
         {
           "hpPercent": 30,
-          "statMult": { "atk": 1.3, "cooldown": 0.7 },
+          "statMult": {
+            "atk": 1.3,
+            "cooldown": 0.7
+          },
           "attackPatterns": [
-            { "name": "toxic_storm", "weight": 2, "actions": [
-              { "type": "spawn_projectile", "pattern": "fan", "count": 7, "spread": 0.8, "speed": 55, "color": 3407871,
-                "onHit": [{ "type": "apply_effect", "effect": "dot", "duration": 5000, "value": 0.4 }]
-              }
-            ]},
-            { "name": "double_pool", "weight": 1, "windupMs": 500, "actions": [
-              { "type": "spawn_area", "aoe": 90, "duration": 6000, "tickInterval": 500,
-                "onTick": [
-                  { "type": "deal_damage", "aoe": 90, "ratio": 0.2 },
-                  { "type": "apply_effect", "effect": "slow", "aoe": 90, "duration": 2000, "value": 0.3 }
-                ]
-              }
-            ]},
-            { "name": "frenzy_grab", "weight": 1, "windupMs": 300, "actions": [
-              { "type": "deal_damage", "ratio": 2.0 },
-              { "type": "apply_effect", "effect": "stun", "duration": 2000 }
-            ]}
+            {
+              "name": "toxic_storm",
+              "weight": 2,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "fan",
+                  "count": 7,
+                  "spread": 0.8,
+                  "speed": 55,
+                  "color": 3407871,
+                  "onHit": [
+                    {
+                      "type": "apply_effect",
+                      "effect": "dot",
+                      "duration": 5000,
+                      "value": 0.4
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "double_pool",
+              "weight": 1,
+              "windupMs": 500,
+              "actions": [
+                {
+                  "type": "spawn_area",
+                  "aoe": 90,
+                  "duration": 6000,
+                  "tickInterval": 500,
+                  "onTick": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 90,
+                      "ratio": 0.2
+                    },
+                    {
+                      "type": "apply_effect",
+                      "effect": "slow",
+                      "aoe": 90,
+                      "duration": 2000,
+                      "value": 0.3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "frenzy_grab",
+              "weight": 1,
+              "windupMs": 300,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "ratio": 2.0
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "stun",
+                  "duration": 2000
+                }
+              ]
+            }
           ]
         }
       ],
       "drops": [
-        { "itemId": "scale", "chance": 0.9, "minCount": 3, "maxCount": 6 },
-        { "itemId": "venom", "chance": 0.8, "minCount": 3, "maxCount": 5 },
-        { "itemId": "magic_essence", "chance": 0.4, "minCount": 1, "maxCount": 3 }
+        {
+          "itemId": "scale",
+          "chance": 0.9,
+          "minCount": 3,
+          "maxCount": 6
+        },
+        {
+          "itemId": "venom",
+          "chance": 0.8,
+          "minCount": 3,
+          "maxCount": 5
+        },
+        {
+          "itemId": "magic_essence",
+          "chance": 0.4,
+          "minCount": 1,
+          "maxCount": 3
+        }
       ],
       "sprite": "monster_hydra"
     },
     {
-      "id": "ancient_dragon", "name": "고대 드래곤", "region": "dragon_lair", "rank": "boss",
-      "hp": 800, "atk": 50, "def": 30, "spd": 50,
-      "xp": 500, "gold": 250,
-      "detectRange": 180, "attackRange": 160, "attackCooldown": 2800,
-      "ranged": { "projectileSpeed": 40, "projectileColor": 16711680, "projectileSize": 12 },
+      "id": "ancient_dragon",
+      "name": "고대 드래곤",
+      "region": "dragon_lair",
+      "rank": "boss",
+      "hp": 800,
+      "atk": 50,
+      "def": 30,
+      "spd": 1.56,
+      "xp": 500,
+      "gold": 250,
+      "detectRange": 5.62,
+      "attackRange": 5.0,
+      "attackCooldown": 2800,
+      "ranged": {
+        "projectileSpeed": 1.25,
+        "projectileColor": 16711680,
+        "projectileSize": 12
+      },
       "attackPatterns": [
-        { "name": "inferno_breath", "weight": 2, "actions": [
-          { "type": "spawn_projectile", "speed": 40, "color": 16711680,
-            "onArrive": [
-              { "type": "deal_damage", "aoe": 72 },
-              { "type": "apply_effect", "effect": "dot", "aoe": 72, "duration": 5000, "value": 0.2 },
-              { "type": "screen_shake", "duration": 300, "intensity": 0.01 }
-            ]
-          }
-        ]},
-        { "name": "meteor_storm", "weight": 1, "windupMs": 800, "actions": [
-          { "type": "spawn_projectile", "pattern": "scatter", "count": 5, "trajectory": "arc",
-            "speed": 80, "scatterRadius": 80, "color": 16711680,
-            "onArrive": [
-              { "type": "deal_damage", "aoe": 48, "ratio": 0.5 },
-              { "type": "screen_shake", "duration": 150, "intensity": 0.008 }
-            ]
-          }
-        ]},
-        { "name": "tail_slam", "weight": 1, "windupMs": 500, "actions": [
-          { "type": "deal_damage", "aoe": 90 },
-          { "type": "apply_effect", "effect": "knockback", "aoe": 90, "value": 120 },
-          { "type": "screen_shake", "duration": 400, "intensity": 0.02 }
-        ]},
-        { "name": "dragon_roar", "weight": 0.5, "windupMs": 700, "actions": [
-          { "type": "apply_effect", "effect": "stun", "aoe": 120, "duration": 2000 },
-          { "type": "apply_effect", "effect": "slow", "aoe": 160, "duration": 5000, "value": 0.4 },
-          { "type": "screen_shake", "duration": 500, "intensity": 0.015 }
-        ]}
+        {
+          "name": "inferno_breath",
+          "weight": 2,
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "speed": 40,
+              "color": 16711680,
+              "onArrive": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 72
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "dot",
+                  "aoe": 72,
+                  "duration": 5000,
+                  "value": 0.2
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 300,
+                  "intensity": 0.01
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "meteor_storm",
+          "weight": 1,
+          "windupMs": 800,
+          "actions": [
+            {
+              "type": "spawn_projectile",
+              "pattern": "scatter",
+              "count": 5,
+              "trajectory": "arc",
+              "speed": 80,
+              "scatterRadius": 80,
+              "color": 16711680,
+              "onArrive": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 48,
+                  "ratio": 0.5
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 150,
+                  "intensity": 0.008
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tail_slam",
+          "weight": 1,
+          "windupMs": 500,
+          "actions": [
+            {
+              "type": "deal_damage",
+              "aoe": 90
+            },
+            {
+              "type": "apply_effect",
+              "effect": "knockback",
+              "aoe": 90,
+              "value": 120
+            },
+            {
+              "type": "screen_shake",
+              "duration": 400,
+              "intensity": 0.02
+            }
+          ]
+        },
+        {
+          "name": "dragon_roar",
+          "weight": 0.5,
+          "windupMs": 700,
+          "actions": [
+            {
+              "type": "apply_effect",
+              "effect": "stun",
+              "aoe": 120,
+              "duration": 2000
+            },
+            {
+              "type": "apply_effect",
+              "effect": "slow",
+              "aoe": 160,
+              "duration": 5000,
+              "value": 0.4
+            },
+            {
+              "type": "screen_shake",
+              "duration": 500,
+              "intensity": 0.015
+            }
+          ]
+        }
       ],
       "phases": [
         {
           "hpPercent": 70,
-          "statMult": { "cooldown": 0.8 },
+          "statMult": {
+            "cooldown": 0.8
+          },
           "attackPatterns": [
-            { "name": "inferno_breath", "weight": 2, "actions": [
-              { "type": "spawn_projectile", "speed": 45, "color": 16711680,
-                "onArrive": [
-                  { "type": "deal_damage", "aoe": 72 },
-                  { "type": "apply_effect", "effect": "dot", "aoe": 72, "duration": 5000, "value": 0.2 },
-                  { "type": "screen_shake", "duration": 300, "intensity": 0.01 }
-                ]
-              }
-            ]},
-            { "name": "meteor_storm", "weight": 1, "windupMs": 700, "actions": [
-              { "type": "spawn_projectile", "pattern": "scatter", "count": 5, "trajectory": "arc",
-                "speed": 80, "scatterRadius": 80, "color": 16711680,
-                "onArrive": [
-                  { "type": "deal_damage", "aoe": 48, "ratio": 0.5 },
-                  { "type": "screen_shake", "duration": 150, "intensity": 0.008 }
-                ]
-              }
-            ]},
-            { "name": "tail_slam", "weight": 1, "windupMs": 500, "actions": [
-              { "type": "deal_damage", "aoe": 90 },
-              { "type": "apply_effect", "effect": "knockback", "aoe": 90, "value": 120 },
-              { "type": "screen_shake", "duration": 400, "intensity": 0.02 }
-            ]},
-            { "name": "dragon_roar", "weight": 1, "windupMs": 700, "actions": [
-              { "type": "apply_effect", "effect": "stun", "aoe": 120, "duration": 2000 },
-              { "type": "screen_shake", "duration": 500, "intensity": 0.015 }
-            ]}
+            {
+              "name": "inferno_breath",
+              "weight": 2,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "speed": 45,
+                  "color": 16711680,
+                  "onArrive": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 72
+                    },
+                    {
+                      "type": "apply_effect",
+                      "effect": "dot",
+                      "aoe": 72,
+                      "duration": 5000,
+                      "value": 0.2
+                    },
+                    {
+                      "type": "screen_shake",
+                      "duration": 300,
+                      "intensity": 0.01
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "meteor_storm",
+              "weight": 1,
+              "windupMs": 700,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "scatter",
+                  "count": 5,
+                  "trajectory": "arc",
+                  "speed": 80,
+                  "scatterRadius": 80,
+                  "color": 16711680,
+                  "onArrive": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 48,
+                      "ratio": 0.5
+                    },
+                    {
+                      "type": "screen_shake",
+                      "duration": 150,
+                      "intensity": 0.008
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "tail_slam",
+              "weight": 1,
+              "windupMs": 500,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 90
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "knockback",
+                  "aoe": 90,
+                  "value": 120
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 400,
+                  "intensity": 0.02
+                }
+              ]
+            },
+            {
+              "name": "dragon_roar",
+              "weight": 1,
+              "windupMs": 700,
+              "actions": [
+                {
+                  "type": "apply_effect",
+                  "effect": "stun",
+                  "aoe": 120,
+                  "duration": 2000
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 500,
+                  "intensity": 0.015
+                }
+              ]
+            }
           ]
         },
         {
           "hpPercent": 40,
-          "statMult": { "atk": 1.5, "spd": 1.3, "cooldown": 0.6 },
+          "statMult": {
+            "atk": 1.5,
+            "spd": 1.3,
+            "cooldown": 0.6
+          },
           "attackPatterns": [
-            { "name": "inferno_barrage", "weight": 2, "actions": [
-              { "type": "spawn_projectile", "pattern": "fan", "count": 3, "spread": 0.5, "speed": 50, "color": 16711680,
-                "onArrive": [
-                  { "type": "deal_damage", "aoe": 56 },
-                  { "type": "apply_effect", "effect": "dot", "aoe": 56, "duration": 5000, "value": 0.3 }
-                ]
-              }
-            ]},
-            { "name": "apocalypse_meteor", "weight": 1, "windupMs": 600, "actions": [
-              { "type": "spawn_projectile", "pattern": "scatter", "count": 8, "trajectory": "arc",
-                "speed": 100, "scatterRadius": 100, "color": 16711680,
-                "onArrive": [
-                  { "type": "deal_damage", "aoe": 52, "ratio": 0.6 },
-                  { "type": "screen_shake", "duration": 200, "intensity": 0.01 }
-                ]
-              }
-            ]},
-            { "name": "flame_field", "weight": 1, "windupMs": 500, "actions": [
-              { "type": "spawn_area", "aoe": 100, "duration": 5000, "tickInterval": 500,
-                "onTick": [
-                  { "type": "deal_damage", "aoe": 100, "ratio": 0.15 },
-                  { "type": "apply_effect", "effect": "dot", "aoe": 100, "duration": 2000, "value": 0.2 }
-                ]
-              },
-              { "type": "screen_shake", "duration": 300, "intensity": 0.01 }
-            ]},
-            { "name": "annihilation_roar", "weight": 0.5, "windupMs": 800, "actions": [
-              { "type": "deal_damage", "aoe": 140, "ratio": 0.8 },
-              { "type": "apply_effect", "effect": "stun", "aoe": 140, "duration": 2500 },
-              { "type": "screen_shake", "duration": 600, "intensity": 0.025 }
-            ]}
+            {
+              "name": "inferno_barrage",
+              "weight": 2,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "fan",
+                  "count": 3,
+                  "spread": 0.5,
+                  "speed": 50,
+                  "color": 16711680,
+                  "onArrive": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 56
+                    },
+                    {
+                      "type": "apply_effect",
+                      "effect": "dot",
+                      "aoe": 56,
+                      "duration": 5000,
+                      "value": 0.3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "apocalypse_meteor",
+              "weight": 1,
+              "windupMs": 600,
+              "actions": [
+                {
+                  "type": "spawn_projectile",
+                  "pattern": "scatter",
+                  "count": 8,
+                  "trajectory": "arc",
+                  "speed": 100,
+                  "scatterRadius": 100,
+                  "color": 16711680,
+                  "onArrive": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 52,
+                      "ratio": 0.6
+                    },
+                    {
+                      "type": "screen_shake",
+                      "duration": 200,
+                      "intensity": 0.01
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "flame_field",
+              "weight": 1,
+              "windupMs": 500,
+              "actions": [
+                {
+                  "type": "spawn_area",
+                  "aoe": 100,
+                  "duration": 5000,
+                  "tickInterval": 500,
+                  "onTick": [
+                    {
+                      "type": "deal_damage",
+                      "aoe": 100,
+                      "ratio": 0.15
+                    },
+                    {
+                      "type": "apply_effect",
+                      "effect": "dot",
+                      "aoe": 100,
+                      "duration": 2000,
+                      "value": 0.2
+                    }
+                  ]
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 300,
+                  "intensity": 0.01
+                }
+              ]
+            },
+            {
+              "name": "annihilation_roar",
+              "weight": 0.5,
+              "windupMs": 800,
+              "actions": [
+                {
+                  "type": "deal_damage",
+                  "aoe": 140,
+                  "ratio": 0.8
+                },
+                {
+                  "type": "apply_effect",
+                  "effect": "stun",
+                  "aoe": 140,
+                  "duration": 2500
+                },
+                {
+                  "type": "screen_shake",
+                  "duration": 600,
+                  "intensity": 0.025
+                }
+              ]
+            }
           ]
         }
       ],
       "drops": [
-        { "itemId": "dragon_scale", "chance": 1.0, "minCount": 5, "maxCount": 10 },
-        { "itemId": "legendary_essence", "chance": 0.5, "minCount": 1, "maxCount": 3 },
-        { "itemId": "magic_essence", "chance": 0.8, "minCount": 2, "maxCount": 5 }
+        {
+          "itemId": "dragon_scale",
+          "chance": 1.0,
+          "minCount": 5,
+          "maxCount": 10
+        },
+        {
+          "itemId": "legendary_essence",
+          "chance": 0.5,
+          "minCount": 1,
+          "maxCount": 3
+        },
+        {
+          "itemId": "magic_essence",
+          "chance": 0.8,
+          "minCount": 2,
+          "maxCount": 5
+        }
       ],
       "sprite": "monster_dragon"
     }
