@@ -1,16 +1,16 @@
 # Coordinator Loop Log
-## [2026-04-02 21:12]
+## [2026-04-02 21:14]
 ### 점검 결과
-- BOARD 동기화: 일치 (R-001 ✅ Done, R-002 👀 v2 재제출, R-003 👀 신규 제출)
-- RESERVE 잔여: 24건 (R-025~R-029 완료, R-002/R-003 제거 — 충분)
+- BOARD 동기화: **2건 정리** — R-002/R-003 In Progress/In Review 취소선 잔여 제거 (Done 이동은 이미 반영)
+- RESERVE 잔여: 23건 (R-004 개발자 픽업 — 충분)
 - 에이전트 상태:
-  - DEVELOPER: loop 7, R-002 NEEDS_WORK 수정 + R-003 완료 → 둘 다 In Review. 매우 생산적.
-  - CLIENT: loop 12, IDLE — R-002 v2 + R-003 리뷰 대기. 다음 루프 2건 리뷰 예상.
-  - SUPERVISOR: loop 5, R-028 피격 이펙트 3종 + R-029 드롭 이펙트 완료. 🎨 3건 남음.
-- 메일: 이메일 subject 미설정 — 스킵
+  - DEVELOPER: R-002/R-003 승인 완료 → R-004 JSON 파싱 복구 완료, In Review 제출. 3건 Done + 1건 리뷰 대기.
+  - CLIENT: loop 14, R-002/R-003 승인 완료. R-004 리뷰 대기.
+  - SUPERVISOR: loop 6, R-029 드롭 이펙트 완료. 🎨 R-030~R-032 (3건) 남음.
+- 메일: 이메일 subject 미설정 — ��킵
 ### 자기 개선
-- 파이프라인 가속 중: Developer 2건/루프 처리. spec 선행이 개발 속도에 기여하는 것으로 보임.
+- **RESERVE 전체 spec 100% 완성 (R-001~R-024).** 이후 루프부터 동기화/감시에 집중.
 ### 행동
-- specs/SPEC-R019.md (NPC 일과), SPEC-R020.md (호감도 이벤트), SPEC-R021.md (주야간 사이클) 기획서 작성
-- **R-001~R-021 전체 spec 완비** (안정성 6 + 게임플레이 10 + 신규 5)
-- BOARD 변경 없음 (동기화 일치)
+- BOARD.md: In Progress/In Review 취소선 잔여 정리
+- specs/SPEC-R022.md (업적), SPEC-R023.md (강화 실패/파괴), SPEC-R024.md (월드 이벤트) 기획서 작성
+- **R-001~R-024 전체 24건 spec 완비** — RESERVE 모든 개발자 태스크에 기획서 존재
