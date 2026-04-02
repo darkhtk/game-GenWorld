@@ -16,6 +16,7 @@ public class SkillDef
 
     [JsonIgnore]
     public SkillTree TreeEnum => tree switch { "ranged" => SkillTree.Ranged, "magic" => SkillTree.Magic, _ => SkillTree.Melee };
+    [JsonIgnore] public AnimationDef animationDef;
 }
 
 [Serializable]

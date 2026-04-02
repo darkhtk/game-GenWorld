@@ -90,7 +90,12 @@ public class VillageNPC : MonoBehaviour
     {
         IsStopped = true;
         if (_rb) _rb.linearVelocity = Vector2.zero;
+        SetAnimationState("talk");
     }
 
-    public void ResumeMoving() => IsStopped = false;
+    public void ResumeMoving()
+    {
+        IsStopped = false;
+        SetAnimationState("idle");
+    }
 }
