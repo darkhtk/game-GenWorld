@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     [SerializeField] PlayerController player;
     [SerializeField] WorldMapGenerator worldMap;
     [SerializeField] MonsterSpawner monsterSpawner;
@@ -24,6 +26,11 @@ public class GameManager : MonoBehaviour
     int _totalKills;
     float _hpRegenAccum;
     string _lastRegionId = "";
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
