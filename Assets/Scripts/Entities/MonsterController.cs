@@ -105,7 +105,7 @@ public class MonsterController : MonoBehaviour
     void MoveToward(Vector2 target, float speed)
     {
         Vector2 dir = (target - Position).normalized;
-        _rb.linearVelocity = dir * speed * Time.fixedDeltaTime * 60f;
+        _rb.linearVelocity = dir * speed;
     }
 
     void CheckPhase()
