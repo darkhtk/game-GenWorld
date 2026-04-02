@@ -105,4 +105,42 @@ public class InventorySystem
         Slots = new ItemInstance[MaxSlots];
         for (int i = 0; i < items.Count; i++) Slots[i] = items[i];
     }
+
+    public ItemInstance[] GetFiltered(Dictionary<string, ItemDef> defs, string typeFilter, int sortMode)
+    {
+        var items = Slots.Where(s => s != null).ToList();
+
+        if (!string.IsNullOrEmpty(typeFilter) && typeFilter != "all")
+        {
+            items = items.Where(s =>
+            {
+                if (!defs.TryGetValue(s.itemId, out var def)) return false;
+                return typeFilter switch
+                {
+                    "weapon" => def.type == "weapon",
+                    "armor" => def.type == "helmet" || def.type == "armor" || def.type == "boots" || def.type == "accessory",
+                    "consumable" => def.type == "potion" || def.type == "food",
+                    "material" => def.type == "material",
+                    _ => true
+                };
+            }).ToList();
+        }
+
+        items.Sort((a, b) =>
+        {
+            defs.TryGetValue(a.itemId, out var defA);
+            defs.TryGetValue(b.itemId, out var defB);
+            if (defA == null && defB == null) return 0;
+            if (defA == null) return 1;
+            if (defB == null) return -1;
+            return sortMode switch
+            {
+                1 => ((int)defB.GradeEnum).CompareTo((int)defA.GradeEnum),
+                2 => ((int)defA.TypeEnum).CompareTo((int)defB.TypeEnum),
+                _ => string.Compare(defA.name, defB.name, System.StringComparison.Ordinal)
+            };
+        });
+
+        return items.ToArray();
+    }
 }

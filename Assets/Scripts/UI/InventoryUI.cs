@@ -17,6 +17,11 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Button closeButton;
     [SerializeField] Button sortButton;
 
+    [Header("Filter/Sort")]
+    [SerializeField] Button[] filterButtons;
+    [SerializeField] Button sortModeButton;
+    [SerializeField] TextMeshProUGUI sortModeText;
+
     [Header("Inventory Grid")]
     [SerializeField] Transform gridContent;
     [SerializeField] GameObject slotPrefab;
