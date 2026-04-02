@@ -83,9 +83,9 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-039 Settings UI (Steam) | 2026-04-02 | — | 리뷰 대기 |
-| R-040 SteamPipe (Steam) | 2026-04-02 | — | 리뷰 대기 |
-| R-041 QA 체크리스트 (Steam) | 2026-04-02 | — | 리뷰 대기 |
+| R-039 Settings UI (Steam) | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R039-v1 [깊은 리뷰] |
+| R-040 SteamPipe (Steam) | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R040-v1 |
+| R-041 QA 체크리스트 (Steam) | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R041-v1 |
 
 ## ✅ Done
 
@@ -140,7 +140,6 @@
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
-| B-001 몬스터 이동 불가 | P0 | 몬스터가 전혀 움직이지 않음. MonsterController/AI 점검 |
 | B-002 NPC 제자리 흔들림 | P0 | NPC가 이동하지 않고 제자리에서 흔들림. NPCController/일과 시스템 점검 |
 | B-003 NPC 대화 불가 | P0 | NPC에게 대화를 걸 수 없음. DialogueSystem/인터랙션 점검 |
 | B-004 미니맵 회색 빈 화면 | P0 | 미니맵에 아무것도 표시되지 않음. MinimapUI/카메라 점검 |
