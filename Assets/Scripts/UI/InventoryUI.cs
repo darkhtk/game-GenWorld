@@ -64,6 +64,16 @@ public class InventoryUI : MonoBehaviour
     [Header("Drag Visual")]
     [SerializeField] Image dragIcon;
 
+    [Header("Equipment Compare")]
+    [SerializeField] GameObject comparePanel;
+    [SerializeField] TextMeshProUGUI compareCurrentName;
+    [SerializeField] TextMeshProUGUI compareNewName;
+    [SerializeField] TextMeshProUGUI compareCurrentStats;
+    [SerializeField] TextMeshProUGUI compareNewStats;
+    [SerializeField] TextMeshProUGUI compareDiffStats;
+    [SerializeField] Button compareEquipButton;
+    [SerializeField] Button compareCancelButton;
+
     const int Columns = 5;
     readonly List<InventorySlotUI> _slots = new();
 
