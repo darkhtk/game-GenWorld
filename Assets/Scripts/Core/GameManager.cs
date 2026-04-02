@@ -519,6 +519,7 @@ public class GameManager : MonoBehaviour
                 PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
                 player.SetSpeed(PlayerState.CurrentStats.spd);
                 EventBus.Emit(new EquipChangeEvent());
+                AudioManager.Instance?.PlaySFX("sfx_confirm");
                 inv.Refresh();
             };
             inv.OnUnequipCallback = slot =>
@@ -530,6 +531,7 @@ public class GameManager : MonoBehaviour
                 PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
                 player.SetSpeed(PlayerState.CurrentStats.spd);
                 EventBus.Emit(new EquipChangeEvent());
+                AudioManager.Instance?.PlaySFX("sfx_confirm");
                 inv.Refresh();
             };
             inv.OnUseItemCallback = slotIdx =>
@@ -560,13 +562,19 @@ public class GameManager : MonoBehaviour
                 if (result.learned)
                 {
                     PlayerState.SkillPoints = result.remainingPoints;
+                    AudioManager.Instance?.PlaySFX("sfx_upgrade");
                     st.Refresh();
                     uiManager.Hud?.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+                }
+                else
+                {
+                    AudioManager.Instance?.PlaySFX("sfx_error");
                 }
             };
             st.OnEquipSkill = (skillId, slot) =>
             {
                 Skills.EquipSkill(skillId, slot);
+                AudioManager.Instance?.PlaySFX("sfx_confirm");
                 uiManager.Hud?.UpdateSkillBar(Skills.GetEquippedSkills(), new float[GameConfig.SkillSlotCount]);
                 st.Refresh();
             };
@@ -724,11 +732,21 @@ public class GameManager : MonoBehaviour
         }
 
         var drops = LootSystem.RollDrops(def.drops);
+        if (drops.Count > 0)
+            AudioManager.Instance?.PlaySFX("sfx_item_acquire");
+        float itemOffset = 0.8f;
         foreach (var drop in drops)
         {
             bool stackable = Data.Items.TryGetValue(drop.itemId, out var itemDef) && itemDef.stackable;
             int maxStack = itemDef?.maxStack ?? 1;
             Inventory.AddItem(drop.itemId, drop.count, stackable, maxStack);
+
+            string itemName = itemDef?.name ?? drop.itemId;
+            if (combatManager != null)
+                combatManager.ShowFloatingText(
+                    monster.Position + Vector2.up * itemOffset,
+                    $"+{itemName} x{drop.count}", new Color(0.4f, 1f, 0.4f));
+            itemOffset += 0.4f;
         }
 
         EventBus.Emit(new MonsterKillEvent

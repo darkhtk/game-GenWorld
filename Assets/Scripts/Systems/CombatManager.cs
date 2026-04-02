@@ -79,7 +79,7 @@ public class CombatManager : MonoBehaviour
             bool dead = m.TakeDamage(dmg);
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
             SkillVFX.ShowAtPosition(this, "vfx_melee_hit", m.Position.x, m.Position.y);
-            AudioManager.Instance?.PlaySFX("sfx_attack", 0.1f);
+            AudioManager.Instance?.PlaySFX(isCrit ? "sfx_critical_hit" : "sfx_attack", 0.1f);
             if (dead) { killed ??= new(); killed.Add(m); }
         }
 
