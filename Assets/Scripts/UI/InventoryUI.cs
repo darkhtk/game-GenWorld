@@ -76,7 +76,7 @@ public class InventoryUI : MonoBehaviour
     string _currentFilter = "all";
     int _currentSortMode; // 0=name, 1=grade, 2=type
     static readonly string[] FilterNames = { "all", "weapon", "armor", "consumable", "material" };
-    static readonly string[] SortModeNames = { "Name", "Grade", "Type" };
+    static readonly string[] SortModeNames = { "Name", "Grade", "Type", "Recent" };
 
     void Awake()
     {
@@ -154,22 +154,22 @@ public class InventoryUI : MonoBehaviour
     void RefreshGrid()
     {
         EnsureSlots(_inventory.MaxSlots);
+        var filtered = _inventory.GetFiltered(_itemDefs, _currentFilter, _currentSortMode);
 
-        for (int i = 0; i < _inventory.MaxSlots; i++)
+        for (int i = 0; i < _slots.Count; i++)
         {
-            var item = _inventory.GetSlot(i);
-            var slot = _slots[i];
-
-            if (item != null && _itemDefs.TryGetValue(item.itemId, out var def))
+            if (i < filtered.Length)
             {
-                slot.SetItem(def.name, item.count, item.enhanceLevel,
-                    GameConfig.GetGradeColor(def.GradeEnum), def.TypeEnum);
-                slot.SetActive(true);
+                var item = filtered[i];
+                if (_itemDefs.TryGetValue(item.itemId, out var def))
+                {
+                    _slots[i].SetItem(def.name, item.count, item.enhanceLevel,
+                        GameConfig.GetGradeColor(def.GradeEnum), def.TypeEnum);
+                    _slots[i].SetActive(true);
+                    continue;
+                }
             }
-            else
-            {
-                slot.Clear();
-            }
+            _slots[i].Clear();
         }
     }
 

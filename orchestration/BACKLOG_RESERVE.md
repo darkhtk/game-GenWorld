@@ -24,7 +24,6 @@
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-14. **R-014 퀘스트 추적 HUD 위젯** — 현재 진행 중 퀘스트 목표를 화면 우측에 상시 표시. `HUD.cs` 확장.
 15. **R-015 몬스터 HP 바** — 몬스터 머리 위에 체력 바 표시. `MonsterController.cs` + UI 프리팹.
 16. **R-016 장비 비교 팝업** — 장비 장착 전 현재 장비와 스탯 비교 표시. `InventoryUI.cs` 개선.
 

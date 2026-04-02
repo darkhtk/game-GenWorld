@@ -126,20 +126,27 @@ public class InventorySystem
             }).ToList();
         }
 
-        items.Sort((a, b) =>
+        if (sortMode == 3)
         {
-            defs.TryGetValue(a.itemId, out var defA);
-            defs.TryGetValue(b.itemId, out var defB);
-            if (defA == null && defB == null) return 0;
-            if (defA == null) return 1;
-            if (defB == null) return -1;
-            return sortMode switch
+            items.Reverse();
+        }
+        else
+        {
+            items.Sort((a, b) =>
             {
-                1 => ((int)defB.GradeEnum).CompareTo((int)defA.GradeEnum),
-                2 => ((int)defA.TypeEnum).CompareTo((int)defB.TypeEnum),
-                _ => string.Compare(defA.name, defB.name, System.StringComparison.Ordinal)
-            };
-        });
+                defs.TryGetValue(a.itemId, out var defA);
+                defs.TryGetValue(b.itemId, out var defB);
+                if (defA == null && defB == null) return 0;
+                if (defA == null) return 1;
+                if (defB == null) return -1;
+                return sortMode switch
+                {
+                    1 => ((int)defB.GradeEnum).CompareTo((int)defA.GradeEnum),
+                    2 => ((int)defA.TypeEnum).CompareTo((int)defB.TypeEnum),
+                    _ => string.Compare(defA.name, defB.name, System.StringComparison.Ordinal)
+                };
+            });
+        }
 
         return items.ToArray();
     }
