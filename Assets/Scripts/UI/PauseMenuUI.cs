@@ -17,6 +17,12 @@ public class PauseMenuUI : MonoBehaviour
     [Header("Feedback")]
     [SerializeField] TextMeshProUGUI saveConfirmText;
 
+    [Header("Settings")]
+    [SerializeField] Slider bgmVolumeSlider;
+    [SerializeField] Slider sfxVolumeSlider;
+    [SerializeField] Toggle fullscreenToggle;
+    [SerializeField] TMP_Dropdown resolutionDropdown;
+
     public Action OnSaveRequested;
     public Action OnMainMenuRequested;
 
@@ -30,6 +36,7 @@ public class PauseMenuUI : MonoBehaviour
         if (resumeButton != null) resumeButton.onClick.AddListener(Close);
         if (saveButton != null) saveButton.onClick.AddListener(DoSave);
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(GoToMainMenu);
+        InitSettings();
     }
 
     public void Open()
@@ -78,5 +85,42 @@ public class PauseMenuUI : MonoBehaviour
     {
         Time.timeScale = 1f;
         OnMainMenuRequested?.Invoke();
+    }
+
+    void InitSettings()
+    {
+        if (bgmVolumeSlider != null)
+        {
+            bgmVolumeSlider.value = PlayerPrefs.GetFloat("bgm_volume", 0.5f);
+            bgmVolumeSlider.onValueChanged.AddListener(v =>
+            {
+                if (AudioManager.Instance != null) AudioManager.Instance.SetBGMVolume(v);
+            });
+        }
+        if (sfxVolumeSlider != null)
+        {
+            sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfx_volume", 0.7f);
+            sfxVolumeSlider.onValueChanged.AddListener(v =>
+            {
+                if (AudioManager.Instance != null) AudioManager.Instance.SetSFXVolume(v);
+            });
+        }
+        if (fullscreenToggle != null)
+        {
+            fullscreenToggle.isOn = Screen.fullScreen;
+            fullscreenToggle.onValueChanged.AddListener(v => Screen.fullScreen = v);
+        }
+        if (resolutionDropdown != null)
+        {
+            resolutionDropdown.ClearOptions();
+            var options = new System.Collections.Generic.List<string> { "1024x768", "1280x720", "1920x1080" };
+            resolutionDropdown.AddOptions(options);
+            resolutionDropdown.onValueChanged.AddListener(idx =>
+            {
+                int[] w = { 1024, 1280, 1920 };
+                int[] h = { 768, 720, 1080 };
+                if (idx < w.Length) Screen.SetResolution(w[idx], h[idx], Screen.fullScreen);
+            });
+        }
     }
 }
