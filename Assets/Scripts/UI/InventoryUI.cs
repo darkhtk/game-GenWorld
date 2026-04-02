@@ -185,7 +185,7 @@ public class InventoryUI : MonoBehaviour
                 if (_itemDefs.TryGetValue(item.itemId, out var def))
                 {
                     _slots[i].SetItem(def.name, item.count, item.enhanceLevel,
-                        GameConfig.GetGradeColor(def.GradeEnum), def.TypeEnum, def.icon);
+                        GameConfig.GetGradeColor(def.GradeEnum), def.TypeEnum, def.icon, def.grade);
                     _slots[i].SetActive(true);
                     continue;
                 }
@@ -528,6 +528,11 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
     [SerializeField] TextMeshProUGUI enhanceText;
     [SerializeField] Image borderImage;
     [SerializeField] Image iconImage;
+    [SerializeField] Image gradeFrameImage;
+
+    static Sprite _slotBgSprite;
+    static Sprite _hoverSprite;
+    Image _bgImage;
 
     public int SlotIndex;
     public Action<int> OnClicked;
@@ -537,7 +542,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
     public Action<int> OnHover;
     public Action<int> OnHoverExit;
 
-    public void SetItem(string name, int count, int enhanceLevel, Color gradeColor, ItemType type, string icon = null)
+    public void SetItem(string name, int count, int enhanceLevel, Color gradeColor, ItemType type, string icon = null, string grade = null)
     {
         if (nameText != null) { nameText.text = name; nameText.color = gradeColor; }
         if (countText != null)
@@ -550,6 +555,13 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
             var sprite = Resources.Load<Sprite>($"Sprites/Items/{icon}");
             if (sprite != null) { iconImage.sprite = sprite; iconImage.enabled = true; }
         }
+        if (gradeFrameImage != null && !string.IsNullOrEmpty(grade))
+        {
+            var frame = Resources.Load<Sprite>($"Sprites/UI/grade_frame_{grade}");
+            if (frame != null) { gradeFrameImage.sprite = frame; gradeFrameImage.enabled = true; gradeFrameImage.color = Color.white; }
+            else gradeFrameImage.enabled = false;
+        }
+        ApplySlotBg();
     }
 
     public void SetActive(bool active)
@@ -566,11 +578,28 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (iconImage != null) { iconImage.sprite = null; iconImage.enabled = false; }
     }
 
+    void ApplySlotBg()
+    {
+        if (_bgImage == null) _bgImage = GetComponent<Image>();
+        if (_bgImage == null) return;
+        if (_slotBgSprite == null) _slotBgSprite = Resources.Load<Sprite>("Sprites/UI/slot_bg");
+        if (_hoverSprite == null) _hoverSprite = Resources.Load<Sprite>("Sprites/UI/slot_hover");
+        if (_slotBgSprite != null) { _bgImage.sprite = _slotBgSprite; _bgImage.type = Image.Type.Sliced; }
+    }
+
     public void OnPointerClick(PointerEventData eventData) => OnClicked?.Invoke(SlotIndex);
     public void OnBeginDrag(PointerEventData eventData) => OnBeginDragAction?.Invoke(SlotIndex);
     public void OnEndDrag(PointerEventData eventData) => OnEndDragAction?.Invoke(SlotIndex);
     public void OnDrop(PointerEventData eventData) => OnDropAction?.Invoke(SlotIndex);
     public void OnDrag(PointerEventData eventData) { }
-    public void OnPointerEnter(PointerEventData eventData) => OnHover?.Invoke(SlotIndex);
-    public void OnPointerExit(PointerEventData eventData) => OnHoverExit?.Invoke(SlotIndex);
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_bgImage != null && _hoverSprite != null) _bgImage.sprite = _hoverSprite;
+        OnHover?.Invoke(SlotIndex);
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_bgImage != null && _slotBgSprite != null) _bgImage.sprite = _slotBgSprite;
+        OnHoverExit?.Invoke(SlotIndex);
+    }
 }

@@ -101,12 +101,19 @@ public class DialogueUI : MonoBehaviour
         if (questTitleText != null) questTitleText.text = "";
 
         // Load NPC portrait
-        if (npcPortraitImage != null && !string.IsNullOrEmpty(npcDef.sprite))
+        if (npcPortraitImage != null)
         {
-            var portrait = Resources.Load<Sprite>($"Sprites/Portraits/portrait_{npcDef.id}");
-            if (portrait == null) portrait = Resources.Load<Sprite>($"Sprites/{npcDef.sprite}");
+            Sprite portrait = null;
+            if (!string.IsNullOrEmpty(npcDef.id))
+                portrait = Resources.Load<Sprite>($"Sprites/Portraits/portrait_{npcDef.id}");
+            if (portrait == null && !string.IsNullOrEmpty(npcDef.sprite))
+            {
+                var sprites = Resources.LoadAll<Sprite>($"Sprites/{npcDef.sprite}");
+                if (sprites != null && sprites.Length > 0) portrait = sprites[0];
+            }
             npcPortraitImage.sprite = portrait;
-            npcPortraitImage.enabled = portrait != null;
+            npcPortraitImage.enabled = true;
+            npcPortraitImage.color = portrait != null ? Color.white : new Color(0.3f, 0.3f, 0.4f);
         }
 
         AudioManager.Instance?.PlaySFX("sfx_speech");
