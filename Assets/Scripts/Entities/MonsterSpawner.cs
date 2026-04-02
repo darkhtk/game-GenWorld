@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,13 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] GameObject monsterPrefab;
 
     readonly List<MonsterController> _monsters = new();
+
+    const float DespawnDistance = 50f * GameConfig.TileSize;
+    const float DespawnCheckInterval = 2f;
+    const float SpawnGracePeriod = 5f;
+    const float CombatGracePeriod = 3f;
+
+    Transform _playerTransform;
 
     public List<MonsterController> ActiveMonsters => _monsters;
 
@@ -50,6 +58,42 @@ public class MonsterSpawner : MonoBehaviour
             }
             mc.Init(def, pos);
             _monsters.Add(mc);
+        }
+    }
+
+    void Start()
+    {
+        var player = FindFirstObjectByType<PlayerController>();
+        if (player != null) _playerTransform = player.transform;
+        StartCoroutine(DespawnRoutine());
+    }
+
+    IEnumerator DespawnRoutine()
+    {
+        var wait = new WaitForSeconds(DespawnCheckInterval);
+        while (true)
+        {
+            yield return wait;
+            if (_playerTransform == null) continue;
+
+            float now = Time.time;
+            Vector2 playerPos = (Vector2)_playerTransform.position;
+
+            for (int i = _monsters.Count - 1; i >= 0; i--)
+            {
+                var m = _monsters[i];
+                if (m == null) { _monsters.RemoveAt(i); continue; }
+                if (now - m.SpawnTime < SpawnGracePeriod) continue;
+                if (now - m.LastHitByPlayerTime < CombatGracePeriod) continue;
+
+                float dist = Vector2.Distance(playerPos, m.Position);
+                if (dist > DespawnDistance)
+                {
+                    EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def.id });
+                    _monsters.RemoveAt(i);
+                    Destroy(m.gameObject);
+                }
+            }
         }
     }
 
