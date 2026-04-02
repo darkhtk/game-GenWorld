@@ -118,6 +118,18 @@ public class AudioManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(clip, worldPos, _sfxVolume * _masterVolume);
     }
 
+    public void PlayAmbient(string clipName, float fadeTime = 1f)
+    {
+        var clip = GetClip($"Audio/Ambient/{clipName}");
+        if (clip == null) return;
+        if (ambientSource.clip == clip && ambientSource.isPlaying) return;
+        ambientSource.clip = clip;
+        ambientSource.volume = 0.3f * _masterVolume;
+        ambientSource.Play();
+    }
+
+    public void StopAmbient() { ambientSource.Stop(); }
+
     public void SetBGMVolume(float vol)
     {
         _bgmVolume = Mathf.Clamp01(vol);

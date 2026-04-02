@@ -243,7 +243,15 @@ public class GameManager : MonoBehaviour
             "dragon_lair" => "bgm_boss",
             _ => "bgm_village"
         };
+        string amb = region switch
+        {
+            "village" => "amb_village",
+            "forest" or "swamp" or "dark_swamp" => "amb_forest",
+            "cave" or "deep_cave" => "amb_cave",
+            _ => "amb_village"
+        };
         AudioManager.Instance?.PlayBGM(bgm);
+        AudioManager.Instance?.PlayAmbient(amb);
     }
 
     void WirePotionCallbacks()
@@ -372,6 +380,7 @@ public class GameManager : MonoBehaviour
     {
         if (!Inventory.RemoveItem(potionId, 1)) return;
         if (!Data.Items.TryGetValue(potionId, out var def)) return;
+        AudioManager.Instance?.PlaySFX("sfx_potion");
         var s = PlayerState.CurrentStats;
         if (def.healHp > 0)
             PlayerState.Hp = Mathf.Min(PlayerState.Hp + def.healHp, s.maxHp);
@@ -431,6 +440,9 @@ public class GameManager : MonoBehaviour
 
     void OnMonsterKilled(MonsterController monster)
     {
+        // Death VFX at monster position
+        SkillVFX.ShowAtPosition(this, "vfx_monster_death", monster.Position.x, monster.Position.y);
+
         var def = monster.Def;
         _killCounts.TryGetValue(def.id, out int count);
         _killCounts[def.id] = ++count;

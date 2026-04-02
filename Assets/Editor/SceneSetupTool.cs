@@ -447,6 +447,7 @@ public static class SceneSetupTool
         {
             if (tiles.TryGetValue("grass", out var t)) Wire(wmg, "grassTile", t);
             if (tiles.TryGetValue("dirt", out t)) Wire(wmg, "dirtTile", t);
+            if (tiles.TryGetValue("water", out t)) Wire(wmg, "waterTile", t);
             if (tiles.TryGetValue("stone_floor", out t)) Wire(wmg, "stoneFloorTile", t);
             if (tiles.TryGetValue("tree", out t)) Wire(wmg, "treeTile", t);
             if (tiles.TryGetValue("bush", out t)) Wire(wmg, "bushTile", t);
