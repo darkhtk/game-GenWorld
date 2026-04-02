@@ -10,6 +10,7 @@ public class WorldMapGenerator : MonoBehaviour
     [Header("Tile Assets")]
     [SerializeField] TileBase grassTile;
     [SerializeField] TileBase dirtTile;
+    [SerializeField] TileBase waterTile;
     [SerializeField] TileBase stoneFloorTile;
     [SerializeField] TileBase treeTile;
     [SerializeField] TileBase bushTile;
