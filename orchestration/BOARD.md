@@ -82,9 +82,9 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-039 Settings UI v2 | 2026-04-03 | — | Cancel/해상도동적/15초팝업/키리바인딩/MainMenu |
-| R-040 SteamPipe v2 | 2026-04-03 | — | BuildScript.cs+depot_build_win.vdf+VDF수정 |
-| R-041 QA 체크리스트 v2 | 2026-04-03 | — | 메모리/디버그/충돌/업적/스토어/EULA 항목 추가 |
+| R-039 Settings UI v2 | 2026-04-03 | ✅ APPROVE | REVIEW-R039-v2 [깊은 리뷰] |
+| R-040 SteamPipe v2 | 2026-04-03 | ✅ APPROVE | REVIEW-R040-v2 |
+| R-041 QA 체크리스트 v2 | 2026-04-03 | ✅ APPROVE | REVIEW-R041-v2 |
 
 ## ✅ Done
 
