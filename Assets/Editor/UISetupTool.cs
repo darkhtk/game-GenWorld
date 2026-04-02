@@ -269,11 +269,16 @@ public static class UISetupTool
         Stretch(root);
         var hud = root.AddComponent<HUD>();
 
-        // HP Bar
-        var hpBar = CreateBar(root.transform, "HPBar", new Vector2(-300, -20), Color.red, "HP");
-        var mpBar = CreateBar(root.transform, "MPBar", new Vector2(-300, -50), Color.blue, "MP");
-        var xpBar = CreateBar(root.transform, "XPBar", new Vector2(-300, -80), Color.green, "XP");
-        var dodgeBar = CreateBar(root.transform, "DodgeBar", new Vector2(300, -20), Color.cyan, "");
+        // HP/MP/XP Bars — anchored bottom-left
+        var hpBar = CreateBar(root.transform, "HPBar", new Vector2(120, 80), Color.red, "HP");
+        AnchorBottomLeft(hpBar.root);
+        var mpBar = CreateBar(root.transform, "MPBar", new Vector2(120, 50), Color.blue, "MP");
+        AnchorBottomLeft(mpBar.root);
+        var xpBar = CreateBar(root.transform, "XPBar", new Vector2(120, 20), Color.green, "XP");
+        AnchorBottomLeft(xpBar.root);
+        // Dodge bar — anchored bottom-right
+        var dodgeBar = CreateBar(root.transform, "DodgeBar", new Vector2(-120, 80), Color.cyan, "");
+        AnchorBottomRight(dodgeBar.root);
 
         Wire(hud, "hpFill", hpBar.fill);
         Wire(hud, "hpText", hpBar.text);
@@ -282,12 +287,14 @@ public static class UISetupTool
         Wire(hud, "xpFill", xpBar.fill);
         Wire(hud, "dodgeFill", dodgeBar.fill);
 
-        var levelT = AddChild<TextMeshProUGUI>(root, "LevelText", new Vector2(-380, -20), new Vector2(60, 24));
+        var levelT = AddChild<TextMeshProUGUI>(root, "LevelText", new Vector2(10, 80), new Vector2(60, 24));
         levelT.fontSize = 16; levelT.text = "Lv.1";
+        AnchorBottomLeft(levelT.gameObject);
         Wire(hud, "levelText", levelT);
 
-        // Skill slots (6)
-        var skillArea = CreateRTChild(root.transform, "SkillBar", new Vector2(0, -30), new Vector2(360, 50));
+        // Skill slots (6) — anchored bottom-center
+        var skillArea = CreateRTChild(root.transform, "SkillBar", new Vector2(0, 30), new Vector2(360, 50));
+        AnchorBottomCenter(skillArea);
         var icons = new List<Object>(); var overlays = new List<Object>();
         var keyLabels = new List<Object>(); var buffTexts = new List<Object>();
         for (int i = 0; i < 6; i++)
@@ -311,17 +318,18 @@ public static class UISetupTool
         WireArray(hud, "skillKeyLabels", keyLabels.ToArray());
         WireArray(hud, "skillBuffTexts", buffTexts.ToArray());
 
-        // Info texts
-        var hpPot = AddChild<TextMeshProUGUI>(root, "HpPotionCount", new Vector2(-440, -110), new Vector2(40, 20));
-        hpPot.fontSize = 12; hpPot.text = "0";
-        var mpPot = AddChild<TextMeshProUGUI>(root, "MpPotionCount", new Vector2(-390, -110), new Vector2(40, 20));
-        mpPot.fontSize = 12; mpPot.text = "0";
-        var goldT = AddChild<TextMeshProUGUI>(root, "GoldText", new Vector2(-400, -135), new Vector2(100, 20));
-        goldT.fontSize = 14; goldT.text = "0 G";
-        var regionT = AddChild<TextMeshProUGUI>(root, "RegionText", new Vector2(0, 30), new Vector2(200, 24));
-        regionT.fontSize = 16; regionT.alignment = TextAlignmentOptions.Top;
-        var statPtsT = AddChild<TextMeshProUGUI>(root, "StatPointsText", new Vector2(-300, -105), new Vector2(80, 20));
-        statPtsT.fontSize = 12;
+        // Info texts — bottom-left
+        var hpPot = AddChild<TextMeshProUGUI>(root, "HpPotionCount", new Vector2(80, 10), new Vector2(40, 20));
+        hpPot.fontSize = 12; hpPot.text = "0"; AnchorBottomLeft(hpPot.gameObject);
+        var mpPot = AddChild<TextMeshProUGUI>(root, "MpPotionCount", new Vector2(130, 10), new Vector2(40, 20));
+        mpPot.fontSize = 12; mpPot.text = "0"; AnchorBottomLeft(mpPot.gameObject);
+        var goldT = AddChild<TextMeshProUGUI>(root, "GoldText", new Vector2(10, 10), new Vector2(100, 20));
+        goldT.fontSize = 14; goldT.text = "0 G"; AnchorBottomLeft(goldT.gameObject);
+        // Region name — top-center
+        var regionT = AddChild<TextMeshProUGUI>(root, "RegionText", new Vector2(0, -30), new Vector2(200, 24));
+        regionT.fontSize = 16; regionT.alignment = TextAlignmentOptions.Top; AnchorTopCenter(regionT.gameObject);
+        var statPtsT = AddChild<TextMeshProUGUI>(root, "StatPointsText", new Vector2(200, 80), new Vector2(80, 20));
+        statPtsT.fontSize = 12; AnchorBottomLeft(statPtsT.gameObject);
 
         Wire(hud, "hpPotionCount", hpPot);
         Wire(hud, "mpPotionCount", mpPot);
