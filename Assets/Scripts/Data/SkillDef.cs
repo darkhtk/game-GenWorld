@@ -33,7 +33,7 @@ public class SkillAction
     public int color, count;
     public string effect, trajectory, pattern, monsterId, buffType, skillId;
     public ChainConfig chain;
-    public SkillAction[] onHit, onArrive, onTick;
+    [NonSerialized] public SkillAction[] onHit, onArrive, onTick;
 }
 
 [Serializable]

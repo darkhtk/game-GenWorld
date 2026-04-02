@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
         // Add collider and rigidbody for trigger detection
         var rb = gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0;
-        rb.isKinematic = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
         var col = gameObject.AddComponent<CircleCollider2D>();
         col.isTrigger = true;
         col.radius = size > 0 ? size / 32f : 0.25f;

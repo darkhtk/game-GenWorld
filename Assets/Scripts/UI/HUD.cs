@@ -162,7 +162,7 @@ public class HUD : MonoBehaviour
     void UpdateDodgeFromPlayer()
     {
         if (_cachedPlayer == null)
-            _cachedPlayer = FindObjectOfType<PlayerController>();
+            _cachedPlayer = FindFirstObjectByType<PlayerController>();
         if (_cachedPlayer != null)
             UpdateDodgeCooldown(_cachedPlayer.GetDodgeCooldownFraction());
     }
