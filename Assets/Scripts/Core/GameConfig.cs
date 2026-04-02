@@ -2,9 +2,10 @@ using UnityEngine;
 
 public static class GameConfig
 {
-    public const int TileSize = 32;
+    public const int TileSizePx = 32; // pixel size (for import settings only)
+    public const int TileSize = 1;   // world units per tile (PPU=32 → 32px = 1 unit)
     public const int MapWidthTiles = 200, MapHeightTiles = 200;
-    public const float MapWidthPx = MapWidthTiles * TileSize, MapHeightPx = MapHeightTiles * TileSize;
+    public const float MapWidthUnits = MapWidthTiles * TileSize, MapHeightUnits = MapHeightTiles * TileSize;
     public const int GameWidth = 1024, GameHeight = 768;
     public const float StrAtkBonus = 1.5f, StrHpBonus = 3f;
     public const float DexSpdBonus = 1f, DexDefBonus = 1.5f;
