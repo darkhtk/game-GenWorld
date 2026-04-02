@@ -92,7 +92,8 @@ public class MonsterController : MonoBehaviour
 
             case MonsterAIState.Attack:
                 _rb.linearVelocity = Vector2.zero;
-                if (distToPlayer > Def.attackRange * 1.5f)
+                float chaseThreshSq = Def.attackRange * 1.5f * (Def.attackRange * 1.5f);
+                if (distToPlayerSq > chaseThreshSq)
                     AIState = MonsterAIState.Chase;
                 break;
 
@@ -105,7 +106,7 @@ public class MonsterController : MonoBehaviour
                     break;
                 }
                 MoveToward(_spawnPos, speed * ReturnSpeedMult);
-                if (Vector2.Distance(Position, _spawnPos) < 16f)
+                if ((Position - _spawnPos).sqrMagnitude < 256f)
                 {
                     Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
