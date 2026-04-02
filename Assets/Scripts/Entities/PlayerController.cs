@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     float _moveSpeed;
     Vector2 _dodgeDir;
     float _dodgeEndTime;
+    static readonly WaitForSeconds DodgeTrailInterval = new(0.05f);
 
     void Awake()
     {
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
         while (IsDodging)
         {
             DodgeVFX.SpawnTrail(_sr, Position);
-            yield return new WaitForSeconds(0.05f);
+            yield return DodgeTrailInterval;
         }
         _sr.color = Color.white;
     }
