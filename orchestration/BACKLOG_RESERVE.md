@@ -59,8 +59,7 @@
 
 ~~R-029: PlayerAnimator 검증~~ → BOARD로 이동
 
-### R-030: MonsterController 애니메이션 검증 및 연동
-MonsterDef에 AnimationDef 참조 추가, MonsterController에서 idle·walk·attack·hit·die 상태 전이 검증. specs/SPEC-R-030.md 참조.
+~~R-030: MonsterController 애니메이션~~ → BOARD로 이동
 
 ### R-031: NPC 애니메이션 검증 및 연동
 NpcDef에 AnimationDef 참조 추가, NPCBrain에서 idle·talk·react 등 상태 전이 검증. specs/SPEC-R-031.md 참조.
