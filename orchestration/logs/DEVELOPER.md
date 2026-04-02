@@ -1,26 +1,22 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 18)
-**Status:** WORKING — R-013 fix + R-014
+**Last run:** 2026-04-02 (loop 19)
+**Status:** WORKING — R-015 + bugfix
 
 ## Loop Result
 - FREEZE: N
-- Build errors: 2 (InventoryUI CS1503 null→Stats) → FIXED
-- R-001~R-012: ✅ Done
-- R-013: NEEDS_WORK → FIXED (v2 submitted)
-- R-014: Completed → In Review
+- Build errors: 1 REAL (MonsterController distToPlayer→distToPlayerSq) → FIXED
+- R-001~R-014: ✅ Done (R-013 v2 + R-014 approved)
+- R-015: Completed → In Review
 
-## R-013 Fix (NEEDS_WORK response)
-1. RefreshGrid() now calls GetFiltered() — filter/sort actually applied to display
-2. Added "Recent" sort mode (mode 3 = reverse order)
+## Bugfix
+- `MonsterController.cs`: Return reaggro check used `distToPlayer` (renamed to `distToPlayerSq` by perf optimization)
 
 ## Completed This Loop
-**R-014 퀘스트 추적 HUD 위젯** — SPEC-R014 기반 구현 완료.
+**R-015 몬스터 HP 바** — SPEC-R015 기반 구현 완료.
 
-### Changes (HUD.cs)
-- questTrackerRoot/Content/EntryPrefab SerializeField
-- UpdateQuestTracker(): max 3 quests, item + kill progress display
-- V key toggle for widget visibility
-- Green text + checkmark for completed objectives
+### Changes
+- `MonsterHPBar.cs` (NEW): World-space HP bar — auto-track, color by HP%, 3s fade, programmatic creation
+- `MonsterController.cs`: _hpBar field, Create in Init, UpdateHP in TakeDamage
 
-Specs referenced: Y (SPEC-R013.md, SPEC-R014.md)
+Specs referenced: Y (SPEC-R015.md)
