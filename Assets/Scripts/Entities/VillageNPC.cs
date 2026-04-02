@@ -53,6 +53,13 @@ public class VillageNPC : MonoBehaviour
         return Vector2.Distance(Position, playerPos) <= range;
     }
 
+    public ConditionalDialogue EvaluateConditionalDialogue(QuestSystem quests,
+        InventorySystem inventory)
+    {
+        if (Def == null || Def.conditionalDialogues == null) return null;
+        return DialogueConditionParser.FindBestMatch(Def.conditionalDialogues, quests, inventory, Brain);
+    }
+
     public void StopMoving()
     {
         IsStopped = true;

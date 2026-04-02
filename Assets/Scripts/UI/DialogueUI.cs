@@ -86,7 +86,7 @@ public class DialogueUI : MonoBehaviour
             freeInputField.onSubmit.AddListener(_ => SendFreeInput());
     }
 
-    public void Show(NpcDef npcDef)
+    public void Show(NpcDef npcDef, ConditionalDialogue conditional = null)
     {
         _currentNpc = npcDef;
         if (panel != null) panel.SetActive(true);
@@ -98,6 +98,14 @@ public class DialogueUI : MonoBehaviour
                 npcNameText.color = npcColor;
         }
         if (questTitleText != null) questTitleText.text = "";
+
+        if (conditional != null)
+        {
+            if (!string.IsNullOrEmpty(conditional.greeting))
+                AppendLog(npcDef.name, conditional.greeting, npcDef.color);
+            if (conditional.options != null && conditional.options.Length > 0)
+                ShowOptions(conditional.options);
+        }
     }
 
     public void Hide()
