@@ -1,19 +1,22 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 16)
-**Status:** WORKING — R-012
+**Last run:** 2026-04-02 (loop 17)
+**Status:** WORKING — R-013 + bugfix
 
 ## Loop Result
 - FREEZE: N
-- Build errors: 0
-- R-001~R-011: ✅ Done (all approved)
-- R-012: Completed → In Review
+- Build errors: 1 REAL (EffectSystem.cs CS0136 duplicate 'now') → FIXED
+- R-001~R-012: ✅ Done (all approved)
+- R-013: Completed → In Review
+
+## Bugfix
+- `EffectSystem.cs`: Renamed duplicate `now` to `nowMs` in Apply() (CS0136)
 
 ## Completed This Loop
-**R-012 HUD 버프/디버프 아이콘 표시** — SPEC-R012 기반 구현 완료.
+**R-013 인벤토리 필터/정렬 강화** — SPEC-R013 기반 구현 완료.
 
 ### Changes
-- `EffectSystem.cs`: Added ActiveEffectInfo struct, totalDuration tracking, GetActive() method
-- `HUD.cs`: effectIconContainer/Prefab fields, UpdateEffectIcons() with pool, timer text, fill overlay
+- `InventorySystem.cs`: GetFiltered() — type filter + sort mode (name/grade/type)
+- `InventoryUI.cs`: filterButtons[], sortModeButton, SetFilter(), CycleSortMode(), sort mode text
 
-Specs referenced: Y (SPEC-R012.md)
+Specs referenced: Y (SPEC-R013.md)
