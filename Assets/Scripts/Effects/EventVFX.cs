@@ -3,6 +3,7 @@ using UnityEngine;
 public class EventVFX : MonoBehaviour
 {
     static EventVFX _instance;
+    PlayerController _cachedPlayer;
 
     void Awake()
     {
@@ -17,9 +18,22 @@ public class EventVFX : MonoBehaviour
         EventBus.On<ItemCollectEvent>(OnItemCollect);
     }
 
+    void OnDisable()
+    {
+        EventBus.Off<LevelUpEvent>(OnLevelUp);
+        EventBus.Off<ItemCollectEvent>(OnItemCollect);
+    }
+
+    PlayerController GetPlayer()
+    {
+        if (_cachedPlayer == null)
+            _cachedPlayer = FindFirstObjectByType<PlayerController>();
+        return _cachedPlayer;
+    }
+
     void OnLevelUp(LevelUpEvent e)
     {
-        var player = FindFirstObjectByType<PlayerController>();
+        var player = GetPlayer();
         if (player == null) return;
         SkillVFX.ShowAtPosition(this, "vfx_heal", player.Position.x, player.Position.y + 0.5f);
         DamageText.SpawnText(this, player.Position + Vector2.up, $"LEVEL UP! Lv.{e.level}", new Color(1f, 0.85f, 0.2f));
@@ -27,7 +41,7 @@ public class EventVFX : MonoBehaviour
 
     void OnItemCollect(ItemCollectEvent e)
     {
-        var player = FindFirstObjectByType<PlayerController>();
+        var player = GetPlayer();
         if (player == null) return;
         SkillVFX.ShowAtPosition(this, "vfx_loot_pickup", player.Position.x, player.Position.y);
     }

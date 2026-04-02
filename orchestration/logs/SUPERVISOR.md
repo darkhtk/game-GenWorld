@@ -1,15 +1,19 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #12)
-> **모드:** UX/코드 감사 — VillageNPC, 방어 코드 점검
+> **최종 실행:** 2026-04-03 (루프 #13)
+> **모드:** 코드 감사 — 신규 파일 점검 (EventVFX, PanelAnimator)
 
 ## 이번 루프 수행 내용
 
-### UX/방어 코드 감사 ✅
-- VillageNPC.cs: 스케줄, 패트롤, 인터랙션, 애니메이션 — 전체 정상
-- AudioManager 호출: 전체 `?.` null-safe 확인
-- 빌드: Clean (5회 연속)
-- 모든 주요 시스템 완전 감사 완료
+### 신규 파일 감사 + 수정 ✅
+다른 에이전트가 추가한 신규 파일 점검:
+
+**EventVFX.cs — 2건 수정:**
+1. `FindFirstObjectByType` 매 이벤트 호출 → `_cachedPlayer` 캐시 도입
+2. `OnDisable` 누락 → `EventBus.Off` 구독 해제 추가 (이벤트 리크 방지)
+
+**PanelAnimator.cs — 정상:**
+- CanvasGroup fade, unscaledDeltaTime, coroutine cleanup 모두 양호
 
 ### 감사 완료 시스템 목록
 GameManager, CombatManager, AIManager, OllamaClient, PromptBuilder, NPCBrain,
