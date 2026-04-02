@@ -116,4 +116,25 @@ public class SkillVFX : MonoBehaviour
             _ => "vfx_hit_impact"
         };
     }
+
+    public static void ValidateSkillAnimations(Dictionary<string, SkillDef> skills)
+    {
+        if (skills == null) return;
+        string[] stages = { "cast", "projectile", "impact" };
+        int missing = 0;
+        foreach (var kv in skills)
+        {
+            var def = kv.Value;
+            if (def.animationDef == null) continue;
+            foreach (var stage in stages)
+            {
+                if (!def.animationDef.HasClip(stage))
+                {
+                    Debug.LogWarning($"[SkillVFX] Skill '{def.name}' missing animation clip: {stage}");
+                    missing++;
+                }
+            }
+        }
+        if (missing == 0) Debug.Log("[SkillVFX] All skill animations validated OK");
+    }
 }

@@ -61,11 +61,7 @@
 
 ~~R-030: MonsterController 애니메이션~~ → BOARD로 이동
 
-### R-031: NPC 애니메이션 검증 및 연동
-NpcDef에 AnimationDef 참조 추가, NPCBrain에서 idle·talk·react 등 상태 전이 검증. specs/SPEC-R-031.md 참조.
-
-### R-032: 스킬·이펙트 애니메이션 검증 및 연동
-EffectSystem·ComboSystem의 스킬 발동 애니메이션과 AreaEffect VFX 타이밍 검증 및 보정. specs/SPEC-R-032.md 참조.
+~~R-031, R-032~~ → BOARD로 이동
 
 ### 🎨 에셋 (감독관 전용) — 높음
 
