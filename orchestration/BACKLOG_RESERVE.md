@@ -124,8 +124,8 @@ Steam API 연동 검증, 오프라인 모드 폴백, 성능 프로파일링, 빌
 
 ### 🎨 에셋 (감독관 전용) — 높음
 
-### 🎨 A-008: 스팀 스토어 페이지 에셋
-캡슐 이미지(헤더 460×215, 소형 231×87, 대형 616×353), 라이브러리 히어로(3840×1240), 라이브러리 로고(1280×720), 스크린샷 최소 5장(1920×1080), 커뮤니티 아이콘(32×32, 184×184).
+### ~~🎨 A-008: 스팀 스토어 페이지 에셋~~ ✅ 완료
+7종 placeholder (정확한 Steam 규격): capsule_header 460×215, capsule_small 231×87, capsule_large 616×353, library_hero 3840×1240, library_logo 1280×720, community_icon 32×32+184×184. JPG 캡슐 포함. ⚠️ 실제 스크린샷/마케팅 아트로 교체 필요.
 
-### 🎨 A-009: 스팀 업적 아이콘 세트
-업적별 잠금/해제 아이콘 쌍 (64×64 JPG). R-037에서 정의한 업적 목록 기반으로 제작.
+### ~~🎨 A-009: 스팀 업적 아이콘 세트~~ ✅ 완료
+10종 업적 아이콘 쌍 (locked/unlocked 64×64 JPG): first_blood, level_10, level_25, quest_master, dragon_slayer, full_set, combo_king, explorer, hoarder, survivor.

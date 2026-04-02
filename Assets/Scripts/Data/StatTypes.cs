@@ -122,6 +122,7 @@ public class NPCBrainData
     public bool wantToTalk;
     public string talkReason;
     public string alertType;
+    public List<string> triggeredEvents;
 }
 
 [Serializable]

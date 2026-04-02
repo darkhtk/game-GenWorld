@@ -223,6 +223,8 @@ public class AIManager
         if (!string.IsNullOrEmpty(response.newMemory))
             brain.AddMemory(response.newMemory, 5);
 
+        EvaluateTriggers(brain);
+
         brain.WantToTalk = false;
         brain.TalkReason = "";
     }
