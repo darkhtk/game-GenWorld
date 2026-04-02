@@ -1,27 +1,28 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-03 (loop 4)
-**Status:** 빌드 에러 1건 수정 + Visual Polish 2건 자가진행
+**Last run:** 2026-04-03 (loop 5)
+**Status:** Visual Polish 3건 자가진행 완료
 
 ## Loop Result
-- Build errors: 1건 수정 (LevelSystem→StatsSystem)
-- V-007, V-009: 자가진행 완료
+- Build errors: 0 (NameLabel 에러 이미 해결됨)
+- V-002, V-004, V-005: 자가진행 완료
 
 ## 수정 내역
 
-### BF-009 빌드 에러 수정 ✅
-- `GameManager.cs:628` — `LevelSystem.AddXp` → `StatsSystem.AddXp` (클래스 미존재 오타)
-- **파일:** GameManager.cs
+### V-002 인벤토리 그리드 미관 ✅
+- 등급 프레임 스프라이트 로딩 (grade_frame_*.png)
+- 슬롯 배경 스프라이트 (slot_bg.png) 적용
+- 호버 하이라이트 (slot_hover.png) — OnPointerEnter/Exit에서 스프라이트 교체
+- **파일:** InventoryUI.cs (InventorySlotUI 클래스), Resources/Sprites/UI/ 복사
 
-### V-007 몬스터/NPC 이름표 ✅
-- NameLabel 유틸 생성 — World Space TextMeshPro로 이름 표시
-- MonsterController.Init: 빨간 계열 이름표 (yOffset=1.2)
-- VillageNPC.Init: 파란 계열 이름표 (yOffset=1.0)
-- **파일:** NameLabel.cs (신규), MonsterController.cs, VillageNPC.cs
+### V-004 대화 UI 포트레이트 ✅
+- NPC 포트레이트 로딩 개선 — spritesheet fallback 추가
+- 포트레이트 없을 때 회색 placeholder (enabled=true, color=(0.3,0.3,0.4))
+- **파일:** DialogueUI.cs
 
-### V-009 UI 패널 전환 애니메이션 ✅
-- PanelAnimator 컴포넌트 생성 — CanvasGroup 기반 페이드 인/아웃
-- InventoryUI에 시범 적용 (Show/Hide에서 PanelAnimator 감지)
-- **파일:** PanelAnimator.cs (신규), InventoryUI.cs
+### V-005 메인 메뉴 배경 ✅
+- SetupBackground() — Resources에서 main_menu_bg.png 로딩
+- Canvas 첫 자식으로 전체화면 배경 Image 자동 생성
+- **파일:** MainMenuController.cs, Resources/Sprites/UI/ 복사
 
 ## specs 참조: N
