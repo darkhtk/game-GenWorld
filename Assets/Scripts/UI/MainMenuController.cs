@@ -7,6 +7,8 @@ public class MainMenuController : MonoBehaviour
 {
     [SerializeField] Button newGameButton;
     [SerializeField] Button continueButton;
+    [SerializeField] Button settingsButton;
+    [SerializeField] SettingsUI settingsUI;
     [SerializeField] TextMeshProUGUI titleText;
 
     void Awake()
@@ -19,6 +21,9 @@ public class MainMenuController : MonoBehaviour
             continueButton.onClick.AddListener(OnContinue);
             continueButton.interactable = SaveSystem.HasSave();
         }
+
+        if (settingsButton != null && settingsUI != null)
+            settingsButton.onClick.AddListener(() => settingsUI.Open());
     }
 
     void OnNewGame()
