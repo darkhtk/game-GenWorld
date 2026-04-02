@@ -1,27 +1,27 @@
 # Status: Dev-Backend
 
-## Current: DONE (Phase 2)
+## Current: DONE (Phase 3)
 
 ## Last Update: 2026-04-02
 
 ## Current Task
-Phase 2 — All 11 Systems implemented
+Phase 3 — Entities implemented (5 files)
 
 ## Progress
-- [x] InventorySystem.cs + InventorySystemTests.cs (9 tests)
-- [x] StatsSystem.cs + StatsSystemTests.cs (7 tests)
-- [x] CombatSystem.cs + CombatSystemTests.cs (7 tests)
-- [x] EffectSystem.cs + EffectSystemTests.cs (8 tests)
-- [x] SkillSystem.cs + SkillSystemTests.cs (11 tests)
-- [x] LootSystem.cs + LootSystemTests.cs (5 tests)
-- [x] CraftingSystem.cs + CraftingSystemTests.cs (6 tests)
-- [x] QuestSystem.cs + QuestSystemTests.cs (8 tests)
-- [x] SaveSystem.cs (no test — filesystem)
-- [x] SkillExecutor.cs (default handlers: self_buff, aoe_damage, single_target)
-- [x] ActionRunner.cs (default handlers: deal_damage, apply_effect, apply_buff, screen_shake, visual)
+
+### Phase 2 (DONE)
+- [x] All 11 Systems + 8 test suites (61 tests)
+
+### Phase 3 (DONE)
+- [x] PlayerController.cs — WASD movement, mouse aim, dodge with invincibility
+- [x] PlayerStats.cs — level/xp/gold, RecalcStats via StatsSystem, FullHeal
+- [x] MonsterController.cs — 4-state AI (Patrol/Chase/Attack/Return), DoT tick, phase transitions
+- [x] MonsterSpawner.cs — region-based spawning, walkable tile check, density calc
+- [x] VillageNPC.cs — patrol within radius, stop/resume, interaction range
+- [x] Projectile.cs — directional movement, piercing support, OnHitMonster/OnArrive callbacks
 
 ## Issues
 None
 
-## Commits
-(pending — ready to commit)
+## Next
+Phase 4: CombatManager (waiting for assignment update)
