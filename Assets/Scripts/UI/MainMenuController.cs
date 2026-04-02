@@ -13,6 +13,8 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
+        SetupBackground();
+
         if (newGameButton != null)
             newGameButton.onClick.AddListener(OnNewGame);
 
@@ -24,6 +26,32 @@ public class MainMenuController : MonoBehaviour
 
         if (settingsButton != null && settingsUI != null)
             settingsButton.onClick.AddListener(() => settingsUI.Open());
+    }
+
+    void SetupBackground()
+    {
+        var canvas = GetComponentInParent<Canvas>();
+        if (canvas == null) canvas = GetComponent<Canvas>();
+        if (canvas == null) return;
+
+        var bgSprite = Resources.Load<Sprite>("Sprites/UI/main_menu_bg");
+        if (bgSprite == null) return;
+
+        var bgGo = new GameObject("Background");
+        bgGo.transform.SetParent(canvas.transform, false);
+        bgGo.transform.SetAsFirstSibling();
+
+        var img = bgGo.AddComponent<Image>();
+        img.sprite = bgSprite;
+        img.preserveAspect = false;
+        img.raycastTarget = false;
+        img.color = new Color(0.8f, 0.8f, 0.8f);
+
+        var rt = bgGo.GetComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
     }
 
     void OnNewGame()
