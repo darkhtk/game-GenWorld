@@ -5,7 +5,7 @@
 ## Last Update: 2026-04-02
 
 ## Current Task
-Loop iteration — code review + contract verification complete.
+Loop — all effects implemented, wiring confirmed by Backend.
 
 ## Progress
 - [x] Phase 6 — 12 UI panels + SkillVFX 구현 완료
@@ -15,13 +15,14 @@ Loop iteration — code review + contract verification complete.
 - [x] Step 4 — Visual Polish 점검 완료
 - [x] Loop: PauseMenuUI null guard fix, SkillTreeUI dead code removal (f2388ad)
 - [x] Loop: Full contract re-verification — all 12 panels match interface-contracts.md
-- [x] Loop: Hotkey conflict check — I/K/J/Esc clean, no overlap with 1-6/E/R/T
+- [x] Loop: DamageText floating number component (e8b2d13) — wired by Backend
+- [x] Loop: SkillVFX.ShowAtPosition + CameraShake (810c2cb) — wired by Backend
+- [x] Loop: R/T potion hotkey callbacks in UIManager (9b5642d)
 
 ## Integration Notes for Director
-- `InventoryUI.Refresh` takes `Stats playerStats` — caller must set `stats.hp`/`stats.mp` to current values (not just computed maxHp/maxMp from `StatsSystem.ComputeStats`)
-- R/T potion hotkeys not yet wired — needs GameManager to call inventory use logic
+- `InventoryUI.Refresh` takes `Stats playerStats` — caller must set `stats.hp`/`stats.mp` to current values
+- UIManager.OnUseHpPotion / OnUseMpPotion need wiring in GameManager
 - HUD refresh calls (UpdateBars, UpdateGold, etc.) not wired in GameManager.Update yet
-- `CombatManager.ShowDamageNumber/ShowFloatingText` — no floating text prefab/system in UI yet, needs implementation when combat integration begins
 
 ## Issues
 None
