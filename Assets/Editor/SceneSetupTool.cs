@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering.Universal;
 using TMPro;
 using UnityEngine.UI;
 
@@ -137,9 +138,37 @@ public static class SceneSetupTool
         var combatObj = new GameObject("CombatManager");
         var combatMgr = combatObj.AddComponent<CombatManager>();
 
+        // AudioManager (singleton, DontDestroyOnLoad in Awake)
+        var audioObj = new GameObject("AudioManager");
+        audioObj.AddComponent<AudioManager>();
+
+        // DayNightCycle
+        var dayNightObj = new GameObject("DayNightCycle");
+        dayNightObj.AddComponent<DayNightCycle>();
+        // Light2D must be on camera or separate object — wire globalLight if URP Light2D available
+        var lightObj = new GameObject("GlobalLight2D");
+        var light2d = lightObj.AddComponent<UnityEngine.Rendering.Universal.Light2D>();
+        light2d.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Global;
+        light2d.intensity = 1f;
+        Wire(dayNightObj.GetComponent<DayNightCycle>(), "globalLight", light2d);
+
         // UI Canvas + UIManager
         var canvas = CreateCanvas("UICanvas");
         var uiMgr = canvas.AddComponent<UIManager>();
+
+        // ScreenFlash (full-screen overlay)
+        var flashObj = new GameObject("ScreenFlash");
+        flashObj.transform.SetParent(canvas.transform, false);
+        var flashRt = flashObj.AddComponent<RectTransform>();
+        flashRt.anchorMin = Vector2.zero;
+        flashRt.anchorMax = Vector2.one;
+        flashRt.offsetMin = Vector2.zero;
+        flashRt.offsetMax = Vector2.zero;
+        var flashImg = flashObj.AddComponent<Image>();
+        flashImg.color = new Color(0, 0, 0, 0);
+        flashImg.raycastTarget = false;
+        var screenFlash = flashObj.AddComponent<ScreenFlash>();
+        Wire(screenFlash, "flashImage", flashImg);
 
         // HUD
         var hudObj = new GameObject("HUD");
@@ -158,6 +187,7 @@ public static class SceneSetupTool
         Wire(uiMgr, "npcProfile", CreatePanel<NpcProfilePanel>(canvas.transform, "NpcProfilePanel"));
         Wire(uiMgr, "npcQuest", CreatePanel<NpcQuestPanel>(canvas.transform, "NpcQuestPanel"));
         Wire(uiMgr, "pauseMenu", CreatePanel<PauseMenuUI>(canvas.transform, "PauseMenuPanel"));
+        canvas.AddComponent<DeathScreenUI>();
 
         // GameManager (central orchestrator)
         var gmObj = new GameObject("GameManager");
