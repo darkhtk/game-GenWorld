@@ -1,28 +1,36 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-03 (loop 5)
-**Status:** Visual Polish 3건 자가진행 완료
+**Last run:** 2026-04-03 (loop 6)
+**Status:** Visual Polish 마지막 3건 완료 — 전체 폴리시 태스크 소진
 
 ## Loop Result
-- Build errors: 0 (NameLabel 에러 이미 해결됨)
-- V-002, V-004, V-005: 자가진행 완료
+- Build errors: 0
+- V-006, V-008, V-012: 자가진행 완료
+- **BACKLOG_RESERVE 전체 Visual Polish 12건 완료**
 
 ## 수정 내역
 
-### V-002 인벤토리 그리드 미관 ✅
-- 등급 프레임 스프라이트 로딩 (grade_frame_*.png)
-- 슬롯 배경 스프라이트 (slot_bg.png) 적용
-- 호버 하이라이트 (slot_hover.png) — OnPointerEnter/Exit에서 스프라이트 교체
-- **파일:** InventoryUI.cs (InventorySlotUI 클래스), Resources/Sprites/UI/ 복사
+### V-006 부트 스플래시 로고 ✅
+- BootSceneController에 SetupLogo() 추가
+- boot_logo.png를 Resources에서 로딩, Canvas에 Image 자동 생성
+- **파일:** BootSceneController.cs, Resources/Sprites/UI/boot_logo.png
 
-### V-004 대화 UI 포트레이트 ✅
-- NPC 포트레이트 로딩 개선 — spritesheet fallback 추가
-- 포트레이트 없을 때 회색 placeholder (enabled=true, color=(0.3,0.3,0.4))
-- **파일:** DialogueUI.cs
+### V-008 파티클/이벤트 VFX ✅
+- EventVFX 싱글턴 생성 — LevelUpEvent, ItemCollectEvent 구독
+- 레벨업: vfx_heal 이펙트 + "LEVEL UP!" 플로팅 텍스트
+- 아이템 획득: vfx_loot_pickup 이펙트
+- RuntimeInitializeOnLoadMethod로 자동 생성
+- **파일:** EventVFX.cs (신규)
 
-### V-005 메인 메뉴 배경 ✅
-- SetupBackground() — Resources에서 main_menu_bg.png 로딩
-- Canvas 첫 자식으로 전체화면 배경 Image 자동 생성
-- **파일:** MainMenuController.cs, Resources/Sprites/UI/ 복사
+### V-012 타일맵 경계 블렌딩 ✅
+- PickTileTypeBlended() — 리전 경계 3타일 이내에서 인접 리전 타일 혼합
+- 가까울수록 인접 리전 타일 비율 증가 (최대 60%)
+- Generate()에서 PickTileTypeBlended 호출
+- **파일:** WorldMapGenerator.cs
 
 ## specs 참조: N
+
+## 전체 진행률
+- 로드맵 태스크: 68건 완료 (R-001~R-041 + B-001~B-008 + V-001~V-012)
+- BACKLOG_RESERVE: Visual Polish 전부 소진
+- 남은 항목: 🎨 에셋 태스크만 (감독관 전용)

@@ -33,7 +33,7 @@ public class WorldMapGenerator : MonoBehaviour
                 _walkable[tx, ty] = true;
 
                 RegionDef region = GetRegionForTile(tx, ty);
-                string tileType = PickTileType(region);
+                string tileType = PickTileTypeBlended(tx, ty, region);
                 TileBase tile = GetTileAsset(tileType);
                 Vector3Int cell = TileToCell(tx, ty);
 
