@@ -1,19 +1,23 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 37)
-**Status:** ALL TASKS COMPLETE
+**Last run:** 2026-04-02 (loop 38)
+**Status:** WORKING — Steam R-035
 
 ## Loop Result
 - FREEZE: N
 - Build errors: 0
-- R-034+035+042: ✅ Done (approved)
-- R-033+R-040: Completed → In Review
+- All 40 original tasks: ✅ Done
+- Steam R-035: Completed → In Review (새 시스템)
 
 ## Completed This Loop
-- R-033 LoadingScreenUI.cs: progress bar + status + SimulateLoading
-- R-040 DialogueCameraZoom.cs: DialogueStart/End zoom Lerp
+**R-035 Steamworks SDK 통합** — SPEC-R-035 기반 구현 완료.
 
-## MILESTONE: ALL 40 TASKS IMPLEMENTED!
-R-001~R-024 (24) + R-027~R-032 (6) + R-033~R-042 (10) = 40 tasks
+### Changes
+- `SteamManager.cs` (NEW in Core/): Singleton, DontDestroyOnLoad
+  - #if STEAMWORKS_ENABLED conditional compilation
+  - SteamAPI.Init/RunCallbacks/Shutdown lifecycle
+  - IsSteamRunning() + offline fallback
+  - SteamInitializedEvent via EventBus
+- `steam_appid.txt`: App ID 480 (Spacewar test ID)
 
-Specs referenced: N
+Specs referenced: Y (SPEC-R-035.md)
