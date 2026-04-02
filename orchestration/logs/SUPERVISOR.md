@@ -1,7 +1,7 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #16)
-> **수행 행동:** Step 2 자동 행동 #5 — 에러 점검 2차
+> **최종 실행:** 2026-04-02 (루프 #17)
+> **수행 행동:** Step 2 자동 행동 #2 — 코드 품질 감사 3차
 
 ## 이번 루프 요약
 
@@ -11,34 +11,25 @@
 ### Step 1
 - 🎨 태스크 없음 → Step 2
 
-### Step 2: 에러 점검 2차
+### Step 2: 코드 품질 감사 3차
 
-#### Unity Editor.log 스캔
-- 감지된 에러: 4종류 (모두 STALE)
-  - DataManager.cs: `Exception`, `ValidateData` — 코드에 이미 존재
-  - NpcDef.cs: `ConditionalDialogue` — 클래스 정의 존재
-  - CombatSystem.cs: `List<>` — `using System.Collections.Generic` + List 오버로드 존재
-- **현재 실 에러: 0건**
+#### 감사 대상: R-009 (ComboSystem), R-010 (DodgeVFX) 개발자 코드
 
-#### 추가 검증
-- merge conflict 마커: 0건
-- CombatSystem.cs FindClosest List 오버로드: 정상 확인 (line 37)
+| 파일 | 평가 | 비고 |
+|------|------|------|
+| ComboSystem.cs | ✅ 양호 | 순수 C#, 구조체 결과, 히스토리 만료, MaxHistory 캡 |
+| DodgeVFX.cs | ✅ 양호 | 정적 유틸리티, null 체크, 자동 Destroy |
+| CombatManager 연동 | ✅ 양호 | RecordSkill + CheckCombo 정상 배치, 콤보 보너스 적용 |
+| PlayerController 연동 | ✅ 양호 | DodgeTrailCoroutine 정상, SpriteRenderer 투명도 전환 |
 
-### BOARD 동기화
-- R-009 → ✅ Done (이미 다른 에이전트가 이동)
-- R-010 👀 In Review (대기)
-- 전체: R-001~R-009 Done (9건), R-010 In Review
+#### 수정 (1건)
+| 파일 | 수정 | 효과 |
+|------|------|------|
+| PlayerController.cs | `new WaitForSeconds(0.05f)` → `static readonly DodgeTrailInterval` | 닷지 중 매 0.05초 GC 할당 제거 |
 
-### 자동 행동 순환 현황 (전체 16루프)
-
-| 라운드 | #1 에셋 | #2 품질 | #3 성능 | #4 UX | #5 에러 |
-|--------|---------|---------|---------|-------|---------|
-| 1차 | 루프#2-9 (🎨×8) | 루프#1 (8건) | 루프#10 (7건) | 루프#11 (4건) | 루프#12 (0 real) |
-| 2차 | — | 루프#13 (3건) | 루프#14 (7건) | 루프#15 (3건) | 루프#16 (0 real) |
-| **합계** | 60+ 에셋 | 11건 수정 | 14건 최적화 | 7건 UX | 0 실에러 |
-
-### RESERVE 상태
-- 잔여: 14건 (R-011~R-016 + R-017~R-024)
+### BOARD 상태
+- R-001~R-010 ✅ Done (10건 완료!)
+- R-011 👀 In Review (새 시스템 — 고객사 리뷰 필수)
 
 ### 다음 루프 예정
-- Step 2 자동 행동 #2: 코드 품질 감사 3차 (최신 R-009, R-010 변경 대상)
+- Step 2 자동 행동 #3: 성능 최적화 3차 또는 #1 에셋 선제 생성
