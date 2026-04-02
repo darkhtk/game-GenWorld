@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class DayNightCycle : MonoBehaviour
 {
-    [SerializeField] Light2D globalLight;
-
     static readonly Dictionary<string, (Color color, float intensity)> LightPresets = new()
     {
         { "dawn",      (new Color(1.0f, 0.85f, 0.7f), 0.7f) },
@@ -32,12 +29,12 @@ public class DayNightCycle : MonoBehaviour
     void Update()
     {
         var gm = GameManager.Instance;
-        if (gm?.TimeSystem == null || globalLight == null) return;
+        if (gm?.TimeSystem == null) return;
 
         string period = gm.TimeSystem.Period;
         if (period != _currentPeriod)
         {
-            StartTransition(_currentPeriod, period);
+            StartTransition(period);
             _currentPeriod = period;
         }
 
@@ -45,30 +42,21 @@ public class DayNightCycle : MonoBehaviour
         {
             _lerpProgress += Time.deltaTime / TransitionDuration;
             float t = Mathf.Clamp01(_lerpProgress);
-            globalLight.color = Color.Lerp(_fromColor, _toColor, t);
-            globalLight.intensity = Mathf.Lerp(_fromIntensity, _toIntensity, t);
+            RenderSettings.ambientLight = Color.Lerp(_fromColor, _toColor, t);
         }
     }
 
-    void StartTransition(string from, string to)
+    void StartTransition(string to)
     {
-        _fromColor = globalLight.color;
-        _fromIntensity = globalLight.intensity;
+        _fromColor = RenderSettings.ambientLight;
         if (LightPresets.TryGetValue(to, out var preset))
-        {
-            _toColor = preset.color;
-            _toIntensity = preset.intensity;
-        }
+            _toColor = preset.color * preset.intensity;
         _lerpProgress = 0f;
     }
 
     void ApplyImmediate(string period)
     {
-        if (globalLight == null) return;
         if (LightPresets.TryGetValue(period, out var preset))
-        {
-            globalLight.color = preset.color;
-            globalLight.intensity = preset.intensity;
-        }
+            RenderSettings.ambientLight = preset.color * preset.intensity;
     }
 }
