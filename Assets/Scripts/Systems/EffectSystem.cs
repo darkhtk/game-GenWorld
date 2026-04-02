@@ -48,8 +48,8 @@ public class EffectHolder
                 return;
             }
         }
-        float now = Time.time * 1000f;
-        _effects[type] = new ActiveEffect { expiresAt = expiresAt, value = value, totalDuration = expiresAt - now };
+        float nowMs = Time.time * 1000f;
+        _effects[type] = new ActiveEffect { expiresAt = expiresAt, value = value, totalDuration = expiresAt - nowMs };
     }
 
     public void ApplyDot(float expiresAt, float damage, float interval = 1000f)

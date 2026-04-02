@@ -69,6 +69,8 @@ public class HUD : MonoBehaviour
     const int MaxEffectIcons = 8;
     readonly List<TextMeshProUGUI> _historyEntries = new();
     readonly List<GameObject> _effectIcons = new();
+    readonly List<TextMeshProUGUI> _effectTimerTexts = new();
+    readonly List<Image> _effectFillImages = new();
     bool _historyVisible = true;
     PlayerController _cachedPlayer;
     int _hoveredSkillSlot = -1;
