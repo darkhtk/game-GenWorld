@@ -1,26 +1,27 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 21)
-**Status:** WORKING — R-027
+**Last run:** 2026-04-02 (loop 22)
+**Status:** WORKING — R-027 fix + R-028
 
 ## Loop Result
 - FREEZE: N
-- Build errors: 0 (stale only)
-- R-001~R-016: ✅ Done (R-016 approved)
-- R-027: Completed → In Review
+- Build errors: 0
+- R-001~R-016: ✅ Done
+- R-027: NEEDS_WORK → FIXED (v2: AnimationDefGenerator Editor script)
+- R-028: Completed → In Review
 
-## Completed This Loop
-**R-027 AnimationDef** — SPEC-R-027 기반 구현 완료.
+## R-027 Fix
+Review: 4 .asset files missing. Added `AnimationDefGenerator.cs` Editor script (Menu: Game > Generate Default AnimationDefs) that creates:
+- PlayerAnimDef: idle, run, attack, dodge, hit, die
+- MonsterAnimDef: idle, walk, attack, hit, die
+- NPCAnimDef: idle, talk, react
+- SkillAnimDef: cast, projectile, impact
 
-### Changes
-- `AnimationDef.cs` (NEW): ScriptableObject with AnimEntry (stateName, clip, duration, isLooping)
-  - GetEntry(), HasClip(), LogMissingClips() utility methods
-  - EntityType enum (Player, Monster, NPC, Skill)
-- `MonsterDef.cs`: Added [JsonIgnore] animationDef field
-- `NpcDef.cs`: Added [JsonIgnore] animationDef field
-- `AnimEntryDrawer.cs` (NEW in Editor/): PropertyDrawer — orange highlight for missing clips
+## R-028 AnimationPreviewUI
+- `AnimationPreviewUI.cs` (NEW): Debug panel with F9 toggle
+  - Entity click selection, AnimationDef-based animation list
+  - Play buttons per state, speed slider (0.1x~3.0x)
+  - Missing clip warning ⚠
+  - #if DEBUG || DEVELOPMENT_BUILD conditional compilation
 
-### UI 자가 검증
-- Inspector-only data tool — no in-game UI needed (SPEC: "N/A")
-
-Specs referenced: Y (SPEC-R-027.md)
+Specs referenced: Y (SPEC-R-027.md, SPEC-R-028.md)
