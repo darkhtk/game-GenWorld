@@ -186,7 +186,9 @@ public class MonsterController : MonoBehaviour
         Hp -= dmg;
         if (_hpBar != null) _hpBar.UpdateHP(Hp, Def.hp);
         FlashWhite();
-        return Hp <= 0;
+        if (Hp <= 0) { PlayAnimation("die"); return true; }
+        PlayAnimation("hit");
+        return false;
     }
 
     SpriteRenderer _sr;
