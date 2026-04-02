@@ -62,11 +62,19 @@ public class HUD : MonoBehaviour
     [SerializeField] Transform effectIconContainer;
     [SerializeField] GameObject effectIconPrefab;
 
+    [Header("Quest Tracker")]
+    [SerializeField] GameObject questTrackerRoot;
+    [SerializeField] Transform questTrackerContent;
+    [SerializeField] TextMeshProUGUI questTrackerEntryPrefab;
+
     static readonly Color HpColor = new(1f, 0.267f, 0.267f);
     static readonly Color MpColor = new(0.267f, 0.533f, 1f);
 
     const int MaxHistoryEntries = 8;
     const int MaxEffectIcons = 8;
+    const int MaxTrackedQuests = 3;
+    readonly List<TextMeshProUGUI> _questTrackerEntries = new();
+    bool _questTrackerVisible = true;
     const float BarLerpSpeed = 8f;
     float _targetHpFill, _targetMpFill, _targetXpFill;
     readonly List<TextMeshProUGUI> _historyEntries = new();
@@ -124,7 +132,14 @@ public class HUD : MonoBehaviour
         UpdateEffectIcons();
         UpdateDodgeFromPlayer();
         UpdatePotionsFromInventory();
+        UpdateQuestTracker();
         LerpBars();
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            _questTrackerVisible = !_questTrackerVisible;
+            if (questTrackerRoot != null) questTrackerRoot.SetActive(_questTrackerVisible);
+        }
     }
 
     void LerpBars()
@@ -391,6 +406,67 @@ public class HUD : MonoBehaviour
             yield return null;
         }
         saveIndicator.alpha = 0f;
+    }
+
+    void UpdateQuestTracker()
+    {
+        if (questTrackerContent == null || questTrackerEntryPrefab == null) return;
+        if (!_questTrackerVisible) return;
+
+        var gm = GameManager.Instance;
+        if (gm == null || gm.Quests == null || gm.Inventory == null) return;
+
+        var quests = gm.Quests.GetActiveQuests();
+        int count = Mathf.Min(quests.Length, MaxTrackedQuests);
+
+        while (_questTrackerEntries.Count < count)
+        {
+            var entry = Instantiate(questTrackerEntryPrefab, questTrackerContent);
+            entry.gameObject.SetActive(true);
+            _questTrackerEntries.Add(entry);
+        }
+
+        for (int i = 0; i < _questTrackerEntries.Count; i++)
+        {
+            if (i < count)
+            {
+                _questTrackerEntries[i].gameObject.SetActive(true);
+                var q = quests[i];
+                var sb = new System.Text.StringBuilder();
+                sb.AppendLine($"<b>{q.title}</b>");
+
+                if (q.requirements != null)
+                {
+                    foreach (var r in q.requirements)
+                    {
+                        int have = gm.Inventory.GetCount(r.itemId);
+                        bool done = have >= r.count;
+                        string color = done ? "#88ff88" : "#ffffff";
+                        string check = done ? " \u2705" : "";
+                        sb.AppendLine($"  <color={color}>{r.itemId}: {Mathf.Min(have, r.count)}/{r.count}{check}</color>");
+                    }
+                }
+                if (q.killRequirements != null)
+                {
+                    foreach (var kr in q.killRequirements)
+                    {
+                        int kills = gm.Quests.GetKillProgress(q.id, kr.monsterId);
+                        bool done = kills >= kr.count;
+                        string color = done ? "#88ff88" : "#ffffff";
+                        string check = done ? " \u2705" : "";
+                        sb.AppendLine($"  <color={color}>{kr.monsterId}: {Mathf.Min(kills, kr.count)}/{kr.count}{check}</color>");
+                    }
+                }
+                _questTrackerEntries[i].text = sb.ToString().TrimEnd();
+            }
+            else
+            {
+                _questTrackerEntries[i].gameObject.SetActive(false);
+            }
+        }
+
+        if (questTrackerRoot != null)
+            questTrackerRoot.SetActive(count > 0 && _questTrackerVisible);
     }
 
     void UpdateEffectIcons()
