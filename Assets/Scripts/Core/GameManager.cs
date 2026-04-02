@@ -220,22 +220,49 @@ public class GameManager : MonoBehaviour
 
         if (response.options != null && response.options.Length > 0)
             dlg.ShowOptions(response.options);
+        else
+        {
+            // No options = farewell, auto-close after 1.5s
+            StartCoroutine(AutoCloseDialogue(1.5f));
+        }
 
         // Handle quest offer
         if (response.offerQuest)
         {
             var questInfo = Quests.GetQuestStatusForNpc(npc.Def.id, Inventory);
-            if (questInfo.HasValue && questInfo.Value.status == "available")
+            if (questInfo.HasValue)
             {
-                var quest = questInfo.Value.quest;
-                var rewards = quest.rewards;
-                dlg.ShowQuestProposal(quest, rewards);
+                if (questInfo.Value.status == "available")
+                {
+                    var quest = questInfo.Value.quest;
+                    var brain = AI.GetBrain(npc.Def.id);
+                    int rel = brain?.GetRelationship("player") ?? 0;
+                    float genMult = npc.Def.dialogueTraits?.generosity / 10f ?? 0.5f;
+                    var rewards = Quests.GetScaledRewards(quest, 0, rel, genMult);
+                    dlg.ShowQuestProposal(quest, rewards);
+                }
+                else if (questInfo.Value.status == "completable")
+                {
+                    dlg.OnCompleteQuest?.Invoke(questInfo.Value.quest.id);
+                    dlg.AppendLog("System", "Quest completed!", "#00ff00");
+                }
             }
         }
 
         // Handle AI-triggered action
         if (!string.IsNullOrEmpty(response.action))
             HandleNpcAction(npc, response.action);
+    }
+
+    System.Collections.IEnumerator AutoCloseDialogue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        var dlg = uiManager?.Dialogue;
+        if (dlg != null)
+        {
+            dlg.Hide();
+            dlg.OnClose?.Invoke();
+        }
     }
 
     void HandleNpcAction(VillageNPC npc, string action)

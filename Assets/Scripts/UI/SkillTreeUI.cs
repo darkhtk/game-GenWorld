@@ -36,7 +36,18 @@ public class SkillTreeUI : MonoBehaviour
     static readonly Color MagicColor = new(0.3f, 0.5f, 1f);
 
     readonly Dictionary<string, SkillRowUI> _rows = new();
+    static Dictionary<string, Sprite> _skillIconCache;
     string _selectedSkillId;
+
+    static void EnsureIconCache()
+    {
+        if (_skillIconCache != null) return;
+        _skillIconCache = new Dictionary<string, Sprite>();
+        var sprites = Resources.LoadAll<Sprite>("Skills/skill_icons");
+        if (sprites == null || sprites.Length == 0) return;
+        foreach (var s in sprites)
+            _skillIconCache[s.name] = s;
+    }
 
     void Awake()
     {
@@ -55,6 +66,7 @@ public class SkillTreeUI : MonoBehaviour
     public void Init(SkillDef[] skillDefs)
     {
         ClearRows();
+        EnsureIconCache();
 
         foreach (var def in skillDefs)
         {
@@ -78,7 +90,9 @@ public class SkillTreeUI : MonoBehaviour
                 _ => MeleeColor
             };
 
-            row.Setup(def, treeColor);
+            _skillIconCache.TryGetValue($"skill_icons_{def.id}", out var icon);
+            if (icon == null) _skillIconCache.TryGetValue(def.id, out icon);
+            row.Setup(def, treeColor, icon);
             row.OnLearnClicked = id => OnLearnSkill?.Invoke(id);
             row.OnSelected = id => _selectedSkillId = id;
             _rows[def.id] = row;
@@ -177,6 +191,7 @@ public class SkillRowUI : MonoBehaviour
     [SerializeField] Button learnButton;
     [SerializeField] Button selectButton;
     [SerializeField] Image backgroundImage;
+    [SerializeField] Image iconImage;
 
     static readonly Color MaxedBg = new(0.1f, 0.3f, 0.1f);
     static readonly Color LearnedBg = new(0.1f, 0.15f, 0.3f);
@@ -188,11 +203,12 @@ public class SkillRowUI : MonoBehaviour
 
     string _skillId;
 
-    public void Setup(SkillDef def, Color treeColor)
+    public void Setup(SkillDef def, Color treeColor, Sprite icon = null)
     {
         _skillId = def.id;
         if (nameText != null) { nameText.text = def.name; nameText.color = treeColor; }
         if (descText != null) descText.text = def.description ?? "";
+        if (iconImage != null && icon != null) iconImage.sprite = icon;
 
         if (learnButton != null)
             learnButton.onClick.AddListener(() => OnLearnClicked?.Invoke(_skillId));

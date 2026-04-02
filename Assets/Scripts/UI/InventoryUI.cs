@@ -533,7 +533,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
     public Action<int> OnHover;
     public Action<int> OnHoverExit;
 
-    public void SetItem(string name, int count, int enhanceLevel, Color gradeColor, ItemType type)
+    public void SetItem(string name, int count, int enhanceLevel, Color gradeColor, ItemType type, string icon = null)
     {
         if (nameText != null) { nameText.text = name; nameText.color = gradeColor; }
         if (countText != null)
@@ -541,6 +541,11 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (enhanceText != null)
             enhanceText.text = enhanceLevel > 0 ? $"+{enhanceLevel}" : "";
         if (borderImage != null) borderImage.color = gradeColor;
+        if (iconImage != null && !string.IsNullOrEmpty(icon))
+        {
+            var sprite = Resources.Load<Sprite>($"Sprites/Items/{icon}");
+            if (sprite != null) { iconImage.sprite = sprite; iconImage.enabled = true; }
+        }
     }
 
     public void SetActive(bool active)

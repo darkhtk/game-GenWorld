@@ -63,8 +63,8 @@ public class DialogueUI : MonoBehaviour
 
     static readonly string[] ThinkingPhrases =
     {
-        "Thinking...", "Hmm...", "Let me consider...",
-        "One moment...", "Pondering..."
+        "생각 중...", "흠...", "잠시만...",
+        "고민 중...", "곰곰이..."
     };
 
     void Awake()
