@@ -54,9 +54,9 @@
 | 42 | R-036 Steam 클라우드 | P1 | ✅ | REVIEW-R036-v1 (Steam) |
 | 43 | R-037 Steam 업적 | P2 | ✅ | REVIEW-R037-v1 (Steam) |
 | 44 | R-038 SettingsManager | P2 | ✅ | REVIEW-R038-v1 (Steam) |
-| 45 | R-039 Settings UI | P2 | 👀 | Steam — In Review |
-| 46 | R-040 SteamPipe | P3 | 👀 | Steam — In Review |
-| 47 | R-041 QA 체크리스트 | P3 | 👀 | Steam — In Review |
+| 45 | R-039 Settings UI | P2 | ❌ | REVIEW-R039-v1 NEEDS_WORK |
+| 46 | R-040 SteamPipe | P3 | ❌ | REVIEW-R040-v1 NEEDS_WORK |
+| 47 | R-041 QA 체크리스트 | P3 | ❌ | REVIEW-R041-v1 NEEDS_WORK |
 | 48 | B-001 몬스터 이동 불가 | P0 | 🔧 | 사용자 버그 리포트 |
 | 49 | B-002 NPC 제자리 흔들림 | P0 | 🔧 | 사용자 버그 리포트 |
 | 50 | B-003 NPC 대화 불가 | P0 | 🔧 | 사용자 버그 리포트 |
@@ -72,6 +72,9 @@
 
 | 태스크 | 사유 | REVIEW | 비고 |
 |--------|------|--------|------|
+| R-039 Settings UI (Steam) | NEEDS_WORK | REVIEW-R039-v1 | P2 — P0 버그 수정 후 재작업 |
+| R-040 SteamPipe (Steam) | NEEDS_WORK | REVIEW-R040-v1 | P3 — P0 버그 수정 후 재작업 |
+| R-041 QA 체크리스트 (Steam) | NEEDS_WORK | REVIEW-R041-v1 | P3 — P0 버그 수정 후 재작업 |
 
 ## 🔧 In Progress
 
