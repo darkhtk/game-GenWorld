@@ -65,11 +65,11 @@ public class ActionRunner
             {
                 if (m == null || m.IsDead) continue;
                 float dist = Vector2.Distance(new Vector2(hx, hy), m.Position);
-                if (dist <= effectiveAoe)
-                {
-                    ctx.dealDamage?.Invoke(m, baseDmg, crit, a.color);
-                    hitList.Add(m);
-                }
+                if (dist > effectiveAoe) continue;
+                if (a.cone > 0 && !IsInCone((Vector2)ctx.player.position, ctx.angle, a.cone, m.Position))
+                    continue;
+                ctx.dealDamage?.Invoke(m, baseDmg, crit, a.color);
+                hitList.Add(m);
             }
             if (a.onHit != null && a.onHit.Length > 0 && hitList.Count > 0)
                 ctx.runner?.Run(a.onHit, ctx, hx, hy, hitList);
@@ -155,8 +155,10 @@ public class ActionRunner
             foreach (var m in ctx.monsters)
             {
                 if (m == null || m.IsDead) continue;
-                if (Vector2.Distance(new Vector2(hx, hy), m.Position) <= effectiveAoe)
-                    affected.Add(m);
+                if (Vector2.Distance(new Vector2(hx, hy), m.Position) > effectiveAoe) continue;
+                if (a.cone > 0 && !IsInCone((Vector2)ctx.player.position, ctx.angle, a.cone, m.Position))
+                    continue;
+                affected.Add(m);
             }
         }
         else if (targets != null && targets.Count > 0)
@@ -323,6 +325,15 @@ public class ActionRunner
         List<MonsterController> targets)
     {
         ctx.showEffect?.Invoke(hx, hy);
+    }
+
+    static bool IsInCone(Vector2 origin, float aimAngle, float halfAngle, Vector2 target)
+    {
+        Vector2 delta = target - origin;
+        float angleToTarget = Mathf.Atan2(delta.y, delta.x);
+        float diff = Mathf.Abs(aimAngle - angleToTarget);
+        if (diff > Mathf.PI) diff = 2f * Mathf.PI - diff;
+        return diff <= halfAngle;
     }
 
     void HandleTeleport(SkillAction a, ActionContext ctx, float hx, float hy,
