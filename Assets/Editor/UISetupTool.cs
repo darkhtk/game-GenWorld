@@ -7,40 +7,77 @@ using TMPro;
 
 /// <summary>
 /// Creates all UI child hierarchies, prefabs, and wires SerializeField references.
-/// Run via GenWorld > Setup UI after GameScene is open.
+/// "Setup Everything" creates all 3 scenes with full wiring in one step.
 /// </summary>
 public static class UISetupTool
 {
     const string PrefabPath = "Assets/Prefabs/UI/";
+    const string ScenePath = "Assets/Scenes/";
 
-    [MenuItem("GenWorld/Setup UI")]
+    [MenuItem("GenWorld/Setup Everything")]
+    public static void SetupEverything()
+    {
+        EnsureDir(PrefabPath);
+
+        // Build UI prefabs first (shared across scenes)
+        var prefabs = CreatePrefabs();
+
+        // 1. BootScene — recreate with controller wiring
+        SceneSetupTool.CreateBootScene();
+        Debug.Log("[SetupAll] BootScene done");
+
+        // 2. MainMenuScene — recreate with controller wiring
+        SceneSetupTool.CreateMainMenuScene();
+        Debug.Log("[SetupAll] MainMenuScene done");
+
+        // 3. GameScene — create base, then tiles + full UI
+        SceneSetupTool.CreateGameScene();
+        // Tile assets (creates .asset files, can wire immediately since GameScene is open)
+        SceneSetupTool.SetupTiles();
+        // Full UI hierarchy
+        SetupGameSceneUI(prefabs);
+
+        EditorSceneManager.SaveOpenScenes();
+        Debug.Log("[SetupAll] All 3 scenes created, wired, and saved!");
+    }
+
+    [MenuItem("GenWorld/Setup UI (current scene)")]
     public static void SetupUI()
     {
-        var canvas = Object.FindFirstObjectByType<Canvas>();
-        if (canvas == null || canvas.gameObject.name != "UICanvas")
+        EnsureDir(PrefabPath);
+        var prefabs = CreatePrefabs();
+
+        // Detect which scene is open and configure accordingly
+        var scene = EditorSceneManager.GetActiveScene();
+        if (scene.name == "GameScene" || Object.FindFirstObjectByType<UIManager>() != null)
         {
-            // Try finding any canvas named UICanvas or HUDCanvas
-            foreach (var c in Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None))
-            {
-                if (c.gameObject.name == "UICanvas" || c.gameObject.name == "HUDCanvas")
-                {
-                    canvas = c;
-                    break;
-                }
-            }
+            SetupGameSceneUI(prefabs);
+            EditorSceneManager.MarkSceneDirty(scene);
+            Debug.Log("[UISetup] GameScene UI wired. Save the scene!");
         }
+        else if (scene.name == "BootScene" || Object.FindFirstObjectByType<BootSceneController>() != null)
+        {
+            Debug.Log("[UISetup] BootScene — already wired by SceneSetupTool. No extra UI needed.");
+        }
+        else if (scene.name == "MainMenuScene" || Object.FindFirstObjectByType<MainMenuController>() != null)
+        {
+            Debug.Log("[UISetup] MainMenuScene — already wired by SceneSetupTool. No extra UI needed.");
+        }
+        else
+        {
+            Debug.LogWarning("[UISetup] Unknown scene. Open GameScene, BootScene, or MainMenuScene.");
+        }
+    }
+
+    static void SetupGameSceneUI(Dictionary<string, GameObject> prefabs)
+    {
+        var canvas = FindCanvas("UICanvas");
         if (canvas == null)
         {
-            Debug.LogError("[UISetup] No UICanvas found in scene. Open GameScene first.");
+            Debug.LogError("[UISetup] No UICanvas found in GameScene.");
             return;
         }
 
-        EnsureDir(PrefabPath);
-
-        // Build prefabs first (some panels reference them)
-        var prefabs = CreatePrefabs();
-
-        // Build UI panels
         var hud = SetupHUD(canvas.transform, prefabs);
         var inventoryUI = SetupInventoryUI(canvas.transform, prefabs);
         var shopUI = SetupShopUI(canvas.transform, prefabs);
@@ -53,7 +90,6 @@ public static class UISetupTool
         var npcQuestPanel = SetupNpcQuestPanel(canvas.transform);
         var pauseMenuUI = SetupPauseMenuUI(canvas.transform);
 
-        // Wire UIManager
         var uiMgr = Object.FindFirstObjectByType<UIManager>();
         if (uiMgr != null)
         {
@@ -70,9 +106,15 @@ public static class UISetupTool
             Wire(uiMgr, "pauseMenu", pauseMenuUI);
             EditorUtility.SetDirty(uiMgr);
         }
+    }
 
-        EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
-        Debug.Log("[UISetup] All UI panels created and wired. Save the scene!");
+    static Canvas FindCanvas(string name)
+    {
+        foreach (var c in Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None))
+        {
+            if (c.gameObject.name == name) return c;
+        }
+        return null;
     }
 
     // ─── PREFABS ───
