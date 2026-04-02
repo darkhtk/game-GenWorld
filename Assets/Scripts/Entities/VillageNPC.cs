@@ -25,15 +25,16 @@ public class VillageNPC : MonoBehaviour
         _rb.freezeRotation = true;
         transform.position = position;
 
-        // Load sprite
+        // Load sprite (Multiple spritesheet → LoadAll, use first frame)
         if (!string.IsNullOrEmpty(def.sprite))
         {
-            var sprite = Resources.Load<Sprite>($"Sprites/{def.sprite}");
-            if (sprite == null) sprite = Resources.Load<Sprite>(def.sprite);
-            if (sprite != null)
+            var sprites = Resources.LoadAll<Sprite>($"Sprites/{def.sprite}");
+            if (sprites == null || sprites.Length == 0)
+                sprites = Resources.LoadAll<Sprite>(def.sprite);
+            if (sprites != null && sprites.Length > 0)
             {
                 var sr = GetComponent<SpriteRenderer>();
-                if (sr != null) sr.sprite = sprite;
+                if (sr != null) sr.sprite = sprites[0];
             }
         }
         _patrolCenter = position;

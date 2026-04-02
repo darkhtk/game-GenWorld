@@ -48,15 +48,16 @@ public class MonsterController : MonoBehaviour
             var col = gameObject.AddComponent<BoxCollider2D>();
             col.size = new Vector2(0.8f, 0.8f);
         }
-        // Load sprite from Resources
+        // Load sprite from Resources (Multiple spritesheet → LoadAll, use first frame)
         if (!string.IsNullOrEmpty(def.sprite))
         {
-            var sprite = Resources.Load<Sprite>($"Sprites/{def.sprite}");
-            if (sprite == null) sprite = Resources.Load<Sprite>(def.sprite);
-            if (sprite != null)
+            var sprites = Resources.LoadAll<Sprite>($"Sprites/{def.sprite}");
+            if (sprites == null || sprites.Length == 0)
+                sprites = Resources.LoadAll<Sprite>(def.sprite);
+            if (sprites != null && sprites.Length > 0)
             {
                 _sr = GetComponent<SpriteRenderer>();
-                if (_sr != null) _sr.sprite = sprite;
+                if (_sr != null) _sr.sprite = sprites[0];
             }
         }
 
