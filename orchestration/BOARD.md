@@ -54,9 +54,9 @@
 | 42 | R-036 Steam 클라우드 | P1 | ✅ | REVIEW-R036-v1 (Steam) |
 | 43 | R-037 Steam 업적 | P2 | ✅ | REVIEW-R037-v1 (Steam) |
 | 44 | R-038 SettingsManager | P2 | ✅ | REVIEW-R038-v1 (Steam) |
-| 45 | R-039 Settings UI | P2 | 👀 | v2 재제출 — In Review |
-| 46 | R-040 SteamPipe | P3 | 👀 | v2 재제출 — In Review |
-| 47 | R-041 QA 체크리스트 | P3 | 👀 | v2 재제출 — In Review |
+| 45 | R-039 Settings UI | P2 | ✅ | REVIEW-R039-v2 (Steam) |
+| 46 | R-040 SteamPipe | P3 | ✅ | REVIEW-R040-v2 (Steam) |
+| 47 | R-041 QA 체크리스트 | P3 | ✅ | REVIEW-R041-v2 (Steam) |
 | 48 | B-001 몬스터 이동 불가 | P0 | ✅ | REVIEW-B001-008-v1 |
 | 49 | B-002 NPC 제자리 흔들림 | P0 | ✅ | REVIEW-B001-008-v1 |
 | 50 | B-003 NPC 대화 불가 | P0 | ✅ | REVIEW-B001-008-v1 |
@@ -82,9 +82,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-039 Settings UI v2 | 2026-04-03 | ✅ APPROVE | REVIEW-R039-v2 [깊은 리뷰] |
-| R-040 SteamPipe v2 | 2026-04-03 | ✅ APPROVE | REVIEW-R040-v2 |
-| R-041 QA 체크리스트 v2 | 2026-04-03 | ✅ APPROVE | REVIEW-R041-v2 |
 
 ## ✅ Done
 
@@ -142,6 +139,9 @@
 | B-006 Ollama AI 연동 | 2026-04-03 | REVIEW-B001-008-v1 ✅ |
 | B-007 인벤토리 아이콘 | 2026-04-03 | REVIEW-B001-008-v1 ✅ |
 | B-008 카메라 Z값 | 2026-04-03 | REVIEW-B001-008-v1 ✅ |
+| R-039 Settings UI v2 | 2026-04-03 | REVIEW-R039-v2 ✅ (Steam) |
+| R-040 SteamPipe v2 | 2026-04-03 | REVIEW-R040-v2 ✅ (Steam) |
+| R-041 QA 체크리스트 v2 | 2026-04-03 | REVIEW-R041-v2 ✅ (Steam) |
 
 ## 📋 Backlog
 
