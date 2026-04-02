@@ -45,7 +45,8 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-027 AnimationDef | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R027-v1 |
+| R-027 AnimationDef | 2026-04-02 | (대기 v2) | 수정: .asset 생성 Editor 스크립트 추가 |
+| R-028 AnimationPreviewUI | 2026-04-02 | (대기) | QA/검증, 자가진행 허용 |
 
 ## ✅ Done
 

@@ -55,8 +55,7 @@
 
 ~~R-027: AnimationDef~~ → BOARD로 이동
 
-### R-028: AnimationPreviewUI — 인게임 애니메이션 미리보기 디버그 패널
-런타임에서 엔티티를 선택하고 애니메이션을 재생·일시정지·속도조절할 수 있는 디버그 UI 구현. specs/SPEC-R-028.md 참조.
+~~R-028: AnimationPreviewUI~~ → BOARD로 이동
 
 ### R-029: PlayerAnimator 검증 및 상태 정리
 PlayerAnimator·PlayerController 연동 점검, 누락 상태 보완, AnimationDef 연결. specs/SPEC-R-029.md 참조.
