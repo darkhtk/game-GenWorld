@@ -58,11 +58,17 @@ public class HUD : MonoBehaviour
     [SerializeField] TextMeshProUGUI skillTooltipDesc;
     [SerializeField] TextMeshProUGUI skillTooltipStats;
 
+    [Header("Status Effects")]
+    [SerializeField] Transform effectIconContainer;
+    [SerializeField] GameObject effectIconPrefab;
+
     static readonly Color HpColor = new(1f, 0.267f, 0.267f);
     static readonly Color MpColor = new(0.267f, 0.533f, 1f);
 
     const int MaxHistoryEntries = 8;
+    const int MaxEffectIcons = 8;
     readonly List<TextMeshProUGUI> _historyEntries = new();
+    readonly List<GameObject> _effectIcons = new();
     bool _historyVisible = true;
     PlayerController _cachedPlayer;
     int _hoveredSkillSlot = -1;
@@ -111,6 +117,7 @@ public class HUD : MonoBehaviour
     {
         UpdateCooldowns();
         UpdateBuffDurations();
+        UpdateEffectIcons();
         UpdateDodgeFromPlayer();
         UpdatePotionsFromInventory();
     }

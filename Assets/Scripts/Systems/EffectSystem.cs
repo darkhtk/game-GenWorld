@@ -99,5 +99,24 @@ public class EffectHolder
         return 0f;
     }
 
+    public List<ActiveEffectInfo> GetActive(float now)
+    {
+        var result = new List<ActiveEffectInfo>();
+        foreach (var kv in _effects)
+        {
+            if (kv.Value.expiresAt > now)
+            {
+                result.Add(new ActiveEffectInfo
+                {
+                    type = kv.Key,
+                    expires = kv.Value.expiresAt,
+                    totalDuration = kv.Value.totalDuration,
+                    value = kv.Value.value
+                });
+            }
+        }
+        return result;
+    }
+
     public void Clear() => _effects.Clear();
 }
