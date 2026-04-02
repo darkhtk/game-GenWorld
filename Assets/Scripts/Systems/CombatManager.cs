@@ -112,6 +112,7 @@ public class CombatManager : MonoBehaviour
             var stats = _getStats();
             int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
             ApplyDamageToPlayer(dmg);
+            SkillVFX.ShowAtPosition(this, "vfx_melee_hit", _player.Position.x, _player.Position.y);
         }
     }
 
