@@ -219,10 +219,10 @@ public class CombatManager : MonoBehaviour
             targetY = ty,
             dealDamage = DealDamageToMonster,
             showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
-            showEffect = (x, y) => { /* Frontend VFX */ },
+            showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
             onKill = m => _onMonsterDeath?.Invoke(m),
             recalcStats = s => { },
-            shakeCamera = (d, i) => { /* Frontend camera shake */ },
+            shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
             applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
             healPlayer = amount =>
             {
@@ -254,10 +254,10 @@ public class CombatManager : MonoBehaviour
             targetY = ty,
             dealDamage = DealDamageToMonster,
             showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
-            showEffect = (x, y) => { /* Frontend VFX */ },
+            showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
             onKill = m => _onMonsterDeath?.Invoke(m),
             recalcStats = s => { },
-            shakeCamera = (d, i) => { /* Frontend camera shake */ },
+            shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
             applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
             healPlayer = amount =>
             {

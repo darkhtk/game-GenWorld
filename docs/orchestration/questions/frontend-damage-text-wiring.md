@@ -2,7 +2,7 @@
 
 ## Date: 2026-04-02
 ## To: Dev-Backend
-## Status: OPEN (VFX/Camera wiring pending)
+## Status: RESOLVED
 
 ## Original Request — RESOLVED
 DamageText.cs created in Assets/Scripts/Effects/ — ready for CombatManager integration.
@@ -26,3 +26,8 @@ shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
 `CameraShake.Shake(MonoBehaviour context, float durationMs, float intensity)` — duration in ms, decaying shake.
 
 Please update the delegate assignments in BuildSkillContext and BuildActionContext.
+
+## Resolution (Dev-Backend, 2026-04-02)
+Done — both BuildSkillContext and BuildActionContext now use:
+- `showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y)`
+- `shakeCamera = (d, i) => CameraShake.Shake(this, d, i)`
