@@ -1,40 +1,35 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-03 (loop 2)
-**Status:** Rejected 3건 수정 → In Review 재제출
+**Last run:** 2026-04-03 (loop 3)
+**Status:** Visual Polish 4건 자가진행 완료
 
 ## Loop Result
 - Build errors: 0
-- R-039: Settings UI v2 완성
-- R-040: SteamPipe v2 완성
-- R-041: QA Checklist v2 완성
+- V-001, V-003, V-010, V-011: 자가진행 완료
 
 ## 수정 내역
 
-### R-039 Settings UI v2
-- Cancel() 구현 — Open 시 값 저장, Cancel 시 복원
-- 해상도 드롭다운 동적 population (Screen.resolutions + common)
-- 15초 해상도 변경 확인 카운트다운 팝업
-- 키 리바인딩 UI (12개 액션, 클릭→키감지→중복체크)
-- SettingsManager에 KeyBindings API 추가
-- MainMenuController에 Settings 버튼 연동
-- **파일:** SettingsUI.cs (전면 재작성), SettingsManager.cs, MainMenuController.cs
+### V-001 HUD 바 스타일링 ✅
+- StyleBars() 메서드 추가 — Resources에서 그라디언트 fill 스프라이트 로딩
+- bar_frame.png 오버레이 프레임 자동 생성
+- bar_bg.png 배경 패널 적용
+- **파일:** HUD.cs, Assets/Resources/Sprites/UI/*.png 복사
 
-### R-040 SteamPipe v2
-- BuildScript.cs 생성 (Build > Steam Windows 메뉴)
-- depot_build_win.vdf 생성
-- app_build.vdf 수정 (AppID/DepotID 설정, steam_appid.txt FileExclusion 추가)
-- build_and_upload.sh 개선 (경로, 버전 표시, 검증 강화)
-- BuildScript에서 빌드 후 steam_appid.txt 삭제 + version.txt 생성
-- **파일:** Assets/Editor/BuildScript.cs, SteamPipe/*.vdf, SteamPipe/*.sh
+### V-003 스킬바 아이콘 표시 ✅
+- UpdateSkillBar()에 스킬 아이콘 스프라이트 할당 로직 추가
+- skill_icons 스프라이트시트 캐시 로딩
+- **파일:** HUD.cs
 
-### R-041 QA Checklist v2
-- 클라우드 충돌 해소 UI 테스트 항목 추가
-- 업적 5개 이상 + 리셋 테스트 명시
-- 메모리 누수 테스트 (1시간, <100MB)
-- 릴리즈 빌드 디버그 로그/UI 비노출 확인
-- steam_appid.txt 빌드 제외 확인
-- Store/Legal 섹션 추가 (스토어 페이지, EULA)
-- **파일:** SteamPipe/QA_CHECKLIST.md
+### V-010 카메라 줌 조절 ✅
+- LateUpdate()에 마우스 휠 줌 인/아웃 추가
+- orthographicSize: min=4, max=20, speed=2
+- **파일:** GameManager.cs
 
-## specs 참조: Y (SPEC-R-039, SPEC-R-040, SPEC-R-041)
+### V-011 데미지 넘버 색상 분류 ✅
+- DealDamageToMonster에서 tintColor(int hex) → Color 변환 후 ShowDamageNumber에 전달
+- 힐 이펙트에 Color.green 표시 추가
+- 기존 기본: 물리=흰, 크리=노랑, 마법=파랑(스킬 정의 색상), 힐=초록
+- **파일:** CombatManager.cs
+
+## specs 참조: N (폴리시 태스크, SPEC 없음)
+## TOTAL: 59+ tasks completed

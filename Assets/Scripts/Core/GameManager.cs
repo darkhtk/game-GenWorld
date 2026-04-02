@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
         InitMinimap();
         SpawnInitialRegion();
         RegisterNpcs();
+        Quests.SubscribeEvents();
         SubscribeEvents();
         WirePotionCallbacks();
         WireUICallbacks();
@@ -609,7 +610,38 @@ public class GameManager : MonoBehaviour
             };
             dlg.OnCompleteQuest = questId =>
             {
-                Quests.CompleteQuest(questId, Inventory);
+                var reward = Quests.CompleteQuest(questId, Inventory);
+                if (reward == null) return;
+
+                if (reward.gold > 0)
+                {
+                    PlayerState.Gold += reward.gold;
+                    EventBus.Emit(new GoldChangeEvent { gold = PlayerState.Gold });
+                }
+                if (reward.xp > 0)
+                {
+                    var state = new PlayerLevelState
+                    {
+                        level = PlayerState.Level, xp = PlayerState.Xp,
+                        skillPoints = PlayerState.SkillPoints, statPoints = PlayerState.StatPoints
+                    };
+                    LevelSystem.AddXp(ref state, reward.xp);
+                    PlayerState.Level = state.level; PlayerState.Xp = state.xp;
+                    PlayerState.SkillPoints = state.skillPoints; PlayerState.StatPoints = state.statPoints;
+                    PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
+                    player.SetSpeed(PlayerState.CurrentStats.spd);
+                }
+                if (reward.items != null)
+                {
+                    foreach (var ri in reward.items)
+                    {
+                        bool stackable = Data.Items.TryGetValue(ri.itemId, out var def) && def.stackable;
+                        Inventory.AddItem(ri.itemId, ri.count, stackable, def?.maxStack ?? 1);
+                    }
+                }
+                uiManager.Hud?.AddHistoryEntry(
+                    $"Quest complete! +{reward.gold}G +{reward.xp}XP", Color.yellow);
+                AudioManager.Instance?.PlaySFX("sfx_quest_complete");
             };
         }
 
