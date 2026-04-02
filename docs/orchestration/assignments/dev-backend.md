@@ -1,63 +1,61 @@
 # Current Assignment: Dev-Backend
 
-## Status: ACTIVE
+## Status: ACTIVE (Phase 7)
 
 ## !! LOOP RULE !!
 **절대 멈추지 마라.** 모든 Phase 끝나면 → Loop로. 블로커 만나면 → 기록하고 다음 작업.
-"할 일이 없다", "대기 중", "assignment 확인 필요" 같은 상태는 금지.
-항상 할 일이 있다. 아래 Loop 섹션을 봐라.
 
 ## Completed
 - [x] Phase 2 — 11 Systems + 8 test suites
-- [x] Phase 3 — Entities (PlayerController, PlayerStats, MonsterController, MonsterSpawner, VillageNPC, Projectile)
+- [x] Phase 3 — 6 Entities
+- [x] Phase 4 — CombatManager, SkillExecutor, ActionRunner, AreaEffect
+- [x] Phase 5 — OllamaClient, PromptBuilder, AIManager + 3 AI test suites
 
-## Task
-순서대로 진행. 각 Phase 끝나면 커밋 → status 갱신 → 다음 Phase.
+## Task: Phase 7 — Integration Hardening
 
-### Phase 4: Combat Runtime + Remaining Handlers
-| File | Status | Notes |
-|------|--------|-------|
-| CombatManager.cs | STUB | Auto-attack loop, monster attacks, ExecuteSkill, damage numbers |
-| SkillExecutor.cs | PARTIAL | 5 remaining: projectile_multi, chain, aoe_debuff, place_trap, place_blizzard |
-| ActionRunner.cs | PARTIAL | 3 remaining: spawn_projectile, spawn_area, teleport |
+### Step 1: QuestSystem EventBus 연동
+QuestSystem이 MonsterKillEvent를 수신해서 킬 조건 퀘스트를 자동 진행하도록 연결.
+- `QuestSystem`에 EventBus.On<MonsterKillEvent> 핸들러 추가
+- 퀘스트 완료 시 EventBus.Emit(QuestCompleteEvent) 발행
+- EditMode 테스트 작성
 
-### Phase 5: AI
-| File | Status | Notes |
-|------|--------|-------|
-| OllamaClient.cs | STUB | POST to localhost:11434/api/generate |
-| PromptBuilder.cs | STUB | SYSTEM_RULES + BuildDialoguePrompt |
-| AIManager.cs | MOSTLY STUB | RegisterNpc, GenerateDialogue, UpdateBehavior |
-| RegionTracker.cs | STUB | GetRegionAt, UpdatePlayerRegion |
+### Step 2: SkillSystem cooldown 연동
+CombatManager.ExecuteSkill()에서 스킬 쿨다운 상태를 HUD에 반영할 수 있도록:
+- SkillSystem.GetCooldowns() 메서드 추가 (float[] 반환)
+- 이미 있으면 무시
 
-### Bonus (함께 커밋)
-- `Assets/Tests/EditMode/EditModeTests.asmdef` — GenWorld 참조 추가 (디스크 적용됨)
-- `Assets/Scripts/GenWorld.asmdef` — 새로 생성됨 (디스크 존재)
+### Step 3: 테스트 커버리지 보강
+현재 테스트가 없거나 약한 시스템:
+- CombatManager (iteration fix는 있지만 전체 로직 테스트 부족)
+- ActionRunner (spawn_projectile, spawn_area, teleport)
+- EffectSystem (stun/slow/dot 만료 테스트)
+- SaveSystem (round-trip 테스트)
+
+### Step 4: 방어 코드 보강
+- MonsterSpawner.SpawnForRegion(): null 리전 방어
+- CombatManager: 몬스터 리스트 비어있을 때 예외 방지 확인
+- AIManager: OllamaClient 연결 실패 시 graceful fallback 확인
 
 ## How
-1. 스텁 파일을 열고 `interface-contracts.md`와 대조
-2. public 시그니처 유지, 실제 로직으로 채움
-3. 가능한 시스템에 EditMode 테스트 작성
-4. Phase 끝나면 바로 커밋하고 다음으로
+1. interface-contracts.md 확인 후 시그니처 유지
+2. 수정 후 EditMode 테스트 작성/갱신
+3. Step 끝나면 커밋 → status 갱신
 
 ## Reference
 - docs/orchestration/reference/interface-contracts.md
 - docs/orchestration/reference/data-schema.md
-- docs/orchestration/reference/architecture.md
-- Assets/StreamingAssets/Data/ai-rules/ (AI 관련)
-- Assets/StreamingAssets/Data/npc-profiles/ (NPC 성격)
+- Assets/Scripts/Core/GameManager.cs (Director가 EventBus→UI 와이어링 완료)
 
-## Git (Phase별)
+## Git
 ```bash
-git add Assets/Scripts/Systems/ Assets/Scripts/AI/ Assets/Scripts/Entities/ Assets/Tests/EditMode/ Assets/Scripts/GenWorld.asmdef
-git commit -m "feat: implement Phase N — <설명>"
+git add Assets/Scripts/Systems/ Assets/Scripts/AI/ Assets/Scripts/Entities/ Assets/Tests/EditMode/
+git commit -m "feat: Phase 7 Step N — <설명>"
 ```
-status/dev-backend.md 갱신 후 다음 Phase로.
 
-## Loop (Phase 4-5 모두 끝난 후)
-모든 Phase가 끝나도 **멈추지 마라**. 아래를 반복:
-1. `compile-status.md` 확인 — 내 코드가 원인인 에러 수정
-2. `questions/` 확인 — 나한테 온 질문 답변
-3. 기존 코드 리뷰 — 자기가 작성한 Systems/Entities/AI 코드에서 버그/누락 찾기
-4. 테스트 보강 — 커버리지 낮은 시스템에 테스트 추가
+## Loop (Phase 7 끝난 후)
+1. `compile-status.md` 확인 — 에러 수정
+2. `questions/` 확인 — 답변
+3. 코드 리뷰 — 자기 코드 버그/누락 찾기
+4. 테스트 보강
 5. `status/dev-backend.md` 갱신
-6. 1번으로 돌아가기
+6. 1번으로

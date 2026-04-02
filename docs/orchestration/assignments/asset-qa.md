@@ -1,72 +1,62 @@
 # Current Assignment: Asset/QA
 
-## Status: ACTIVE
+## Status: ACTIVE (Phase 7)
 
 ## !! LOOP RULE !!
-**절대 멈추지 마라.** 모든 Step 끝나면 → Loop로. 블로커 만나면 → 기록하고 다음 작업.
-"할 일이 없다", "대기 중", "assignment 확인 필요" 같은 상태는 금지.
-항상 할 일이 있다. 아래 Loop 섹션을 봐라.
+**절대 멈추지 마라.** 모든 Step 끝나면 → Loop로.
 
 ## Completed
-- [x] Data files copied (JSON + npc-profiles + lore + ai-rules)
-- [x] Art assets copied (sprites, tileset, items, skill_icons, effects)
+- [x] Data files + Art assets copied
+- [x] Step 1-5 — 컴파일 확인, 테스트 실행, WorldMapGenerator, Scene/Prefab 도구
 
-## Task
-순서대로 진행. asmdef 이슈 해결됨 — 바로 시작.
+## Task: Phase 7 — Runtime Verification + Polish
 
-### Step 1: 컴파일 확인
+### Step 1: 컴파일 재확인
+Director가 GameManager에 UI 와이어링 추가함 (f10b355). 새 코드로 컴파일 확인.
 ```bash
 LOG="$LOCALAPPDATA/Unity/Editor/Editor.log"
 grep "error CS" "$LOG" | tail -20
 ```
 결과를 `status/compile-status.md`에 기록.
-에러가 있으면 `questions/`에 보고하되, **내 작업은 멈추지 말고** 다음 Step 진행.
 
-### Step 2: EditMode 테스트 실행
-asmdef 수정이 디스크에 적용됨 (GenWorld.asmdef + EditModeTests.asmdef).
-Unity Test Runner에서 EditMode 테스트 실행 가능 여부 확인.
-결과를 `status/asset-qa.md`에 기록.
-**테스트 실패가 있어도 멈추지 말고** 결과만 기록하고 다음으로.
+### Step 2: Scene 와이어링 검증
+Editor tool로 Scene/Prefab을 생성했지만, GameManager의 SerializeField 연결이 필요:
+- GameScene의 GameManager 오브젝트에 player, worldMap, monsterSpawner, combatManager, uiManager 연결 확인
+- 연결 안 되어 있으면 `questions/`에 보고 (Scene 와이어링은 수동 작업)
 
-### Step 3: WorldMapGenerator.cs 구현
-파일: `Assets/Scripts/Map/WorldMapGenerator.cs`
-- Generate(): RegionDef[] 읽고 Unity Tilemap API로 타일 생성
-- IsWalkable(tileX, tileY): collisionTilemap 체크
-- IsVillageTile(tileX, tileY): 마을 영역 바운드 체크
-- **Y축 반전 주의**: Phaser Y↓ → Unity Y↑ (phaser-unity-mapping.md 참조)
+### Step 3: EditMode 테스트 전체 실행
+Dev-Backend가 AI 테스트 3개 추가함 (f1005ac). 기존 8 + 신규 3 = 11 suites 확인.
+```bash
+LOG="$LOCALAPPDATA/Unity/Editor/Editor.log"
+grep -E "Test Run|Passed|Failed" "$LOG" | tail -10
+```
 
-데이터: Assets/StreamingAssets/Data/regions.json (bounds, tileWeights)
-시그니처: docs/orchestration/reference/interface-contracts.md (Map 섹션)
+### Step 4: 데이터 무결성 재확인
+- regions.json의 bounds가 MapWidthTiles(200) × MapHeightTiles(200) 범위 안인지 확인
+- 모든 monster.drops의 itemId가 items.json에 존재하는지 크로스체크
+- 모든 quest의 requirement.monsterId/itemId가 유효한지 확인
 
-### Step 4: Scene 셋업
-- GameScene: Tilemap, Player placeholder, Canvas, Camera
-- BootScene: splash + DataManager.LoadAll 호출 지점
-- MainMenuScene: New Game / Continue 버튼
-
-### Step 5: Prefab 생성
-- Monster prefab (MonsterController 부착)
-- NPC prefab (VillageNPC 부착)
-- Projectile prefab
-- DamageNumber prefab (TextMeshPro)
+### Step 5: Cinemachine 설정 준비
+GameScene에 Cinemachine 2D 카메라가 필요:
+- Package Manager에서 Cinemachine 설치 여부 확인
+- 설치 안 되어 있으면 `questions/`에 보고 (패키지 설치는 Unity Editor에서)
+- CinemachineVirtualCamera 추가 + Follow = Player 설정 문서화
 
 ## Reference
-- docs/orchestration/reference/interface-contracts.md (Map 섹션)
-- docs/orchestration/reference/phaser-unity-mapping.md (Y축 변환)
-- docs/orchestration/reference/data-schema.md (RegionDef)
+- docs/orchestration/reference/interface-contracts.md
+- docs/orchestration/reference/data-schema.md
+- Assets/Scripts/Core/GameManager.cs (최신 — UI 와이어링 포함)
 
-## Git (Step별)
+## Git
 ```bash
-git add Assets/Scripts/Map/ Assets/Scenes/ Assets/Prefabs/
-git commit -m "feat: <설명>"
+git add Assets/Scripts/Map/ Assets/Scenes/ Assets/Prefabs/ Assets/StreamingAssets/
+git commit -m "fix: <설명>"
 ```
-status/asset-qa.md 갱신 후 다음 Step으로.
 
-## Loop (Step 1-5 모두 끝난 후)
-모든 Step이 끝나도 **멈추지 마라**. 아래를 반복:
-1. 컴파일 모니터링 — `Editor.log` 체크, `compile-status.md` 갱신
-2. `questions/` 확인 — 나한테 온 질문 답변
-3. `status/dev-backend.md`, `status/dev-frontend.md` 읽기 — 새 커밋 있으면 컴파일 재확인
-4. EditMode 테스트 재실행 — 새 테스트 추가됐을 수 있음
-5. 스프라이트/데이터 파일 무결성 확인 (PPU=32, Filter=Point 등)
-6. `status/asset-qa.md` 갱신
-7. 1번으로 돌아가기
+## Loop
+1. 컴파일 모니터링
+2. `questions/` 확인
+3. 새 커밋 있으면 컴파일/테스트 재확인
+4. 데이터 파일 무결성
+5. `status/asset-qa.md` 갱신
+6. 1번으로
