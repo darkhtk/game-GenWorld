@@ -1,7 +1,7 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #12)
-> **수행 행동:** Step 2 자동 행동 #5 — 에러 점검
+> **최종 실행:** 2026-04-02 (루프 #13)
+> **수행 행동:** Step 2 자동 행동 #2 — 코드 품질 감사 (2차 라운드)
 
 ## 이번 루프 요약
 
@@ -11,33 +11,29 @@
 ### Step 1
 - 🎨 태스크 없음 → Step 2
 
-### Step 2: 에러 점검 (#5)
+### Step 2: 코드 품질 감사 2차 (최근 변경 파일 대상)
 
-#### Unity Editor.log 스캔 결과
-- **84개 에러** 감지 → 전부 **STALE** (이전 빌드 잔여)
-  - DamageText.cs merge conflict markers (42건) — 이미 해결됨
-  - DataManager.cs Exception/ValidateData (21건) — 이미 코드에 존재
-  - NpcDef.cs ConditionalDialogue (21건) — 이미 클래스 정의됨
-- Unity 재컴파일 시 자동 해소 예상
+#### 감사 대상: 25개 최근 변경 C# 파일
 
-#### 추가 검증
-- `<<<<<<` / `>>>>>>>` 잔여 merge conflict: **0건** (전체 Assets/Scripts/ 스캔)
-- GetHashCode 위험 사용: **0건**
-- 현재 코드베이스: **클린 상태**
+#### 수정 완료 (3건 — VillageNPC.cs)
 
-### BOARD 동기화
-- R-007 → ✅ Done (이미 다른 에이전트가 동기화)
-- 전체: R-001~R-007 모두 Done, In Review 0건, In Progress 0건
-- Backlog 0건 → 개발자가 RESERVE에서 다음 항목 배정 예정
+| # | 위치 | 수정 | 심각도 |
+|---|------|------|--------|
+| 1 | VillageNPC.cs:48 | `linearVelocity = dir * _speed * Time.fixedDeltaTime * 60f` → `dir * _speed` | HIGH — MonsterController과 동일 버그 (물리엔진이 deltaTime 처리) |
+| 2 | VillageNPC.cs:41 | `Vector2.Distance < 4f` → `sqrMagnitude < 16f` | MEDIUM — 순찰 도착 판정 |
+| 3 | VillageNPC.cs:53 | `Vector2.Distance <= range` → `sqrMagnitude <= range * range` | MEDIUM — 상호작용 거리 판정 |
 
-### 자동 행동 순환 현황 (루프 #1~#12)
-| 행동 | 마지막 실행 | 비고 |
-|------|-----------|------|
-| #1 에셋 선제 생성 | — | RESERVE 코드 태스크만 남아 해당 없음 |
-| #2 코드 품질 감사 | 루프 #1 | 8건 버그 수정 |
-| #3 성능 최적화 | 루프 #10 | 7건 perf 개선 |
-| #4 UX 개선 | 루프 #11 | ScreenFlash + HP 맥동 + HUD 캐싱 |
-| #5 에러 점검 | 루프 #12 (이번) | 84 stale, 0 real |
+#### 신규 파일 품질 확인 (이상 없음)
+
+| 파일 | 평가 |
+|------|------|
+| DialogueConditionParser.cs | ✅ 잘 구조화됨, try-catch 적절, 우선순위 기반 매칭 |
+| ObjectPool.cs | ✅ 깔끔한 제네릭 풀, null destroyed 객체 처리됨 |
+| Projectile.cs (pooled) | ✅ ObjectPool 사용, TryGetComponent, HashSet 히트 추적 |
+| DialogueUI.cs | ✅ 적절한 UI 구조 |
+
+### BOARD 상태
+- R-001~R-007 ✅ Done, R-008 👀 In Review
 
 ### 다음 루프 예정
-- Step 2 자동 행동 #2: 코드 품질 감사 (2차 라운드 — 최근 개발자 코드 변경 대상)
+- Step 2 자동 행동 #3: 성능 최적화 (2차 — ActionRunner List 할당 등)
