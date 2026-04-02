@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public RegionTracker RegionTracker { get; private set; }
     public TimeSystem TimeSystem { get; private set; }
     public AchievementSystem Achievements { get; private set; }
+    public WorldEventSystem WorldEvents { get; private set; }
 
     readonly Dictionary<string, int> _killCounts = new();
     int _totalKills;
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
         TimeSystem = new TimeSystem();
         Achievements = new AchievementSystem();
         Achievements.Init();
+        WorldEvents = new WorldEventSystem();
+        WorldEvents.Init();
 
         PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
         PlayerState.FullHeal();
@@ -80,6 +83,7 @@ public class GameManager : MonoBehaviour
         if (player.Frozen) return;
 
         TimeSystem.Update(Time.deltaTime);
+        WorldEvents.Update(TimeSystem.GameHour);
         float nowMs = Time.time * 1000f;
         var monsters = monsterSpawner.ActiveMonsters;
 
