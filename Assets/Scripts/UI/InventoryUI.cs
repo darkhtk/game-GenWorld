@@ -83,6 +83,7 @@ public class InventoryUI : MonoBehaviour
 
     int _dragFromSlot = -1;
     bool _dragging;
+    int _pendingEquipIndex = -1;
     string _currentFilter = "all";
     int _currentSortMode; // 0=name, 1=grade, 2=type
     static readonly string[] FilterNames = { "all", "weapon", "armor", "consumable", "material" };
@@ -92,7 +93,13 @@ public class InventoryUI : MonoBehaviour
     {
         if (panel != null) panel.SetActive(false);
         if (tooltipPanel != null) tooltipPanel.SetActive(false);
+        if (comparePanel != null) comparePanel.SetActive(false);
         if (dragIcon != null) dragIcon.gameObject.SetActive(false);
+
+        if (compareEquipButton != null)
+            compareEquipButton.onClick.AddListener(ConfirmEquip);
+        if (compareCancelButton != null)
+            compareCancelButton.onClick.AddListener(() => { if (comparePanel != null) comparePanel.SetActive(false); });
         if (closeButton != null) closeButton.onClick.AddListener(Hide);
         if (sortButton != null) sortButton.onClick.AddListener(() => OnSortCallback?.Invoke());
 
@@ -212,7 +219,7 @@ public class InventoryUI : MonoBehaviour
             if (def.TypeEnum == ItemType.Potion)
                 OnUseItemCallback?.Invoke(index);
             else if (ItemTypeUtil.IsEquipment(def.TypeEnum))
-                OnEquipCallback?.Invoke(index);
+                ShowComparePopup(index, def);
         }
     }
 
