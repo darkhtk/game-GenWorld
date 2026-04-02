@@ -625,7 +625,7 @@ public class GameManager : MonoBehaviour
                         level = PlayerState.Level, xp = PlayerState.Xp,
                         skillPoints = PlayerState.SkillPoints, statPoints = PlayerState.StatPoints
                     };
-                    LevelSystem.AddXp(ref state, reward.xp);
+                    StatsSystem.AddXp(ref state, reward.xp);
                     PlayerState.Level = state.level; PlayerState.Xp = state.xp;
                     PlayerState.SkillPoints = state.skillPoints; PlayerState.StatPoints = state.statPoints;
                     PlayerState.RecalcStats(Data.Items, Data.SetBonuses);

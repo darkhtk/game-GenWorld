@@ -62,6 +62,7 @@ public class MonsterController : MonoBehaviour
         }
 
         _hpBar = MonsterHPBar.Create(transform, def.hp);
+        NameLabel.Create(transform, def.name, new Color(1f, 0.4f, 0.4f), 1.2f);
         ValidateAnimations();
     }
 
