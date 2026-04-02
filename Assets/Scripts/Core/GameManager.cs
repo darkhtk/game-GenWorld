@@ -271,6 +271,16 @@ public class GameManager : MonoBehaviour
         PlayerState.Gold += def.gold;
         EventBus.Emit(new GoldChangeEvent { gold = PlayerState.Gold });
 
+        // R-037/R-038: floating XP and gold text
+        if (combatManager != null)
+        {
+            Vector2 textPos = monster.Position + Vector2.up * 1.2f;
+            if (def.xp > 0)
+                combatManager.ShowFloatingText(textPos, $"+{def.xp} XP", new Color(0.6f, 0.8f, 1f));
+            if (def.gold > 0)
+                combatManager.ShowFloatingText(textPos + Vector2.up * 0.4f, $"+{def.gold}G", new Color(1f, 0.85f, 0.3f));
+        }
+
         var drops = LootSystem.RollDrops(def.drops);
         foreach (var drop in drops)
         {
