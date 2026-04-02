@@ -2,7 +2,7 @@
 
 ## Date: 2026-04-02
 ## To: Director
-## Status: OPEN
+## Status: RESOLVED
 
 ## Bug 1: AIManager.Init() never called
 GameManager.cs:46 creates `AI = new AIManager()` but never calls `await AI.Init()`.

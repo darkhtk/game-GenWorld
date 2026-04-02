@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         Crafting = new CraftingSystem(Data.Recipes, Data.Items);
         Quests = new QuestSystem(Data.QuestList);
         AI = new AIManager();
+        _ = AI.Init();
         RegionTracker = new RegionTracker(Data.RegionList);
 
         PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
@@ -160,17 +161,9 @@ public class GameManager : MonoBehaviour
 
         EventBus.On<LevelUpEvent>(e =>
         {
-            PlayerState.SkillPoints += GameConfig.SkillPointsPerLevel;
-            PlayerState.StatPoints += GameConfig.StatPointsPerLevel;
-            PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
-            PlayerState.FullHeal();
-            player.SetSpeed(PlayerState.CurrentStats.spd);
-            if (hud != null)
-            {
-                hud.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
-                hud.UpdateXpBar(PlayerState.Xp, GameConfig.XpForLevel(PlayerState.Level));
-                hud.AddHistoryEntry($"Level Up! Lv.{PlayerState.Level}", Color.yellow);
-            }
+            // PlayerState is already updated by OnMonsterKilled before this fires effectively.
+            // StatsSystem.AddXp already increments skillPoints/statPoints in the ref state.
+            // RecalcStats/FullHeal are called in OnMonsterKilled after PlayerState update.
         });
 
         EventBus.On<EquipChangeEvent>(e =>
@@ -214,6 +207,7 @@ public class GameManager : MonoBehaviour
         _killCounts[def.id] = ++count;
         _totalKills++;
 
+        int prevLevel = PlayerState.Level;
         var state = new PlayerLevelState
         {
             level = PlayerState.Level, xp = PlayerState.Xp,
@@ -224,6 +218,20 @@ public class GameManager : MonoBehaviour
         PlayerState.Xp = state.xp;
         PlayerState.SkillPoints = state.skillPoints;
         PlayerState.StatPoints = state.statPoints;
+
+        if (PlayerState.Level > prevLevel)
+        {
+            PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
+            PlayerState.FullHeal();
+            player.SetSpeed(PlayerState.CurrentStats.spd);
+            var hud = uiManager != null ? uiManager.Hud : null;
+            if (hud != null)
+            {
+                hud.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+                hud.UpdateXpBar(PlayerState.Xp, GameConfig.XpForLevel(PlayerState.Level));
+                hud.AddHistoryEntry($"Level Up! Lv.{PlayerState.Level}", Color.yellow);
+            }
+        }
 
         PlayerState.Gold += def.gold;
         EventBus.Emit(new GoldChangeEvent { gold = PlayerState.Gold });
@@ -294,12 +302,7 @@ public class GameManager : MonoBehaviour
         if (save.inventory != null)
         {
             for (int i = 0; i < save.inventory.Length && i < Inventory.MaxSlots; i++)
-            {
-                if (save.inventory[i] == null) continue;
-                var item = save.inventory[i];
-                bool stackable = Data.Items.TryGetValue(item.itemId, out var def) && def.stackable;
-                Inventory.AddItem(item.itemId, item.count, stackable, def?.maxStack ?? 1);
-            }
+                Inventory.Slots[i] = save.inventory[i];
         }
 
         if (save.equipment != null) PlayerState.Equipment = save.equipment;
