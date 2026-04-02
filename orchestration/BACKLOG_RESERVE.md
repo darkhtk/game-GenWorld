@@ -24,7 +24,6 @@
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-7. **R-007 몬스터 어그로/리쉬 시스템** — 몬스터가 스폰 지점에서 일정 거리 이상 벗어나면 복귀. `MonsterController.cs` 개선.
 8. **R-008 조건부 대화 분기** — NPC 대화가 퀘스트 진행/인벤토리 상태에 따라 변경. `DialogueUI.cs`, `VillageNPC.cs` 개선.
 9. **R-009 스킬 콤보 시스템** — 특정 스킬 연계 시 보너스 효과. `SkillExecutor.cs` 확장.
 10. **R-010 회피 시 시각적 피드백** — 닷지 중 캐릭터 플래시/잔상 효과. `PlayerController.cs` + 새 VFX.
