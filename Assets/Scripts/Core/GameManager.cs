@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     readonly Dictionary<string, int> _killCounts = new();
     int _totalKills;
     float _hpRegenAccum;
+    float _lastAutoSaveTime;
     string _lastRegionId = "";
 
     void Awake()
@@ -199,6 +200,12 @@ public class GameManager : MonoBehaviour
         EventBus.On<RegionVisitEvent>(e =>
         {
             if (hud != null) hud.UpdateRegion(e.regionName);
+
+            float now = Time.time;
+            if (now - _lastAutoSaveTime < 30f) return;
+            _lastAutoSaveTime = now;
+            EventBus.Emit(new SaveEvent());
+            Debug.Log($"[AutoSave] Region changed to {e.regionName}");
         });
 
         EventBus.On<MonsterKillEvent>(e =>
