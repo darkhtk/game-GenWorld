@@ -50,21 +50,96 @@ public class ActionRunner
         int baseDmg = Mathf.RoundToInt(ctx.stats.atk * ctx.dmgMult * ratio);
         bool crit = a.crit || CombatSystem.CalcCrit(ctx.stats.crit);
 
+        // Chain lightning style: bounce between targets
+        if (a.chain != null)
+        {
+            HandleChainDamage(a, ctx, hx, hy, baseDmg);
+            return;
+        }
+
         if (a.aoe > 0)
         {
             float effectiveAoe = a.aoe * ctx.aoe;
+            var hitList = new List<MonsterController>();
             foreach (var m in ctx.monsters)
             {
                 if (m == null || m.IsDead) continue;
                 float dist = Vector2.Distance(new Vector2(hx, hy), m.Position);
                 if (dist <= effectiveAoe)
+                {
                     ctx.dealDamage?.Invoke(m, baseDmg, crit, a.color);
+                    hitList.Add(m);
+                }
             }
+            if (a.onHit != null && a.onHit.Length > 0 && hitList.Count > 0)
+                ctx.runner?.Run(a.onHit, ctx, hx, hy, hitList);
         }
         else if (targets != null && targets.Count > 0)
         {
             foreach (var m in targets)
                 ctx.dealDamage?.Invoke(m, baseDmg, crit, a.color);
+            if (a.onHit != null && a.onHit.Length > 0)
+                ctx.runner?.Run(a.onHit, ctx, hx, hy, targets);
+        }
+        else
+        {
+            // Single-target: find closest monster in skill range
+            Vector2 playerPos = (Vector2)ctx.player.position;
+            var target = CombatSystem.FindClosest(playerPos, ctx.monsters.ToArray(),
+                ctx.range, m => m.Position, m => !m.IsDead);
+            if (target != null)
+            {
+                ctx.dealDamage?.Invoke(target, baseDmg, crit, a.color);
+                if (a.onHit != null && a.onHit.Length > 0)
+                    ctx.runner?.Run(a.onHit, ctx, target.Position.x, target.Position.y,
+                        new List<MonsterController> { target });
+            }
+        }
+    }
+
+    void HandleChainDamage(SkillAction a, ActionContext ctx, float hx, float hy, int baseDmg)
+    {
+        var chain = a.chain;
+        Vector2 playerPos = (Vector2)ctx.player.position;
+
+        // Find primary target
+        var primary = CombatSystem.FindClosest(playerPos, ctx.monsters.ToArray(),
+            ctx.range, m => m.Position, m => !m.IsDead);
+        if (primary == null) return;
+
+        bool crit = a.crit || CombatSystem.CalcCrit(ctx.stats.crit);
+        ctx.dealDamage?.Invoke(primary, baseDmg, crit, a.color);
+        if (a.onHit != null && a.onHit.Length > 0)
+            ctx.runner?.Run(a.onHit, ctx, primary.Position.x, primary.Position.y,
+                new List<MonsterController> { primary });
+
+        // Chain to nearby targets
+        var hit = new List<MonsterController> { primary };
+        int maxBounces = chain.maxBounces > 0 ? chain.maxBounces : 3;
+        float bounceRange = chain.bounceRange > 0 ? chain.bounceRange : 80f;
+        float decay = chain.decayRatio > 0 ? chain.decayRatio : 0.7f;
+        MonsterController last = primary;
+        float currentDmg = baseDmg;
+
+        for (int i = 0; i < maxBounces; i++)
+        {
+            currentDmg *= decay;
+            MonsterController next = null;
+            float nextD = bounceRange + 1f;
+            foreach (var m in ctx.monsters)
+            {
+                if (m == null || m.IsDead || hit.Contains(m)) continue;
+                float d = Vector2.Distance(last.Position, m.Position);
+                if (d < nextD) { nextD = d; next = m; }
+            }
+            if (next == null) break;
+            crit = CombatSystem.CalcCrit(ctx.stats.crit);
+            ctx.dealDamage?.Invoke(next, Mathf.RoundToInt(currentDmg), crit, a.color);
+            if (a.onHit != null && a.onHit.Length > 0)
+                ctx.runner?.Run(a.onHit, ctx, next.Position.x, next.Position.y,
+                    new List<MonsterController> { next });
+            hit.Add(next);
+            last = next;
         }
     }
 
