@@ -75,7 +75,7 @@ public class EffectHolder
 
     static readonly List<string> _tickRemoveBuffer = new();
 
-    public void Tick(float now)
+    public List<string> Tick(float now)
     {
         _tickRemoveBuffer.Clear();
         foreach (var kv in _effects)
@@ -85,6 +85,7 @@ public class EffectHolder
         }
         for (int i = 0; i < _tickRemoveBuffer.Count; i++)
             _effects.Remove(_tickRemoveBuffer[i]);
+        return _tickRemoveBuffer;
     }
 
     public float TickDot(float now)
