@@ -141,10 +141,10 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 ### 완성도 / 미관 (Visual Polish) — 높음
 
 49. ~~**V-001 HUD 바 스타일링**~~ ✅ BOARD Done
-50. **V-002 인벤토리 그리드 미관** — 슬롯 배경, 등급 프레임(grade_frame_*), 아이템 아이콘 배치, 호버 하이라이트.
+50. ~~**V-002 인벤토리 그리드 미관**~~ ✅ BOARD Done
 51. ~~**V-003 스킬바 아이콘 표시**~~ ✅ BOARD Done
-52. **V-004 대화 UI 포트레이트 표시** — DialogueUI에 NPC 포트레이트 이미지 영역 + npcPortraitImage 연결.
-53. **V-005 메인 메뉴 배경** — MainMenuScene에 배경 이미지 또는 타일맵 프리뷰 + 타이틀 스타일링.
+52. ~~**V-004 대화 UI 포트레이트 표시**~~ ✅ BOARD Done
+53. ~~**V-005 메인 메뉴 배경**~~ ✅ BOARD Done
 54. **V-006 부트 스플래시 로고** — BootScene에 게임 로고 이미지 표시 (현재 텍스트만).
 55. ~~**V-007 몬스터/NPC 이름표**~~ ✅ BOARD Done
 56. **V-008 파티클 시스템 연동** — 힐/레벨업/아이템 획득 시 Unity ParticleSystem 이펙트.
