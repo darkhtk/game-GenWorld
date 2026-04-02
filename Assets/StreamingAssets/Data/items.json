@@ -1,0 +1,149 @@
+{
+  "items": [
+    { "id": "wood", "name": "목재", "type": "material", "grade": "common", "description": "기본 제작 재료", "icon": "item_wood", "stackable": true, "maxStack": 99, "shopPrice": 5 },
+    { "id": "leather", "name": "가죽", "type": "material", "grade": "common", "description": "방어구 제작 재료", "icon": "item_leather", "stackable": true, "maxStack": 99, "shopPrice": 10 },
+    { "id": "herb", "name": "약초", "type": "material", "grade": "common", "description": "포션 재료", "icon": "item_herb", "stackable": true, "maxStack": 99, "shopPrice": 8 },
+    { "id": "wolf_fang", "name": "늑대 송곳니", "type": "material", "grade": "uncommon", "description": "무기 제작 재료", "icon": "item_wolf_fang", "stackable": true, "maxStack": 99 },
+    { "id": "treant_core", "name": "정령의 핵", "type": "material", "grade": "rare", "description": "강력한 제작 재료", "icon": "item_treant_core", "stackable": true, "maxStack": 99 },
+    { "id": "ore", "name": "광석", "type": "material", "grade": "common", "description": "동굴에서 캐낸 광석", "icon": "item_ore", "stackable": true, "maxStack": 99 },
+    { "id": "gem", "name": "보석", "type": "material", "grade": "uncommon", "description": "빛나는 보석", "icon": "item_gem", "stackable": true, "maxStack": 99 },
+    { "id": "crystal", "name": "크리스탈", "type": "material", "grade": "rare", "description": "크리스탈 슬라임의 핵", "icon": "item_crystal", "stackable": true, "maxStack": 99 },
+    { "id": "venom", "name": "독액", "type": "material", "grade": "common", "description": "독거미에서 추출한 독", "icon": "item_venom", "stackable": true, "maxStack": 99 },
+    { "id": "scale", "name": "비늘", "type": "material", "grade": "uncommon", "description": "리자드맨의 단단한 비늘", "icon": "item_scale", "stackable": true, "maxStack": 99 },
+    { "id": "magic_essence", "name": "마법재료", "type": "material", "grade": "rare", "description": "마법의 힘이 깃든 재료", "icon": "item_magic_essence", "stackable": true, "maxStack": 99 },
+    { "id": "lava_stone", "name": "용암석", "type": "material", "grade": "uncommon", "description": "화산에서 나오는 뜨거운 돌", "icon": "item_lava_stone", "stackable": true, "maxStack": 99 },
+    { "id": "dragon_scale", "name": "용비늘", "type": "material", "grade": "rare", "description": "용족의 단단한 비늘", "icon": "item_dragon_scale", "stackable": true, "maxStack": 99 },
+    { "id": "legendary_essence", "name": "전설재료", "type": "material", "grade": "legendary", "description": "전설적인 힘이 깃든 재료", "icon": "item_legendary_essence", "stackable": true, "maxStack": 99 },
+    { "id": "hp_potion", "name": "HP 포션", "type": "potion", "grade": "common", "description": "HP 30 회복", "icon": "item_hp_potion", "stackable": true, "maxStack": 20, "healHp": 30, "shopPrice": 20 },
+    { "id": "mp_potion", "name": "MP 포션", "type": "potion", "grade": "common", "description": "MP 20 회복", "icon": "item_mp_potion", "stackable": true, "maxStack": 20, "healMp": 20, "shopPrice": 15 },
+
+    {"id":"wooden_sword","name":"목검","type":"weapon","grade":"common","description":"기본 무기","icon":"item_wooden_sword","stackable":false,"maxStack":1,"stats":{"atk":5}},
+
+    {"id":"wolf_sword","name":"늑대엄니검","type":"weapon","grade":"uncommon","description":"Lv5 공격형","icon":"item_fang_blade","stackable":false,"maxStack":1,"stats":{"atk":14,"crit":3},"setId":"wolf"},
+    {"id":"wolf_armor","name":"늑대가죽갑옷","type":"armor","grade":"uncommon","description":"Lv5 공격형","icon":"item_leather_armor","stackable":false,"maxStack":1,"stats":{"def":5,"maxHp":15,"atk":2},"setId":"wolf"},
+    {"id":"wolf_helmet","name":"늑대가죽모자","type":"helmet","grade":"uncommon","description":"Lv5 공격형","icon":"item_leather","stackable":false,"maxStack":1,"stats":{"def":2,"atk":2},"setId":"wolf"},
+    {"id":"wolf_boots","name":"늑대가죽장화","type":"boots","grade":"uncommon","description":"Lv5 공격형","icon":"item_leather","stackable":false,"maxStack":1,"stats":{"def":2,"spd":5},"setId":"wolf"},
+    {"id":"wolf_charm","name":"늑대 부적","type":"accessory","grade":"uncommon","description":"Lv5 공격형","icon":"item_wolf_fang","stackable":false,"maxStack":1,"stats":{"atk":3,"crit":3},"setId":"wolf"},
+
+    {"id":"treant_sword","name":"정령지팡이","type":"weapon","grade":"rare","description":"Lv5 방어형","icon":"item_crystal_staff","stackable":false,"maxStack":1,"stats":{"atk":8,"maxMp":15},"setId":"treant"},
+    {"id":"treant_armor","name":"정령 갑옷","type":"armor","grade":"rare","description":"Lv5 방어형","icon":"item_treant_armor","stackable":false,"maxStack":1,"stats":{"def":10,"maxHp":30},"setId":"treant"},
+    {"id":"treant_helmet","name":"정령왕관","type":"helmet","grade":"rare","description":"Lv5 방어형","icon":"item_treant_core","stackable":false,"maxStack":1,"stats":{"def":4,"maxHp":15,"maxMp":10},"setId":"treant"},
+    {"id":"treant_boots","name":"정령장화","type":"boots","grade":"rare","description":"Lv5 방어형","icon":"item_treant_core","stackable":false,"maxStack":1,"stats":{"def":3,"spd":3,"maxHp":10},"setId":"treant"},
+    {"id":"treant_ring","name":"정령반지","type":"accessory","grade":"rare","description":"Lv5 방어형","icon":"item_treant_core","stackable":false,"maxStack":1,"stats":{"def":3,"maxHp":15},"setId":"treant"},
+
+    {"id":"hunter_bow","name":"사냥꾼의 활","type":"weapon","grade":"uncommon","description":"Lv5 균형형","icon":"item_fang_blade","stackable":false,"maxStack":1,"stats":{"atk":10,"crit":5}},
+    {"id":"leather_armor2","name":"강화가죽갑옷","type":"armor","grade":"uncommon","description":"Lv5 균형형","icon":"item_leather_armor","stackable":false,"maxStack":1,"stats":{"def":6,"maxHp":20}},
+
+    {"id":"ore_sword","name":"광석검","type":"weapon","grade":"uncommon","description":"Lv10 공격형","icon":"item_ore_sword","stackable":false,"maxStack":1,"stats":{"atk":22,"crit":5},"setId":"golem"},
+    {"id":"ore_armor","name":"광석갑옷","type":"armor","grade":"uncommon","description":"Lv10 공격형","icon":"item_scale_armor","stackable":false,"maxStack":1,"stats":{"def":12,"maxHp":25,"atk":3},"setId":"golem"},
+    {"id":"ore_helmet","name":"광석투구","type":"helmet","grade":"uncommon","description":"Lv10 공격형","icon":"item_ore","stackable":false,"maxStack":1,"stats":{"def":6,"maxHp":20},"setId":"golem"},
+    {"id":"ore_boots","name":"광석장화","type":"boots","grade":"uncommon","description":"Lv10 공격형","icon":"item_ore","stackable":false,"maxStack":1,"stats":{"def":4,"spd":5},"setId":"golem"},
+    {"id":"ore_ring","name":"광석반지","type":"accessory","grade":"uncommon","description":"Lv10 공격형","icon":"item_gem","stackable":false,"maxStack":1,"stats":{"atk":5,"def":3},"setId":"golem"},
+
+    {"id":"crystal_staff","name":"크리스탈 지팡이","type":"weapon","grade":"rare","description":"Lv10 마법형","icon":"item_crystal_staff","stackable":false,"maxStack":1,"stats":{"atk":18,"maxMp":30},"setId":"crystal"},
+    {"id":"crystal_robe","name":"크리스탈 로브","type":"armor","grade":"rare","description":"Lv10 마법형","icon":"item_crystal","stackable":false,"maxStack":1,"stats":{"def":8,"maxMp":25,"maxHp":15},"setId":"crystal"},
+    {"id":"crystal_crown","name":"크리스탈 왕관","type":"helmet","grade":"rare","description":"Lv10 마법형","icon":"item_crystal","stackable":false,"maxStack":1,"stats":{"def":4,"maxMp":20},"setId":"crystal"},
+    {"id":"crystal_amulet","name":"크리스탈 목걸이","type":"accessory","grade":"rare","description":"Lv10 마법형","icon":"item_crystal","stackable":false,"maxStack":1,"stats":{"maxMp":20,"crit":5},"setId":"crystal"},
+
+    {"id":"iron_greatsword","name":"철제대검","type":"weapon","grade":"uncommon","description":"Lv10 균형형","icon":"item_ore_sword","stackable":false,"maxStack":1,"stats":{"atk":20,"def":3}},
+    {"id":"iron_shield_armor","name":"철제중갑","type":"armor","grade":"uncommon","description":"Lv10 균형형","icon":"item_scale_armor","stackable":false,"maxStack":1,"stats":{"def":14,"maxHp":30}},
+
+    {"id":"venom_dagger","name":"독 단검","type":"weapon","grade":"rare","description":"Lv15 공격형","icon":"item_fang_blade","stackable":false,"maxStack":1,"stats":{"atk":28,"crit":8},"setId":"venom"},
+    {"id":"venom_coat","name":"독무사 코트","type":"armor","grade":"rare","description":"Lv15 공격형","icon":"item_scale_armor","stackable":false,"maxStack":1,"stats":{"def":12,"atk":5,"crit":3},"setId":"venom"},
+    {"id":"venom_mask","name":"독무사 가면","type":"helmet","grade":"rare","description":"Lv15 공격형","icon":"item_venom","stackable":false,"maxStack":1,"stats":{"def":5,"atk":4,"crit":3},"setId":"venom"},
+    {"id":"venom_boots2","name":"독무사 장화","type":"boots","grade":"rare","description":"Lv15 공격형","icon":"item_venom","stackable":false,"maxStack":1,"stats":{"def":4,"spd":12,"crit":2},"setId":"venom"},
+    {"id":"venom_ring","name":"독 반지","type":"accessory","grade":"rare","description":"Lv15 공격형","icon":"item_venom","stackable":false,"maxStack":1,"stats":{"atk":8,"crit":5},"setId":"venom"},
+
+    {"id":"scale_sword","name":"비늘검","type":"weapon","grade":"uncommon","description":"Lv15 방어형","icon":"item_ore_sword","stackable":false,"maxStack":1,"stats":{"atk":22,"def":5},"setId":"scale"},
+    {"id":"scale_armor","name":"비늘 갑옷","type":"armor","grade":"uncommon","description":"Lv15 방어형","icon":"item_scale_armor","stackable":false,"maxStack":1,"stats":{"def":18,"maxHp":50},"setId":"scale"},
+    {"id":"scale_helmet","name":"비늘투구","type":"helmet","grade":"uncommon","description":"Lv15 방어형","icon":"item_scale","stackable":false,"maxStack":1,"stats":{"def":8,"maxHp":25},"setId":"scale"},
+    {"id":"scale_boots","name":"비늘 장화","type":"boots","grade":"uncommon","description":"Lv15 방어형","icon":"item_scale","stackable":false,"maxStack":1,"stats":{"def":6,"spd":8,"maxHp":15},"setId":"scale"},
+    {"id":"scale_pendant","name":"비늘 목걸이","type":"accessory","grade":"uncommon","description":"Lv15 방어형","icon":"item_scale","stackable":false,"maxStack":1,"stats":{"def":5,"maxHp":20},"setId":"scale"},
+
+    {"id":"magic_staff","name":"마법사 지팡이","type":"weapon","grade":"rare","description":"Lv15 마법형","icon":"item_crystal_staff","stackable":false,"maxStack":1,"stats":{"atk":24,"maxMp":40}},
+    {"id":"magic_robe","name":"마법사 로브","type":"armor","grade":"rare","description":"Lv15 마법형","icon":"item_crystal","stackable":false,"maxStack":1,"stats":{"def":10,"maxMp":35,"maxHp":20}},
+
+    {"id":"dragon_blade","name":"용의 검","type":"weapon","grade":"legendary","description":"Lv20 공격형","icon":"item_dragon_blade","stackable":false,"maxStack":1,"stats":{"atk":40,"crit":10},"setId":"dragon"},
+    {"id":"dragon_armor","name":"용비늘 갑옷","type":"armor","grade":"legendary","description":"Lv20 방어형","icon":"item_dragon_armor","stackable":false,"maxStack":1,"stats":{"def":30,"maxHp":80},"setId":"dragon"},
+    {"id":"dragon_helmet","name":"용비늘 투구","type":"helmet","grade":"legendary","description":"Lv20","icon":"item_dragon_scale","stackable":false,"maxStack":1,"stats":{"def":12,"maxHp":40},"setId":"dragon"},
+    {"id":"dragon_boots","name":"용비늘 장화","type":"boots","grade":"legendary","description":"Lv20","icon":"item_dragon_scale","stackable":false,"maxStack":1,"stats":{"def":10,"spd":15},"setId":"dragon"},
+    {"id":"dragon_pendant","name":"용의 펜던트","type":"accessory","grade":"legendary","description":"Lv20","icon":"item_dragon_scale","stackable":false,"maxStack":1,"stats":{"atk":12,"def":8,"maxHp":30},"setId":"dragon"},
+
+    {"id":"lava_axe","name":"용암도끼","type":"weapon","grade":"legendary","description":"Lv20 공격형","icon":"item_dragon_blade","stackable":false,"maxStack":1,"stats":{"atk":45,"crit":5}},
+    {"id":"lava_plate","name":"용암중갑","type":"armor","grade":"legendary","description":"Lv20 방어형","icon":"item_dragon_armor","stackable":false,"maxStack":1,"stats":{"def":35,"maxHp":60,"atk":5}},
+
+    {"id":"legendary_sword","name":"전설의 검","type":"weapon","grade":"legendary","description":"Lv25 최강","icon":"item_dragon_blade","stackable":false,"maxStack":1,"stats":{"atk":55,"crit":15},"setId":"legend"},
+    {"id":"legendary_armor","name":"전설의 갑옷","type":"armor","grade":"legendary","description":"Lv25 최강","icon":"item_dragon_armor","stackable":false,"maxStack":1,"stats":{"def":40,"maxHp":120},"setId":"legend"},
+    {"id":"legendary_helmet","name":"전설의 투구","type":"helmet","grade":"legendary","description":"Lv25","icon":"item_legendary_essence","stackable":false,"maxStack":1,"stats":{"def":18,"maxHp":50,"crit":5},"setId":"legend"},
+    {"id":"legendary_boots","name":"전설의 장화","type":"boots","grade":"legendary","description":"Lv25","icon":"item_legendary_essence","stackable":false,"maxStack":1,"stats":{"def":14,"spd":20,"maxHp":30},"setId":"legend"},
+    {"id":"legendary_ring","name":"전설의 반지","type":"accessory","grade":"legendary","description":"Lv25 최강","icon":"item_legendary_essence","stackable":false,"maxStack":1,"stats":{"atk":15,"def":10,"crit":10,"maxHp":50},"setId":"legend"}
+  ],
+
+  "setBonuses": {
+    "wolf":    { "name": "늑대 사냥꾼", "2pc": { "atk": 5 }, "3pc": { "crit": 5 }, "5pc": { "atk": 10, "spd": 10 } },
+    "treant":  { "name": "정령의 가호", "2pc": { "maxHp": 20 }, "3pc": { "def": 5, "maxMp": 15 }, "5pc": { "maxHp": 50, "def": 10 } },
+    "golem":   { "name": "골렘 전사", "2pc": { "atk": 5, "def": 3 }, "3pc": { "maxHp": 25 }, "5pc": { "atk": 12, "def": 8 } },
+    "crystal": { "name": "크리스탈 마법사", "2pc": { "maxMp": 20 }, "3pc": { "atk": 5, "crit": 3 }, "4pc": { "maxMp": 40, "atk": 10 } },
+    "venom":   { "name": "독무사", "2pc": { "crit": 5 }, "3pc": { "atk": 8 }, "5pc": { "atk": 15, "crit": 10, "spd": 5 } },
+    "scale":   { "name": "비늘 수호자", "2pc": { "def": 5 }, "3pc": { "maxHp": 30 }, "5pc": { "def": 15, "maxHp": 60 } },
+    "dragon":  { "name": "용의 계승자", "2pc": { "atk": 8, "def": 5 }, "3pc": { "maxHp": 40, "crit": 5 }, "5pc": { "atk": 20, "def": 15, "maxHp": 80 } },
+    "legend":  { "name": "전설의 영웅", "2pc": { "atk": 10, "def": 8 }, "3pc": { "maxHp": 50, "crit": 8 }, "5pc": { "atk": 25, "def": 20, "maxHp": 100, "crit": 15 } }
+  },
+
+  "recipes": [
+    { "resultId": "wooden_sword", "materials": [{ "itemId": "wood", "count": 5 }] },
+    { "resultId": "wolf_sword", "materials": [{ "itemId": "wolf_fang", "count": 3 }, { "itemId": "wood", "count": 3 }] },
+    { "resultId": "wolf_armor", "materials": [{ "itemId": "leather", "count": 5 }, { "itemId": "wolf_fang", "count": 2 }] },
+    { "resultId": "wolf_helmet", "materials": [{ "itemId": "leather", "count": 3 }, { "itemId": "wolf_fang", "count": 1 }] },
+    { "resultId": "wolf_boots", "materials": [{ "itemId": "leather", "count": 3 }] },
+    { "resultId": "wolf_charm", "materials": [{ "itemId": "wolf_fang", "count": 3 }, { "itemId": "leather", "count": 2 }] },
+    { "resultId": "treant_sword", "materials": [{ "itemId": "treant_core", "count": 1 }, { "itemId": "wood", "count": 5 }] },
+    { "resultId": "treant_armor", "materials": [{ "itemId": "leather", "count": 5 }, { "itemId": "wood", "count": 5 }, { "itemId": "treant_core", "count": 1 }] },
+    { "resultId": "treant_helmet", "materials": [{ "itemId": "treant_core", "count": 1 }, { "itemId": "wood", "count": 3 }] },
+    { "resultId": "treant_boots", "materials": [{ "itemId": "leather", "count": 3 }, { "itemId": "wood", "count": 3 }] },
+    { "resultId": "treant_ring", "materials": [{ "itemId": "treant_core", "count": 1 }, { "itemId": "herb", "count": 5 }] },
+    { "resultId": "hunter_bow", "materials": [{ "itemId": "wood", "count": 5 }, { "itemId": "leather", "count": 3 }] },
+    { "resultId": "leather_armor2", "materials": [{ "itemId": "leather", "count": 8 }] },
+
+    { "resultId": "ore_sword", "materials": [{ "itemId": "ore", "count": 8 }, { "itemId": "wood", "count": 3 }] },
+    { "resultId": "ore_armor", "materials": [{ "itemId": "ore", "count": 10 }, { "itemId": "leather", "count": 5 }] },
+    { "resultId": "ore_helmet", "materials": [{ "itemId": "ore", "count": 5 }, { "itemId": "leather", "count": 2 }] },
+    { "resultId": "ore_boots", "materials": [{ "itemId": "ore", "count": 4 }, { "itemId": "leather", "count": 3 }] },
+    { "resultId": "ore_ring", "materials": [{ "itemId": "ore", "count": 3 }, { "itemId": "gem", "count": 2 }] },
+    { "resultId": "crystal_staff", "materials": [{ "itemId": "crystal", "count": 3 }, { "itemId": "gem", "count": 2 }] },
+    { "resultId": "crystal_robe", "materials": [{ "itemId": "crystal", "count": 3 }, { "itemId": "leather", "count": 5 }] },
+    { "resultId": "crystal_crown", "materials": [{ "itemId": "crystal", "count": 2 }, { "itemId": "gem", "count": 2 }] },
+    { "resultId": "crystal_amulet", "materials": [{ "itemId": "crystal", "count": 2 }, { "itemId": "gem", "count": 3 }] },
+    { "resultId": "iron_greatsword", "materials": [{ "itemId": "ore", "count": 10 }, { "itemId": "wood", "count": 5 }] },
+    { "resultId": "iron_shield_armor", "materials": [{ "itemId": "ore", "count": 12 }, { "itemId": "leather", "count": 5 }] },
+
+    { "resultId": "venom_dagger", "materials": [{ "itemId": "venom", "count": 5 }, { "itemId": "scale", "count": 3 }, { "itemId": "gem", "count": 1 }] },
+    { "resultId": "venom_coat", "materials": [{ "itemId": "venom", "count": 5 }, { "itemId": "leather", "count": 5 }, { "itemId": "scale", "count": 3 }] },
+    { "resultId": "venom_mask", "materials": [{ "itemId": "venom", "count": 3 }, { "itemId": "scale", "count": 2 }] },
+    { "resultId": "venom_boots2", "materials": [{ "itemId": "venom", "count": 3 }, { "itemId": "leather", "count": 3 }] },
+    { "resultId": "venom_ring", "materials": [{ "itemId": "venom", "count": 5 }, { "itemId": "gem", "count": 2 }] },
+    { "resultId": "scale_sword", "materials": [{ "itemId": "scale", "count": 8 }, { "itemId": "ore", "count": 5 }] },
+    { "resultId": "scale_armor", "materials": [{ "itemId": "scale", "count": 10 }, { "itemId": "leather", "count": 5 }] },
+    { "resultId": "scale_helmet", "materials": [{ "itemId": "scale", "count": 5 }, { "itemId": "ore", "count": 3 }] },
+    { "resultId": "scale_boots", "materials": [{ "itemId": "scale", "count": 5 }, { "itemId": "leather", "count": 3 }] },
+    { "resultId": "scale_pendant", "materials": [{ "itemId": "scale", "count": 3 }, { "itemId": "gem", "count": 2 }] },
+    { "resultId": "magic_staff", "materials": [{ "itemId": "magic_essence", "count": 3 }, { "itemId": "crystal", "count": 2 }, { "itemId": "gem", "count": 2 }] },
+    { "resultId": "magic_robe", "materials": [{ "itemId": "magic_essence", "count": 3 }, { "itemId": "leather", "count": 5 }, { "itemId": "crystal", "count": 2 }] },
+
+    { "resultId": "dragon_blade", "materials": [{ "itemId": "dragon_scale", "count": 8 }, { "itemId": "lava_stone", "count": 5 }, { "itemId": "legendary_essence", "count": 1 }] },
+    { "resultId": "dragon_armor", "materials": [{ "itemId": "dragon_scale", "count": 10 }, { "itemId": "lava_stone", "count": 5 }, { "itemId": "legendary_essence", "count": 1 }] },
+    { "resultId": "dragon_helmet", "materials": [{ "itemId": "dragon_scale", "count": 5 }, { "itemId": "lava_stone", "count": 3 }] },
+    { "resultId": "dragon_boots", "materials": [{ "itemId": "dragon_scale", "count": 5 }, { "itemId": "lava_stone", "count": 3 }] },
+    { "resultId": "dragon_pendant", "materials": [{ "itemId": "dragon_scale", "count": 5 }, { "itemId": "gem", "count": 3 }, { "itemId": "magic_essence", "count": 2 }] },
+    { "resultId": "lava_axe", "materials": [{ "itemId": "lava_stone", "count": 10 }, { "itemId": "dragon_scale", "count": 5 }, { "itemId": "ore", "count": 10 }] },
+    { "resultId": "lava_plate", "materials": [{ "itemId": "lava_stone", "count": 10 }, { "itemId": "dragon_scale", "count": 5 }, { "itemId": "scale", "count": 10 }] },
+
+    { "resultId": "legendary_sword", "materials": [{ "itemId": "dragon_scale", "count": 15 }, { "itemId": "legendary_essence", "count": 3 }, { "itemId": "magic_essence", "count": 5 }] },
+    { "resultId": "legendary_armor", "materials": [{ "itemId": "dragon_scale", "count": 15 }, { "itemId": "legendary_essence", "count": 3 }, { "itemId": "magic_essence", "count": 5 }] },
+    { "resultId": "legendary_helmet", "materials": [{ "itemId": "legendary_essence", "count": 2 }, { "itemId": "dragon_scale", "count": 8 }, { "itemId": "gem", "count": 5 }] },
+    { "resultId": "legendary_boots", "materials": [{ "itemId": "legendary_essence", "count": 2 }, { "itemId": "dragon_scale", "count": 8 }, { "itemId": "lava_stone", "count": 5 }] },
+    { "resultId": "legendary_ring", "materials": [{ "itemId": "legendary_essence", "count": 2 }, { "itemId": "magic_essence", "count": 3 }, { "itemId": "gem", "count": 5 }] },
+
+    { "resultId": "hp_potion", "materials": [{ "itemId": "herb", "count": 3 }] }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "regions": [
+    {
+      "id": "village", "name": "마을", "difficulty": 0,
+      "bounds": { "x": 88, "y": 88, "width": 24, "height": 24 },
+      "tileWeights": { "grass": 0.4, "dirt": 0.4, "stone_floor": 0.2 },
+      "monsterIds": [], "monsterDensity": 0
+    },
+    {
+      "id": "forest", "name": "숲", "difficulty": 2,
+      "bounds": { "x": 48, "y": 48, "width": 104, "height": 104 },
+      "tileWeights": { "grass": 0.55, "dirt": 0.25, "tree": 0.12, "bush": 0.08 },
+      "monsterIds": ["wolf", "goblin", "treant"], "monsterDensity": 2
+    },
+    {
+      "id": "cave", "name": "동굴", "difficulty": 3,
+      "bounds": { "x": 30, "y": 15, "width": 45, "height": 35 },
+      "tileWeights": { "stone_floor": 0.5, "dirt": 0.3, "wall": 0.1, "grass": 0.1 },
+      "monsterIds": ["bat", "golem", "crystal_slime"], "monsterDensity": 3
+    },
+    {
+      "id": "deep_cave", "name": "심층 동굴 ★★★★", "difficulty": 5,
+      "bounds": { "x": 5, "y": 5, "width": 25, "height": 20 },
+      "tileWeights": { "stone_floor": 0.6, "wall": 0.2, "dirt": 0.2 },
+      "monsterIds": ["golem", "crystal_slime", "cave_boss"], "monsterDensity": 4
+    },
+    {
+      "id": "swamp", "name": "늪", "difficulty": 3,
+      "bounds": { "x": 15, "y": 135, "width": 50, "height": 45 },
+      "tileWeights": { "grass": 0.25, "dirt": 0.3, "bush": 0.35, "tree": 0.1 },
+      "monsterIds": ["spider", "lizardman", "hydra"], "monsterDensity": 3
+    },
+    {
+      "id": "dark_swamp", "name": "어둠의 늪 ★★★★★", "difficulty": 6,
+      "bounds": { "x": 5, "y": 170, "width": 30, "height": 25 },
+      "tileWeights": { "dirt": 0.4, "bush": 0.4, "tree": 0.1, "wall": 0.1 },
+      "monsterIds": ["hydra", "swamp_lord"], "monsterDensity": 4
+    },
+    {
+      "id": "volcano", "name": "화산", "difficulty": 4,
+      "bounds": { "x": 130, "y": 140, "width": 50, "height": 45 },
+      "tileWeights": { "dirt": 0.45, "stone_floor": 0.4, "wall": 0.08, "bush": 0.07 },
+      "monsterIds": ["fire_imp", "dragonkin", "dragon"], "monsterDensity": 4
+    },
+    {
+      "id": "dragon_lair", "name": "용의 둥지 ★★★★★★", "difficulty": 7,
+      "bounds": { "x": 170, "y": 170, "width": 25, "height": 25 },
+      "tileWeights": { "stone_floor": 0.5, "dirt": 0.3, "wall": 0.2 },
+      "monsterIds": ["dragon", "ancient_dragon"], "monsterDensity": 5
+    }
+  ]
+}

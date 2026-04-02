@@ -1,0 +1,162 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class QuestUI : MonoBehaviour
+{
+    [Header("Panel")]
+    [SerializeField] GameObject panel;
+    [SerializeField] Button closeButton;
+
+    [Header("Tabs")]
+    [SerializeField] Button activeTab;
+    [SerializeField] Button completedTab;
+    [SerializeField] Image activeTabBg;
+    [SerializeField] Image completedTabBg;
+
+    [Header("Content")]
+    [SerializeField] Transform questListContent;
+    [SerializeField] GameObject questEntryPrefab;
+
+    static readonly Color ActiveTabColor = new(0.3f, 0.4f, 0.6f);
+    static readonly Color InactiveTabColor = new(0.2f, 0.2f, 0.2f);
+    static readonly Color MetColor = new(0.4f, 1f, 0.4f);
+    static readonly Color UnmetColor = new(1f, 0.4f, 0.4f);
+
+    bool _showCompleted;
+    readonly List<GameObject> _entries = new();
+
+    QuestSystem _questSystem;
+    InventorySystem _inventory;
+    Dictionary<string, ItemDef> _itemDefs;
+
+    void Awake()
+    {
+        if (panel != null) panel.SetActive(false);
+        if (closeButton != null) closeButton.onClick.AddListener(Hide);
+        if (activeTab != null) activeTab.onClick.AddListener(() => SetTab(false));
+        if (completedTab != null) completedTab.onClick.AddListener(() => SetTab(true));
+    }
+
+    public void Show() { panel.SetActive(true); }
+    public void Hide() { panel.SetActive(false); }
+    public void Toggle() { if (panel.activeSelf) Hide(); else Show(); }
+
+    public void Refresh(QuestSystem questSystem, InventorySystem inventory, Dictionary<string, ItemDef> itemDefs)
+    {
+        _questSystem = questSystem;
+        _inventory = inventory;
+        _itemDefs = itemDefs;
+        RebuildList();
+    }
+
+    void SetTab(bool completed)
+    {
+        _showCompleted = completed;
+        if (activeTabBg != null) activeTabBg.color = completed ? InactiveTabColor : ActiveTabColor;
+        if (completedTabBg != null) completedTabBg.color = completed ? ActiveTabColor : InactiveTabColor;
+        RebuildList();
+    }
+
+    void RebuildList()
+    {
+        ClearEntries();
+        if (_questSystem == null) return;
+
+        if (_showCompleted)
+        {
+            var data = _questSystem.Serialize();
+            if (data.completed != null)
+            {
+                foreach (string questId in data.completed)
+                    AddCompletedEntry(questId);
+            }
+        }
+        else
+        {
+            var activeQuests = _questSystem.GetActiveQuests();
+            foreach (var quest in activeQuests)
+                AddActiveEntry(quest);
+        }
+    }
+
+    void AddActiveEntry(QuestDef quest)
+    {
+        if (questListContent == null || questEntryPrefab == null) return;
+
+        var go = Instantiate(questEntryPrefab, questListContent);
+        go.SetActive(true);
+
+        var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
+        if (texts.Length == 0) return;
+
+        var titleText = texts[0];
+        titleText.text = $">> {quest.title}";
+        titleText.color = Color.white;
+
+        if (texts.Length > 1)
+            texts[1].text = quest.description ?? "";
+
+        if (texts.Length > 2 && quest.requirements != null)
+        {
+            var lines = new List<string>();
+            foreach (var req in quest.requirements)
+            {
+                int have = _inventory != null ? _inventory.GetCount(req.itemId) : 0;
+                bool met = have >= req.count;
+                string check = met ? "<color=#66ff66>v</color>" : "<color=#ff4444>x</color>";
+                string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
+                    ? def.name : req.itemId;
+                lines.Add($"  {check} {itemName} ({have}/{req.count})");
+            }
+            texts[2].text = string.Join("\n", lines);
+        }
+
+        if (texts.Length > 3 && quest.rewards != null)
+        {
+            var rewardLines = new List<string>();
+            if (quest.rewards.gold > 0) rewardLines.Add($"Gold: {quest.rewards.gold}");
+            if (quest.rewards.xp > 0) rewardLines.Add($"XP: {quest.rewards.xp}");
+            if (quest.rewards.items != null)
+            {
+                foreach (var item in quest.rewards.items)
+                {
+                    string itemName = _itemDefs != null && _itemDefs.TryGetValue(item.itemId, out var def)
+                        ? def.name : item.itemId;
+                    rewardLines.Add($"{itemName} x{item.count}");
+                }
+            }
+            texts[3].text = rewardLines.Count > 0
+                ? "Rewards: " + string.Join(", ", rewardLines) : "";
+        }
+
+        _entries.Add(go);
+    }
+
+    void AddCompletedEntry(string questId)
+    {
+        if (questListContent == null || questEntryPrefab == null) return;
+
+        var go = Instantiate(questEntryPrefab, questListContent);
+        go.SetActive(true);
+
+        var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
+        if (texts.Length > 0)
+        {
+            texts[0].text = $"v {questId}";
+            texts[0].color = Color.gray;
+        }
+        for (int i = 1; i < texts.Length; i++)
+            texts[i].text = "";
+
+        _entries.Add(go);
+    }
+
+    void ClearEntries()
+    {
+        foreach (var go in _entries)
+            Destroy(go);
+        _entries.Clear();
+    }
+}

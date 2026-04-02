@@ -1,0 +1,84 @@
+{
+  "quests": [
+    {
+      "id": "quest_wolf_leather",
+      "npcId": "hunter",
+      "title": "늑대 가죽 수집",
+      "description": "사냥꾼에게 가죽 5개를 가져다 주세요.",
+      "requirements": [{ "itemId": "leather", "count": 5 }],
+      "rewards": { "gold": 50, "xp": 30, "items": [{ "itemId": "wolf_fang", "count": 2 }] }
+    },
+    {
+      "id": "quest_herb_collect",
+      "npcId": "herbalist",
+      "title": "약초 수집",
+      "description": "약초꾼에게 약초 5개를 가져다 주세요.",
+      "requirements": [{ "itemId": "herb", "count": 5 }],
+      "rewards": { "gold": 30, "xp": 20, "items": [{ "itemId": "hp_potion", "count": 3 }] }
+    },
+    {
+      "id": "quest_wood_supply",
+      "npcId": "elder",
+      "title": "목재 보급",
+      "description": "촌장에게 목재 10개를 가져다 주세요.",
+      "requirements": [{ "itemId": "wood", "count": 10 }],
+      "rewards": { "gold": 80, "xp": 50, "items": [] }
+    },
+    {
+      "id": "quest_fang_blade",
+      "npcId": "blacksmith",
+      "title": "송곳니 칼날 재료",
+      "description": "대장장이가 늑대 송곳니 3개와 목재 5개를 원한다.",
+      "requirements": [{ "itemId": "wolf_fang", "count": 3 }, { "itemId": "wood", "count": 5 }],
+      "rewards": { "gold": 60, "xp": 40, "items": [{ "itemId": "wolf_fang", "count": 2 }] }
+    },
+    {
+      "id": "quest_cave_ore",
+      "npcId": "blacksmith",
+      "title": "동굴 광석 탐사",
+      "description": "대장장이에게 동굴에서 광석 8개를 가져다 주세요.",
+      "requirements": [{ "itemId": "ore", "count": 8 }],
+      "rewards": { "gold": 120, "xp": 80, "items": [{ "itemId": "gem", "count": 1 }] }
+    },
+    {
+      "id": "quest_venom_research",
+      "npcId": "herbalist",
+      "title": "독액 연구",
+      "description": "약초꾼이 늪의 독거미 독액 5개를 구해달라고 합니다.",
+      "requirements": [{ "itemId": "venom", "count": 5 }],
+      "rewards": { "gold": 100, "xp": 60, "items": [{ "itemId": "hp_potion", "count": 5 }] }
+    },
+    {
+      "id": "quest_scale_armor",
+      "npcId": "guard",
+      "title": "경비대 방어구 강화",
+      "description": "경비병에게 리자드맨 비늘 5개를 모아다 주세요.",
+      "requirements": [{ "itemId": "scale", "count": 5 }],
+      "rewards": { "gold": 150, "xp": 100, "items": [{ "itemId": "ore", "count": 5 }] }
+    },
+    {
+      "id": "quest_crystal_study",
+      "npcId": "scholar",
+      "title": "크리스탈 연구",
+      "description": "학자에게 크리스탈 3개를 가져다 주세요.",
+      "requirements": [{ "itemId": "crystal", "count": 3 }],
+      "rewards": { "gold": 200, "xp": 120, "items": [{ "itemId": "gem", "count": 2 }] }
+    },
+    {
+      "id": "quest_innkeeper_supply",
+      "npcId": "innkeeper",
+      "title": "여관 식재료 조달",
+      "description": "여관주인에게 약초 3개와 목재 3개를 가져다 주세요.",
+      "requirements": [{ "itemId": "herb", "count": 3 }, { "itemId": "wood", "count": 3 }],
+      "rewards": { "gold": 40, "xp": 25, "items": [{ "itemId": "hp_potion", "count": 2 }] }
+    },
+    {
+      "id": "quest_merchant_rare",
+      "npcId": "merchant",
+      "title": "희귀 재료 거래",
+      "description": "방랑 상인에게 보석 2개와 크리스탈 2개를 가져다 주세요.",
+      "requirements": [{ "itemId": "gem", "count": 2 }, { "itemId": "crystal", "count": 2 }],
+      "rewards": { "gold": 300, "xp": 150, "items": [{ "itemId": "lava_stone", "count": 1 }] }
+    }
+  ]
+}
