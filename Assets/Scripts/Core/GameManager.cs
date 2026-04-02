@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
         RegisterNpcs();
         SubscribeEvents();
         WirePotionCallbacks();
+        WireUICallbacks();
 
         if (SaveSystem.HasSave())
             LoadGame();
@@ -175,6 +176,110 @@ public class GameManager : MonoBehaviour
         if (uiManager == null) return;
         uiManager.OnUseHpPotion = () => UsePotion("hp_potion");
         uiManager.OnUseMpPotion = () => UsePotion("mp_potion");
+    }
+
+    void WireUICallbacks()
+    {
+        if (uiManager == null) return;
+
+        // Inventory callbacks
+        var inv = uiManager.Inventory;
+        if (inv != null)
+        {
+            inv.OnEquipCallback = slotIdx =>
+            {
+                var item = Inventory.GetSlot(slotIdx);
+                if (item == null || !Data.Items.TryGetValue(item.itemId, out var def)) return;
+                string slot = ItemTypeUtil.GetEquipSlot(def.TypeEnum);
+                if (string.IsNullOrEmpty(slot)) return;
+                // Unequip current
+                if (PlayerState.Equipment.TryGetValue(slot, out var old) && old != null)
+                    Inventory.AddItem(old.itemId, 1, false, 1);
+                PlayerState.Equipment[slot] = item;
+                Inventory.RemoveAt(slotIdx);
+                PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
+                player.SetSpeed(PlayerState.CurrentStats.spd);
+                EventBus.Emit(new EquipChangeEvent());
+                inv.Refresh();
+            };
+            inv.OnUnequipCallback = slot =>
+            {
+                if (!PlayerState.Equipment.TryGetValue(slot, out var item) || item == null) return;
+                bool stackable = Data.Items.TryGetValue(item.itemId, out var def) && def.stackable;
+                Inventory.AddItem(item.itemId, 1, stackable, def?.maxStack ?? 1);
+                PlayerState.Equipment[slot] = null;
+                PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
+                player.SetSpeed(PlayerState.CurrentStats.spd);
+                EventBus.Emit(new EquipChangeEvent());
+                inv.Refresh();
+            };
+            inv.OnUseItemCallback = slotIdx =>
+            {
+                var item = Inventory.GetSlot(slotIdx);
+                if (item == null || !Data.Items.TryGetValue(item.itemId, out var def)) return;
+                if (def.healHp > 0 || def.healMp > 0)
+                {
+                    UsePotion(item.itemId);
+                    Inventory.RemoveAt(slotIdx);
+                    inv.Refresh();
+                }
+            };
+            inv.OnSortCallback = () =>
+            {
+                Inventory.SortItems(Data.Items);
+                inv.Refresh();
+            };
+        }
+
+        // SkillTree callbacks
+        var st = uiManager.SkillTree;
+        if (st != null)
+        {
+            st.OnLearnSkill = skillId =>
+            {
+                var result = Skills.LearnSkill(skillId, PlayerState.SkillPoints, PlayerState.Level);
+                if (result.learned)
+                {
+                    PlayerState.SkillPoints = result.remainingPoints;
+                    st.Refresh();
+                    uiManager.Hud?.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+                }
+            };
+            st.OnEquipSkill = (skillId, slot) =>
+            {
+                Skills.EquipSkill(skillId, slot);
+                uiManager.Hud?.UpdateSkillBar(Skills.GetEquippedSkills(), new float[GameConfig.SkillSlotCount]);
+                st.Refresh();
+            };
+        }
+
+        // Dialogue callbacks
+        var dlg = uiManager.Dialogue;
+        if (dlg != null)
+        {
+            dlg.OnClose = () =>
+            {
+                uiManager.SetDialogueOpen(false);
+                player.Frozen = false;
+            };
+            dlg.OnAcceptQuest = questId =>
+            {
+                Quests.StartQuest(questId);
+                uiManager.Hud?.AddHistoryEntry($"Quest accepted: {questId}", Color.cyan);
+            };
+            dlg.OnCompleteQuest = questId =>
+            {
+                Quests.CompleteQuest(questId);
+            };
+        }
+
+        // PauseMenu callbacks
+        var pm = uiManager.PauseMenu;
+        if (pm != null)
+        {
+            pm.OnSaveRequested = () => EventBus.Emit(new SaveEvent());
+            pm.OnMainMenuRequested = () => UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
+        }
     }
 
     void AutoUsePotion()
