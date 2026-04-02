@@ -1,30 +1,21 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 27)
-**Status:** WORKING — R-018
+**Last run:** 2026-04-02 (loop 28)
+**Status:** WORKING — R-019
 
 ## Loop Result
 - FREEZE: N
 - Build errors: 0
-- R-001~R-016, R-027~R-032: ✅ Done (24 tasks)
-- R-017: In Review (새 시스템)
-- R-018: Completed → In Review (새 시스템)
+- R-001~R-018, R-027~R-032: ✅ Done (26 tasks!)
+- R-019: Completed → In Review (새 시스템)
 
 ## Completed This Loop
-**R-018 미니맵 UI** — SPEC-R018 기반 구현 완료 (Method B: 수동 렌더링).
+**R-019 NPC 일과 시스템** — SPEC-R019 기반 구현 완료.
 
 ### Changes
-- `MinimapUI.cs` (NEW): Manual map rendering
-  - GenerateMapTexture from walkability data
-  - uvRect-based scrolling centered on player
-  - Monster icons (red), NPC icons (green) with distance culling
-  - M key zoom toggle (30↔60 tile radius)
-  - 0.2s update interval for performance
-  - Icon pooling (auto-create if prefab null)
+- `TimeSystem.cs` (NEW): Game hour (0-24), Period (night/dawn/morning/afternoon/evening), 60s/game-hour
+- `NpcDef.cs`: NpcSchedule class (period, activity, cx, cy, radius), schedule[] field
+- `VillageNPC.cs`: UpdateSchedule() — period change detection → patrol center/radius update, sleeping state
+- `GameManager.cs`: TimeSystem property + initialization + Update call
 
-### UI 자가 검증
-1. Core method call: MinimapUI.Init() from WorldMapGenerator, Update auto ✅
-2. UI: mapImage (RawImage) + entity icons ✅
-3. SPEC wireframe: Player center, monster red, NPC green, 128px ✅
-
-Specs referenced: Y (SPEC-R018.md)
+Specs referenced: Y (SPEC-R019.md)

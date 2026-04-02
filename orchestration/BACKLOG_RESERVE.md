@@ -39,7 +39,7 @@
 
 ### 신규 기능 (New Features) — 보통
 
-19. **R-019 NPC 일과 시스템** — NPC가 시간대별로 위치 이동. `VillageNPC.cs` 확장 + 경로 데이터.
+~~R-019 NPC 일과 시스템~~ → BOARD로 이동
 20. **R-020 NPC 호감도 이벤트** — 우호도 임계점 도달 시 특별 대화/보상 트리거. `NPCBrain.cs`, `AIManager.cs` 연동.
 21. **R-021 주/야간 사이클** — 시간 경과에 따른 조명 변화 + 몬스터 스폰 변경. 새 시스템.
 22. **R-022 업적 시스템** — 마일스톤 추적 + UI 배지 표시. 새 시스템 + UI.
@@ -88,7 +88,7 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 45. ~~**🎨 A-004 몬스터 사망 애니메이션 시트**~~ ✅ 완료 (12종×4프레임: flash→red tint→dissolve→particles — 원본 스프라이트 기반)
 46. ~~**🎨 A-005 NPC 대화 포트레이트**~~ ✅ 완료 (8명: blacksmith/elder/guard/herbalist/hunter/innkeeper/merchant/scholar — 64×64 원형 프레임)
 47. ~~**🎨 A-006 스킬트리 배경 + 노드**~~ ✅ 완료 (3배경 melee/ranged/magic + 3노드 locked/available/learned + 3연결선 = 9종)
-48. **🎨 A-007 장비 세트 아이콘** — 8개 장비 세트별 세트 효과 아이콘. `Assets/Art/Sprites/Icons/`
+48. ~~**🎨 A-007 장비 세트 아이콘**~~ ✅ 완료 (8종: wolf/treant/golem/crystal/venom/scale/dragon/legend — 16×16 실드 엠블럼, items.json setBonuses 기반)
 
 ### --- [2026-04-02] 스팀에 배포할 거야 ---
 
