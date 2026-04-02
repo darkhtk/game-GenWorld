@@ -123,8 +123,8 @@ public class CombatManager : MonoBehaviour
         Vector2 from = m.Position;
         Vector2 to = _player.Position;
 
-        var go = new GameObject("MonsterProjectile");
-        var proj = go.AddComponent<Projectile>();
+        var proj = Projectile.Get();
+        if (proj == null) return;
         proj.Init(from, to, r.projectileSpeed, r.projectileColor, r.projectileSize, false);
         proj.OnArrive = arrivePos =>
         {

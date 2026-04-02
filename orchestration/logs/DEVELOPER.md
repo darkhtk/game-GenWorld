@@ -1,27 +1,28 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 6)
-**Status:** WORKING — R-002
+**Last run:** 2026-04-02 (loop 7)
+**Status:** WORKING — R-002 fix + R-003
 
 ## Loop Result
 - FREEZE: N
 - Build errors: 0 (stale log only)
 - Discussions pending: 0
-- NEEDS_WORK reviews: 0
-- R-001: ✅ Done (approved by client)
-- R-002: In Review (just completed)
+- NEEDS_WORK reviews: R-002 (REVIEW-R002-v1)
+- R-001: ✅ Done
+- R-002: Fixed (NEEDS_WORK → In Review v2)
+- R-003: Completed → In Review
 
-## Completed This Loop
-**R-002 오브젝트 풀링 (Projectile/DamageText)** — SPEC-R002 기반 구현 완료.
+## R-002 Fix (NEEDS_WORK response)
+Review pointed out caller files weren't updated (changes lost in concurrent commits).
+Re-applied:
+- `ActionRunner.cs`: `new GameObject("SkillProjectile")` → `Projectile.Get()`
+- `CombatManager.cs`: `new GameObject("MonsterProjectile")` → `Projectile.Get()`
+- `DamageText.cs`: Full rewrite with ObjectPool (30 init/80 max), instance coroutine
 
-### Changes
-- `ObjectPool.cs` (NEW): Generic pool with Get/Return, auto-expand up to maxSize
-- `Projectile.cs`: Static pool (20 initial, 50 max), lazy-init, ReturnToPool on hit/arrive/timeout(5s)
-- `DamageText.cs`: Static pool (30 initial, 80 max), instance-based coroutine animation, pool return on complete
-- `ActionRunner.cs`: Projectile.Get() instead of new GameObject + AddComponent
-- `CombatManager.cs`: Projectile.Get() instead of new GameObject + AddComponent
+## R-003 세이브 버전 마이그레이션 (NEW)
+- `SaveSystem.cs`: SaveEnvelope wrapper (version + JObject data)
+- SaveMigrations registry with sequential v0→v1 migration
+- Legacy saves (no version field) treated as v0
+- Backup creation on migration + failure handling
 
-### UI 자가 검증
-- Infrastructure system — no UI (SPEC confirms: "별도 UI 없음")
-
-Specs referenced: Y (SPEC-R002.md)
+Specs referenced: Y (SPEC-R002.md, SPEC-R003.md)

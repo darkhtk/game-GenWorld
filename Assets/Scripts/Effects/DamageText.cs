@@ -10,33 +10,65 @@ public class DamageText : MonoBehaviour
     const float NormalFontSize = 4f;
     const float CritFontSize = 6f;
 
+    static ObjectPool<DamageText> _pool;
+    static Transform _poolParent;
+
+    TextMeshPro _tmp;
+
+    static void EnsurePool()
+    {
+        if (_pool != null) return;
+        _poolParent = new GameObject("DamageTextPool").transform;
+        Object.DontDestroyOnLoad(_poolParent.gameObject);
+        _pool = new ObjectPool<DamageText>(() =>
+        {
+            var go = new GameObject("DamageText");
+            var tmp = go.AddComponent<TextMeshPro>();
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.sortingOrder = 200;
+            var dt = go.AddComponent<DamageText>();
+            dt._tmp = tmp;
+            return dt;
+        }, _poolParent, 30, 80);
+    }
+
     public static void Spawn(MonoBehaviour context, Vector2 pos, int amount, bool isCrit, Color? color = null)
     {
         if (context == null) return;
         Color c = color ?? (isCrit ? Color.yellow : Color.white);
-        context.StartCoroutine(AnimateText(pos, amount.ToString(), isCrit, c));
+        EnsurePool();
+        var dt = _pool.Get();
+        if (dt != null)
+            dt.Run(pos, amount.ToString(), isCrit, c);
     }
 
     public static void SpawnText(MonoBehaviour context, Vector2 pos, string msg, Color? color = null)
     {
         if (context == null) return;
-        context.StartCoroutine(AnimateText(pos, msg, false, color ?? Color.white));
+        EnsurePool();
+        var dt = _pool.Get();
+        if (dt != null)
+            dt.Run(pos, msg, false, color ?? Color.white);
     }
 
-    static IEnumerator AnimateText(Vector2 pos, string text, bool isCrit, Color color)
+    void Run(Vector2 pos, string text, bool isCrit, Color color)
     {
-        var go = new GameObject("DamageText");
-        go.transform.position = new Vector3(pos.x, pos.y, 0);
+        transform.SetParent(null);
+        transform.position = new Vector3(pos.x, pos.y, 0);
+        transform.localScale = Vector3.one;
 
-        var tmp = go.AddComponent<TextMeshPro>();
-        tmp.text = text;
-        tmp.color = color;
-        tmp.fontSize = isCrit ? CritFontSize : NormalFontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.sortingOrder = 200;
+        if (_tmp == null) _tmp = GetComponent<TextMeshPro>();
+        _tmp.text = text;
+        _tmp.color = color;
+        _tmp.fontSize = isCrit ? CritFontSize : NormalFontSize;
 
+        StartCoroutine(Animate(isCrit, color));
+    }
+
+    IEnumerator Animate(bool isCrit, Color color)
+    {
         float elapsed = 0f;
-        Vector3 start = go.transform.position;
+        Vector3 start = transform.position;
         float randomX = Random.Range(-0.3f, 0.3f);
 
         while (elapsed < RiseDuration)
@@ -46,20 +78,20 @@ public class DamageText : MonoBehaviour
 
             float y = RiseHeight * t;
             float x = randomX * t;
-            go.transform.position = start + new Vector3(x, y, 0);
+            transform.position = start + new Vector3(x, y, 0);
 
             if (isCrit)
             {
                 float scale = CritScale * (1f + 0.3f * Mathf.Sin(t * Mathf.PI));
-                go.transform.localScale = Vector3.one * scale;
+                transform.localScale = Vector3.one * scale;
             }
 
             float alpha = t > 0.6f ? 1f - (t - 0.6f) / 0.4f : 1f;
-            tmp.color = new Color(color.r, color.g, color.b, alpha);
+            _tmp.color = new Color(color.r, color.g, color.b, alpha);
 
             yield return null;
         }
 
-        Object.Destroy(go);
+        _pool?.Return(this);
     }
 }

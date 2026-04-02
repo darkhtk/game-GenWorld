@@ -261,8 +261,8 @@ public class ActionRunner
 
         foreach (var (start, end) in projTargets)
         {
-            var go = new GameObject("SkillProjectile");
-            var proj = go.AddComponent<Projectile>();
+            var proj = Projectile.Get();
+            if (proj == null) continue;
             float size = a.value > 0 ? a.value : 5f;
             proj.Init(start, end, speed, a.color, size, piercing);
 

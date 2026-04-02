@@ -20,9 +20,7 @@
 
 ### 안정성 (Stability) — 최우선
 
-1. **R-002 오브젝트 풀링 (Projectile/DamageText)** — Instantiate/Destroy 반복 대신 풀링으로 GC 부하 감소. `Projectile.cs`, `DamageText.cs` 대상.
-3. **R-003 세이브 파일 버전 마이그레이션** — SaveSystem에 버전 필드 추가, 구버전 세이브 자동 변환 로직.
-4. **R-004 JSON 파싱 실패 시 복구** — DataManager에서 corrupted JSON 로드 시 기본값 폴백 + 에러 로그.
+1. **R-004 JSON 파싱 실패 시 복구** — DataManager에서 corrupted JSON 로드 시 기본값 폴백 + 에러 로그.
 5. **R-005 CombatManager null 참조 방어** — 전투 중 몬스터/플레이어 파괴 시 null 체크 강화.
 6. **R-006 리전 전환 시 자동 저장** — RegionTracker.OnRegionChanged 이벤트에 자동 세이브 연동.
 
