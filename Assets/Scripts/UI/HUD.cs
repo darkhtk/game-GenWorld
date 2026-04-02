@@ -90,6 +90,8 @@ public class HUD : MonoBehaviour
     bool _historyVisible = true;
     PlayerController _cachedPlayer;
     int _hoveredSkillSlot = -1;
+    int _potionThrottle;
+    int _questThrottle;
 
     void Awake()
     {
@@ -139,9 +141,11 @@ public class HUD : MonoBehaviour
         UpdateBuffDurations();
         UpdateEffectIcons();
         UpdateDodgeFromPlayer();
-        UpdatePotionsFromInventory();
-        UpdateQuestTracker();
         LerpBars();
+
+        // Throttle infrequent updates (every 15 frames ≈ 4x/sec)
+        if (++_potionThrottle >= 15) { _potionThrottle = 0; UpdatePotionsFromInventory(); }
+        if (++_questThrottle >= 30) { _questThrottle = 0; UpdateQuestTracker(); }
 
         if (Input.GetKeyDown(KeyCode.V))
         {
