@@ -51,3 +51,31 @@
 22. **R-022 업적 시스템** — 마일스톤 추적 + UI 배지 표시. 새 시스템 + UI.
 23. **R-023 장비 강화 실패/파괴 시스템** — EnhanceUI 기존 로직에 확률적 실패/파괴 추가.
 24. **R-024 월드 이벤트 시스템** — 일정 시간 간격으로 특수 몬스터/보상 이벤트 발생.
+
+### --- [2026-04-02] 플레이어, 몬스터, npc, 스킬 등의 animation확인 ---
+
+
+### 게임플레이 개선 (Existing Feature Enhancement) — 높음
+
+### R-027: AnimationDef — 엔티티별 애니메이션 정의 데이터
+플레이어·몬스터·NPC·스킬 각각에 필요한 애니메이션 클립과 상태를 정의하는 ScriptableObject 데이터 구조 작성. specs/SPEC-R-027.md 참조.
+
+### R-028: AnimationPreviewUI — 인게임 애니메이션 미리보기 디버그 패널
+런타임에서 엔티티를 선택하고 애니메이션을 재생·일시정지·속도조절할 수 있는 디버그 UI 구현. specs/SPEC-R-028.md 참조.
+
+### R-029: PlayerAnimator 검증 및 상태 정리
+PlayerAnimator·PlayerController 연동 점검, 누락 상태 보완, AnimationDef 연결. specs/SPEC-R-029.md 참조.
+
+### R-030: MonsterController 애니메이션 검증 및 연동
+MonsterDef에 AnimationDef 참조 추가, MonsterController에서 idle·walk·attack·hit·die 상태 전이 검증. specs/SPEC-R-030.md 참조.
+
+### R-031: NPC 애니메이션 검증 및 연동
+NpcDef에 AnimationDef 참조 추가, NPCBrain에서 idle·talk·react 등 상태 전이 검증. specs/SPEC-R-031.md 참조.
+
+### R-032: 스킬·이펙트 애니메이션 검증 및 연동
+EffectSystem·ComboSystem의 스킬 발동 애니메이션과 AreaEffect VFX 타이밍 검증 및 보정. specs/SPEC-R-032.md 참조.
+
+### 🎨 에셋 (감독관 전용) — 높음
+
+### 🎨 A-001: 누락 애니메이션 클립 제작/확보
+검증 과정에서 발견된 누락 애니메이션 클립(몬스터 hit/die, NPC react 등) 제작 또는 임시 placeholder 확보.
