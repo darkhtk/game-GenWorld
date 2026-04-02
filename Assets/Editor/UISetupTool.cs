@@ -1064,4 +1064,13 @@ public static class UISetupTool
         rt.anchorMax = new Vector2(0.5f, 1);
         rt.pivot = new Vector2(0.5f, 1);
     }
+
+    static void AnchorTopRight(GameObject obj)
+    {
+        var rt = obj.GetComponent<RectTransform>();
+        if (rt == null) return;
+        rt.anchorMin = new Vector2(1, 1);
+        rt.anchorMax = new Vector2(1, 1);
+        rt.pivot = new Vector2(1, 1);
+    }
 }
