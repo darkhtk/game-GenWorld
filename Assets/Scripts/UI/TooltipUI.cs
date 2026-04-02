@@ -12,11 +12,16 @@ public class TooltipUI : MonoBehaviour
     [SerializeField] Image gradeBar;
 
     static TooltipUI _instance;
+    RectTransform _panelRect;
 
     void Awake()
     {
         _instance = this;
-        if (panel != null) panel.SetActive(false);
+        if (panel != null)
+        {
+            panel.SetActive(false);
+            _panelRect = panel.GetComponent<RectTransform>();
+        }
     }
 
     public static void ShowItem(ItemDef item, Vector2 screenPos)
@@ -100,9 +105,8 @@ public class TooltipUI : MonoBehaviour
 
     static void PositionTooltip(Vector2 screenPos)
     {
-        if (_instance.panel == null) return;
-        var rt = _instance.panel.GetComponent<RectTransform>();
-        if (rt == null) return;
+        if (_instance._panelRect == null) return;
+        var rt = _instance._panelRect;
 
         Vector2 size = rt.sizeDelta;
         float x = screenPos.x + 10f;

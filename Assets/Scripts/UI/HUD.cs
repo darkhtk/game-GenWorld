@@ -396,6 +396,9 @@ public class HUD : MonoBehaviour
         {
             var icon = Instantiate(effectIconPrefab, effectIconContainer);
             _effectIcons.Add(icon);
+            _effectTimerTexts.Add(icon.GetComponentInChildren<TextMeshProUGUI>());
+            _effectFillImages.Add(icon.transform.childCount > 1
+                ? icon.transform.GetChild(1).GetComponent<Image>() : null);
         }
 
         for (int i = 0; i < _effectIcons.Count; i++)
@@ -405,13 +408,9 @@ public class HUD : MonoBehaviour
                 _effectIcons[i].SetActive(true);
                 var info = active[i];
                 float remaining = (info.expires - nowMs) / 1000f;
-                var timerText = _effectIcons[i].GetComponentInChildren<TextMeshProUGUI>();
-                if (timerText != null) timerText.text = $"{remaining:F0}s";
-                var fill = _effectIcons[i].transform.childCount > 1
-                    ? _effectIcons[i].transform.GetChild(1).GetComponent<Image>()
-                    : null;
-                if (fill != null && info.totalDuration > 0)
-                    fill.fillAmount = (info.expires - nowMs) / info.totalDuration;
+                if (_effectTimerTexts[i] != null) _effectTimerTexts[i].text = $"{remaining:F0}s";
+                if (_effectFillImages[i] != null && info.totalDuration > 0)
+                    _effectFillImages[i].fillAmount = (info.expires - nowMs) / info.totalDuration;
             }
             else
             {
