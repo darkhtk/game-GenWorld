@@ -281,11 +281,11 @@ public class CombatManager : MonoBehaviour
 
     public void ShowDamageNumber(Vector2 pos, int amount, bool isCrit, Color? color = null)
     {
-        // Visual implementation by Dev-Frontend via floating text prefab
+        DamageText.Spawn(this, pos, amount, isCrit, color);
     }
 
     public void ShowFloatingText(Vector2 pos, string msg, Color? color = null)
     {
-        // Visual implementation by Dev-Frontend via floating text prefab
+        DamageText.SpawnText(this, pos, msg, color);
     }
 }
