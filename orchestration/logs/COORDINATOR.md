@@ -1,15 +1,15 @@
 # Coordinator Loop Log
-## [2026-04-02 22:20]
+## [2026-04-02 22:22]
 ### 점검 결과
-- BOARD 동기화: 일치 (Done 22건, R-017 👀 In Review 대기)
-- RESERVE 잔여: ~7건 (R-018~R-024)
+- BOARD 동기화: **1건 수정** — R-017 APPROVE → Done + 로드맵 ✅ + In Review 정리
+- RESERVE 잔여: ~6건 (R-019~R-024, R-018 이미 BOARD 진행)
 - 에이전트 상태:
-  - DEVELOPER: loop 26, R-017 AudioManager 완료. 신규 기능 구간 진입. In Review.
-  - CLIENT: loop 44, IDLE — R-017 리뷰 대기.
+  - DEVELOPER: R-017 Done + R-018 미니맵 UI In Review. 신규 기능 1/8 완료.
+  - CLIENT: R-017 APPROVE. R-018 리뷰 대기.
   - SUPERVISOR: 코드 감사 모드.
 - 메일: 스킵
 ### 자기 개선
-- 유휴 루프. R-017 리뷰 대기.
+- Done 23건. 신규 기능 구간 진입. RESERVE 6건 < 10건 임계 지속.
 ### 행동
-- 변경 없음 (모니터링 전용 루프)
-- 참고: 사용자가 오디오 에셋 부재 인지 → 감독관에게 직접 지시 예정
+- BOARD.md: R-017 In Review→Done, 로드맵 ✅, In Review 정리
+- **Done 23건** — 신규 기능 1/8 완료
