@@ -35,6 +35,14 @@ public class Projectile : MonoBehaviour
         // Rotate to face direction
         float angle = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // Add collider and rigidbody for trigger detection
+        var rb = gameObject.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
+        rb.isKinematic = true;
+        var col = gameObject.AddComponent<CircleCollider2D>();
+        col.isTrigger = true;
+        col.radius = size > 0 ? size / 32f : 0.25f;
     }
 
     void Update()
