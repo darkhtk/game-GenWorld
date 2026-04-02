@@ -98,11 +98,27 @@ public static class SceneSetupTool
         playerObj.transform.position = new Vector3(100 * 32, -100 * 32, 0);
         var playerSr = playerObj.AddComponent<SpriteRenderer>();
         playerSr.sortingOrder = 10;
+        // Assign player sprite
+        var playerSprites = AssetDatabase.LoadAllAssetsAtPath("Assets/Art/Sprites/player.png");
+        foreach (var asset in playerSprites)
+        {
+            if (asset is Sprite s && s.name.Contains("walk_down_0"))
+            {
+                playerSr.sprite = s;
+                break;
+            }
+        }
+        if (playerSr.sprite == null)
+        {
+            var fallback = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/Sprites/player.png");
+            if (fallback != null) playerSr.sprite = fallback;
+        }
         var playerRb = playerObj.AddComponent<Rigidbody2D>();
         playerRb.gravityScale = 0;
         playerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
         playerObj.AddComponent<BoxCollider2D>();
         var playerCtrl = playerObj.AddComponent<PlayerController>();
+        playerObj.AddComponent<PlayerAnimator>();
 
         // WorldMapGenerator
         var worldMapObj = new GameObject("WorldMapGenerator");
