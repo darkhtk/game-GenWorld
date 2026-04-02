@@ -76,6 +76,7 @@ public class CombatManager : MonoBehaviour
             m.LastHitByPlayerTime = Time.time;
             bool dead = m.TakeDamage(dmg);
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
+            SkillVFX.ShowAtPosition(this, "vfx_melee_hit", m.Position.x, m.Position.y);
             if (dead) { killed ??= new(); killed.Add(m); }
         }
 
@@ -133,6 +134,7 @@ public class CombatManager : MonoBehaviour
             var stats = _getStats();
             int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
             ApplyDamageToPlayer(dmg);
+            SkillVFX.ShowAtPosition(this, "vfx_ranged_hit", _player.Position.x, _player.Position.y);
         };
     }
 

@@ -44,7 +44,7 @@
 25. ~~**🎨 R-025 UI 공통 스프라이트**~~ ✅ 완료 (14종 생성: panel, button×3, slot×2, tooltip, frame, bars×4, dialog, separator)
 26. ~~**🎨 R-026 상태이상 아이콘 세트**~~ ✅ 완료 (6종: poison, burn, slow, stun, bleed, mana_shield — 16×16 pixel art)
 27. ~~**🎨 R-027 스킬 이펙트 VFX 스프라이트**~~ ✅ 완료 (6종 스프라이트시트: slash, fireball, ice_bolt, heal, hit_impact, lightning + SkillVFX.cs 개선)
-28. **🎨 R-028 몬스터 피격/공격 이펙트** — 근접/원거리/마법 타격 VFX 3종. `Assets/Prefabs/Effects/`
+28. ~~**🎨 R-028 몬스터 피격/공격 이펙트**~~ ✅ 완료 (3종: melee_hit, ranged_hit, magic_hit + CombatManager VFX 연동)
 29. **🎨 R-029 아이템 드롭 이펙트** — 루팅 시 빛나는 파티클 + 바운스 애니메이션 프리팹. `Assets/Prefabs/Effects/`
 30. **🎨 R-030 지역 전용 타일셋 보충** — swamp, volcano, dragon_lair 타일셋 PNG + TileAsset. `Assets/Art/Tiles/`
 31. **🎨 R-031 플레이어 애니메이션 컨트롤러** — idle/walk 4방향 AnimationClip + Animator 구성. `Assets/Art/Sprites/Player/`
