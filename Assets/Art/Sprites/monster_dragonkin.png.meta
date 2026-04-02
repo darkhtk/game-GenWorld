@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: 4c62de3cc9b0a1e4b8134f8dfd60877e
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 1838677903457039501
-    second: monster_dragonkin_0
-  - first:
-      213: 3507626737112066008
-    second: monster_dragonkin_1
-  - first:
-      213: -2052427944307692359
-    second: monster_dragonkin_2
-  - first:
-      213: -3252989381519246732
-    second: monster_dragonkin_3
-  - first:
-      213: -1988487580176723811
-    second: monster_dragonkin_4
-  - first:
-      213: 854765976276283804
-    second: monster_dragonkin_5
-  - first:
-      213: -6849333173984595556
-    second: monster_dragonkin_6
-  - first:
-      213: 432621474184675256
-    second: monster_dragonkin_7
-  - first:
-      213: 1362626718716590178
-    second: monster_dragonkin_8
-  - first:
-      213: -521265447071218826
-    second: monster_dragonkin_9
-  - first:
-      213: -6017345689825189615
-    second: monster_dragonkin_10
-  - first:
-      213: -4230321619186640590
-    second: monster_dragonkin_11
-  - first:
-      213: 3619178359993403592
-    second: monster_dragonkin_12
-  - first:
-      213: 6537894859963974794
-    second: monster_dragonkin_13
-  - first:
-      213: 11570324371273872
-    second: monster_dragonkin_14
-  - first:
-      213: 7274426856152451062
-    second: monster_dragonkin_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: monster_dragonkin_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 95
-        width: 23
+        x: 0
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: monster_dragonkin_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 32
         y: 96
-        width: 23
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: monster_dragonkin_2
       rect:
         serializedVersion: 2
-        x: 37
-        y: 64
-        width: 23
+        x: 64
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: monster_dragonkin_3
       rect:
         serializedVersion: 2
-        x: 69
-        y: 95
-        width: 23
+        x: 96
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: monster_dragonkin_4
       rect:
         serializedVersion: 2
-        x: 101
-        y: 95
-        width: 23
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: monster_dragonkin_5
       rect:
         serializedVersion: 2
-        x: 5
-        y: 63
-        width: 23
+        x: 32
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: monster_dragonkin_6
       rect:
         serializedVersion: 2
-        x: 5
-        y: 31
-        width: 23
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: monster_dragonkin_7
       rect:
         serializedVersion: 2
-        x: 37
-        y: 32
-        width: 23
+        x: 96
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: monster_dragonkin_8
       rect:
         serializedVersion: 2
-        x: 69
-        y: 63
-        width: 23
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: monster_dragonkin_9
       rect:
         serializedVersion: 2
-        x: 69
-        y: 31
-        width: 23
+        x: 32
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: monster_dragonkin_10
       rect:
         serializedVersion: 2
-        x: 101
-        y: 63
-        width: 23
-        height: 31
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: monster_dragonkin_11
       rect:
         serializedVersion: 2
-        x: 5
-        y: 0
-        width: 23
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: monster_dragonkin_12
       rect:
         serializedVersion: 2
-        x: 37
+        x: 0
         y: 0
-        width: 23
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: monster_dragonkin_13
       rect:
         serializedVersion: 2
-        x: 69
+        x: 32
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: monster_dragonkin_14
       rect:
         serializedVersion: 2
-        x: 101
-        y: 31
-        width: 23
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: monster_dragonkin_15
       rect:
         serializedVersion: 2
-        x: 101
+        x: 96
         y: 0
-        width: 23
-        height: 30
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ecca088115fe412d8da98705
     internalID: 0
     vertices: []
     indices: 

@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: 2d6433f97d64c11478bff97b628b2b77
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5810807849457698034
-    second: monster_bat_0
-  - first:
-      213: -390986175489279139
-    second: monster_bat_1
-  - first:
-      213: 6181508296161655751
-    second: monster_bat_2
-  - first:
-      213: 8000013701680871385
-    second: monster_bat_3
-  - first:
-      213: -450682678399926223
-    second: monster_bat_4
-  - first:
-      213: -2390196115753306450
-    second: monster_bat_5
-  - first:
-      213: -3848156575390036362
-    second: monster_bat_6
-  - first:
-      213: -4123004430034924915
-    second: monster_bat_7
-  - first:
-      213: 6711246055124610849
-    second: monster_bat_8
-  - first:
-      213: -4150900906414913536
-    second: monster_bat_9
-  - first:
-      213: -4721554398415140233
-    second: monster_bat_10
-  - first:
-      213: 2998813487908259987
-    second: monster_bat_11
-  - first:
-      213: 1960206051669430377
-    second: monster_bat_12
-  - first:
-      213: -3450888533103180333
-    second: monster_bat_13
-  - first:
-      213: -3037887868533819057
-    second: monster_bat_14
-  - first:
-      213: 456404437441451460
-    second: monster_bat_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: monster_bat_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 99
-        width: 29
-        height: 22
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: monster_bat_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 99
-        width: 29
-        height: 23
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: monster_bat_2
       rect:
         serializedVersion: 2
-        x: 67
-        y: 97
-        width: 29
-        height: 24
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: monster_bat_3
       rect:
         serializedVersion: 2
-        x: 99
-        y: 97
-        width: 29
-        height: 23
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: monster_bat_4
       rect:
         serializedVersion: 2
-        x: 3
-        y: 67
-        width: 29
-        height: 22
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: monster_bat_5
       rect:
         serializedVersion: 2
-        x: 35
-        y: 67
-        width: 29
-        height: 23
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: monster_bat_6
       rect:
         serializedVersion: 2
-        x: 67
-        y: 65
-        width: 29
-        height: 24
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: monster_bat_7
       rect:
         serializedVersion: 2
-        x: 99
-        y: 65
-        width: 29
-        height: 23
+        x: 96
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: monster_bat_8
       rect:
         serializedVersion: 2
-        x: 5
-        y: 35
-        width: 27
-        height: 22
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: monster_bat_9
       rect:
         serializedVersion: 2
-        x: 37
-        y: 35
-        width: 27
-        height: 23
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: monster_bat_10
       rect:
         serializedVersion: 2
-        x: 69
-        y: 33
-        width: 27
-        height: 24
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: monster_bat_11
       rect:
         serializedVersion: 2
-        x: 101
-        y: 33
-        width: 27
-        height: 23
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: monster_bat_12
       rect:
         serializedVersion: 2
-        x: 5
-        y: 3
-        width: 27
-        height: 22
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: monster_bat_13
       rect:
         serializedVersion: 2
-        x: 37
-        y: 3
-        width: 27
-        height: 23
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: monster_bat_14
       rect:
         serializedVersion: 2
-        x: 69
-        y: 1
-        width: 27
-        height: 24
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: monster_bat_15
       rect:
         serializedVersion: 2
-        x: 101
-        y: 1
-        width: 27
-        height: 23
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4408c365e8554bd3a0ee143c
     internalID: 0
     vertices: []
     indices: 

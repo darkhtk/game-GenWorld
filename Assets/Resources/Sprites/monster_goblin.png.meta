@@ -1,67 +1,7 @@
 fileFormatVersion: 2
 guid: d1f6f6ff6b2b4fcd9b3894c4f8cd0f8f
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5660764447855310781
-    second: monster_goblin_0
-  - first:
-      213: 2338976340764241663
-    second: monster_goblin_1
-  - first:
-      213: 1941876548781949958
-    second: monster_goblin_2
-  - first:
-      213: 6139238400580542621
-    second: monster_goblin_3
-  - first:
-      213: -2956356077409839689
-    second: monster_goblin_4
-  - first:
-      213: -3078633058626642862
-    second: monster_goblin_5
-  - first:
-      213: 1191798394440335622
-    second: monster_goblin_6
-  - first:
-      213: 4450262350590447089
-    second: monster_goblin_7
-  - first:
-      213: 3801486835842078734
-    second: monster_goblin_8
-  - first:
-      213: -1019686049943166470
-    second: monster_goblin_9
-  - first:
-      213: -3775812024242465259
-    second: monster_goblin_10
-  - first:
-      213: -6233335449945127165
-    second: monster_goblin_11
-  - first:
-      213: -1603278722789917178
-    second: monster_goblin_12
-  - first:
-      213: 7407431911745278722
-    second: monster_goblin_13
-  - first:
-      213: 204582630353403797
-    second: monster_goblin_14
-  - first:
-      213: -8778235798369373620
-    second: monster_goblin_15
-  - first:
-      213: -3697093715219724802
-    second: monster_goblin_16
-  - first:
-      213: -390911523667170761
-    second: monster_goblin_17
-  - first:
-      213: 2825911870212710795
-    second: monster_goblin_18
-  - first:
-      213: -7057172973307883291
-    second: monster_goblin_19
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -105,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -153,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -173,12 +100,12 @@ TextureImporter:
       name: monster_goblin_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 0
         y: 96
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,12 +122,12 @@ TextureImporter:
       name: monster_goblin_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 97
-        width: 15
-        height: 31
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -217,12 +144,12 @@ TextureImporter:
       name: monster_goblin_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 64
         y: 96
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -239,12 +166,12 @@ TextureImporter:
       name: monster_goblin_3
       rect:
         serializedVersion: 2
-        x: 81
-        y: 95
-        width: 6
-        height: 9
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -261,12 +188,12 @@ TextureImporter:
       name: monster_goblin_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 95
-        width: 15
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -283,12 +210,12 @@ TextureImporter:
       name: monster_goblin_5
       rect:
         serializedVersion: 2
-        x: 9
+        x: 32
         y: 64
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -305,12 +232,12 @@ TextureImporter:
       name: monster_goblin_6
       rect:
         serializedVersion: 2
-        x: 41
-        y: 65
-        width: 15
-        height: 31
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -327,12 +254,12 @@ TextureImporter:
       name: monster_goblin_7
       rect:
         serializedVersion: 2
-        x: 73
+        x: 96
         y: 64
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -349,12 +276,12 @@ TextureImporter:
       name: monster_goblin_8
       rect:
         serializedVersion: 2
-        x: 81
-        y: 63
-        width: 6
-        height: 9
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -371,12 +298,12 @@ TextureImporter:
       name: monster_goblin_9
       rect:
         serializedVersion: 2
-        x: 105
-        y: 63
-        width: 15
-        height: 31
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -393,12 +320,12 @@ TextureImporter:
       name: monster_goblin_10
       rect:
         serializedVersion: 2
-        x: 9
+        x: 64
         y: 32
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -415,12 +342,12 @@ TextureImporter:
       name: monster_goblin_11
       rect:
         serializedVersion: 2
-        x: 41
-        y: 33
-        width: 15
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -437,12 +364,12 @@ TextureImporter:
       name: monster_goblin_12
       rect:
         serializedVersion: 2
-        x: 73
-        y: 32
-        width: 15
-        height: 31
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -459,12 +386,12 @@ TextureImporter:
       name: monster_goblin_13
       rect:
         serializedVersion: 2
-        x: 81
-        y: 31
-        width: 6
-        height: 9
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -481,12 +408,12 @@ TextureImporter:
       name: monster_goblin_14
       rect:
         serializedVersion: 2
-        x: 105
-        y: 31
-        width: 15
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -503,12 +430,12 @@ TextureImporter:
       name: monster_goblin_15
       rect:
         serializedVersion: 2
-        x: 9
+        x: 96
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -521,99 +448,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_goblin_16
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 1
-        width: 15
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ef5cff2aad841bcc0800000000000000
-      internalID: -3697093715219724802
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_goblin_17
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 0
-        width: 15
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73a26355a04339af0800000000000000
-      internalID: -390911523667170761
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_goblin_18
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 0
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b81a696afd7a73720800000000000000
-      internalID: 2825911870212710795
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_goblin_19
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 0
-        width: 15
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5e01f7f3292ef0e90800000000000000
-      internalID: -7057172973307883291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 157b3b0008324b14ab208312
     internalID: 0
     vertices: []
     indices: 
@@ -631,10 +470,6 @@ TextureImporter:
       monster_goblin_13: 7407431911745278722
       monster_goblin_14: 204582630353403797
       monster_goblin_15: -8778235798369373620
-      monster_goblin_16: -3697093715219724802
-      monster_goblin_17: -390911523667170761
-      monster_goblin_18: 2825911870212710795
-      monster_goblin_19: -7057172973307883291
       monster_goblin_2: 1941876548781949958
       monster_goblin_3: 6139238400580542621
       monster_goblin_4: -2956356077409839689

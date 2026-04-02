@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: d931eaf833f4d1545b1912da818d8cdc
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 9210024078491201438
-    second: npc_scholar_0
-  - first:
-      213: 7975452886632522795
-    second: npc_scholar_1
-  - first:
-      213: 207442276117807404
-    second: npc_scholar_2
-  - first:
-      213: 7260256098353036629
-    second: npc_scholar_3
-  - first:
-      213: 6474300683833467390
-    second: npc_scholar_4
-  - first:
-      213: -970418383108824560
-    second: npc_scholar_5
-  - first:
-      213: 4319260481486407955
-    second: npc_scholar_6
-  - first:
-      213: -4064045585902841579
-    second: npc_scholar_7
-  - first:
-      213: 8964670792704819715
-    second: npc_scholar_8
-  - first:
-      213: 1254494705779201930
-    second: npc_scholar_9
-  - first:
-      213: 2255823252675585310
-    second: npc_scholar_10
-  - first:
-      213: 3756710881154001670
-    second: npc_scholar_11
-  - first:
-      213: -5187317131909877050
-    second: npc_scholar_12
-  - first:
-      213: 5739181053687603212
-    second: npc_scholar_13
-  - first:
-      213: -2823111515095414782
-    second: npc_scholar_14
-  - first:
-      213: -8296805622184118747
-    second: npc_scholar_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: npc_scholar_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 95
-        width: 22
-        height: 33
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: npc_scholar_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 63
-        width: 17
-        height: 33
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: npc_scholar_2
       rect:
         serializedVersion: 2
-        x: 40
+        x: 64
         y: 96
-        width: 22
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: npc_scholar_3
       rect:
         serializedVersion: 2
-        x: 40
-        y: 64
-        width: 17
-        height: 33
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: npc_scholar_4
       rect:
         serializedVersion: 2
-        x: 72
-        y: 95
-        width: 22
-        height: 33
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: npc_scholar_5
       rect:
         serializedVersion: 2
-        x: 72
-        y: 63
-        width: 17
-        height: 33
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: npc_scholar_6
       rect:
         serializedVersion: 2
-        x: 104
-        y: 95
-        width: 22
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: npc_scholar_7
       rect:
         serializedVersion: 2
-        x: 8
-        y: 31
-        width: 22
-        height: 33
+        x: 96
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: npc_scholar_8
       rect:
         serializedVersion: 2
-        x: 40
+        x: 0
         y: 32
-        width: 22
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: npc_scholar_9
       rect:
         serializedVersion: 2
-        x: 72
-        y: 31
-        width: 22
-        height: 33
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: npc_scholar_10
       rect:
         serializedVersion: 2
-        x: 104
-        y: 63
-        width: 17
+        x: 64
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: npc_scholar_11
       rect:
         serializedVersion: 2
-        x: 104
-        y: 31
-        width: 22
+        x: 96
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: npc_scholar_12
       rect:
         serializedVersion: 2
-        x: 8
+        x: 0
         y: 0
-        width: 17
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: npc_scholar_13
       rect:
         serializedVersion: 2
-        x: 40
+        x: 32
         y: 0
-        width: 17
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: npc_scholar_14
       rect:
         serializedVersion: 2
-        x: 72
+        x: 64
         y: 0
-        width: 17
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: npc_scholar_15
       rect:
         serializedVersion: 2
-        x: 104
+        x: 96
         y: 0
-        width: 17
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ffa4110f75134e75a274599d
     internalID: 0
     vertices: []
     indices: 

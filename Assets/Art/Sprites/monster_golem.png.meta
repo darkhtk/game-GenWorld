@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: b20a7f913d38da94d8e1f423fcdc65f7
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 6922210212686546245
-    second: monster_golem_0
-  - first:
-      213: -2601920771413772814
-    second: monster_golem_1
-  - first:
-      213: 3421905425158225482
-    second: monster_golem_2
-  - first:
-      213: 3042221918310972066
-    second: monster_golem_3
-  - first:
-      213: -7529357845761516811
-    second: monster_golem_4
-  - first:
-      213: -1498356443504588048
-    second: monster_golem_5
-  - first:
-      213: -1342047374512863006
-    second: monster_golem_6
-  - first:
-      213: -4463028802008365387
-    second: monster_golem_7
-  - first:
-      213: 9171516886697022945
-    second: monster_golem_8
-  - first:
-      213: -6727931818172567176
-    second: monster_golem_9
-  - first:
-      213: -9238343292620359
-    second: monster_golem_10
-  - first:
-      213: 6983608680364886801
-    second: monster_golem_11
-  - first:
-      213: 8726163484980832935
-    second: monster_golem_12
-  - first:
-      213: 3808760465167578681
-    second: monster_golem_13
-  - first:
-      213: -5325181732176171141
-    second: monster_golem_14
-  - first:
-      213: -4699481005373068902
-    second: monster_golem_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: monster_golem_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 95
-        width: 23
+        x: 0
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: monster_golem_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 32
         y: 96
-        width: 23
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: monster_golem_2
       rect:
         serializedVersion: 2
-        x: 37
-        y: 64
-        width: 23
+        x: 64
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: monster_golem_3
       rect:
         serializedVersion: 2
-        x: 69
-        y: 95
-        width: 23
+        x: 96
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: monster_golem_4
       rect:
         serializedVersion: 2
-        x: 101
-        y: 95
-        width: 23
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: monster_golem_5
       rect:
         serializedVersion: 2
-        x: 5
-        y: 63
-        width: 23
+        x: 32
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: monster_golem_6
       rect:
         serializedVersion: 2
-        x: 5
-        y: 31
-        width: 23
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: monster_golem_7
       rect:
         serializedVersion: 2
-        x: 37
-        y: 32
-        width: 23
+        x: 96
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: monster_golem_8
       rect:
         serializedVersion: 2
-        x: 69
-        y: 63
-        width: 23
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: monster_golem_9
       rect:
         serializedVersion: 2
-        x: 69
-        y: 31
-        width: 23
+        x: 32
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: monster_golem_10
       rect:
         serializedVersion: 2
-        x: 101
-        y: 63
-        width: 23
-        height: 31
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: monster_golem_11
       rect:
         serializedVersion: 2
-        x: 5
-        y: 0
-        width: 23
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: monster_golem_12
       rect:
         serializedVersion: 2
-        x: 37
+        x: 0
         y: 0
-        width: 23
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: monster_golem_13
       rect:
         serializedVersion: 2
-        x: 69
+        x: 32
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: monster_golem_14
       rect:
         serializedVersion: 2
-        x: 101
-        y: 31
-        width: 23
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: monster_golem_15
       rect:
         serializedVersion: 2
-        x: 101
+        x: 96
         y: 0
-        width: 23
-        height: 30
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c4f7cad65dca42eb93ee22d3
     internalID: 0
     vertices: []
     indices: 

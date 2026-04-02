@@ -1,67 +1,7 @@
 fileFormatVersion: 2
 guid: 6712e186e7c0f7b42ad8da6ef448146c
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -2057563975101473583
-    second: monster_lizardman_0
-  - first:
-      213: -5978248212508070440
-    second: monster_lizardman_1
-  - first:
-      213: -3667991893591215165
-    second: monster_lizardman_2
-  - first:
-      213: 3872719673101655637
-    second: monster_lizardman_3
-  - first:
-      213: -1243036193345075951
-    second: monster_lizardman_4
-  - first:
-      213: 5500332056527668923
-    second: monster_lizardman_5
-  - first:
-      213: 772721562429466370
-    second: monster_lizardman_6
-  - first:
-      213: -5564886395337015711
-    second: monster_lizardman_7
-  - first:
-      213: -105457264867870044
-    second: monster_lizardman_8
-  - first:
-      213: -304867521544844959
-    second: monster_lizardman_9
-  - first:
-      213: -8031659852934761250
-    second: monster_lizardman_10
-  - first:
-      213: 6491579459450454395
-    second: monster_lizardman_11
-  - first:
-      213: -3556750448010464825
-    second: monster_lizardman_12
-  - first:
-      213: -4098273366394597150
-    second: monster_lizardman_13
-  - first:
-      213: 3794942260461404156
-    second: monster_lizardman_14
-  - first:
-      213: -2947975953502433926
-    second: monster_lizardman_15
-  - first:
-      213: 3389148503350859368
-    second: monster_lizardman_16
-  - first:
-      213: 7419202749512873140
-    second: monster_lizardman_17
-  - first:
-      213: 3006053911665419178
-    second: monster_lizardman_18
-  - first:
-      213: 2727846987084198986
-    second: monster_lizardman_19
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -105,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -153,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -173,12 +100,12 @@ TextureImporter:
       name: monster_lizardman_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 0
         y: 96
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,12 +122,12 @@ TextureImporter:
       name: monster_lizardman_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 97
-        width: 15
-        height: 31
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -217,12 +144,12 @@ TextureImporter:
       name: monster_lizardman_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 64
         y: 96
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -239,12 +166,12 @@ TextureImporter:
       name: monster_lizardman_3
       rect:
         serializedVersion: 2
-        x: 81
-        y: 95
-        width: 6
-        height: 9
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -261,12 +188,12 @@ TextureImporter:
       name: monster_lizardman_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 95
-        width: 15
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -283,12 +210,12 @@ TextureImporter:
       name: monster_lizardman_5
       rect:
         serializedVersion: 2
-        x: 9
+        x: 32
         y: 64
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -305,12 +232,12 @@ TextureImporter:
       name: monster_lizardman_6
       rect:
         serializedVersion: 2
-        x: 41
-        y: 65
-        width: 15
-        height: 31
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -327,12 +254,12 @@ TextureImporter:
       name: monster_lizardman_7
       rect:
         serializedVersion: 2
-        x: 73
+        x: 96
         y: 64
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -349,12 +276,12 @@ TextureImporter:
       name: monster_lizardman_8
       rect:
         serializedVersion: 2
-        x: 81
-        y: 63
-        width: 6
-        height: 9
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -371,12 +298,12 @@ TextureImporter:
       name: monster_lizardman_9
       rect:
         serializedVersion: 2
-        x: 105
-        y: 63
-        width: 15
-        height: 31
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -393,12 +320,12 @@ TextureImporter:
       name: monster_lizardman_10
       rect:
         serializedVersion: 2
-        x: 9
+        x: 64
         y: 32
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -415,12 +342,12 @@ TextureImporter:
       name: monster_lizardman_11
       rect:
         serializedVersion: 2
-        x: 41
-        y: 33
-        width: 15
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -437,12 +364,12 @@ TextureImporter:
       name: monster_lizardman_12
       rect:
         serializedVersion: 2
-        x: 73
-        y: 32
-        width: 15
-        height: 31
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -459,12 +386,12 @@ TextureImporter:
       name: monster_lizardman_13
       rect:
         serializedVersion: 2
-        x: 81
-        y: 31
-        width: 6
-        height: 9
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -481,12 +408,12 @@ TextureImporter:
       name: monster_lizardman_14
       rect:
         serializedVersion: 2
-        x: 105
-        y: 31
-        width: 15
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -503,12 +430,12 @@ TextureImporter:
       name: monster_lizardman_15
       rect:
         serializedVersion: 2
-        x: 9
+        x: 96
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -521,99 +448,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_lizardman_16
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 1
-        width: 15
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 86656497b9ca80f20800000000000000
-      internalID: 3389148503350859368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_lizardman_17
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 0
-        width: 15
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4b4f051979d46f660800000000000000
-      internalID: 7419202749512873140
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_lizardman_18
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 0
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa3ad7c1b16a7b920800000000000000
-      internalID: 3006053911665419178
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_lizardman_19
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 0
-        width: 15
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a44f5cac1624bd520800000000000000
-      internalID: 2727846987084198986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7a3f67cff9014683b4f5d21d
     internalID: 0
     vertices: []
     indices: 
@@ -631,10 +470,6 @@ TextureImporter:
       monster_lizardman_13: -4098273366394597150
       monster_lizardman_14: 3794942260461404156
       monster_lizardman_15: -2947975953502433926
-      monster_lizardman_16: 3389148503350859368
-      monster_lizardman_17: 7419202749512873140
-      monster_lizardman_18: 3006053911665419178
-      monster_lizardman_19: 2727846987084198986
       monster_lizardman_2: -3667991893591215165
       monster_lizardman_3: 3872719673101655637
       monster_lizardman_4: -1243036193345075951

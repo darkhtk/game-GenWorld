@@ -1,67 +1,7 @@
 fileFormatVersion: 2
 guid: 2a141b315a68ca04d8827bdf7bbf9605
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -7678341878443310065
-    second: monster_fire_imp_0
-  - first:
-      213: -1462414399586610654
-    second: monster_fire_imp_1
-  - first:
-      213: 2428746589735680030
-    second: monster_fire_imp_2
-  - first:
-      213: 1382364916129976017
-    second: monster_fire_imp_3
-  - first:
-      213: -5282775114767219489
-    second: monster_fire_imp_4
-  - first:
-      213: -4236320369468763489
-    second: monster_fire_imp_5
-  - first:
-      213: 7737622245147299711
-    second: monster_fire_imp_6
-  - first:
-      213: 9071733061626394248
-    second: monster_fire_imp_7
-  - first:
-      213: 8239435612547274853
-    second: monster_fire_imp_8
-  - first:
-      213: 2849195632022351767
-    second: monster_fire_imp_9
-  - first:
-      213: 7932014336298160019
-    second: monster_fire_imp_10
-  - first:
-      213: -1121616297719951846
-    second: monster_fire_imp_11
-  - first:
-      213: 6082701111652465427
-    second: monster_fire_imp_12
-  - first:
-      213: -6161505720926568388
-    second: monster_fire_imp_13
-  - first:
-      213: 5630938556855745641
-    second: monster_fire_imp_14
-  - first:
-      213: 3204474240357149832
-    second: monster_fire_imp_15
-  - first:
-      213: -6626373891705279389
-    second: monster_fire_imp_16
-  - first:
-      213: 2984414540840618163
-    second: monster_fire_imp_17
-  - first:
-      213: -5161481561620862558
-    second: monster_fire_imp_18
-  - first:
-      213: 2133896840863396186
-    second: monster_fire_imp_19
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -105,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -153,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -173,12 +100,12 @@ TextureImporter:
       name: monster_fire_imp_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 0
         y: 96
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,12 +122,12 @@ TextureImporter:
       name: monster_fire_imp_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 97
-        width: 15
-        height: 31
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -217,12 +144,12 @@ TextureImporter:
       name: monster_fire_imp_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 64
         y: 96
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -239,12 +166,12 @@ TextureImporter:
       name: monster_fire_imp_3
       rect:
         serializedVersion: 2
-        x: 81
-        y: 95
-        width: 6
-        height: 9
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -261,12 +188,12 @@ TextureImporter:
       name: monster_fire_imp_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 95
-        width: 15
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -283,12 +210,12 @@ TextureImporter:
       name: monster_fire_imp_5
       rect:
         serializedVersion: 2
-        x: 9
+        x: 32
         y: 64
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -305,12 +232,12 @@ TextureImporter:
       name: monster_fire_imp_6
       rect:
         serializedVersion: 2
-        x: 41
-        y: 65
-        width: 15
-        height: 31
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -327,12 +254,12 @@ TextureImporter:
       name: monster_fire_imp_7
       rect:
         serializedVersion: 2
-        x: 73
+        x: 96
         y: 64
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -349,12 +276,12 @@ TextureImporter:
       name: monster_fire_imp_8
       rect:
         serializedVersion: 2
-        x: 81
-        y: 63
-        width: 6
-        height: 9
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -371,12 +298,12 @@ TextureImporter:
       name: monster_fire_imp_9
       rect:
         serializedVersion: 2
-        x: 105
-        y: 63
-        width: 15
-        height: 31
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -393,12 +320,12 @@ TextureImporter:
       name: monster_fire_imp_10
       rect:
         serializedVersion: 2
-        x: 9
+        x: 64
         y: 32
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -415,12 +342,12 @@ TextureImporter:
       name: monster_fire_imp_11
       rect:
         serializedVersion: 2
-        x: 41
-        y: 33
-        width: 15
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -437,12 +364,12 @@ TextureImporter:
       name: monster_fire_imp_12
       rect:
         serializedVersion: 2
-        x: 73
-        y: 32
-        width: 15
-        height: 31
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -459,12 +386,12 @@ TextureImporter:
       name: monster_fire_imp_13
       rect:
         serializedVersion: 2
-        x: 81
-        y: 31
-        width: 6
-        height: 9
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -481,12 +408,12 @@ TextureImporter:
       name: monster_fire_imp_14
       rect:
         serializedVersion: 2
-        x: 105
-        y: 31
-        width: 15
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -503,12 +430,12 @@ TextureImporter:
       name: monster_fire_imp_15
       rect:
         serializedVersion: 2
-        x: 9
+        x: 96
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -521,99 +448,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_fire_imp_16
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 1
-        width: 15
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 36cebf3bd046a04a0800000000000000
-      internalID: -6626373891705279389
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_fire_imp_17
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 0
-        width: 15
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3b8c0597635ca6920800000000000000
-      internalID: 2984414540840618163
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_fire_imp_18
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 0
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2a92cdccddbbe58b0800000000000000
-      internalID: -5161481561620862558
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_fire_imp_19
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 0
-        width: 15
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a51bdf2fedf1d9d10800000000000000
-      internalID: 2133896840863396186
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 07bdf4f524114fa79ebc6fb6
     internalID: 0
     vertices: []
     indices: 
@@ -631,10 +470,6 @@ TextureImporter:
       monster_fire_imp_13: -6161505720926568388
       monster_fire_imp_14: 5630938556855745641
       monster_fire_imp_15: 3204474240357149832
-      monster_fire_imp_16: -6626373891705279389
-      monster_fire_imp_17: 2984414540840618163
-      monster_fire_imp_18: -5161481561620862558
-      monster_fire_imp_19: 2133896840863396186
       monster_fire_imp_2: 2428746589735680030
       monster_fire_imp_3: 1382364916129976017
       monster_fire_imp_4: -5282775114767219489

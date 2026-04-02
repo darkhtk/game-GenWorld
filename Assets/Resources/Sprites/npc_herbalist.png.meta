@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: 7e3200a7d7f940a4b4033f19fc220649
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5798163428969334846
-    second: npc_herbalist_0
-  - first:
-      213: -9078477045304304368
-    second: npc_herbalist_1
-  - first:
-      213: -2498186467342457507
-    second: npc_herbalist_2
-  - first:
-      213: -3334016768853654573
-    second: npc_herbalist_3
-  - first:
-      213: -1319697680171651461
-    second: npc_herbalist_4
-  - first:
-      213: 3498154181811937370
-    second: npc_herbalist_5
-  - first:
-      213: -5568663288783461343
-    second: npc_herbalist_6
-  - first:
-      213: 3650125356249070483
-    second: npc_herbalist_7
-  - first:
-      213: 4244846520311679055
-    second: npc_herbalist_8
-  - first:
-      213: 5631794273644119283
-    second: npc_herbalist_9
-  - first:
-      213: -6042743546185718390
-    second: npc_herbalist_10
-  - first:
-      213: -4057396061321904836
-    second: npc_herbalist_11
-  - first:
-      213: 5324430716726963196
-    second: npc_herbalist_12
-  - first:
-      213: 4937777537442275967
-    second: npc_herbalist_13
-  - first:
-      213: -7243667535073331102
-    second: npc_herbalist_14
-  - first:
-      213: -6120434984247983717
-    second: npc_herbalist_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: npc_herbalist_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 95
-        width: 22
+        x: 0
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: npc_herbalist_1
       rect:
         serializedVersion: 2
-        x: 41
+        x: 32
         y: 96
-        width: 22
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: npc_herbalist_2
       rect:
         serializedVersion: 2
-        x: 41
-        y: 64
-        width: 15
+        x: 64
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: npc_herbalist_3
       rect:
         serializedVersion: 2
-        x: 73
-        y: 95
-        width: 22
+        x: 96
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: npc_herbalist_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 95
-        width: 22
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: npc_herbalist_5
       rect:
         serializedVersion: 2
-        x: 9
-        y: 63
-        width: 15
+        x: 32
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: npc_herbalist_6
       rect:
         serializedVersion: 2
-        x: 9
-        y: 31
-        width: 22
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: npc_herbalist_7
       rect:
         serializedVersion: 2
-        x: 41
-        y: 32
-        width: 22
+        x: 96
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: npc_herbalist_8
       rect:
         serializedVersion: 2
-        x: 73
-        y: 63
-        width: 15
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: npc_herbalist_9
       rect:
         serializedVersion: 2
-        x: 73
-        y: 31
-        width: 22
+        x: 32
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: npc_herbalist_10
       rect:
         serializedVersion: 2
-        x: 105
-        y: 63
-        width: 15
-        height: 31
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: npc_herbalist_11
       rect:
         serializedVersion: 2
-        x: 9
-        y: 0
-        width: 15
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: npc_herbalist_12
       rect:
         serializedVersion: 2
-        x: 41
+        x: 0
         y: 0
-        width: 15
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: npc_herbalist_13
       rect:
         serializedVersion: 2
-        x: 73
+        x: 32
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: npc_herbalist_14
       rect:
         serializedVersion: 2
-        x: 105
-        y: 31
-        width: 22
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: npc_herbalist_15
       rect:
         serializedVersion: 2
-        x: 105
+        x: 96
         y: 0
-        width: 15
-        height: 30
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e5c81a25e4fe4bffbee28e29
     internalID: 0
     vertices: []
     indices: 

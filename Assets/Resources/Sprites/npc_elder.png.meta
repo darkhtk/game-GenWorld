@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: 2108300aa79e48bfa7e654a1a070f6ad
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5509288358854237611
-    second: npc_elder_0
-  - first:
-      213: 5638438047700613532
-    second: npc_elder_1
-  - first:
-      213: -3815817132861128017
-    second: npc_elder_2
-  - first:
-      213: -6220795141455940284
-    second: npc_elder_3
-  - first:
-      213: -1127518507279807859
-    second: npc_elder_4
-  - first:
-      213: -5988839293897377422
-    second: npc_elder_5
-  - first:
-      213: -7708587234224138128
-    second: npc_elder_6
-  - first:
-      213: -1542956683707770481
-    second: npc_elder_7
-  - first:
-      213: -1697539807374104516
-    second: npc_elder_8
-  - first:
-      213: 387119918860257696
-    second: npc_elder_9
-  - first:
-      213: -3188242217026665319
-    second: npc_elder_10
-  - first:
-      213: -1674448324381048985
-    second: npc_elder_11
-  - first:
-      213: -438792110160983300
-    second: npc_elder_12
-  - first:
-      213: -701048805117355578
-    second: npc_elder_13
-  - first:
-      213: -9174669559643485654
-    second: npc_elder_14
-  - first:
-      213: 6478249363356770769
-    second: npc_elder_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: npc_elder_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 95
-        width: 15
+        x: 0
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: npc_elder_1
       rect:
         serializedVersion: 2
-        x: 41
+        x: 32
         y: 96
-        width: 15
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: npc_elder_2
       rect:
         serializedVersion: 2
-        x: 41
-        y: 64
-        width: 15
+        x: 64
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: npc_elder_3
       rect:
         serializedVersion: 2
-        x: 73
-        y: 95
-        width: 15
+        x: 96
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: npc_elder_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 95
-        width: 15
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: npc_elder_5
       rect:
         serializedVersion: 2
-        x: 9
-        y: 63
-        width: 15
+        x: 32
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: npc_elder_6
       rect:
         serializedVersion: 2
-        x: 9
-        y: 31
-        width: 15
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: npc_elder_7
       rect:
         serializedVersion: 2
-        x: 41
-        y: 32
-        width: 15
+        x: 96
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: npc_elder_8
       rect:
         serializedVersion: 2
-        x: 73
-        y: 63
-        width: 15
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: npc_elder_9
       rect:
         serializedVersion: 2
-        x: 73
-        y: 31
-        width: 15
+        x: 32
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: npc_elder_10
       rect:
         serializedVersion: 2
-        x: 105
-        y: 63
-        width: 15
-        height: 31
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: npc_elder_11
       rect:
         serializedVersion: 2
-        x: 8
-        y: 0
-        width: 17
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: npc_elder_12
       rect:
         serializedVersion: 2
-        x: 40
+        x: 0
         y: 0
-        width: 17
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: npc_elder_13
       rect:
         serializedVersion: 2
-        x: 72
+        x: 32
         y: 0
-        width: 17
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: npc_elder_14
       rect:
         serializedVersion: 2
-        x: 105
-        y: 31
-        width: 15
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: npc_elder_15
       rect:
         serializedVersion: 2
-        x: 104
+        x: 96
         y: 0
-        width: 17
-        height: 30
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e63cac1e83643e38c8a194d
     internalID: 0
     vertices: []
     indices: 

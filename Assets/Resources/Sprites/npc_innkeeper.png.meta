@@ -1,55 +1,7 @@
 fileFormatVersion: 2
 guid: 53b99dd3e90c4e3399f34e53a13c7fe4
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -8603801938268013733
-    second: npc_innkeeper_0
-  - first:
-      213: 8235441766971348824
-    second: npc_innkeeper_1
-  - first:
-      213: -3409635965771833641
-    second: npc_innkeeper_2
-  - first:
-      213: -243536040349349114
-    second: npc_innkeeper_3
-  - first:
-      213: -150905354227854296
-    second: npc_innkeeper_4
-  - first:
-      213: 4132215328720660374
-    second: npc_innkeeper_5
-  - first:
-      213: -9193153045668258394
-    second: npc_innkeeper_6
-  - first:
-      213: -8173523075186017265
-    second: npc_innkeeper_7
-  - first:
-      213: -5121186549097048974
-    second: npc_innkeeper_8
-  - first:
-      213: 2214031452174981075
-    second: npc_innkeeper_9
-  - first:
-      213: -1374145304973449988
-    second: npc_innkeeper_10
-  - first:
-      213: -4600979140139644753
-    second: npc_innkeeper_11
-  - first:
-      213: 6060090335641570801
-    second: npc_innkeeper_12
-  - first:
-      213: 6632408360441174157
-    second: npc_innkeeper_13
-  - first:
-      213: 8794782221984391748
-    second: npc_innkeeper_14
-  - first:
-      213: 1528172746269715187
-    second: npc_innkeeper_15
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -141,19 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -161,12 +100,12 @@ TextureImporter:
       name: npc_innkeeper_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 95
-        width: 15
+        x: 0
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,12 +122,12 @@ TextureImporter:
       name: npc_innkeeper_1
       rect:
         serializedVersion: 2
-        x: 41
+        x: 32
         y: 96
-        width: 15
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,12 +144,12 @@ TextureImporter:
       name: npc_innkeeper_2
       rect:
         serializedVersion: 2
-        x: 41
-        y: 64
-        width: 15
+        x: 64
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,12 +166,12 @@ TextureImporter:
       name: npc_innkeeper_3
       rect:
         serializedVersion: 2
-        x: 73
-        y: 95
-        width: 15
+        x: 96
+        y: 96
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,12 +188,12 @@ TextureImporter:
       name: npc_innkeeper_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 95
-        width: 15
-        height: 31
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,12 +210,12 @@ TextureImporter:
       name: npc_innkeeper_5
       rect:
         serializedVersion: 2
-        x: 9
-        y: 63
-        width: 15
+        x: 32
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -293,12 +232,12 @@ TextureImporter:
       name: npc_innkeeper_6
       rect:
         serializedVersion: 2
-        x: 9
-        y: 31
-        width: 15
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -315,12 +254,12 @@ TextureImporter:
       name: npc_innkeeper_7
       rect:
         serializedVersion: 2
-        x: 41
-        y: 32
-        width: 15
+        x: 96
+        y: 64
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -337,12 +276,12 @@ TextureImporter:
       name: npc_innkeeper_8
       rect:
         serializedVersion: 2
-        x: 73
-        y: 63
-        width: 15
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -359,12 +298,12 @@ TextureImporter:
       name: npc_innkeeper_9
       rect:
         serializedVersion: 2
-        x: 73
-        y: 31
-        width: 15
+        x: 32
+        y: 32
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -381,12 +320,12 @@ TextureImporter:
       name: npc_innkeeper_10
       rect:
         serializedVersion: 2
-        x: 105
-        y: 63
-        width: 15
-        height: 31
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +342,12 @@ TextureImporter:
       name: npc_innkeeper_11
       rect:
         serializedVersion: 2
-        x: 9
-        y: 0
-        width: 15
-        height: 31
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +364,12 @@ TextureImporter:
       name: npc_innkeeper_12
       rect:
         serializedVersion: 2
-        x: 41
+        x: 0
         y: 0
-        width: 15
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +386,12 @@ TextureImporter:
       name: npc_innkeeper_13
       rect:
         serializedVersion: 2
-        x: 73
+        x: 32
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +408,12 @@ TextureImporter:
       name: npc_innkeeper_14
       rect:
         serializedVersion: 2
-        x: 105
-        y: 31
-        width: 15
-        height: 31
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +430,12 @@ TextureImporter:
       name: npc_innkeeper_15
       rect:
         serializedVersion: 2
-        x: 105
+        x: 96
         y: 0
-        width: 15
-        height: 30
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,7 +452,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 21c027de64fe4d4c8f714bff
     internalID: 0
     vertices: []
     indices: 
