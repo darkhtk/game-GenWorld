@@ -29,6 +29,13 @@ public class MonsterController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale = 0;
         _rb.freezeRotation = true;
+
+        // Ensure collider exists for projectile trigger detection
+        if (!TryGetComponent<Collider2D>(out _))
+        {
+            var col = gameObject.AddComponent<BoxCollider2D>();
+            col.size = new Vector2(0.8f, 0.8f);
+        }
     }
 
     public void UpdateAI(Vector2 playerPos, float now)
