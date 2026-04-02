@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -196,7 +197,7 @@ public class GameManager : MonoBehaviour
                 if (PlayerState.Equipment.TryGetValue(slot, out var old) && old != null)
                     Inventory.AddItem(old.itemId, 1, false, 1);
                 PlayerState.Equipment[slot] = item;
-                Inventory.RemoveAt(slotIdx);
+                Inventory.RemoveAtSlot(slotIdx);
                 PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
                 player.SetSpeed(PlayerState.CurrentStats.spd);
                 EventBus.Emit(new EquipChangeEvent());
@@ -220,7 +221,7 @@ public class GameManager : MonoBehaviour
                 if (def.healHp > 0 || def.healMp > 0)
                 {
                     UsePotion(item.itemId);
-                    Inventory.RemoveAt(slotIdx);
+                    Inventory.RemoveAtSlot(slotIdx);
                     inv.Refresh();
                 }
             };
@@ -278,7 +279,7 @@ public class GameManager : MonoBehaviour
         if (pm != null)
         {
             pm.OnSaveRequested = () => EventBus.Emit(new SaveEvent());
-            pm.OnMainMenuRequested = () => UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
+            pm.OnMainMenuRequested = () => SceneManager.LoadScene("MainMenuScene");
         }
     }
 
