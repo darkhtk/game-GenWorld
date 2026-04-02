@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
 
         combatManager.Init(player, () => PlayerState.CurrentStats, () => PlayerState.Level,
             OnMonsterKilled, OnPlayerDeath, PlayerEffects);
+        combatManager.Skills = Skills;
+        combatManager.PlayerState = PlayerState;
 
         worldMap.Generate(Data.RegionList);
         SpawnInitialRegion();

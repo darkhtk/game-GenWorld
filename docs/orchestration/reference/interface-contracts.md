@@ -194,6 +194,10 @@ void ExecuteSkill(SkillAction[] actions, ActionContext ctx)
 
 ### CombatManager (MonoBehaviour)
 ```csharp
+SkillSystem Skills { get; set; }          // wired by GameManager after Init
+PlayerStats PlayerState { get; set; }     // wired by GameManager after Init
+void Init(PlayerController player, Func<Stats> getStats, Func<int> getLevel,
+    Action<MonsterController> onMonsterDeath, Action onPlayerDeath, EffectHolder playerEffects)
 void PerformAutoAttack(List<MonsterController> monsters)
 void HandleMonsterAttacks(List<MonsterController> monsters, float now)
 void ExecuteSkill(int slot)
