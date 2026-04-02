@@ -181,7 +181,7 @@ public class InventoryUI : MonoBehaviour
                 if (_itemDefs.TryGetValue(item.itemId, out var def))
                 {
                     _slots[i].SetItem(def.name, item.count, item.enhanceLevel,
-                        GameConfig.GetGradeColor(def.GradeEnum), def.TypeEnum);
+                        GameConfig.GetGradeColor(def.GradeEnum), def.TypeEnum, def.icon);
                     _slots[i].SetActive(true);
                     continue;
                 }
@@ -559,6 +559,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (countText != null) countText.text = "";
         if (enhanceText != null) enhanceText.text = "";
         if (borderImage != null) borderImage.color = new Color(0.3f, 0.3f, 0.3f);
+        if (iconImage != null) { iconImage.sprite = null; iconImage.enabled = false; }
     }
 
     public void OnPointerClick(PointerEventData eventData) => OnClicked?.Invoke(SlotIndex);
