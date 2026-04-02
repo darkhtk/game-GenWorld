@@ -43,6 +43,36 @@ public class SkillVFX : MonoBehaviour
         Object.Destroy(go);
     }
 
+    public static void ShowAtPosition(MonoBehaviour context, float x, float y)
+    {
+        if (context == null) return;
+        context.StartCoroutine(PlayBurst(x, y));
+    }
+
+    static IEnumerator PlayBurst(float x, float y)
+    {
+        var go = new GameObject("VFX_Burst");
+        go.transform.position = new Vector3(x, y, 0);
+
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sortingOrder = 100;
+        sr.color = Color.white;
+
+        float elapsed = 0f;
+        const float duration = 0.3f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            float scale = 0.5f + t * 1.5f;
+            go.transform.localScale = new Vector3(scale, scale, 1f);
+            sr.color = new Color(1f, 1f, 1f, 1f - t);
+            yield return null;
+        }
+
+        Object.Destroy(go);
+    }
+
     static Color GetSkillColor(string skillId)
     {
         if (string.IsNullOrEmpty(skillId)) return DefaultColor;
