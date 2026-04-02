@@ -111,6 +111,9 @@ public class InventoryUI : MonoBehaviour
         stats.hp = gm.PlayerState.Hp;
         stats.mp = gm.PlayerState.Mp;
         Refresh(gm.Inventory, gm.PlayerState.Equipment, gm.Data.Items, stats);
+
+        if (levelGoldText != null)
+            levelGoldText.text = $"Lv.{gm.PlayerState.Level}  Gold: {gm.PlayerState.Gold:N0}";
     }
 
     public void Refresh(InventorySystem inventory, Dictionary<string, ItemInstance> equipment,
