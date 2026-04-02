@@ -20,7 +20,7 @@
 
 ### 안정성 (Stability) — 최우선
 
-1. **R-006 리전 전환 시 자동 저장** — RegionTracker.OnRegionChanged 이벤트에 자동 세이브 연동.
+(all completed: R-001~R-006)
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
