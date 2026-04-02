@@ -264,7 +264,16 @@ public class InventoryUI : MonoBehaviour
             tooltipStats.text = string.Join("\n", lines);
         }
 
-        tooltipPanel.transform.position = Input.mousePosition + new Vector3(10, -10, 0);
+        var rt = tooltipPanel.GetComponent<RectTransform>();
+        Vector2 pos = Input.mousePosition;
+        float x = pos.x + 10f;
+        float y = pos.y - 10f;
+        if (rt != null)
+        {
+            if (x + rt.sizeDelta.x > Screen.width) x = pos.x - rt.sizeDelta.x - 10f;
+            if (y - rt.sizeDelta.y < 0) y = pos.y + rt.sizeDelta.y + 10f;
+        }
+        tooltipPanel.transform.position = new Vector3(x, y, 0);
     }
 
     void HideTooltip()
