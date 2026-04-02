@@ -1,26 +1,24 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #35)
-> **수행 행동:** 🎨 A-004 몬스터 사망 애니메이션 시트 12종
+> **최종 실행:** 2026-04-02 (루프 #36)
+> **수행 행동:** 🎨 A-005 NPC 대화 포트레이트 8종
 
 ## 이번 루프 요약
 
 ### Step 1: 🎨 태스크 실행
-**A-004 몬스터 사망 애니메이션 시트** 완료.
+**A-005 NPC 대화 포트레이트** 완료.
 
-12종 몬스터별 4프레임 사망 시퀀스 (원본 스프라이트 기반):
-- Frame 0: 흰색 플래시 (피격 강조)
-- Frame 1: 붉은 틴트 + 80% 불투명
-- Frame 2: 40% 픽셀 소멸 (dissolve)
-- Frame 3: 80% 소멸 + 잔여 회색 파티클
+| NPC | 파일 | 악센트 색상 |
+|-----|------|-----------|
+| blacksmith | portrait_blacksmith.png | 따뜻한 갈색 |
+| elder | portrait_elder.png | 은빛 회색 |
+| guard | portrait_guard.png | 강철 파랑 |
+| herbalist | portrait_herbalist.png | 초록 |
+| hunter | portrait_hunter.png | 황갈색 |
+| innkeeper | portrait_innkeeper.png | 따뜻한 주황 |
+| merchant | portrait_merchant.png | 금색 |
+| scholar | portrait_scholar.png | 보라 |
 
-| 몬스터 | 파일 |
-|--------|------|
-| bat, crystal_slime, dragon, dragonkin | monster_*_death.png |
-| fire_imp, goblin, golem, hydra | monster_*_death.png |
-| lizardman, spider, treant, wolf | monster_*_death.png |
-
-- .meta: spriteMode=Multiple, 4프레임×32px, PPU=32
-
-### BOARD 상태
-- 19건 Done, R-030~R-032 In Review
+- 64×64, 원본 npc_*.png에서 32×32 추출 → 2x Nearest 스케일
+- 원형 배경 + NPC별 악센트 테두리 + 상단 하이라이트
+- 대화 UI (DialogueUI) 포트레이트 슬롯용
