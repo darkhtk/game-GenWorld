@@ -1,35 +1,27 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-03 (loop 3)
-**Status:** Visual Polish 4건 자가진행 완료
+**Last run:** 2026-04-03 (loop 4)
+**Status:** 빌드 에러 1건 수정 + Visual Polish 2건 자가진행
 
 ## Loop Result
-- Build errors: 0
-- V-001, V-003, V-010, V-011: 자가진행 완료
+- Build errors: 1건 수정 (LevelSystem→StatsSystem)
+- V-007, V-009: 자가진행 완료
 
 ## 수정 내역
 
-### V-001 HUD 바 스타일링 ✅
-- StyleBars() 메서드 추가 — Resources에서 그라디언트 fill 스프라이트 로딩
-- bar_frame.png 오버레이 프레임 자동 생성
-- bar_bg.png 배경 패널 적용
-- **파일:** HUD.cs, Assets/Resources/Sprites/UI/*.png 복사
-
-### V-003 스킬바 아이콘 표시 ✅
-- UpdateSkillBar()에 스킬 아이콘 스프라이트 할당 로직 추가
-- skill_icons 스프라이트시트 캐시 로딩
-- **파일:** HUD.cs
-
-### V-010 카메라 줌 조절 ✅
-- LateUpdate()에 마우스 휠 줌 인/아웃 추가
-- orthographicSize: min=4, max=20, speed=2
+### BF-009 빌드 에러 수정 ✅
+- `GameManager.cs:628` — `LevelSystem.AddXp` → `StatsSystem.AddXp` (클래스 미존재 오타)
 - **파일:** GameManager.cs
 
-### V-011 데미지 넘버 색상 분류 ✅
-- DealDamageToMonster에서 tintColor(int hex) → Color 변환 후 ShowDamageNumber에 전달
-- 힐 이펙트에 Color.green 표시 추가
-- 기존 기본: 물리=흰, 크리=노랑, 마법=파랑(스킬 정의 색상), 힐=초록
-- **파일:** CombatManager.cs
+### V-007 몬스터/NPC 이름표 ✅
+- NameLabel 유틸 생성 — World Space TextMeshPro로 이름 표시
+- MonsterController.Init: 빨간 계열 이름표 (yOffset=1.2)
+- VillageNPC.Init: 파란 계열 이름표 (yOffset=1.0)
+- **파일:** NameLabel.cs (신규), MonsterController.cs, VillageNPC.cs
 
-## specs 참조: N (폴리시 태스크, SPEC 없음)
-## TOTAL: 59+ tasks completed
+### V-009 UI 패널 전환 애니메이션 ✅
+- PanelAnimator 컴포넌트 생성 — CanvasGroup 기반 페이드 인/아웃
+- InventoryUI에 시범 적용 (Show/Hide에서 PanelAnimator 감지)
+- **파일:** PanelAnimator.cs (신규), InventoryUI.cs
+
+## specs 참조: N
