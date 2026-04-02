@@ -4,7 +4,8 @@ using System;
 public class MonsterDef
 {
     public string id, name, region, sprite;
-    public int hp, atk, def, spd, xp, gold;
+    public int hp, atk, def, xp, gold;
+    public float spd;
     public float detectRange, attackRange, attackCooldown;
     public DropEntry[] drops;
     public string rank = "normal";
