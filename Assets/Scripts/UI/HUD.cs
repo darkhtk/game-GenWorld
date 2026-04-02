@@ -380,6 +380,44 @@ public class HUD : MonoBehaviour
         saveIndicator.alpha = 0f;
     }
 
+    void UpdateEffectIcons()
+    {
+        if (effectIconContainer == null || effectIconPrefab == null) return;
+        var gm = GameManager.Instance;
+        if (gm == null || gm.PlayerEffects == null) return;
+
+        float nowMs = Time.time * 1000f;
+        var active = gm.PlayerEffects.GetActive(nowMs);
+
+        int count = Mathf.Min(active.Count, MaxEffectIcons);
+        while (_effectIcons.Count < count)
+        {
+            var icon = Instantiate(effectIconPrefab, effectIconContainer);
+            _effectIcons.Add(icon);
+        }
+
+        for (int i = 0; i < _effectIcons.Count; i++)
+        {
+            if (i < count)
+            {
+                _effectIcons[i].SetActive(true);
+                var info = active[i];
+                float remaining = (info.expires - nowMs) / 1000f;
+                var timerText = _effectIcons[i].GetComponentInChildren<TextMeshProUGUI>();
+                if (timerText != null) timerText.text = $"{remaining:F0}s";
+                var fill = _effectIcons[i].transform.childCount > 1
+                    ? _effectIcons[i].transform.GetChild(1).GetComponent<Image>()
+                    : null;
+                if (fill != null && info.totalDuration > 0)
+                    fill.fillAmount = (info.expires - nowMs) / info.totalDuration;
+            }
+            else
+            {
+                _effectIcons[i].SetActive(false);
+            }
+        }
+    }
+
     void ShowSkillTooltip(int slotIndex)
     {
         _hoveredSkillSlot = slotIndex;
