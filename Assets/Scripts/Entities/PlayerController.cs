@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D _rb;
     SpriteRenderer _sr;
+    PlayerAnimator _animator;
 
     public Vector2 AimDirection { get; private set; }
     public Vector2 Position => (Vector2)transform.position;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<PlayerAnimator>();
         _rb.gravityScale = 0;
         _rb.freezeRotation = true;
     }
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
         var moveDir = new Vector2(mx, my).normalized;
         _rb.linearVelocity = moveDir * _moveSpeed;
 
-        // Facing direction
+        // Facing direction + animation
         if (moveDir.sqrMagnitude > 0)
         {
             if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.y))
@@ -82,6 +84,7 @@ public class PlayerController : MonoBehaviour
             else
                 Facing = moveDir.y > 0 ? "up" : "down";
         }
+        if (_animator != null) _animator.SetMovement(moveDir);
     }
 
     void StartDodge()
