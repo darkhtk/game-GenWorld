@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public Action OnUseHpPotion;
+    public Action OnUseMpPotion;
+
     [SerializeField] HUD hud;
     [SerializeField] InventoryUI inventory;
     [SerializeField] ShopUI shop;
@@ -44,6 +48,8 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) && inventory != null) inventory.Toggle();
         if (Input.GetKeyDown(KeyCode.K) && skillTree != null) skillTree.Toggle();
         if (Input.GetKeyDown(KeyCode.J) && quest != null) quest.Toggle();
+        if (Input.GetKeyDown(KeyCode.R)) OnUseHpPotion?.Invoke();
+        if (Input.GetKeyDown(KeyCode.T)) OnUseMpPotion?.Invoke();
     }
 
     public void HideAll()
