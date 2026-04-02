@@ -211,6 +211,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void WireAudio()
+    {
+        EventBus.On<MonsterKillEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_monster_die"));
+        EventBus.On<LevelUpEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_levelup"));
+        EventBus.On<GoldChangeEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_coin"));
+        EventBus.On<QuestCompleteEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_quest_complete"));
+        EventBus.On<AchievementUnlockedEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_rank_up"));
+        EventBus.On<PlayerDeathEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_defeat_jingle"));
+        EventBus.On<SaveEvent>(_ =>
+            AudioManager.Instance?.PlaySFX("sfx_confirm"));
+        EventBus.On<RegionVisitEvent>(e => PlayRegionBGM());
+    }
+
+    void PlayRegionBGM()
+    {
+        string region = RegionTracker?.CurrentRegionId ?? "";
+        string bgm = region switch
+        {
+            "village" => "bgm_village",
+            "forest" => "bgm_forest",
+            "cave" or "deep_cave" => "bgm_cave",
+            "swamp" or "dark_swamp" => "bgm_forest",
+            "volcano" => "bgm_boss",
+            "dragon_lair" => "bgm_boss",
+            _ => "bgm_village"
+        };
+        AudioManager.Instance?.PlayBGM(bgm);
+    }
+
     void WirePotionCallbacks()
     {
         if (uiManager == null) return;
