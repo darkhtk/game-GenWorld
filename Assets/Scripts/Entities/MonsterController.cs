@@ -27,6 +27,7 @@ public class MonsterController : MonoBehaviour
     const float RecentHitWindow = 2f;
 
     float _atkMult = 1f, _defMult = 1f, _spdMult = 1f, _cooldownMult = 1f;
+    MonsterHPBar _hpBar;
 
     public int EffectiveAtk => Mathf.RoundToInt(Def.atk * _atkMult);
     public int EffectiveDef => Mathf.RoundToInt(Def.def * _defMult);
@@ -47,6 +48,7 @@ public class MonsterController : MonoBehaviour
             var col = gameObject.AddComponent<BoxCollider2D>();
             col.size = new Vector2(0.8f, 0.8f);
         }
+        _hpBar = MonsterHPBar.Create(transform, def.hp);
     }
 
     public void UpdateAI(Vector2 playerPos, float now)
@@ -160,6 +162,7 @@ public class MonsterController : MonoBehaviour
     {
         if (IsReturning) dmg = Mathf.Max(1, dmg / (int)ReturnDamageReduction);
         Hp -= dmg;
+        if (_hpBar != null) _hpBar.UpdateHP(Hp, Def.hp);
         FlashWhite();
         return Hp <= 0;
     }
