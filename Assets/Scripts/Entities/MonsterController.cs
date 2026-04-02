@@ -54,7 +54,7 @@ public class MonsterController : MonoBehaviour
         if (IsDead) return;
         if (Effects.Has("stun")) { _rb.linearVelocity = Vector2.zero; return; }
 
-        float distToPlayer = Vector2.Distance(Position, playerPos);
+        float distToPlayerSq = (Position - playerPos).sqrMagnitude;
         float slowFactor = Effects.Has("slow") ? Effects.GetValue("slow") : 1f;
         float speed = Def.spd * _spdMult * slowFactor;
 
@@ -72,16 +72,17 @@ public class MonsterController : MonoBehaviour
         {
             case MonsterAIState.Patrol:
                 DoPatrol(speed);
-                if (distToPlayer <= Def.detectRange)
+                if (distToPlayerSq <= Def.detectRange * Def.detectRange)
                     AIState = MonsterAIState.Chase;
                 break;
 
             case MonsterAIState.Chase:
                 MoveToward(playerPos, speed);
-                if (distToPlayer <= Def.attackRange)
+                float atkRangeSq = Def.attackRange * Def.attackRange;
+                if (distToPlayerSq <= atkRangeSq)
                     AIState = MonsterAIState.Attack;
-                else if ((distToPlayer > Def.detectRange * GameConfig.ChaseRangeMult ||
-                         Vector2.Distance(Position, _spawnPos) > GameConfig.MaxSpawnDistance) &&
+                else if ((distToPlayerSq > Def.detectRange * GameConfig.ChaseRangeMult * Def.detectRange * GameConfig.ChaseRangeMult ||
+                         (Position - _spawnPos).sqrMagnitude > GameConfig.MaxSpawnDistance * GameConfig.MaxSpawnDistance) &&
                          Time.time - LastHitByPlayerTime > RecentHitWindow)
                 {
                     AIState = MonsterAIState.Return;
