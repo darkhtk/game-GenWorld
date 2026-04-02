@@ -165,10 +165,36 @@ public class GameManager : MonoBehaviour
 
     void RegisterNpcs()
     {
+        var npcPrefab = Resources.Load<GameObject>("NPC");
         foreach (var npc in Data.NpcList)
         {
             string profile = Data.NpcProfiles.GetValueOrDefault(npc.id);
             AI.RegisterNpc(npc.id, npc.name, npc.personality, profile);
+
+            // Spawn NPC in village region
+            if (npc.patrol != null)
+            {
+                float x = (npc.patrol.cx + 0.5f) * GameConfig.TileSize;
+                float y = -(npc.patrol.cy + 0.5f) * GameConfig.TileSize;
+                Vector2 pos = new(x, y);
+
+                GameObject go;
+                if (npcPrefab != null)
+                    go = Instantiate(npcPrefab, pos, Quaternion.identity);
+                else
+                {
+                    go = new GameObject($"NPC_{npc.id}");
+                    go.AddComponent<SpriteRenderer>().sortingOrder = 5;
+                    var rb = go.AddComponent<Rigidbody2D>();
+                    rb.gravityScale = 0;
+                    rb.freezeRotation = true;
+                }
+
+                var villageNpc = go.GetComponent<VillageNPC>();
+                if (villageNpc == null) villageNpc = go.AddComponent<VillageNPC>();
+                villageNpc.Init(npc, pos);
+                villageNpc.Brain = AI.GetBrain(npc.id);
+            }
         }
     }
 
