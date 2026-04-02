@@ -1,35 +1,38 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #25)
-> **수행 행동:** 인터페이스 계약 위반 수정 + 코딩 표준 감사
+> **최종 실행:** 2026-04-02 (루프 #26)
+> **수행 행동:** 인터페이스 계약 적합성 전수 검증
 
 ## 이번 루프 요약
 
-### 긴급 수정: EffectSystem.Tick() 계약 복원
-- `interface-contracts.md` line 116: `List<string> Tick(float now)` 명시
-- 루프 #21에서 `void`로 변경했으나 계약 위반
-- **수정:** `List<string>` 반환 복원 + static 버퍼 재사용 유지 (성능 보존)
+### Step 0/0.5
+- FREEZE 없음, 토론 없음
 
-### docs/orchestration/ 참조 결과 — 코딩 표준 감사
+### Step 1
+- 🎨 태스크 없음 → Step 2
 
-| 항목 | 결과 |
-|------|------|
-| `GameObject.Find()` 런타임 사용 | ✅ 0건 |
-| MonoBehaviour public 필드 ([SerializeField] 미사용) | ✅ 위반 없음 |
-| 한국어 코드/주석 | ✅ 위반 없음 |
-| 파일 300줄 초과 | ⚠️ 6건 (아래 참조) |
+### Step 2: interface-contracts.md 기준 감독관 변경사항 전수 검증
 
-#### 300줄 초과 파일 (reference/coding-standards.md 기준)
-| 파일 | 라인 수 | 비고 |
-|------|---------|------|
-| HUD.cs | 558 | 기능 다수 (bars, cooldowns, effects, quest tracker, history) |
-| InventoryUI.cs | 482 | 필터, 정렬, 드래그, 장비, 스탯 할당 |
-| ActionRunner.cs | 373 | 8개 핸들러 + 체인/AoE/프로젝타일 |
-| GameManager.cs | 346 | 중앙 오케스트레이터 (분할 위험) |
-| DialogueUI.cs | 324 | 대화, 옵션, 자유입력, 액션 |
-| CombatManager.cs | 317 | 자동공격, 몬스터공격, 스킬, 콤보 |
+| 변경 대상 | 계약 시그니처 | 현재 상태 | 판정 |
+|-----------|-------------|----------|------|
+| EventBus.Emit | `void Emit<T>(T evt)` | 시그니처 동일, 내부만 변경 (ToArray→직접순회) | ✅ 적합 |
+| EffectHolder.Tick | `List<string> Tick(float now)` | 루프#25에서 복원 완료 | ✅ 적합 |
+| EffectHolder.GetActive | (계약 미명시) | static 버퍼 재사용, 시그니처 동일 | ✅ 적합 |
+| CombatSystem.FindClosest | `T FindClosest<T>(... T[] ...)` | 기존 T[] 유지 + List<T> 오버로드 추가 | ⚠️ 추가적 (후방호환) |
 
-→ 즉시 분할은 다른 에이전트 작업과 충돌 위험. Director 지시 시 진행.
+#### 판정: **계약 위반 0건**
+- CombatSystem List 오버로드는 additive change (기존 API 불변, 새 오버로드 추가)
+- 원본 T[] 시그니처 그대로 존재 → 하위 호환성 유지
 
 ### BOARD 상태
-- R-001~R-014 ✅ Done (14건!), R-015 👀 In Review
+- R-001~R-015 ✅ Done (15건), R-016 👀 In Review
+- 개발자 하루 15태스크 완료 — RESERVE 잔여 확인 필요
+
+### RESERVE 상태
+- 게임플레이: R-016 (1건)
+- 신규 기능: R-017~R-024 (8건)
+- 애니메이션: R-027~R-032 (6건)
+- 총 15건 미완료 → 10건 초과, 보충 불필요
+
+### 다음 루프 예정
+- Step 2 자동 행동 순환 계속
