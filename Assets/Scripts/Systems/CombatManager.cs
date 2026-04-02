@@ -79,6 +79,7 @@ public class CombatManager : MonoBehaviour
             bool dead = m.TakeDamage(dmg);
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
             SkillVFX.ShowAtPosition(this, "vfx_melee_hit", m.Position.x, m.Position.y);
+            AudioManager.Instance?.PlaySFX("sfx_attack", 0.1f);
             if (dead) { killed ??= new(); killed.Add(m); }
         }
 
@@ -117,6 +118,7 @@ public class CombatManager : MonoBehaviour
             int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
             ApplyDamageToPlayer(dmg);
             SkillVFX.ShowAtPosition(this, "vfx_melee_hit", _player.Position.x, _player.Position.y);
+            AudioManager.Instance?.PlaySFX("sfx_attack", 0.15f);
         }
     }
 
@@ -177,6 +179,15 @@ public class CombatManager : MonoBehaviour
 
         PlayerState.Mp -= result.mpCost;
         var skill = result.skill;
+
+        // Skill use SFX
+        string sfxName = skill.tree switch
+        {
+            "magic" => "sfx_combat_ultimate",
+            "ranged" => "sfx_escape_whoosh",
+            _ => "sfx_attack"
+        };
+        AudioManager.Instance?.PlaySFX(sfxName, 0.1f);
 
         _comboSystem.RecordSkill(skill.id, nowMs);
         var combo = _comboSystem.CheckCombo(skill.id, nowMs);
