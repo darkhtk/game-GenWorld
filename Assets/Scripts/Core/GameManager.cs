@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +36,12 @@ public class GameManager : MonoBehaviour
     float _lastAutoPotionTime;
     float _lastAutoSaveTime;
     string _lastRegionId = "";
+
+    // Dialogue state
+    readonly List<DialogueEntry> _dialogueHistory = new();
+    VillageNPC _dialogueNpc;
+    bool _dialogueGenerating;
+    Dictionary<string, string> _loreCache;
 
     void Awake()
     {
@@ -140,23 +148,151 @@ public class GameManager : MonoBehaviour
         nearest.StopMoving();
         player.Frozen = true;
         uiManager.SetDialogueOpen(true);
+        _dialogueNpc = nearest;
+        _dialogueHistory.Clear();
 
         var conditional = nearest.EvaluateConditionalDialogue(Quests, Inventory);
         var dlg = uiManager.Dialogue;
-        if (dlg != null)
-        {
-            dlg.Show(nearest.Def, conditional);
-            EventBus.Emit(new DialogueStartEvent { npcId = nearest.Def.id });
+        if (dlg == null) return;
 
-            var capturedNpc = nearest;
-            dlg.OnClose = () =>
+        dlg.ClearLog();
+        dlg.Show(nearest.Def, conditional);
+        EventBus.Emit(new DialogueStartEvent { npcId = nearest.Def.id });
+
+        // Set action buttons from NPC definition
+        if (nearest.Def.actions != null && nearest.Def.actions.Length > 0)
+            dlg.SetActionButtons(nearest.Def.actions);
+
+        // Wire OnPlayerResponse — drives the AI dialogue loop
+        var capturedNpc = nearest;
+        dlg.OnPlayerResponse = playerText =>
+        {
+            if (_dialogueGenerating) return;
+            dlg.AppendLog("You", playerText);
+            _dialogueHistory.Add(new DialogueEntry { role = "player", text = playerText });
+            _ = HandleDialogueResponse(capturedNpc, playerText);
+        };
+
+        // Wire OnAction — handle NPC-specific actions
+        dlg.OnAction = action => HandleNpcAction(capturedNpc, action);
+
+        // Wire OnClose
+        dlg.OnClose = () =>
+        {
+            uiManager.SetDialogueOpen(false);
+            player.Frozen = false;
+            capturedNpc.ResumeMoving();
+            int turns = _dialogueHistory.Count(e => e.role == "npc");
+            EventBus.Emit(new DialogueEndEvent { npcId = capturedNpc.Def.id, turns = turns });
+            _dialogueNpc = null;
+            _dialogueGenerating = false;
+        };
+
+        // If no conditional greeting, generate initial AI greeting
+        if (conditional == null)
+            _ = HandleDialogueResponse(capturedNpc, "안녕하세요");
+    }
+
+    async System.Threading.Tasks.Task HandleDialogueResponse(VillageNPC npc, string playerInput)
+    {
+        _dialogueGenerating = true;
+        var dlg = uiManager.Dialogue;
+        dlg?.ShowLoading(true);
+
+        string loreContext = BuildLoreContext(npc.Def);
+
+        var response = await AI.GenerateDialogue(
+            npc.Def.id, playerInput, _dialogueHistory,
+            PlayerState.Level, PlayerState.Gold,
+            Inventory, Data.Items, Quests,
+            loreContext, npc.Def.actions, npc.Def.dialogueTraits);
+
+        dlg?.ShowLoading(false);
+        _dialogueGenerating = false;
+
+        if (response == null || dlg == null) return;
+
+        // Add NPC response to history
+        _dialogueHistory.Add(new DialogueEntry { role = "npc", text = response.dialogue });
+
+        // Display in UI
+        dlg.AppendLog(npc.Def.name, response.dialogue, npc.Def.color);
+
+        if (response.options != null && response.options.Length > 0)
+            dlg.ShowOptions(response.options);
+
+        // Handle quest offer
+        if (response.offerQuest)
+        {
+            var questInfo = Quests.GetQuestStatusForNpc(npc.Def.id, Inventory);
+            if (questInfo.HasValue && questInfo.Value.status == "available")
             {
-                uiManager.SetDialogueOpen(false);
-                player.Frozen = false;
-                capturedNpc.ResumeMoving();
-                EventBus.Emit(new DialogueEndEvent { npcId = capturedNpc.Def.id });
-            };
+                var quest = questInfo.Value.quest;
+                var rewards = quest.rewards;
+                dlg.ShowQuestProposal(quest, rewards);
+            }
         }
+
+        // Handle AI-triggered action
+        if (!string.IsNullOrEmpty(response.action))
+            HandleNpcAction(npc, response.action);
+    }
+
+    void HandleNpcAction(VillageNPC npc, string action)
+    {
+        switch (action)
+        {
+            case "heal_player":
+                PlayerState.Hp = PlayerState.CurrentStats.maxHp;
+                PlayerState.Mp = PlayerState.CurrentStats.maxMp;
+                AudioManager.Instance?.PlaySFX("sfx_potion");
+                uiManager.Hud?.AddHistoryEntry("HP/MP fully restored!", Color.green);
+                break;
+            case "reset_skills":
+                Skills.ResetAll();
+                uiManager.Hud?.AddHistoryEntry("Skills reset!", Color.cyan);
+                break;
+            case "reset_stats":
+                PlayerState.ResetStatPoints();
+                uiManager.Hud?.AddHistoryEntry("Stat points reset!", Color.cyan);
+                break;
+            case "open_shop":
+                // TODO: open shop UI
+                break;
+            case "open_crafting":
+                // TODO: open crafting UI
+                break;
+        }
+    }
+
+    string BuildLoreContext(NpcDef npcDef)
+    {
+        if (npcDef.loreDocs == null || npcDef.loreDocs.Length == 0) return null;
+
+        if (_loreCache == null)
+        {
+            _loreCache = new Dictionary<string, string>();
+            string loreDir = Path.Combine(Application.streamingAssetsPath, "Data", "lore");
+            if (Directory.Exists(loreDir))
+            {
+                foreach (string file in Directory.GetFiles(loreDir, "*.md"))
+                {
+                    string key = Path.GetFileNameWithoutExtension(file);
+                    _loreCache[key] = File.ReadAllText(file);
+                }
+            }
+        }
+
+        var sb = new StringBuilder();
+        foreach (string doc in npcDef.loreDocs)
+        {
+            if (_loreCache.TryGetValue(doc, out string content))
+            {
+                sb.AppendLine(content);
+                sb.AppendLine();
+            }
+        }
+        return sb.Length > 0 ? sb.ToString() : null;
     }
 
     void LateUpdate()
