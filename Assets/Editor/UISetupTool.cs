@@ -337,8 +337,9 @@ public static class UISetupTool
         Wire(hud, "regionText", regionT);
         Wire(hud, "statPointsText", statPtsT);
 
-        // Boss bar
-        var bossRoot = CreateRTChild(root.transform, "BossBar", new Vector2(0, 60), new Vector2(400, 30));
+        // Boss bar — top-center
+        var bossRoot = CreateRTChild(root.transform, "BossBar", new Vector2(0, -40), new Vector2(400, 30));
+        AnchorTopCenter(bossRoot);
         bossRoot.AddComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f, 0.8f);
         bossRoot.SetActive(false);
         var bossFillObj = CreateRTChild(bossRoot.transform, "Fill", new Vector2(0, 0), new Vector2(390, 20));
@@ -353,14 +354,16 @@ public static class UISetupTool
         Wire(hud, "bossNameText", bossName);
         Wire(hud, "bossHpText", bossHp);
 
-        // Minimap
-        var minimap = CreateRTChild(root.transform, "Minimap", new Vector2(380, 80), new Vector2(150, 150));
+        // Minimap — top-right
+        var minimap = CreateRTChild(root.transform, "Minimap", new Vector2(-10, -10), new Vector2(150, 150));
+        AnchorTopRight(minimap);
         var minimapImg = minimap.AddComponent<RawImage>();
         minimapImg.color = new Color(0.3f, 0.3f, 0.3f);
         Wire(hud, "minimapImage", minimapImg);
 
-        // History
-        var historyRoot = CreateRTChild(root.transform, "History", new Vector2(350, -200), new Vector2(250, 200));
+        // History — bottom-right
+        var historyRoot = CreateRTChild(root.transform, "History", new Vector2(-10, 100), new Vector2(250, 200));
+        AnchorBottomRight(historyRoot);
         historyRoot.AddComponent<Image>().color = new Color(0, 0, 0, 0.5f);
         historyRoot.SetActive(false);
         var histScroll = historyRoot.AddComponent<ScrollRect>();
@@ -369,15 +372,17 @@ public static class UISetupTool
         histContent.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         histScroll.content = histContent.GetComponent<RectTransform>();
         histScroll.vertical = true; histScroll.horizontal = false;
-        var histToggle = CreateChildButton(root, "HistoryToggle", "Log", new Vector2(430, -310), new Vector2(60, 24));
+        var histToggle = CreateChildButton(root, "HistoryToggle", "Log", new Vector2(-10, 10), new Vector2(60, 24));
+        AnchorBottomRight(histToggle.gameObject);
 
         Wire(hud, "historyRoot", historyRoot);
         Wire(hud, "historyContent", histContent.transform);
         Wire(hud, "historyEntryPrefab", GetPrefabComponent<TextMeshProUGUI>(prefabs["historyEntryPrefab"]));
         Wire(hud, "historyToggleButton", histToggle);
 
-        // Save indicator
-        var saveInd = CreateRTChild(root.transform, "SaveIndicator", new Vector2(400, -350), new Vector2(80, 24));
+        // Save indicator — top-right below minimap
+        var saveInd = CreateRTChild(root.transform, "SaveIndicator", new Vector2(-10, -170), new Vector2(80, 24));
+        AnchorTopRight(saveInd);
         var saveText = saveInd.AddComponent<TextMeshProUGUI>();
         saveText.text = "Saved"; saveText.fontSize = 14;
         var saveCG = saveInd.AddComponent<CanvasGroup>(); saveCG.alpha = 0;
@@ -904,7 +909,7 @@ public static class UISetupTool
         fill.fillMethod = Image.FillMethod.Horizontal;
         var text = AddChild<TextMeshProUGUI>(bar, "Text", Vector2.zero, new Vector2(190, 18));
         text.fontSize = 11; text.text = label; text.alignment = TextAlignmentOptions.Center;
-        return new BarResult { fill = fill, text = text };
+        return new BarResult { root = bar, fill = fill, text = text };
     }
 
     struct ScrollResult { public ScrollRect scroll; public GameObject content; }
@@ -1020,5 +1025,43 @@ public static class UISetupTool
                 current = next;
             }
         }
+    }
+
+    // ─── ANCHOR HELPERS ───
+
+    static void AnchorBottomLeft(GameObject obj)
+    {
+        var rt = obj.GetComponent<RectTransform>();
+        if (rt == null) return;
+        rt.anchorMin = new Vector2(0, 0);
+        rt.anchorMax = new Vector2(0, 0);
+        rt.pivot = new Vector2(0, 0);
+    }
+
+    static void AnchorBottomRight(GameObject obj)
+    {
+        var rt = obj.GetComponent<RectTransform>();
+        if (rt == null) return;
+        rt.anchorMin = new Vector2(1, 0);
+        rt.anchorMax = new Vector2(1, 0);
+        rt.pivot = new Vector2(1, 0);
+    }
+
+    static void AnchorBottomCenter(GameObject obj)
+    {
+        var rt = obj.GetComponent<RectTransform>();
+        if (rt == null) return;
+        rt.anchorMin = new Vector2(0.5f, 0);
+        rt.anchorMax = new Vector2(0.5f, 0);
+        rt.pivot = new Vector2(0.5f, 0);
+    }
+
+    static void AnchorTopCenter(GameObject obj)
+    {
+        var rt = obj.GetComponent<RectTransform>();
+        if (rt == null) return;
+        rt.anchorMin = new Vector2(0.5f, 1);
+        rt.anchorMax = new Vector2(0.5f, 1);
+        rt.pivot = new Vector2(0.5f, 1);
     }
 }
