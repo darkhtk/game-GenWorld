@@ -90,3 +90,43 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 46. **🎨 A-005 NPC 대화 포트레이트** — 8명 NPC 대화창 얼굴 이미지 (64×64). `Assets/Art/Sprites/Portraits/`
 47. **🎨 A-006 스킬트리 배경 + 노드** — 3개 트리(melee/ranged/magic) 배경 + 스킬 노드 아이콘. `Assets/Art/Sprites/UI/SkillTree/`
 48. **🎨 A-007 장비 세트 아이콘** — 8개 장비 세트별 세트 효과 아이콘. `Assets/Art/Sprites/Icons/`
+
+### --- [2026-04-02] 스팀에 배포할 거야 ---
+
+
+### --- [2026-04-02] 스팀 배포 준비 ---
+
+### 안정성 (Stability) — 최우선
+
+### R-035: Steamworks SDK 통합 및 초기화
+Steamworks.NET 패키지 설치, `SteamManager` 싱글턴 생성, `BootSceneController`에서 Steam 초기화 처리. specs/SPEC-R-035.md 참조.
+
+### R-036: Steam 클라우드 저장 연동
+`DataManager`의 저장/불러오기를 Steam Remote Storage API와 연동하여 클라우드 세이브 지원. specs/SPEC-R-036.md 참조.
+
+### 게임플레이 개선 (Existing Feature Enhancement) — 높음
+
+### R-037: Steam 업적(Achievement) 시스템
+`EventBus` 이벤트를 감지하여 Steam 업적을 해제하는 `SteamAchievementManager` 구현. specs/SPEC-R-037.md 참조.
+
+### R-038: 게임 설정 시스템 (SettingsManager)
+해상도·전체화면·그래픽 품질·오디오 볼륨·키 바인딩을 관리하는 `SettingsManager` 데이터 계층 구현. specs/SPEC-R-038.md 참조.
+
+### R-039: 설정 UI (그래픽·오디오·조작 탭)
+`SettingsManager`와 연동되는 탭 형식 설정 UI 구현. `MainMenuController` 및 인게임 Pause 메뉴에서 접근 가능. specs/SPEC-R-039.md 참조.
+
+### 폴리시 / 완성도 (Polish) — 보통
+
+### R-040: SteamPipe 빌드 및 배포 구성
+Steam 앱/디포 VDF 설정, 빌드 스크립트, SteamCMD 업로드 자동화 파이프라인 구성. specs/SPEC-R-040.md 참조.
+
+### R-041: 출시 전 통합 QA 체크리스트
+Steam API 연동 검증, 오프라인 모드 폴백, 성능 프로파일링, 빌드 사이즈 최적화 수행. specs/SPEC-R-041.md 참조.
+
+### 🎨 에셋 (감독관 전용) — 높음
+
+### 🎨 A-008: 스팀 스토어 페이지 에셋
+캡슐 이미지(헤더 460×215, 소형 231×87, 대형 616×353), 라이브러리 히어로(3840×1240), 라이브러리 로고(1280×720), 스크린샷 최소 5장(1920×1080), 커뮤니티 아이콘(32×32, 184×184).
+
+### 🎨 A-009: 스팀 업적 아이콘 세트
+업적별 잠금/해제 아이콘 쌍 (64×64 JPG). R-037에서 정의한 업적 목록 기반으로 제작.
