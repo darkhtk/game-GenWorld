@@ -53,8 +53,9 @@ public class QuestSystem
         if (!_active.TryGetValue(questId, out var def)) return null;
         if (!AreRequirementsMet(def, inv)) return null;
 
-        foreach (var r in def.requirements)
-            inv.RemoveItem(r.itemId, r.count);
+        if (def.requirements != null)
+            foreach (var r in def.requirements)
+                inv.RemoveItem(r.itemId, r.count);
 
         _active.Remove(questId);
         _killProgress.Remove(questId);
