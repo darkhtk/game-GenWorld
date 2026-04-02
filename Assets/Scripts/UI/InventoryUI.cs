@@ -73,6 +73,10 @@ public class InventoryUI : MonoBehaviour
 
     int _dragFromSlot = -1;
     bool _dragging;
+    string _currentFilter = "all";
+    int _currentSortMode; // 0=name, 1=grade, 2=type
+    static readonly string[] FilterNames = { "all", "weapon", "armor", "consumable", "material" };
+    static readonly string[] SortModeNames = { "Name", "Grade", "Type" };
 
     void Awake()
     {
@@ -81,6 +85,18 @@ public class InventoryUI : MonoBehaviour
         if (dragIcon != null) dragIcon.gameObject.SetActive(false);
         if (closeButton != null) closeButton.onClick.AddListener(Hide);
         if (sortButton != null) sortButton.onClick.AddListener(() => OnSortCallback?.Invoke());
+
+        if (filterButtons != null)
+        {
+            for (int i = 0; i < filterButtons.Length && i < FilterNames.Length; i++)
+            {
+                int idx = i;
+                if (filterButtons[i] != null)
+                    filterButtons[i].onClick.AddListener(() => SetFilter(idx));
+            }
+        }
+        if (sortModeButton != null)
+            sortModeButton.onClick.AddListener(CycleSortMode);
 
         if (strAddButton != null) strAddButton.onClick.AddListener(() => AllocateStat("str"));
         if (dexAddButton != null) dexAddButton.onClick.AddListener(() => AllocateStat("dex"));
@@ -284,6 +300,21 @@ public class InventoryUI : MonoBehaviour
     void HideTooltip()
     {
         if (tooltipPanel != null) tooltipPanel.SetActive(false);
+    }
+
+    void SetFilter(int idx)
+    {
+        _currentFilter = idx < FilterNames.Length ? FilterNames[idx] : "all";
+        if (_inventory != null && _itemDefs != null)
+            Refresh(_inventory, null, _itemDefs, null);
+    }
+
+    void CycleSortMode()
+    {
+        _currentSortMode = (_currentSortMode + 1) % SortModeNames.Length;
+        if (sortModeText != null) sortModeText.text = SortModeNames[_currentSortMode];
+        if (_inventory != null && _itemDefs != null)
+            Refresh(_inventory, null, _itemDefs, null);
     }
 
     void RefreshEquipment()

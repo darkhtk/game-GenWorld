@@ -67,6 +67,8 @@ public class HUD : MonoBehaviour
 
     const int MaxHistoryEntries = 8;
     const int MaxEffectIcons = 8;
+    const float BarLerpSpeed = 8f;
+    float _targetHpFill, _targetMpFill, _targetXpFill;
     readonly List<TextMeshProUGUI> _historyEntries = new();
     readonly List<GameObject> _effectIcons = new();
     readonly List<TextMeshProUGUI> _effectTimerTexts = new();
@@ -122,6 +124,18 @@ public class HUD : MonoBehaviour
         UpdateEffectIcons();
         UpdateDodgeFromPlayer();
         UpdatePotionsFromInventory();
+        LerpBars();
+    }
+
+    void LerpBars()
+    {
+        float dt = Time.deltaTime * BarLerpSpeed;
+        if (hpFill != null)
+            hpFill.fillAmount = Mathf.Lerp(hpFill.fillAmount, _targetHpFill, dt);
+        if (mpFill != null)
+            mpFill.fillAmount = Mathf.Lerp(mpFill.fillAmount, _targetMpFill, dt);
+        if (xpFill != null)
+            xpFill.fillAmount = Mathf.Lerp(xpFill.fillAmount, _targetXpFill, dt);
     }
 
     void UpdateCooldowns()
