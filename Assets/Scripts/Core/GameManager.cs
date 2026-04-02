@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public EffectHolder PlayerEffects { get; private set; }
     public RegionTracker RegionTracker { get; private set; }
     public TimeSystem TimeSystem { get; private set; }
+    public AchievementSystem Achievements { get; private set; }
 
     readonly Dictionary<string, int> _killCounts = new();
     int _totalKills;
@@ -49,6 +50,8 @@ public class GameManager : MonoBehaviour
         _ = AI.Init();
         RegionTracker = new RegionTracker(Data.RegionList);
         TimeSystem = new TimeSystem();
+        Achievements = new AchievementSystem();
+        Achievements.Init();
 
         PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
         PlayerState.FullHeal();
