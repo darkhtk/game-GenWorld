@@ -1,15 +1,12 @@
 # Client Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #39)
-> **상태:** REVIEW COMPLETE
+> **최종 실행:** 2026-04-02 (루프 #40)
+> **상태:** IDLE
 
 ## 이번 루프 결과
 
 - FREEZE: 없음
 - 토론 응답 대기: 없음
-- In Review 태스크: R-027 AnimationDef
-
-### R-027 AnimationDef
-- **판정:** ❌ NEEDS_WORK (REVIEW-R027-v1)
-- 코드(AnimationDef.cs) + PropertyDrawer(AnimEntryDrawer.cs) 양호
-- Critical 4건: Player/Monster/NPC/Skill용 .asset 파일 미생성 (수용 기준 4/6 미충족)
+- In Review 태스크: R-027 (이미 ❌ NEEDS_WORK — REVIEW-R027-v1 존재)
+- R-028: 로드맵 👀이나 In Review 테이블 미등록
+- **결론:** IDLE — R-027 수정 대기, R-028 미제출
