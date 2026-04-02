@@ -106,6 +106,45 @@ public class DataManager
         }
     }
 
+    void ValidateData()
+    {
+        int issues = 0;
+
+        if (Items.Count == 0) { Debug.LogWarning("[DataManager] Validation: Items is empty"); issues++; }
+        if (Skills.Count == 0) { Debug.LogWarning("[DataManager] Validation: Skills is empty"); issues++; }
+        if (Monsters.Count == 0) { Debug.LogWarning("[DataManager] Validation: Monsters is empty"); issues++; }
+        if (Npcs.Count == 0) { Debug.LogWarning("[DataManager] Validation: Npcs is empty"); issues++; }
+        if (Quests.Count == 0) { Debug.LogWarning("[DataManager] Validation: Quests is empty"); issues++; }
+        if (Regions.Count == 0) { Debug.LogWarning("[DataManager] Validation: Regions is empty"); issues++; }
+
+        int itemIssues = 0;
+        foreach (var item in Items.Values)
+        {
+            bool patched = false;
+            if (string.IsNullOrEmpty(item.name)) { item.name = "unknown"; patched = true; }
+            if (string.IsNullOrEmpty(item.grade)) { item.grade = "common"; patched = true; }
+            if (item.maxStack <= 0) { item.maxStack = 1; patched = true; }
+            if (patched) itemIssues++;
+        }
+
+        int monsterIssues = 0;
+        foreach (var m in Monsters.Values)
+        {
+            bool patched = false;
+            if (string.IsNullOrEmpty(m.name)) { m.name = "unknown"; patched = true; }
+            if (m.hp <= 0) { m.hp = 10; patched = true; }
+            if (m.atk <= 0) { m.atk = 1; patched = true; }
+            if (patched) monsterIssues++;
+        }
+
+        if (itemIssues > 0)
+            Debug.LogWarning($"[DataManager] Validation: {itemIssues} items had missing fields (patched with defaults)");
+        if (monsterIssues > 0)
+            Debug.LogWarning($"[DataManager] Validation: {monsterIssues} monsters had missing fields (patched with defaults)");
+        if (issues == 0 && itemIssues == 0 && monsterIssues == 0)
+            Debug.Log("[DataManager] Validation: all data OK");
+    }
+
     static T LoadJson<T>(string filename) where T : class
     {
         string path = Path.Combine(DataPath, filename);
