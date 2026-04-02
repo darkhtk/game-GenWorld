@@ -47,9 +47,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-028 AnimationPreviewUI | 2026-04-02 | ✅ APPROVE | REVIEW-R028-v1 |
-| R-029 PlayerAnimator 검증 | 2026-04-02 | ✅ APPROVE | REVIEW-R029-v1 |
-
 ## ✅ Done
 
 | 태스크 | 완료일 | 비고 |
@@ -71,6 +68,8 @@
 | R-015 몬스터 HP 바 | 2026-04-02 | REVIEW-R015-v1 ✅ |
 | R-016 장비 비교 팝업 | 2026-04-02 | REVIEW-R016-v1 ✅ |
 | R-027 AnimationDef | 2026-04-02 | REVIEW-R027-v2 ✅ |
+| R-028 AnimationPreviewUI | 2026-04-02 | REVIEW-R028-v1 ✅ |
+| R-029 PlayerAnimator 검증 | 2026-04-02 | REVIEW-R029-v1 ✅ |
 
 ## 📋 Backlog
 
