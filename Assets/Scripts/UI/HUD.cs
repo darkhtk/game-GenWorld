@@ -79,6 +79,7 @@ public class HUD : MonoBehaviour
     const int MaxTrackedQuests = 3;
     readonly List<TextMeshProUGUI> _questTrackerEntries = new();
     bool _questTrackerVisible = true;
+    static readonly WaitForSeconds RegionAnnounceHold = new(2f);
     readonly System.Text.StringBuilder _questSb = new();
     const float BarLerpSpeed = 8f;
     float _targetHpFill, _targetMpFill, _targetXpFill;
@@ -296,7 +297,7 @@ public class HUD : MonoBehaviour
             yield return null;
         }
         regionAnnounceGroup.alpha = 1f;
-        yield return new WaitForSeconds(2f);
+        yield return RegionAnnounceHold;
         for (float t = 0; t < 1f; t += Time.deltaTime)
         {
             regionAnnounceGroup.alpha = 1f - t;

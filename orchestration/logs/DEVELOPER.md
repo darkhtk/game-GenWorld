@@ -1,26 +1,22 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 33)
-**Status:** WORKING — R-024
+**Last run:** 2026-04-02 (loop 34)
+**Status:** WORKING — R-037+R-038+R-041
 
 ## Loop Result
 - FREEZE: N
 - Build errors: 0 (stale only)
-- R-001~R-023, R-027~R-032: ✅ Done (31 tasks!)
-- R-024: Completed → In Review (새 시스템)
+- R-001~R-024, R-027~R-032: ✅ Done (32 tasks!)
+- R-037+R-038+R-041: Completed → In Review (폴리시 3건 일괄)
 
 ## Completed This Loop
-**R-024 월드 이벤트 시스템** — SPEC-R024 기반 구현 완료.
 
-### Changes
-- `WorldEventSystem.cs` (NEW): 4 events (Blood Moon, Golden Hour, Goblin Raid, Wandering Merchant)
-  - Hourly probability check with min interval, duration, chance
-  - GlobalDropMultiplier/GoldMultiplier for bonus_drops
-  - Serialize/Restore for save/load
-  - WorldEventStartEvent/EndEvent via EventBus
-- `GameManager.cs`: WorldEvents property + Init + Update integration
+### R-037 XP 플로팅 텍스트 + R-038 골드 플로팅 텍스트 (GameManager.cs)
+- OnMonsterKilled: floating "+XP" (cyan) and "+G" (gold) text via CombatManager.ShowFloatingText
 
-### Note
-All original R-001~R-024 + R-027~R-032 신규 기능 완료! 다음: 폴리시 태스크 (R-033~R-042).
+### R-041 지역 진입 알림 (HUD.cs)
+- regionAnnounceText + CanvasGroup fields
+- ShowRegionAnnounce: fade in (0.5s) → hold (2s) → fade out (1s) coroutine
+- Called from UpdateRegion()
 
-Specs referenced: Y (SPEC-R024.md)
+Specs referenced: N (폴리시 — BACKLOG description only)
