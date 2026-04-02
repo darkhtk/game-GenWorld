@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public WorldEventSystem WorldEvents { get; private set; }
 
     readonly Dictionary<string, int> _killCounts = new();
+    readonly List<VillageNPC> _npcs = new();
     int _totalKills;
     float _hpRegenAccum;
     public bool AutoPotionEnabled { get; set; } = true;
@@ -113,6 +114,48 @@ public class GameManager : MonoBehaviour
 
         RegionTracker.UpdatePlayerRegion(player.Position.x, player.Position.y);
         HandleRegionTransition();
+
+        if (Input.GetKeyDown(KeyCode.F))
+            TryInteractNPC();
+    }
+
+    void TryInteractNPC()
+    {
+        Vector2 pp = player.Position;
+        VillageNPC nearest = null;
+        float bestDist = float.MaxValue;
+        foreach (var npc in _npcs)
+        {
+            if (npc == null) continue;
+            float d = (npc.Position - pp).sqrMagnitude;
+            if (d < bestDist && npc.IsInInteractionRange(pp))
+            {
+                bestDist = d;
+                nearest = npc;
+            }
+        }
+        if (nearest == null) return;
+
+        nearest.StopMoving();
+        player.Frozen = true;
+        uiManager.SetDialogueOpen(true);
+
+        var conditional = nearest.EvaluateConditionalDialogue(Quests, Inventory);
+        var dlg = uiManager.Dialogue;
+        if (dlg != null)
+        {
+            dlg.Show(nearest.Def, conditional);
+            EventBus.Emit(new DialogueStartEvent { npcId = nearest.Def.id });
+
+            var capturedNpc = nearest;
+            dlg.OnClose = () =>
+            {
+                uiManager.SetDialogueOpen(false);
+                player.Frozen = false;
+                capturedNpc.ResumeMoving();
+                EventBus.Emit(new DialogueEndEvent { npcId = capturedNpc.Def.id });
+            };
+        }
     }
 
     void LateUpdate()
@@ -218,6 +261,7 @@ public class GameManager : MonoBehaviour
                 if (villageNpc == null) villageNpc = go.AddComponent<VillageNPC>();
                 villageNpc.Init(npc, pos);
                 villageNpc.Brain = AI.GetBrain(npc.id);
+                _npcs.Add(villageNpc);
             }
         }
     }

@@ -52,6 +52,8 @@ public class WorldMapGenerator : MonoBehaviour
         Debug.Log($"[WorldMap] Generated {w}x{h} map with {regions.Length} regions");
     }
 
+    public bool[,] Walkable => _walkable;
+
     public bool IsWalkable(int tileX, int tileY)
     {
         if (_walkable == null) return true;
