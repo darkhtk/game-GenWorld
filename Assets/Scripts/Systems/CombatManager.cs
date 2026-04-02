@@ -3,10 +3,283 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public void Init(PlayerController player, System.Func<Stats> getStats, System.Func<int> getLevel, System.Action<MonsterController> onMonsterDeath, System.Action onPlayerDeath, EffectHolder playerEffects) { }
-    public void PerformAutoAttack(List<MonsterController> monsters) { }
-    public void HandleMonsterAttacks(List<MonsterController> monsters, float now) { }
-    public void ExecuteSkill(int slot) { }
-    public void ShowDamageNumber(Vector2 pos, int amount, bool isCrit, Color? color = null) { }
-    public void ShowFloatingText(Vector2 pos, string msg, Color? color = null) { }
+    PlayerController _player;
+    System.Func<Stats> _getStats;
+    System.Func<int> _getLevel;
+    System.Action<MonsterController> _onMonsterDeath;
+    System.Action _onPlayerDeath;
+    EffectHolder _playerEffects;
+
+    SkillExecutor _skillExecutor;
+    ActionRunner _actionRunner;
+
+    float _lastAutoAttackTime;
+    List<MonsterController> _cachedMonsters;
+
+    // Set by Director after Init
+    public SkillSystem Skills { get; set; }
+    public PlayerStats PlayerState { get; set; }
+
+    public void Init(PlayerController player, System.Func<Stats> getStats, System.Func<int> getLevel,
+        System.Action<MonsterController> onMonsterDeath, System.Action onPlayerDeath, EffectHolder playerEffects)
+    {
+        _player = player;
+        _getStats = getStats;
+        _getLevel = getLevel;
+        _onMonsterDeath = onMonsterDeath;
+        _onPlayerDeath = onPlayerDeath;
+        _playerEffects = playerEffects;
+        _skillExecutor = new SkillExecutor();
+        _actionRunner = new ActionRunner();
+    }
+
+    public void PerformAutoAttack(List<MonsterController> monsters)
+    {
+        _cachedMonsters = monsters;
+
+        float nowMs = Time.time * 1000f;
+        if (!Input.GetMouseButton(0)) return;
+        if (nowMs - _lastAutoAttackTime < GameConfig.AutoAttackCooldown) return;
+
+        _lastAutoAttackTime = nowMs;
+
+        var stats = _getStats();
+        int level = _getLevel();
+        float swingRange = GameConfig.AutoAttackBaseRange + level * GameConfig.AutoAttackRangePerLevel;
+        float levelDmgMult = 1f + level * GameConfig.AutoAttackDmgPerLevel;
+
+        Vector2 playerPos = _player.Position;
+        Vector2 aimDir = _player.AimDirection;
+        float swingAngle = Mathf.Atan2(aimDir.y, aimDir.x);
+
+        bool stealthActive = _playerEffects.Has("stealth");
+
+        foreach (var m in monsters)
+        {
+            if (m == null || m.IsDead) continue;
+            float dist = Vector2.Distance(playerPos, m.Position);
+            if (dist > swingRange) continue;
+
+            Vector2 toMonster = m.Position - playerPos;
+            float angleToMonster = Mathf.Atan2(toMonster.y, toMonster.x);
+            float angleDiff = Mathf.Abs(swingAngle - angleToMonster);
+            if (angleDiff > Mathf.PI) angleDiff = 2f * Mathf.PI - angleDiff;
+            if (angleDiff > GameConfig.AutoAttackArcHalf) continue;
+
+            int baseDmg = Mathf.FloorToInt(stats.atk * levelDmgMult);
+            bool isCrit = stealthActive || CombatSystem.CalcCrit(stats.crit);
+            int dmg = CombatSystem.CalcDamage(baseDmg, m.EffectiveDef, isCrit);
+
+            bool dead = m.TakeDamage(dmg);
+            ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
+            if (dead) _onMonsterDeath?.Invoke(m);
+        }
+
+        if (stealthActive)
+            _playerEffects.Remove("stealth");
+    }
+
+    public void HandleMonsterAttacks(List<MonsterController> monsters, float now)
+    {
+        _cachedMonsters = monsters;
+        if (_player.Invincible || _player.IsDodging) return;
+
+        foreach (var m in monsters)
+        {
+            if (m == null || m.IsDead) continue;
+            if (!m.CanAttack(now)) continue;
+
+            float dist = Vector2.Distance(m.Position, _player.Position);
+            if (dist > m.Def.attackRange * 1.3f) continue;
+
+            m.MarkAttacked(now);
+
+            if (m.Def.ranged != null)
+            {
+                FireMonsterProjectile(m);
+                continue;
+            }
+
+            var stats = _getStats();
+            int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
+            ApplyDamageToPlayer(dmg);
+        }
+    }
+
+    void FireMonsterProjectile(MonsterController m)
+    {
+        var r = m.Def.ranged;
+        Vector2 from = m.Position;
+        Vector2 to = _player.Position;
+
+        var go = new GameObject("MonsterProjectile");
+        var proj = go.AddComponent<Projectile>();
+        proj.Init(from, to, r.projectileSpeed, r.projectileColor, r.projectileSize, false);
+        proj.OnArrive = arrivePos =>
+        {
+            if (_player.Invincible || _player.IsDodging) return;
+            float hitDist = Vector2.Distance(arrivePos, _player.Position);
+            if (hitDist > 40f) return;
+            var stats = _getStats();
+            int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
+            ApplyDamageToPlayer(dmg);
+        };
+    }
+
+    void ApplyDamageToPlayer(int dmg)
+    {
+        if (PlayerState == null) return;
+
+        if (_playerEffects.Has("mana_shield") && PlayerState.Mp > 0)
+        {
+            int absorbed = Mathf.Min(dmg, PlayerState.Mp);
+            PlayerState.Mp -= absorbed;
+            int remaining = dmg - absorbed;
+            if (remaining > 0) PlayerState.Hp -= remaining;
+            ShowDamageNumber(_player.Position + Vector2.up * 0.5f, dmg, false,
+                new Color(0.27f, 0.53f, 1f));
+        }
+        else
+        {
+            PlayerState.Hp -= dmg;
+            ShowDamageNumber(_player.Position + Vector2.up * 0.5f, dmg, false,
+                new Color(1f, 0.27f, 0.27f));
+        }
+
+        if (PlayerState.Hp <= 0)
+            _onPlayerDeath?.Invoke();
+    }
+
+    public void ExecuteSkill(int slot)
+    {
+        if (Skills == null || PlayerState == null) return;
+
+        float nowMs = Time.time * 1000f;
+        var result = Skills.UseSkill(slot, PlayerState.Mp, nowMs);
+        if (!result.success || result.skill == null) return;
+
+        PlayerState.Mp -= result.mpCost;
+        var skill = result.skill;
+
+        float aoeBonus = Skills.GetAoeBonus(skill.id);
+        float durBonus = Skills.GetDurationBonus(skill.id);
+        float dmgMult = Skills.GetDamageMultiplier(skill.id);
+        float buffBonus = Skills.GetBuffBonus(skill.id);
+        float range = skill.range * (1f + (aoeBonus - 1f) * 0.5f);
+
+        Vector2 playerPos = _player.Position;
+        Vector2 aimDir = _player.AimDirection;
+        float angle = Mathf.Atan2(aimDir.y, aimDir.x);
+        float clampedDist = range;
+        float targetX = playerPos.x + Mathf.Cos(angle) * clampedDist;
+        float targetY = playerPos.y + Mathf.Sin(angle) * clampedDist;
+
+        var monsters = _cachedMonsters ?? new List<MonsterController>();
+        var stats = _getStats();
+
+        if (skill.actions != null && skill.actions.Length > 0 && string.IsNullOrEmpty(skill.behavior))
+        {
+            var ctx = BuildActionContext(skill, result.skillLevel, stats, monsters, nowMs,
+                dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetX, targetY);
+            _actionRunner.ExecuteSkill(skill.actions, ctx);
+        }
+        else
+        {
+            var ctx = BuildSkillContext(skill, result.skillLevel, stats, monsters, nowMs,
+                dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetX, targetY);
+            _skillExecutor.Execute(ctx);
+        }
+    }
+
+    SkillContext BuildSkillContext(SkillDef skill, int skillLevel, Stats stats,
+        List<MonsterController> monsters, float now, float dmgMult, float aoeBonus,
+        float durBonus, float buffBonus, float range, float angle, float tx, float ty)
+    {
+        return new SkillContext
+        {
+            player = _player.transform,
+            stats = stats,
+            monsters = monsters,
+            now = now,
+            skill = skill,
+            skillLevel = skillLevel,
+            dmgMult = dmgMult,
+            aoe = skill.aoe * aoeBonus,
+            duration = durBonus,
+            range = range,
+            buffBonus = buffBonus,
+            angle = angle,
+            targetX = tx,
+            targetY = ty,
+            dealDamage = DealDamageToMonster,
+            showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
+            showEffect = (x, y) => { /* Frontend VFX */ },
+            onKill = m => _onMonsterDeath?.Invoke(m),
+            recalcStats = s => { },
+            shakeCamera = (d, i) => { /* Frontend camera shake */ },
+            applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
+            healPlayer = amount =>
+            {
+                if (PlayerState != null)
+                    PlayerState.Hp = Mathf.Min(PlayerState.Hp + amount, stats.maxHp);
+            }
+        };
+    }
+
+    ActionContext BuildActionContext(SkillDef skill, int skillLevel, Stats stats,
+        List<MonsterController> monsters, float now, float dmgMult, float aoeBonus,
+        float durBonus, float buffBonus, float range, float angle, float tx, float ty)
+    {
+        var ctx = new ActionContext
+        {
+            player = _player.transform,
+            stats = stats,
+            monsters = monsters,
+            now = now,
+            skill = skill,
+            skillLevel = skillLevel,
+            dmgMult = dmgMult,
+            aoe = skill.aoe * aoeBonus,
+            duration = durBonus,
+            range = range,
+            buffBonus = buffBonus,
+            angle = angle,
+            targetX = tx,
+            targetY = ty,
+            dealDamage = DealDamageToMonster,
+            showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
+            showEffect = (x, y) => { /* Frontend VFX */ },
+            onKill = m => _onMonsterDeath?.Invoke(m),
+            recalcStats = s => { },
+            shakeCamera = (d, i) => { /* Frontend camera shake */ },
+            applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
+            healPlayer = amount =>
+            {
+                if (PlayerState != null)
+                    PlayerState.Hp = Mathf.Min(PlayerState.Hp + amount, stats.maxHp);
+            },
+            runner = _actionRunner
+        };
+        return ctx;
+    }
+
+    bool DealDamageToMonster(MonsterController m, float baseDmg, bool isCrit, int tintColor)
+    {
+        if (m == null || m.IsDead) return false;
+        int dmg = CombatSystem.CalcDamage(Mathf.RoundToInt(baseDmg), m.EffectiveDef, isCrit);
+        bool dead = m.TakeDamage(dmg);
+        ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
+        if (dead) _onMonsterDeath?.Invoke(m);
+        return dead;
+    }
+
+    public void ShowDamageNumber(Vector2 pos, int amount, bool isCrit, Color? color = null)
+    {
+        // Visual implementation by Dev-Frontend via floating text prefab
+    }
+
+    public void ShowFloatingText(Vector2 pos, string msg, Color? color = null)
+    {
+        // Visual implementation by Dev-Frontend via floating text prefab
+    }
 }
