@@ -22,6 +22,32 @@ public class VillageNPC : MonoBehaviour
         _rb.freezeRotation = true;
         transform.position = position;
         _patrolCenter = position;
+        ValidateAnimations();
+    }
+
+    void ValidateAnimations()
+    {
+        if (Def.animationDef == null)
+        {
+            if (!string.IsNullOrEmpty(Def.id))
+                Debug.LogWarning($"[VillageNPC] {Def.name}: no AnimationDef assigned");
+            return;
+        }
+        string[] required = { "idle", "talk", "react" };
+        foreach (var state in required)
+        {
+            if (!Def.animationDef.HasClip(state))
+                Debug.LogWarning($"[VillageNPC] {Def.name}: missing animation clip for '{state}'");
+        }
+    }
+
+    public void SetAnimationState(string stateName)
+    {
+        if (Def.animationDef == null) return;
+        var entry = Def.animationDef.GetEntry(stateName);
+        if (entry == null || entry.clip == null) return;
+        var animator = GetComponent<Animator>();
+        if (animator != null) animator.Play(stateName, 0, 0f);
     }
 
     void Update()
