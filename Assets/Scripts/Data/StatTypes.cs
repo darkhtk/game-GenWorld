@@ -45,6 +45,12 @@ public static class ItemTypeUtil
     };
     public static bool IsEquipment(ItemType t) =>
         t is ItemType.Weapon or ItemType.Helmet or ItemType.Armor or ItemType.Boots or ItemType.Accessory;
+    public static string GetEquipSlot(ItemType t) => t switch
+    {
+        ItemType.Weapon => "weapon", ItemType.Helmet => "helmet",
+        ItemType.Armor => "armor", ItemType.Boots => "boots",
+        ItemType.Accessory => "accessory", _ => ""
+    };
 }
 
 [Serializable]

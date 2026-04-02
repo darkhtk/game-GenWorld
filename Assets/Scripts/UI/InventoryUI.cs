@@ -319,6 +319,73 @@ public class InventoryUI : MonoBehaviour
         if (tooltipPanel != null) tooltipPanel.SetActive(false);
     }
 
+    void ShowComparePopup(int slotIndex, ItemDef newDef)
+    {
+        if (comparePanel == null) { OnEquipCallback?.Invoke(slotIndex); return; }
+
+        _pendingEquipIndex = slotIndex;
+        string equipSlot = ItemTypeUtil.GetEquipSlot(newDef.TypeEnum);
+        ItemDef currentDef = null;
+        if (_equipment != null && _equipment.TryGetValue(equipSlot, out var equipped)
+            && equipped != null && _itemDefs.TryGetValue(equipped.itemId, out var cDef))
+            currentDef = cDef;
+
+        comparePanel.SetActive(true);
+
+        if (compareNewName != null)
+        {
+            compareNewName.text = newDef.name;
+            compareNewName.color = GameConfig.GetGradeColor(newDef.GradeEnum);
+        }
+        if (compareCurrentName != null)
+            compareCurrentName.text = currentDef != null ? currentDef.name : "(empty)";
+
+        var newS = newDef.stats ?? new ItemStats();
+        var curS = currentDef?.stats ?? new ItemStats();
+
+        if (compareNewStats != null) compareNewStats.text = FormatStats(newS);
+        if (compareCurrentStats != null) compareCurrentStats.text = FormatStats(curS);
+        if (compareDiffStats != null) compareDiffStats.text = FormatDiff(newS, curS);
+    }
+
+    void ConfirmEquip()
+    {
+        if (_pendingEquipIndex >= 0)
+            OnEquipCallback?.Invoke(_pendingEquipIndex);
+        _pendingEquipIndex = -1;
+        if (comparePanel != null) comparePanel.SetActive(false);
+    }
+
+    static string FormatStats(ItemStats s)
+    {
+        var lines = new System.Text.StringBuilder();
+        if (s.atk > 0) lines.AppendLine($"ATK: {s.atk}");
+        if (s.def > 0) lines.AppendLine($"DEF: {s.def}");
+        if (s.maxHp > 0) lines.AppendLine($"HP: {s.maxHp}");
+        if (s.maxMp > 0) lines.AppendLine($"MP: {s.maxMp}");
+        if (s.spd > 0) lines.AppendLine($"SPD: {s.spd}");
+        if (s.crit > 0) lines.AppendLine($"CRIT: {s.crit}%");
+        return lines.ToString().TrimEnd();
+    }
+
+    static string FormatDiff(ItemStats newS, ItemStats curS)
+    {
+        var lines = new System.Text.StringBuilder();
+        AppendDiff(lines, "ATK", newS.atk - curS.atk);
+        AppendDiff(lines, "DEF", newS.def - curS.def);
+        AppendDiff(lines, "HP", newS.maxHp - curS.maxHp);
+        AppendDiff(lines, "MP", newS.maxMp - curS.maxMp);
+        AppendDiff(lines, "SPD", newS.spd - curS.spd);
+        AppendDiff(lines, "CRIT", newS.crit - curS.crit);
+        return lines.ToString().TrimEnd();
+    }
+
+    static void AppendDiff(System.Text.StringBuilder sb, string label, int diff)
+    {
+        if (diff > 0) sb.AppendLine($"<color=#66ff66>{label}: +{diff} \u25b2</color>");
+        else if (diff < 0) sb.AppendLine($"<color=#ff6666>{label}: {diff} \u25bc</color>");
+    }
+
     void SetFilter(int idx)
     {
         _currentFilter = idx < FilterNames.Length ? FilterNames[idx] : "all";
