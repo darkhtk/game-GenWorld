@@ -114,32 +114,16 @@ public class HUD : MonoBehaviour
     void UpdateCooldowns()
     {
         var gm = GameManager.Instance;
-        if (gm == null || gm.Skills == null || gm.Data == null) return;
+        if (gm == null || gm.Skills == null) return;
 
         float nowMs = Time.time * 1000f;
-        string[] equipped = gm.Skills.GetEquippedSkills();
+        float[] fractions = gm.Skills.GetCooldowns(nowMs);
 
         for (int i = 0; i < GameConfig.SkillSlotCount; i++)
         {
-            string skillId = i < equipped.Length ? equipped[i] : null;
-            if (string.IsNullOrEmpty(skillId))
-            {
-                SetSkillCooldown(i, 0, 0);
-                continue;
-            }
-
-            float remaining = gm.Skills.GetCooldownRemaining(skillId, nowMs);
-            if (remaining <= 0)
-            {
-                SetSkillCooldown(i, 0, 0);
-                continue;
-            }
-
-            float totalCooldown = 0;
-            if (gm.Data.Skills.TryGetValue(skillId, out var def))
-                totalCooldown = def.cooldown;
-
-            SetSkillCooldown(i, remaining, totalCooldown);
+            float f = i < fractions.Length ? fractions[i] : 0f;
+            if (i < skillCooldownOverlays.Length && skillCooldownOverlays[i] != null)
+                skillCooldownOverlays[i].fillAmount = f;
         }
     }
 
