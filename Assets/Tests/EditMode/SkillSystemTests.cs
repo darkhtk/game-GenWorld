@@ -126,4 +126,70 @@ public class SkillSystemTests
         Assert.AreEqual(2, refund);
         Assert.AreEqual(0, sys.GetSkillLevel("heavy_strike"));
     }
+
+    [Test]
+    public void GetCooldowns_ReturnsZeros_WhenReady()
+    {
+        sys.LearnSkill("heavy_strike", 5, 1);
+        sys.EquipSkill("heavy_strike", 0);
+        var cds = sys.GetCooldowns(0f);
+        Assert.AreEqual(GameConfig.SkillSlotCount, cds.Length);
+        Assert.AreEqual(0f, cds[0]);
+    }
+
+    [Test]
+    public void GetCooldowns_ReturnsFraction_WhenOnCooldown()
+    {
+        sys.LearnSkill("heavy_strike", 5, 1);
+        sys.EquipSkill("heavy_strike", 0);
+        sys.UseSkill(0, 100, 0f);
+        // heavy_strike cooldown = 3000ms, at now=1500 => 1500/3000 = 0.5
+        var cds = sys.GetCooldowns(1500f);
+        Assert.AreEqual(0.5f, cds[0], 0.01f);
+    }
+
+    [Test]
+    public void GetCooldowns_ReturnsZero_AfterCooldownExpires()
+    {
+        sys.LearnSkill("heavy_strike", 5, 1);
+        sys.EquipSkill("heavy_strike", 0);
+        sys.UseSkill(0, 100, 0f);
+        var cds = sys.GetCooldowns(5000f);
+        Assert.AreEqual(0f, cds[0]);
+    }
+
+    [Test]
+    public void GetDamageMultiplier_ScalesWithLevel()
+    {
+        sys.LearnSkill("heavy_strike", 5, 1);
+        float lv1 = sys.GetDamageMultiplier("heavy_strike");
+        sys.LearnSkill("heavy_strike", 4, 1);
+        float lv2 = sys.GetDamageMultiplier("heavy_strike");
+        Assert.Greater(lv2, lv1);
+    }
+
+    [Test]
+    public void RestoreLearnedSkills_RestoresState()
+    {
+        sys.LearnSkill("heavy_strike", 5, 1);
+        sys.LearnSkill("heavy_strike", 4, 1);
+        var data = sys.GetLearnedSkills();
+
+        var sys2 = new SkillSystem(defs);
+        sys2.RestoreLearnedSkills(data);
+        Assert.AreEqual(2, sys2.GetSkillLevel("heavy_strike"));
+    }
+
+    [Test]
+    public void RestoreEquipped_RestoresSlots()
+    {
+        sys.LearnSkill("heavy_strike", 5, 1);
+        sys.EquipSkill("heavy_strike", 2);
+        var equipped = sys.GetEquippedSkills();
+
+        var sys2 = new SkillSystem(defs);
+        sys2.RestoreLearnedSkills(sys.GetLearnedSkills());
+        sys2.RestoreEquipped(equipped);
+        Assert.AreEqual("heavy_strike", sys2.GetEquippedSkill(2));
+    }
 }
