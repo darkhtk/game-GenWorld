@@ -11,6 +11,7 @@ public class MonsterDef
     public RangedConfig ranged;
     public MonsterAttackPattern[] attackPatterns;
     public MonsterPhase[] phases;
+    [Newtonsoft.Json.JsonIgnore] public AnimationDef animationDef;
 }
 
 [Serializable] public class DropEntry { public string itemId; public float chance; public int minCount, maxCount; }

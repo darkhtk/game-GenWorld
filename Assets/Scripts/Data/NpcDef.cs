@@ -11,6 +11,7 @@ public class NpcDef
     public AutoActionDef[] autoActions;
     public NpcTrigger[] triggers;
     public ConditionalDialogue[] conditionalDialogues;
+    [Newtonsoft.Json.JsonIgnore] public AnimationDef animationDef;
 }
 
 [Serializable] public class DialogueTraits { public int friendliness, generosity, secretive, stubbornness, curiosity; }
