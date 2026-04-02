@@ -90,6 +90,7 @@ public class DialogueUI : MonoBehaviour
     public void Show(NpcDef npcDef, ConditionalDialogue conditional = null)
     {
         _currentNpc = npcDef;
+        gameObject.SetActive(true);
         if (panel != null) panel.SetActive(true);
 
         if (npcNameText != null)
@@ -129,11 +130,12 @@ public class DialogueUI : MonoBehaviour
 
     public void Hide()
     {
-        if (panel != null) panel.SetActive(false);
         if (_loadingCoroutine != null) { StopCoroutine(_loadingCoroutine); _loadingCoroutine = null; }
         if (loadingPanel != null) loadingPanel.SetActive(false);
         if (questProposalPanel != null) questProposalPanel.SetActive(false);
         if (freeInputField != null) freeInputField.gameObject.SetActive(false);
+        if (panel != null) panel.SetActive(false);
+        gameObject.SetActive(false);
         _currentNpc = null;
     }
 
