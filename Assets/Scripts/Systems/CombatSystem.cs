@@ -32,4 +32,23 @@ public static class CombatSystem
         }
         return closest;
     }
+
+    public static T FindClosest<T>(Vector2 origin, List<T> targets, float range,
+        Func<T, Vector2> getPos, Func<T, bool> isAlive) where T : class
+    {
+        T closest = null;
+        float bestDist = range * range;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            var t = targets[i];
+            if (!isAlive(t)) continue;
+            float dist = (getPos(t) - origin).sqrMagnitude;
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                closest = t;
+            }
+        }
+        return closest;
+    }
 }

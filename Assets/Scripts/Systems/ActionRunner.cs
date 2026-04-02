@@ -60,12 +60,13 @@ public class ActionRunner
         if (a.aoe > 0)
         {
             float effectiveAoe = a.aoe * ctx.aoe;
+            float aoeSq = effectiveAoe * effectiveAoe;
             var hitList = new List<MonsterController>();
+            Vector2 hitPos = new(hx, hy);
             foreach (var m in ctx.monsters)
             {
                 if (m == null || m.IsDead) continue;
-                float dist = Vector2.Distance(new Vector2(hx, hy), m.Position);
-                if (dist > effectiveAoe) continue;
+                if ((hitPos - m.Position).sqrMagnitude > aoeSq) continue;
                 if (a.cone > 0 && !IsInCone((Vector2)ctx.player.position, ctx.angle, a.cone, m.Position))
                     continue;
                 ctx.dealDamage?.Invoke(m, baseDmg, crit, a.color);
@@ -85,7 +86,7 @@ public class ActionRunner
         {
             // Single-target: find closest monster in skill range
             Vector2 playerPos = (Vector2)ctx.player.position;
-            var target = CombatSystem.FindClosest(playerPos, ctx.monsters.ToArray(),
+            var target = CombatSystem.FindClosest(playerPos, ctx.monsters,
                 ctx.range, m => m.Position, m => !m.IsDead);
             if (target != null)
             {
@@ -103,7 +104,7 @@ public class ActionRunner
         Vector2 playerPos = (Vector2)ctx.player.position;
 
         // Find primary target
-        var primary = CombatSystem.FindClosest(playerPos, ctx.monsters.ToArray(),
+        var primary = CombatSystem.FindClosest(playerPos, ctx.monsters,
             ctx.range, m => m.Position, m => !m.IsDead);
         if (primary == null) return;
 
@@ -114,9 +115,10 @@ public class ActionRunner
                 new List<MonsterController> { primary });
 
         // Chain to nearby targets
-        var hit = new List<MonsterController> { primary };
+        var hit = new HashSet<MonsterController> { primary };
         int maxBounces = chain.maxBounces > 0 ? chain.maxBounces : 3;
         float bounceRange = chain.bounceRange > 0 ? chain.bounceRange : 80f;
+        float bounceRangeSq = bounceRange * bounceRange;
         float decay = chain.decayRatio > 0 ? chain.decayRatio : 0.7f;
         MonsterController last = primary;
         float currentDmg = baseDmg;
@@ -125,12 +127,12 @@ public class ActionRunner
         {
             currentDmg *= decay;
             MonsterController next = null;
-            float nextD = bounceRange + 1f;
+            float nextDSq = bounceRangeSq + 1f;
             foreach (var m in ctx.monsters)
             {
                 if (m == null || m.IsDead || hit.Contains(m)) continue;
-                float d = Vector2.Distance(last.Position, m.Position);
-                if (d < nextD) { nextD = d; next = m; }
+                float dSq = (last.Position - m.Position).sqrMagnitude;
+                if (dSq < nextDSq) { nextDSq = dSq; next = m; }
             }
             if (next == null) break;
             crit = CombatSystem.CalcCrit(ctx.stats.crit);
@@ -152,10 +154,12 @@ public class ActionRunner
         var affected = new List<MonsterController>();
         if (effectiveAoe > 0)
         {
+            float eoeSq = effectiveAoe * effectiveAoe;
+            Vector2 effectPos = new(hx, hy);
             foreach (var m in ctx.monsters)
             {
                 if (m == null || m.IsDead) continue;
-                if (Vector2.Distance(new Vector2(hx, hy), m.Position) > effectiveAoe) continue;
+                if ((effectPos - m.Position).sqrMagnitude > eoeSq) continue;
                 if (a.cone > 0 && !IsInCone((Vector2)ctx.player.position, ctx.angle, a.cone, m.Position))
                     continue;
                 affected.Add(m);
@@ -169,7 +173,7 @@ public class ActionRunner
         {
             // Single-target fallback: find closest monster in range
             Vector2 playerPos = (Vector2)ctx.player.position;
-            var closest = CombatSystem.FindClosest(playerPos, ctx.monsters.ToArray(),
+            var closest = CombatSystem.FindClosest(playerPos, ctx.monsters,
                 ctx.range, m => m.Position, m => !m.IsDead);
             if (closest != null) affected.Add(closest);
         }
@@ -292,10 +296,12 @@ public class ActionRunner
 
         if (a.pattern == "trap")
         {
+            float aoeSq = aoe * aoe;
+            Vector2 trapPos = new(hx, hy);
             foreach (var m in ctx.monsters)
             {
                 if (m == null || m.IsDead) continue;
-                if (Vector2.Distance(new Vector2(hx, hy), m.Position) <= aoe)
+                if ((trapPos - m.Position).sqrMagnitude <= aoeSq)
                 {
                     float ratio = a.ratio > 0 ? a.ratio : 1f;
                     int dmg = Mathf.RoundToInt(ctx.stats.atk * ctx.dmgMult * ratio);
@@ -343,7 +349,7 @@ public class ActionRunner
 
         if (a.behindTarget)
         {
-            var target = CombatSystem.FindClosest(origin, ctx.monsters.ToArray(),
+            var target = CombatSystem.FindClosest(origin, ctx.monsters,
                 ctx.range, m => m.Position, m => !m.IsDead);
             if (target != null)
             {

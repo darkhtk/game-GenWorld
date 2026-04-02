@@ -12,6 +12,7 @@ public class CombatManager : MonoBehaviour
 
     SkillExecutor _skillExecutor;
     ActionRunner _actionRunner;
+    ComboSystem _comboSystem;
 
     float _lastAutoAttackTime;
     List<MonsterController> _cachedMonsters;
@@ -31,6 +32,7 @@ public class CombatManager : MonoBehaviour
         _playerEffects = playerEffects;
         _skillExecutor = new SkillExecutor();
         _actionRunner = new ActionRunner();
+        _comboSystem = new ComboSystem();
     }
 
     public void PerformAutoAttack(List<MonsterController> monsters)
@@ -176,10 +178,24 @@ public class CombatManager : MonoBehaviour
         PlayerState.Mp -= result.mpCost;
         var skill = result.skill;
 
+        _comboSystem.RecordSkill(skill.id, nowMs);
+        var combo = _comboSystem.CheckCombo(skill.id, nowMs);
+
         float aoeBonus = Skills.GetAoeBonus(skill.id);
         float durBonus = Skills.GetDurationBonus(skill.id);
         float dmgMult = Skills.GetDamageMultiplier(skill.id);
         float buffBonus = Skills.GetBuffBonus(skill.id);
+
+        if (combo.triggered)
+        {
+            switch (combo.bonusType)
+            {
+                case "damage_mult": dmgMult *= combo.bonusValue; break;
+                case "aoe_expand": aoeBonus *= combo.bonusValue; break;
+                case "duration_extend": durBonus *= combo.bonusValue; break;
+            }
+            EventBus.Emit(new ComboEvent { name = combo.comboName });
+        }
         float range = skill.range * (1f + (aoeBonus - 1f) * 0.5f);
 
         Vector2 playerPos = _player.Position;

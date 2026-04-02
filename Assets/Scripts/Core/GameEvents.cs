@@ -13,3 +13,4 @@ public struct DialogueEndEvent { public string npcId; public int turns; }
 public struct NpcTriggerEvent { public string npcId, eventType, target; }
 public struct SaveEvent { }
 public struct MonsterDespawnEvent { public string monsterId; }
+public struct ComboEvent { public string name; }
