@@ -1,7 +1,7 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #15)
-> **수행 행동:** Step 2 자동 행동 #4 — UX 개선 2차
+> **최종 실행:** 2026-04-02 (루프 #16)
+> **수행 행동:** Step 2 자동 행동 #5 — 에러 점검 2차
 
 ## 이번 루프 요약
 
@@ -11,26 +11,34 @@
 ### Step 1
 - 🎨 태스크 없음 → Step 2
 
-### Step 2: UX 개선 2차 (3건)
+### Step 2: 에러 점검 2차
 
-| # | 파일 | 수정 | 효과 |
-|---|------|------|------|
-| 1 | PlayerController.cs | `StartDodge()` + `ScreenFlash.Dodge()` | 회피 시 흰 플래시 피드백 |
-| 2 | GameManager.cs | LevelUpEvent → `ScreenFlash.LevelUp()` + `CameraShake` | 레벨업 시 금색 플래시 + 카메라 흔들림 |
-| 3 | MonsterController.cs | `TakeDamage()` → 빨간 틴트 0.1초 플래시 | 몬스터 피격 시 시각 피드백 |
+#### Unity Editor.log 스캔
+- 감지된 에러: 4종류 (모두 STALE)
+  - DataManager.cs: `Exception`, `ValidateData` — 코드에 이미 존재
+  - NpcDef.cs: `ConditionalDialogue` — 클래스 정의 존재
+  - CombatSystem.cs: `List<>` — `using System.Collections.Generic` + List 오버로드 존재
+- **현재 실 에러: 0건**
 
-#### 전체 피드백 체계 현황
-| 이벤트 | 시각 피드백 | 추가된 루프 |
-|--------|-----------|-----------|
-| 플레이어 피격 | ScreenFlash 빨강 + 데미지 넘버 | #11 |
-| 플레이어 회복 | ScreenFlash 초록 | #11 |
-| 플레이어 회피 | ScreenFlash 흰색 | #15 (이번) |
-| 레벨업 | ScreenFlash 금색 + 카메라셰이크 | #15 (이번) |
-| 몬스터 피격 | 빨간 틴트 플래시 0.1초 + 데미지 넘버 + VFX | #15 (이번) |
-| HP 25% 이하 | HP 바 맥동 | #11 |
+#### 추가 검증
+- merge conflict 마커: 0건
+- CombatSystem.cs FindClosest List 오버로드: 정상 확인 (line 37)
 
-### BOARD 상태
-- R-001~R-008 ✅ Done, R-009 👀 In Review
+### BOARD 동기화
+- R-009 → ✅ Done (이미 다른 에이전트가 이동)
+- R-010 👀 In Review (대기)
+- 전체: R-001~R-009 Done (9건), R-010 In Review
+
+### 자동 행동 순환 현황 (전체 16루프)
+
+| 라운드 | #1 에셋 | #2 품질 | #3 성능 | #4 UX | #5 에러 |
+|--------|---------|---------|---------|-------|---------|
+| 1차 | 루프#2-9 (🎨×8) | 루프#1 (8건) | 루프#10 (7건) | 루프#11 (4건) | 루프#12 (0 real) |
+| 2차 | — | 루프#13 (3건) | 루프#14 (7건) | 루프#15 (3건) | 루프#16 (0 real) |
+| **합계** | 60+ 에셋 | 11건 수정 | 14건 최적화 | 7건 UX | 0 실에러 |
+
+### RESERVE 상태
+- 잔여: 14건 (R-011~R-016 + R-017~R-024)
 
 ### 다음 루프 예정
-- Step 2 자동 행동 #5: 에러 점검 (2차 라운드)
+- Step 2 자동 행동 #2: 코드 품질 감사 3차 (최신 R-009, R-010 변경 대상)
