@@ -101,6 +101,8 @@ public class HUD : MonoBehaviour
         if (hpFill != null) hpFill.color = HpColor;
         if (mpFill != null) mpFill.color = MpColor;
 
+        StyleBars();
+
         if (skillCooldownOverlays != null)
         {
             for (int i = 0; i < skillCooldownOverlays.Length; i++)
@@ -145,6 +147,68 @@ public class HUD : MonoBehaviour
         {
             _questTrackerVisible = !_questTrackerVisible;
             if (questTrackerRoot != null) questTrackerRoot.SetActive(_questTrackerVisible);
+        }
+    }
+
+    void StyleBars()
+    {
+        ApplyBarSprite(hpFill, "Sprites/UI/hp_bar_fill");
+        ApplyBarSprite(mpFill, "Sprites/UI/mp_bar_fill");
+        ApplyBarSprite(xpFill, "Sprites/UI/xp_bar_fill");
+        ApplyBarSprite(dodgeFill, "Sprites/UI/dodge_bar_fill");
+
+        var frameSpr = Resources.Load<Sprite>("Sprites/UI/bar_frame");
+        var bgSpr = Resources.Load<Sprite>("Sprites/UI/bar_bg");
+
+        ApplyBarFrame(hpFill, frameSpr, bgSpr);
+        ApplyBarFrame(mpFill, frameSpr, bgSpr);
+        ApplyBarFrame(xpFill, frameSpr, bgSpr);
+        ApplyBarFrame(dodgeFill, frameSpr, bgSpr);
+    }
+
+    static void ApplyBarSprite(Image fill, string path)
+    {
+        if (fill == null) return;
+        var spr = Resources.Load<Sprite>(path);
+        if (spr == null) return;
+        fill.sprite = spr;
+        fill.color = Color.white;
+        fill.type = Image.Type.Filled;
+        fill.fillMethod = Image.FillMethod.Horizontal;
+    }
+
+    static void ApplyBarFrame(Image fill, Sprite frameSpr, Sprite bgSpr)
+    {
+        if (fill == null || fill.transform.parent == null) return;
+        var parent = fill.transform.parent;
+
+        // Apply bg sprite to parent's Image if exists
+        if (bgSpr != null)
+        {
+            var bg = parent.GetComponent<Image>();
+            if (bg != null)
+            {
+                bg.sprite = bgSpr;
+                bg.type = Image.Type.Sliced;
+                bg.color = new Color(0.12f, 0.12f, 0.15f);
+            }
+        }
+
+        // Add frame overlay if not already present
+        if (frameSpr != null && parent.Find("BarFrame") == null)
+        {
+            var frameGo = new GameObject("BarFrame");
+            frameGo.transform.SetParent(parent, false);
+            var frameImg = frameGo.AddComponent<Image>();
+            frameImg.sprite = frameSpr;
+            frameImg.type = Image.Type.Sliced;
+            frameImg.color = new Color(0.7f, 0.65f, 0.5f);
+            frameImg.raycastTarget = false;
+            var rt = frameGo.GetComponent<RectTransform>();
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.offsetMin = new Vector2(-2, -2);
+            rt.offsetMax = new Vector2(2, 2);
         }
     }
 
