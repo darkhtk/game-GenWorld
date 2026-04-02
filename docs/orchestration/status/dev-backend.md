@@ -1,33 +1,40 @@
 # Status: Dev-Backend
 
-## Current: LOOP (all phases complete)
+## Current: Phase 7 DONE → LOOP
 
 ## Last Update: 2026-04-02
 
 ## Current Task
-Loop — compile fixes, code review, test coverage
+Phase 7 complete — returning to Loop
+
+## Phase 7: Integration Hardening (2026-04-02)
+- Step 1: QuestSystem EventBus — kill quest tracking (QuestKillRequirement, MonsterKillEvent subscription, 5 tests)
+- Step 2: SkillSystem.GetCooldowns() — float[] of cooldown fractions for HUD
+- Step 3: Test coverage — SaveSystem (7 tests), EffectSystem (+6 tests)
+- Step 4: Defensive null guards — MonsterSpawner, CombatManager
 
 ## Loop Cycle #1 (2026-04-02)
-- Fixed: EffectHolder stun cap bug (absolute vs relative time)
-- Fixed: OllamaClient WarmModel anonymous type serialization
-- Added: RegionTracker unit tests (8 tests)
-- Updated: EffectSystemTests for corrected stun behavior
-- Wired: DamageText.Spawn/SpawnText into CombatManager (Dev-Frontend request)
-- Wired: SkillVFX.ShowAtPosition and CameraShake.Shake into skill delegates
-- **Fixed: ActionRunner deal_damage had no single-target fallback** — heavy_strike, shield_charge, assassinate were dealing zero damage
-- **Fixed: ActionRunner chain logic** — chain_lightning data was defined but never implemented
-- **Fixed: ActionRunner apply_effect single-target fallback** — shield_charge stun was never applied
-- **Fixed: ActionRunner onHit sub-actions** — deal_damage onHit callbacks were not processed
-- **Fixed: ActionRunner cone filtering** — ground_slam hit full 360° instead of forward arc
-- **Fixed: Projectile missing collider** — skill projectiles had no Collider2D/Rigidbody2D, OnTriggerEnter2D never fired (fireball, poison_arrow, ice_bolt, etc.)
-- **Fixed: MonsterController missing collider** — ensures BoxCollider2D exists for projectile trigger detection
-- Reported: 3 GameManager bugs to Director (questions/backend-gamemanager-bugs.md)
+- Fixed: EffectHolder stun cap (absolute→relative time)
+- Fixed: OllamaClient WarmModel serialization
+- Fixed: ActionRunner deal_damage single-target fallback
+- Fixed: ActionRunner chain logic, onHit sub-actions, cone filtering
+- Fixed: ActionRunner apply_effect single-target fallback
+- Fixed: Projectile + MonsterController missing colliders
+- Wired: DamageText, SkillVFX, CameraShake into CombatManager
+- Added: RegionTracker tests (8), updated EffectSystem tests
+- Reported: 3 GameManager bugs to Director (RESOLVED)
 
 ## Progress
 - [x] Phase 2 — 11 Systems + 8 test suites
-- [x] Phase 3 — 6 Entities (PlayerController, PlayerStats, MonsterController, MonsterSpawner, VillageNPC, Projectile)
-- [x] Phase 4 — CombatManager, SkillExecutor (5 handlers), ActionRunner (3 handlers), AreaEffect
-- [x] Phase 5 — OllamaClient, PromptBuilder, AIManager (RegionTracker was already done)
+- [x] Phase 3 — 6 Entities
+- [x] Phase 4 — CombatManager, SkillExecutor, ActionRunner, AreaEffect
+- [x] Phase 5 — AI systems
+- [x] Phase 7 — Integration Hardening (4 steps)
+
+## Test Suites (14 files)
+InventorySystem, StatsSystem, CombatSystem, EffectSystem, SkillSystem,
+LootSystem, CraftingSystem, QuestSystem, NPCBrain, PromptBuilder,
+AIManager, RegionTracker, SaveSystem
 
 ## Issues
-- CombatManager exposes `Skills` and `PlayerState` public properties — Director needs to wire them in GameManager after Init
+- None blocking
