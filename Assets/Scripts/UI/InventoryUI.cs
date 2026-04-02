@@ -270,7 +270,6 @@ public class InventoryUI : MonoBehaviour
     }
 }
 
-[Serializable]
 public class EquipSlotUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText;
