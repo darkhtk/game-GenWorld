@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         combatManager.PlayerState = PlayerState;
 
         worldMap.Generate(Data.RegionList);
+        InitMinimap();
         SpawnInitialRegion();
         RegisterNpcs();
         SubscribeEvents();
@@ -220,6 +221,13 @@ public class GameManager : MonoBehaviour
 
         if (Data.Regions.TryGetValue(regionId, out var region))
             monsterSpawner.SpawnForRegion(region, Data.Monsters, worldMap);
+    }
+
+    void InitMinimap()
+    {
+        var minimap = uiManager.Hud?.GetComponentInChildren<MinimapUI>(true);
+        if (minimap != null && worldMap.Walkable != null)
+            minimap.Init(worldMap.Walkable, GameConfig.MapWidthTiles, GameConfig.MapHeightTiles);
     }
 
     void SpawnInitialRegion()
