@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         if (SaveSystem.HasSave())
             LoadGame();
 
+        PushInitialUiState();
         Debug.Log("[GameManager] Initialized");
     }
 
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
 
         PlayerEffects.Tick(nowMs);
         RegenHp();
+        RefreshHud();
 
         RegionTracker.UpdatePlayerRegion(player.Position.x, player.Position.y);
         HandleRegionTransition();
@@ -95,6 +97,26 @@ public class GameManager : MonoBehaviour
             _hpRegenAccum -= heal;
             PlayerState.Hp = Mathf.Min(PlayerState.Hp + heal, PlayerState.CurrentStats.maxHp);
         }
+    }
+
+    void RefreshHud()
+    {
+        if (uiManager == null || uiManager.Hud == null) return;
+        var hud = uiManager.Hud;
+        var s = PlayerState.CurrentStats;
+        hud.UpdateBars(PlayerState.Hp, s.maxHp, PlayerState.Mp, s.maxMp);
+    }
+
+    void PushInitialUiState()
+    {
+        if (uiManager == null || uiManager.Hud == null) return;
+        var hud = uiManager.Hud;
+        var s = PlayerState.CurrentStats;
+        hud.UpdateBars(PlayerState.Hp, s.maxHp, PlayerState.Mp, s.maxMp);
+        hud.UpdateGold(PlayerState.Gold);
+        hud.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+        hud.UpdateXpBar(PlayerState.Xp, GameConfig.XpForLevel(PlayerState.Level));
+        hud.UpdateSkillBar(Skills.GetEquippedSkills(), new float[GameConfig.SkillSlotCount]);
     }
 
     void HandleRegionTransition()
@@ -127,6 +149,8 @@ public class GameManager : MonoBehaviour
 
     void SubscribeEvents()
     {
+        var hud = uiManager != null ? uiManager.Hud : null;
+
         EventBus.On<LevelUpEvent>(e =>
         {
             PlayerState.SkillPoints += GameConfig.SkillPointsPerLevel;
@@ -134,6 +158,12 @@ public class GameManager : MonoBehaviour
             PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
             PlayerState.FullHeal();
             player.SetSpeed(PlayerState.CurrentStats.spd);
+            if (hud != null)
+            {
+                hud.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+                hud.UpdateXpBar(PlayerState.Xp, GameConfig.XpForLevel(PlayerState.Level));
+                hud.AddHistoryEntry($"Level Up! Lv.{PlayerState.Level}", Color.yellow);
+            }
         });
 
         EventBus.On<EquipChangeEvent>(e =>
@@ -142,7 +172,32 @@ public class GameManager : MonoBehaviour
             player.SetSpeed(PlayerState.CurrentStats.spd);
         });
 
-        EventBus.On<SaveEvent>(_ => SaveGame());
+        EventBus.On<GoldChangeEvent>(e =>
+        {
+            if (hud != null) hud.UpdateGold(e.gold);
+        });
+
+        EventBus.On<RegionVisitEvent>(e =>
+        {
+            if (hud != null) hud.UpdateRegion(e.regionName);
+        });
+
+        EventBus.On<MonsterKillEvent>(e =>
+        {
+            if (hud != null)
+                hud.AddHistoryEntry($"Defeated {e.monsterName} (x{e.killCount})", Color.white);
+        });
+
+        EventBus.On<PlayerDeathEvent>(e =>
+        {
+            if (hud != null) hud.AddHistoryEntry("You died!", Color.red);
+        });
+
+        EventBus.On<SaveEvent>(_ =>
+        {
+            SaveGame();
+            if (hud != null) hud.ShowSaveIndicator();
+        });
     }
 
     void OnMonsterKilled(MonsterController monster)
