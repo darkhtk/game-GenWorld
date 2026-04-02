@@ -52,6 +52,12 @@ public class HUD : MonoBehaviour
     [Header("Save Indicator")]
     [SerializeField] CanvasGroup saveIndicator;
 
+    [Header("Skill Tooltip")]
+    [SerializeField] GameObject skillTooltipPanel;
+    [SerializeField] TextMeshProUGUI skillTooltipName;
+    [SerializeField] TextMeshProUGUI skillTooltipDesc;
+    [SerializeField] TextMeshProUGUI skillTooltipStats;
+
     static readonly Color HpColor = new(1f, 0.267f, 0.267f);
     static readonly Color MpColor = new(0.267f, 0.533f, 1f);
 
@@ -59,6 +65,7 @@ public class HUD : MonoBehaviour
     readonly List<TextMeshProUGUI> _historyEntries = new();
     bool _historyVisible = true;
     PlayerController _cachedPlayer;
+    int _hoveredSkillSlot = -1;
 
     void Awake()
     {
@@ -74,6 +81,26 @@ public class HUD : MonoBehaviour
         {
             if (skillCooldownOverlays[i] != null)
                 skillCooldownOverlays[i].fillAmount = 0f;
+        }
+
+        if (skillTooltipPanel != null) skillTooltipPanel.SetActive(false);
+
+        for (int i = 0; i < skillIcons.Length; i++)
+        {
+            if (skillIcons[i] == null) continue;
+            int slot = i;
+            var trigger = skillIcons[i].gameObject.GetComponent<UnityEngine.EventSystems.EventTrigger>();
+            if (trigger == null) trigger = skillIcons[i].gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
+
+            var enterEntry = new UnityEngine.EventSystems.EventTrigger.Entry
+                { eventID = UnityEngine.EventSystems.EventTriggerType.PointerEnter };
+            enterEntry.callback.AddListener(_ => ShowSkillTooltip(slot));
+            trigger.triggers.Add(enterEntry);
+
+            var exitEntry = new UnityEngine.EventSystems.EventTrigger.Entry
+                { eventID = UnityEngine.EventSystems.EventTriggerType.PointerExit };
+            exitEntry.callback.AddListener(_ => HideSkillTooltip());
+            trigger.triggers.Add(exitEntry);
         }
     }
 
@@ -309,5 +336,54 @@ public class HUD : MonoBehaviour
             yield return null;
         }
         saveIndicator.alpha = 0f;
+    }
+
+    void ShowSkillTooltip(int slotIndex)
+    {
+        _hoveredSkillSlot = slotIndex;
+        if (skillTooltipPanel == null) return;
+
+        var gm = GameManager.Instance;
+        if (gm == null || gm.Skills == null || gm.Data == null) return;
+
+        string[] equipped = gm.Skills.GetEquippedSkills();
+        string skillId = slotIndex < equipped.Length ? equipped[slotIndex] : null;
+        if (string.IsNullOrEmpty(skillId) || !gm.Data.Skills.TryGetValue(skillId, out var def))
+        {
+            skillTooltipPanel.SetActive(false);
+            return;
+        }
+
+        skillTooltipPanel.SetActive(true);
+
+        if (skillTooltipName != null) skillTooltipName.text = def.name;
+        if (skillTooltipDesc != null) skillTooltipDesc.text = def.description ?? "";
+
+        if (skillTooltipStats != null)
+        {
+            var lines = new List<string>();
+            int level = gm.Skills.GetSkillLevel(skillId);
+            float dmgMult = gm.Skills.GetDamageMultiplier(skillId);
+            lines.Add($"Level: {level}/{GameConfig.SkillMaxLevel}");
+            if (def.damage > 0) lines.Add($"Damage: {def.damage * dmgMult:F0}");
+            if (def.range > 0) lines.Add($"Range: {def.range:F0}");
+            if (def.mpCost > 0) lines.Add($"MP Cost: {def.mpCost}");
+            if (def.cooldown > 0) lines.Add($"Cooldown: {def.cooldown / 1000f:F1}s");
+            if (def.aoe > 0) lines.Add($"AoE: {def.aoe:F0}");
+            skillTooltipStats.text = string.Join("\n", lines);
+        }
+
+        if (slotIndex < skillIcons.Length && skillIcons[slotIndex] != null)
+        {
+            var rt = skillTooltipPanel.GetComponent<RectTransform>();
+            if (rt != null)
+                rt.position = skillIcons[slotIndex].transform.position + new Vector3(0, 60, 0);
+        }
+    }
+
+    void HideSkillTooltip()
+    {
+        _hoveredSkillSlot = -1;
+        if (skillTooltipPanel != null) skillTooltipPanel.SetActive(false);
     }
 }
