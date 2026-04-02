@@ -24,7 +24,6 @@
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-9. **R-009 스킬 콤보 시스템** — 특정 스킬 연계 시 보너스 효과. `SkillExecutor.cs` 확장.
 10. **R-010 회피 시 시각적 피드백** — 닷지 중 캐릭터 플래시/잔상 효과. `PlayerController.cs` + 새 VFX.
 11. **R-011 아이템/스킬 툴팁 시스템** — 호버 시 상세 정보 표시. UI 공통 컴포넌트.
 12. **R-012 HUD 버프/디버프 아이콘 표시** — 활성 상태이상을 HUD에 아이콘+타이머로 표시. `HUD.cs`, `EffectSystem.cs` 연동.
