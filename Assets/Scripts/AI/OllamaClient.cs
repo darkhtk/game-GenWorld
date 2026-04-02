@@ -60,7 +60,7 @@ public class OllamaClient
             var op = req.SendWebRequest();
             while (!op.isDone) await Task.Yield();
         }
-        catch { /* warm-up failure is non-critical */ }
+        catch (Exception e) { Debug.LogWarning($"[OllamaClient] Warm-up skipped: {e.Message}"); }
     }
 
     public async Task<string> GenerateDialogue(string prompt)

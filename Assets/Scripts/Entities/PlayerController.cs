@@ -38,8 +38,10 @@ public class PlayerController : MonoBehaviour
         if (Camera.main != null)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            AimDirection = ((Vector2)mouseWorld - Position).normalized;
+            var aim = ((Vector2)mouseWorld - Position).normalized;
+            if (aim.sqrMagnitude > 0.01f) AimDirection = aim;
         }
+        if (AimDirection.sqrMagnitude < 0.01f) AimDirection = Vector2.down;
 
         // Dodge (Ctrl / Space)
         if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Space))

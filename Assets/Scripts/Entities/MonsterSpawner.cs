@@ -42,6 +42,12 @@ public class MonsterSpawner : MonoBehaviour
 
             var go = Instantiate(monsterPrefab, pos, Quaternion.identity, transform);
             var mc = go.GetComponent<MonsterController>();
+            if (mc == null)
+            {
+                Debug.LogError("[MonsterSpawner] MonsterController missing on prefab");
+                Destroy(go);
+                continue;
+            }
             mc.Init(def, pos);
             _monsters.Add(mc);
         }

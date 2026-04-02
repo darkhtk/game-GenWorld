@@ -93,7 +93,9 @@ public class InventorySystem
         {
             itemDefs.TryGetValue(a.itemId, out var defA);
             itemDefs.TryGetValue(b.itemId, out var defB);
-            if (defA == null || defB == null) return 0;
+            if (defA == null && defB == null) return 0;
+            if (defA == null) return 1;
+            if (defB == null) return -1;
             int gradeA = (int)defA.GradeEnum, gradeB = (int)defB.GradeEnum;
             if (gradeA != gradeB) return gradeB - gradeA;
             int typeA = (int)defA.TypeEnum, typeB = (int)defB.TypeEnum;

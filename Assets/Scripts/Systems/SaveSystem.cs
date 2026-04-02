@@ -18,8 +18,22 @@ public static class SaveSystem
     public static SaveData Load()
     {
         if (!File.Exists(SavePath)) return null;
-        string json = File.ReadAllText(SavePath);
-        return JsonConvert.DeserializeObject<SaveData>(json);
+        try
+        {
+            string json = File.ReadAllText(SavePath);
+            var data = JsonConvert.DeserializeObject<SaveData>(json);
+            if (data == null)
+            {
+                Debug.LogError("[SaveSystem] Save data deserialized to null");
+                return null;
+            }
+            return data;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[SaveSystem] Failed to load save: {e.Message}");
+            return null;
+        }
     }
 
     public static bool HasSave() => File.Exists(SavePath);

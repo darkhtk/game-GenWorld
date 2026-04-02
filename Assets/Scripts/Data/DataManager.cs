@@ -112,7 +112,15 @@ public class DataManager
             Debug.LogWarning($"[DataManager] File not found: {path}");
             return null;
         }
-        string json = File.ReadAllText(path);
-        return JsonConvert.DeserializeObject<T>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[DataManager] Failed to parse {filename}: {e.Message}");
+            return null;
+        }
     }
 }

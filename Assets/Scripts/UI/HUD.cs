@@ -77,10 +77,13 @@ public class HUD : MonoBehaviour
         if (hpFill != null) hpFill.color = HpColor;
         if (mpFill != null) mpFill.color = MpColor;
 
-        for (int i = 0; i < skillCooldownOverlays.Length; i++)
+        if (skillCooldownOverlays != null)
         {
-            if (skillCooldownOverlays[i] != null)
-                skillCooldownOverlays[i].fillAmount = 0f;
+            for (int i = 0; i < skillCooldownOverlays.Length; i++)
+            {
+                if (skillCooldownOverlays[i] != null)
+                    skillCooldownOverlays[i].fillAmount = 0f;
+            }
         }
 
         if (skillTooltipPanel != null) skillTooltipPanel.SetActive(false);
