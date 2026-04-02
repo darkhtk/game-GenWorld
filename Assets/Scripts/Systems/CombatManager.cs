@@ -56,7 +56,7 @@ public class CombatManager : MonoBehaviour
         bool stealthActive = _playerEffects.Has("stealth");
         List<MonsterController> killed = null;
 
-        for (int i = 0; i < monsters.Count; i++)
+        for (int i = monsters.Count - 1; i >= 0; i--)
         {
             var m = monsters[i];
             if (m == null || m.IsDead) continue;
@@ -89,11 +89,11 @@ public class CombatManager : MonoBehaviour
 
     public void HandleMonsterAttacks(List<MonsterController> monsters, float now)
     {
-        if (monsters == null) return;
+        if (monsters == null || _player == null) return;
         _cachedMonsters = monsters;
         if (_player.Invincible || _player.IsDodging) return;
 
-        for (int i = 0; i < monsters.Count; i++)
+        for (int i = monsters.Count - 1; i >= 0; i--)
         {
             var m = monsters[i];
             if (m == null || m.IsDead) continue;
@@ -128,7 +128,9 @@ public class CombatManager : MonoBehaviour
         proj.Init(from, to, r.projectileSpeed, r.projectileColor, r.projectileSize, false);
         proj.OnArrive = arrivePos =>
         {
+            if (_player == null || PlayerState == null) return;
             if (_player.Invincible || _player.IsDodging) return;
+            if (m == null || m.IsDead) return;
             float hitDist = Vector2.Distance(arrivePos, _player.Position);
             if (hitDist > 40f) return;
             var stats = _getStats();
@@ -164,7 +166,7 @@ public class CombatManager : MonoBehaviour
 
     public void ExecuteSkill(int slot)
     {
-        if (Skills == null || PlayerState == null) return;
+        if (Skills == null || PlayerState == null || _player == null) return;
 
         float nowMs = Time.time * 1000f;
         var result = Skills.UseSkill(slot, PlayerState.Mp, nowMs);

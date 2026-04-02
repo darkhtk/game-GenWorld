@@ -20,8 +20,7 @@
 
 ### 안정성 (Stability) — 최우선
 
-1. **R-005 CombatManager null 참조 방어** — 전투 중 몬스터/플레이어 파괴 시 null 체크 강화.
-6. **R-006 리전 전환 시 자동 저장** — RegionTracker.OnRegionChanged 이벤트에 자동 세이브 연동.
+1. **R-006 리전 전환 시 자동 저장** — RegionTracker.OnRegionChanged 이벤트에 자동 세이브 연동.
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
@@ -44,7 +43,7 @@
 28. ~~**🎨 R-028 몬스터 피격/공격 이펙트**~~ ✅ 완료 (3종: melee_hit, ranged_hit, magic_hit + CombatManager VFX 연동)
 29. ~~**🎨 R-029 아이템 드롭 이펙트**~~ ✅ 완료 (loot_glow 8프레임 + loot_pickup 6프레임 + LootDropVFX.cs 바운스/글로우 컴포넌트)
 30. ~~**🎨 R-030 지역 전용 타일셋 보충**~~ ✅ 완료 (9종: swamp×3, volcano×3, dragon_lair×3 — tileset.png 확장 7→16타일 + 9 TileAsset)
-31. **🎨 R-031 플레이어 애니메이션 컨트롤러** — idle/walk 4방향 AnimationClip + Animator 구성. `Assets/Art/Sprites/Player/`
+31. ~~**🎨 R-031 플레이어 애니메이션 컨트롤러**~~ ✅ 완료 (PlayerAnimator.cs + player.png 4방향×4프레임 재슬라이싱 + PlayerController 연동)
 32. **🎨 R-032 미니맵 아이콘** — 플레이어, NPC, 몬스터, 포탈, 퀘스트 마커 아이콘 5종. `Assets/Art/Sprites/UI/Minimap/`
 
 ### 신규 기능 (New Features) — 보통
