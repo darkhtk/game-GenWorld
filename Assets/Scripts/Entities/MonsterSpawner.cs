@@ -86,8 +86,8 @@ public class MonsterSpawner : MonoBehaviour
                 if (now - m.SpawnTime < SpawnGracePeriod) continue;
                 if (now - m.LastHitByPlayerTime < CombatGracePeriod) continue;
 
-                float dist = Vector2.Distance(playerPos, m.Position);
-                if (dist > DespawnDistance)
+                float distSq = (playerPos - m.Position).sqrMagnitude;
+                if (distSq > DespawnDistance * DespawnDistance)
                 {
                     EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def.id });
                     _monsters.RemoveAt(i);

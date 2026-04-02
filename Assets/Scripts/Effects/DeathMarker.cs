@@ -60,7 +60,7 @@ public class DeathMarker : MonoBehaviour
 
     public bool IsInRange(Vector2 playerPos)
     {
-        return Vector2.Distance((Vector2)transform.position, playerPos) <= InteractRange;
+        return ((Vector2)transform.position - playerPos).sqrMagnitude <= InteractRange * InteractRange;
     }
 
     public List<ItemInstance> Recover()
