@@ -208,12 +208,13 @@ public class HUD : MonoBehaviour
 
     public void UpdateBars(int hp, int maxHp, int mp, int maxMp)
     {
-        float hpRatio = maxHp > 0 ? (float)hp / maxHp : 0f;
+        _targetHpFill = maxHp > 0 ? (float)hp / maxHp : 0f;
+        _targetMpFill = maxMp > 0 ? (float)mp / maxMp : 0f;
+
+        // Low HP pulsing warning (below 25%)
         if (hpFill != null)
         {
-            hpFill.fillAmount = hpRatio;
-            // Low HP pulsing warning (below 25%)
-            if (hpRatio > 0f && hpRatio < 0.25f)
+            if (_targetHpFill > 0f && _targetHpFill < 0.25f)
             {
                 float pulse = 0.7f + 0.3f * Mathf.Sin(Time.time * 6f);
                 hpFill.color = new Color(1f, 0.15f, 0.15f, pulse);
@@ -223,18 +224,14 @@ public class HUD : MonoBehaviour
                 hpFill.color = HpColor;
             }
         }
-        if (mpFill != null)
-            mpFill.fillAmount = maxMp > 0 ? (float)mp / maxMp : 0f;
-        if (hpText != null)
-            hpText.text = $"{hp}/{maxHp}";
-        if (mpText != null)
-            mpText.text = $"{mp}/{maxMp}";
+
+        if (hpText != null) hpText.text = $"{hp}/{maxHp}";
+        if (mpText != null) mpText.text = $"{mp}/{maxMp}";
     }
 
     public void UpdateXpBar(int currentXp, int totalXp)
     {
-        if (xpFill != null)
-            xpFill.fillAmount = totalXp > 0 ? (float)currentXp / totalXp : 0f;
+        _targetXpFill = totalXp > 0 ? (float)currentXp / totalXp : 0f;
     }
 
     public void UpdateSkillBar(string[] equipped, float[] cooldowns)
