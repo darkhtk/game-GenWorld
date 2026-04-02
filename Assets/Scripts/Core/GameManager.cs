@@ -122,7 +122,9 @@ public class GameManager : MonoBehaviour
         if (cam != null && player != null)
         {
             var pos = player.transform.position;
-            cam.transform.position = new Vector3(pos.x, pos.y, cam.transform.position.z);
+            float z = cam.transform.position.z;
+            if (z >= 0f) z = -10f;
+            cam.transform.position = new Vector3(pos.x, pos.y, z);
         }
     }
 

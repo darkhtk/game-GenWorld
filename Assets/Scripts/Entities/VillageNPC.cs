@@ -109,7 +109,7 @@ public class VillageNPC : MonoBehaviour
     {
         if (Def.patrol == null && _currentPatrolRadius == 0) return;
 
-        if (_patrolTarget == null || (Position - _patrolTarget.Value).sqrMagnitude < 16f)
+        if (_patrolTarget == null || (Position - _patrolTarget.Value).sqrMagnitude < 0.25f)
         {
             int r = _currentPatrolRadius > 0 ? _currentPatrolRadius : (Def.patrol?.radius ?? 2);
             float radius = r * GameConfig.TileSize;
