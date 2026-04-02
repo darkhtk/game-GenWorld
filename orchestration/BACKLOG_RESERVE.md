@@ -146,9 +146,9 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 52. **V-004 대화 UI 포트레이트 표시** — DialogueUI에 NPC 포트레이트 이미지 영역 + npcPortraitImage 연결.
 53. **V-005 메인 메뉴 배경** — MainMenuScene에 배경 이미지 또는 타일맵 프리뷰 + 타이틀 스타일링.
 54. **V-006 부트 스플래시 로고** — BootScene에 게임 로고 이미지 표시 (현재 텍스트만).
-55. **V-007 몬스터/NPC 이름표** — 머리 위에 이름 TextMeshPro 표시 (World Space Canvas).
+55. ~~**V-007 몬스터/NPC 이름표**~~ ✅ BOARD Done
 56. **V-008 파티클 시스템 연동** — 힐/레벨업/아이템 획득 시 Unity ParticleSystem 이펙트.
-57. **V-009 UI 패널 전환 애니메이션** — 인벤토리/스킬트리 등 패널 열기/닫기 시 슬라이드/페이드 효과.
+57. ~~**V-009 UI 패널 전환 애니메이션**~~ ✅ BOARD Done
 58. ~~**V-010 카메라 줌 조절**~~ ✅ BOARD Done
 59. ~~**V-011 데미지 넘버 색상 분류**~~ ✅ BOARD Done
 60. **V-012 타일맵 경계 블렌딩** — 리전 경계에서 타일 자연스러운 전환 (오토타일 또는 블렌딩).
