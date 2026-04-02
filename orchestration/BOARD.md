@@ -30,7 +30,7 @@
 | 18 | R-028 AnimationPreviewUI | P2 | ✅ | REVIEW-R028-v1 |
 | 19 | R-029 PlayerAnimator 검증 | P2 | ✅ | REVIEW-R029-v1 |
 | 20 | R-030 Monster 애니메이션 검증 | P2 | ✅ | REVIEW-R030-v1 |
-| 21 | R-031 NPC 애니메이션 검증 | P2 | 👀 | SPEC-R-031 참조 |
+| 21 | R-031 NPC 애니메이션 검증 | P2 | ✅ | REVIEW-R031-v1 |
 | 22 | R-032 스킬 이펙트 애니메이션 검증 | P2 | 👀 | SPEC-R-032 참조 |
 
 ---
