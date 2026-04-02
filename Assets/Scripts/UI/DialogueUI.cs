@@ -20,6 +20,7 @@ public class DialogueUI : MonoBehaviour
     [Header("NPC Info")]
     [SerializeField] TextMeshProUGUI npcNameText;
     [SerializeField] TextMeshProUGUI questTitleText;
+    [SerializeField] Image npcPortraitImage;
 
     [Header("Conversation Log")]
     [SerializeField] ScrollRect logScrollRect;
