@@ -73,19 +73,18 @@ public class EffectHolder
 
     public void Remove(string type) => _effects.Remove(type);
 
-    public List<string> Tick(float now)
+    static readonly List<string> _tickRemoveBuffer = new();
+
+    public void Tick(float now)
     {
-        var expired = new List<string>();
-        var keys = new List<string>(_effects.Keys);
-        foreach (var key in keys)
+        _tickRemoveBuffer.Clear();
+        foreach (var kv in _effects)
         {
-            if (_effects[key].expiresAt <= now)
-            {
-                expired.Add(key);
-                _effects.Remove(key);
-            }
+            if (kv.Value.expiresAt <= now)
+                _tickRemoveBuffer.Add(kv.Key);
         }
-        return expired;
+        for (int i = 0; i < _tickRemoveBuffer.Count; i++)
+            _effects.Remove(_tickRemoveBuffer[i]);
     }
 
     public float TickDot(float now)

@@ -305,16 +305,14 @@ public class InventoryUI : MonoBehaviour
     void SetFilter(int idx)
     {
         _currentFilter = idx < FilterNames.Length ? FilterNames[idx] : "all";
-        if (_inventory != null && _itemDefs != null)
-            Refresh(_inventory, null, _itemDefs, null);
+        Refresh();
     }
 
     void CycleSortMode()
     {
         _currentSortMode = (_currentSortMode + 1) % SortModeNames.Length;
         if (sortModeText != null) sortModeText.text = SortModeNames[_currentSortMode];
-        if (_inventory != null && _itemDefs != null)
-            Refresh(_inventory, null, _itemDefs, null);
+        Refresh();
     }
 
     void RefreshEquipment()
