@@ -1,38 +1,35 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #5)
-> **수행 행동:** 🎨 R-028 몬스터 피격/공격 이펙트 + CombatManager VFX 연동
+> **최종 실행:** 2026-04-02 (루프 #6)
+> **수행 행동:** 🎨 R-029 아이템 드롭 이펙트
 
 ## 이번 루프 요약
 
 ### Step 0/0.5
-- FREEZE 없음, 토론 없음 → 계속 진행
+- FREEZE 없음, 토론 없음
 
 ### Step 1: 🎨 태스크 실행
-**R-028 몬스터 피격/공격 이펙트** 완료.
+**R-029 아이템 드롭 이펙트** 완료.
 
-#### 생성된 에셋 (Assets/Art/Sprites/VFX/)
+#### 생성된 에셋
 
-| # | 파일 | 프레임 | 설명 |
-|---|------|--------|------|
-| 1 | vfx_melee_hit.png | 6×32px | X자 참격 + 스파크 (물리 근접 타격) |
-| 2 | vfx_ranged_hit.png | 6×32px | 방향성 충격파 + 파편 (원거리 투사체 피격) |
-| 3 | vfx_magic_hit.png | 6×32px | 마법진 회전 + 룬 마크 (마법 타격) |
+| # | 파일 | 설명 |
+|---|------|------|
+| 1 | vfx_loot_glow.png (8프레임) | 금색 맥동 글로우 + 회전 스파클 |
+| 2 | vfx_loot_pickup.png (6프레임) | 수집 시 금색 폭발 링 + 별 방사 |
 
-- .meta: spriteMode=Multiple, 6프레임, PPU=32, Point, No compression
-
-#### 코드 연동 (CombatManager.cs)
-- 몬스터 근접 공격 → `vfx_melee_hit` at 플레이어 위치
-- 몬스터 원거리 투사체 도착 → `vfx_ranged_hit` at 플레이어 위치
-- 플레이어 자동 공격 → `vfx_melee_hit` at 몬스터 위치
+#### 생성된 코드
+- **LootDropVFX.cs** — 아이템 드롭 시각 효과 컴포넌트
+  - `SpawnDrop(context, origin, offset)` — 바운스 호 + 글로우 루프 (5초 수명)
+  - `SpawnPickup(context, pos)` — 수집 시 금색 폭발 이펙트
+  - 2단계 애니메이션: 바운스(0.4초) → 아이들 글로우(5초, 마지막 1초 페이드)
 
 ### BOARD 상태
-- R-001 ✅ Done, R-002 👀 In Review
-- Backlog: 0건
+- R-001 ✅, R-002 👀 NEEDS_WORK, R-003 🔧 진행 중
 
 ### RESERVE 상태
-- R-025~R-028 ✅ 완료
-- 잔여: 28건 (🎨 4건 남음: R-029~R-032)
+- R-025~R-029 ✅ 완료
+- 잔여: 27건 (🎨 3건 남음: R-030~R-032)
 
 ### 다음 루프 예정
-- 🎨 R-029 (아이템 드롭 이펙트) 또는 🎨 R-032 (미니맵 아이콘)
+- 🎨 R-032 (미니맵 아이콘) — 가장 빠르게 완료 가능
