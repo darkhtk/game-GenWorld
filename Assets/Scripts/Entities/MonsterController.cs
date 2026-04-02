@@ -162,19 +162,21 @@ public class MonsterController : MonoBehaviour
         return Hp <= 0;
     }
 
+    SpriteRenderer _sr;
+    static readonly Color HitTint = new(1f, 0.4f, 0.4f, 1f);
+    static readonly WaitForSeconds FlashWait = new(0.1f);
+
     void FlashWhite()
     {
-        var sr = GetComponent<SpriteRenderer>();
-        if (sr == null) return;
-        StartCoroutine(DoFlash(sr));
+        if (_sr == null) _sr = GetComponent<SpriteRenderer>();
+        if (_sr != null) StartCoroutine(DoFlash());
     }
 
-    static readonly WaitForSeconds FlashWait = new(0.08f);
-    System.Collections.IEnumerator DoFlash(SpriteRenderer sr)
+    System.Collections.IEnumerator DoFlash()
     {
-        sr.color = Color.white;
+        _sr.color = HitTint;
         yield return FlashWait;
-        sr.color = new Color(1f, 1f, 1f, 1f);
+        _sr.color = Color.white;
     }
 
     public bool CanAttack(float now)

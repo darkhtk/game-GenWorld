@@ -104,7 +104,19 @@ public class PlayerController : MonoBehaviour
         Invincible = true;
         _lastDodgeTime = Time.time;
         _dodgeEndTime = Time.time + DodgeDuration;
+        _sr.color = new Color(1f, 1f, 1f, 0.5f);
+        StartCoroutine(DodgeTrailCoroutine());
         ScreenFlash.Dodge();
+    }
+
+    IEnumerator DodgeTrailCoroutine()
+    {
+        while (IsDodging)
+        {
+            DodgeVFX.SpawnTrail(_sr, Position);
+            yield return new WaitForSeconds(0.05f);
+        }
+        _sr.color = Color.white;
     }
 
     public void SetSpeed(float speed) => _moveSpeed = speed;
