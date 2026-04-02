@@ -19,8 +19,16 @@ public static class SaveSystem
             ["version"] = CurrentVersion,
             ["data"] = JObject.FromObject(data)
         };
-        File.WriteAllText(SavePath, envelope.ToString(Formatting.Indented));
+        string json = envelope.ToString(Formatting.Indented);
+        File.WriteAllText(SavePath, json);
         Debug.Log($"[SaveSystem] Saved v{CurrentVersion} to {SavePath}");
+
+        if (SteamCloudStorage.IsAvailable)
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+            SteamCloudStorage.SaveToCloud("rpg_save.json", bytes);
+            Debug.Log("[SaveSystem] Cloud save synced");
+        }
     }
 
     public static SaveData Load()
