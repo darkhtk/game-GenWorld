@@ -1,13 +1,28 @@
 using System.Collections;
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
+    static CinemachineImpulseSource _impulseSource;
     static Coroutine _activeShake;
 
     public static void Shake(MonoBehaviour context, float durationMs, float intensity)
     {
         if (context == null) return;
+
+        if (_impulseSource == null)
+            _impulseSource = Object.FindFirstObjectByType<CinemachineImpulseSource>();
+
+        if (_impulseSource != null)
+        {
+            _impulseSource.DefaultVelocity = new Vector3(intensity, intensity, 0f);
+            _impulseSource.ImpulseDefinition.ImpulseDuration = durationMs / 1000f;
+            _impulseSource.GenerateImpulse();
+            return;
+        }
+
+        // Fallback: direct camera shake if no Cinemachine setup
         var cam = Camera.main;
         if (cam == null) return;
 
