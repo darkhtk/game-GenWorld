@@ -111,7 +111,7 @@ public class MonsterController : MonoBehaviour
                     Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
                 }
-                else if (distToPlayer <= Def.detectRange * ReturnReaggroMult)
+                else if (distToPlayerSq <= Def.detectRange * ReturnReaggroMult * (Def.detectRange * ReturnReaggroMult))
                 {
                     AIState = MonsterAIState.Chase;
                 }

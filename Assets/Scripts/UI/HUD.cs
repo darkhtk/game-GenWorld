@@ -75,6 +75,7 @@ public class HUD : MonoBehaviour
     const int MaxTrackedQuests = 3;
     readonly List<TextMeshProUGUI> _questTrackerEntries = new();
     bool _questTrackerVisible = true;
+    readonly System.Text.StringBuilder _questSb = new();
     const float BarLerpSpeed = 8f;
     float _targetHpFill, _targetMpFill, _targetXpFill;
     readonly List<TextMeshProUGUI> _historyEntries = new();
