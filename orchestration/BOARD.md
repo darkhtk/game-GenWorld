@@ -46,8 +46,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-027 AnimationDef | 2026-04-02 | (대기 v2) | 수정: .asset 생성 Editor 스크립트 추가 |
-| R-028 AnimationPreviewUI | 2026-04-02 | (대기) | QA/검증, 자가진행 허용 |
+| R-028 AnimationPreviewUI | 2026-04-02 | ✅ APPROVE | REVIEW-R028-v1 |
 | R-029 PlayerAnimator 검증 | 2026-04-02 | (대기) | QA/검증, 자가진행 허용 |
 
 ## ✅ Done
@@ -70,6 +69,7 @@
 | R-014 퀘스트 추적 HUD 위젯 | 2026-04-02 | REVIEW-R014-v1 ✅ |
 | R-015 몬스터 HP 바 | 2026-04-02 | REVIEW-R015-v1 ✅ |
 | R-016 장비 비교 팝업 | 2026-04-02 | REVIEW-R016-v1 ✅ |
+| R-027 AnimationDef | 2026-04-02 | REVIEW-R027-v2 ✅ |
 
 ## 📋 Backlog
 
