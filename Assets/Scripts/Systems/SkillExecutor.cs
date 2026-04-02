@@ -79,8 +79,8 @@ public class SkillExecutor
         foreach (var m in ctx.monsters)
         {
             if (m == null || m.IsDead) continue;
-            float dist = Vector2.Distance(new Vector2(tx, ty), m.Position);
-            if (dist <= ctx.aoe)
+            float distSq = (new Vector2(tx, ty) - m.Position).sqrMagnitude;
+            if (distSq <= ctx.aoe * ctx.aoe)
             {
                 bool crit = CombatSystem.CalcCrit(ctx.stats.crit);
                 ctx.dealDamage?.Invoke(m, baseDmg, crit, 0);
@@ -94,7 +94,7 @@ public class SkillExecutor
     {
         var target = CombatSystem.FindClosest(
             new Vector2(ctx.player.position.x, ctx.player.position.y),
-            ctx.monsters.ToArray(), ctx.range,
+            ctx.monsters, ctx.range,
             m => m.Position, m => !m.IsDead);
 
         if (target == null) return;
