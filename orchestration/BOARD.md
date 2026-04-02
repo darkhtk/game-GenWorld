@@ -26,7 +26,7 @@
 | 14 | R-014 퀘스트 추적 HUD 위젯 | P2 | ✅ | REVIEW-R014-v1 |
 | 15 | R-015 몬스터 HP 바 | P2 | ✅ | REVIEW-R015-v1 |
 | 16 | R-016 장비 비교 팝업 | P2 | ✅ | REVIEW-R016-v1 |
-| 17 | R-027 AnimationDef | P2 | 👀 | SPEC-R-027 참조 |
+| 17 | R-027 AnimationDef | P2 | ✅ | REVIEW-R027-v2 |
 | 18 | R-028 AnimationPreviewUI | P2 | 👀 | SPEC-R-028 참조 |
 | 19 | R-029 PlayerAnimator 검증 | P2 | 👀 | SPEC-R-029 참조 |
 
