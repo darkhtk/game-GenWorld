@@ -1,18 +1,13 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #49)
-> **수행 행동:** Step 2 에러 점검 + 프로젝트 현황 스냅샷
+> **최종 실행:** 2026-04-02 (루프 #50)
+> **수행 행동:** Step 2 코드 품질 — R-036 DeathScreenUI + R-039 AutoPotion 감사
 
-## 에러 점검: 0건 (최신 컴파일 성공)
+## DeathScreenUI.cs (72줄) ✅
+- EventBus<PlayerDeathEvent> 구독, 페이드인, 마을/제자리 부활 선택
+- 참고: GetComponentInChildren 반복이나 사망 시 1회 호출 — 허용
 
-## 프로젝트 현황 스냅샷
+## GameManager AutoPotion (5줄 추가) ✅
+- AutoPotionEnabled 토글, 1초 쿨다운, HP 25% 이하 시 자동 사용
 
-| 항목 | 수량 |
-|------|------|
-| C# 스크립트 | 75개 (9,355줄) |
-| 아트 에셋 | 165개 |
-| 오디오 파일 | 115개 |
-| 씬 | 4개 (Boot/MainMenu/Game/Sample) |
-
-## BOARD: 30건 Done + 폴리시 3건 In Review
-## 스팀 배포 태스크 (R-035~R-041) RESERVE에서 대기 중
+## 수정 필요: 0건. BOARD: 33건 Done, R-036/R-039 In Review.
