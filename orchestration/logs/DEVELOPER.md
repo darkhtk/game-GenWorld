@@ -1,24 +1,16 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 40)
-**Status:** WORKING — Steam R-037 + R-038
+**Last run:** 2026-04-02 (loop 41)
+**Status:** ALL STEAM TASKS COMPLETE
 
 ## Loop Result
-- FREEZE: N
-- Build errors: 0
-- Steam R-036: In Review
-- Steam R-037 + R-038: Completed → In Review
+- Build errors: 0 (53 stale)
+- Steam R-036: ✅ Done
+- Steam R-039+040+041: Completed → In Review
 
-## Completed This Loop
+## Completed
+- R-039 SettingsUI.cs: 3 tabs (Graphics/Audio/Controls), Apply/Reset
+- R-040 SteamPipe: VDF template + upload script
+- R-041 QA_CHECKLIST.md: 40+ verification items
 
-### Steam R-037 업적 시스템 (SteamAchievementManager.cs NEW)
-- EventBus subscriptions for kill/level/quest/gold events
-- Stat-based (cumulative) + event-based (one-shot) achievements
-- SteamUserStats.SetAchievement/StoreStats with conditional compilation
-- ResetAll for testing
-
-### Steam R-038 SettingsManager (SettingsManager.cs NEW)
-- Static class: MasterVolume, BGMVolume, SFXVolume, Fullscreen, Resolution, AutoPotion
-- PlayerPrefs persistence, auto-apply to AudioManager
-
-Specs referenced: Y (SPEC-R-037.md, SPEC-R-038.md)
+## TOTAL: 47 tasks implemented (40 original + 7 Steam)
