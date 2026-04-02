@@ -1,22 +1,7 @@
 fileFormatVersion: 2
-guid: ac9af2ac2ee862e4d8fd99d9fba0007e
+guid: cbd3f0f7f46c4cc981766c6bc0d73ea8
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 4661441417075333117
-    second: monster_hydra_death_0
-  - first:
-      213: -4114338131112808123
-    second: monster_hydra_death_1
-  - first:
-      213: -5347525311040851930
-    second: monster_hydra_death_2
-  - first:
-      213: 1284292527525227445
-    second: monster_hydra_death_3
-  - first:
-      213: 7058400869343342120
-    second: monster_hydra_death_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,12 +100,12 @@ TextureImporter:
       name: monster_hydra_death_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 0
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -137,12 +122,12 @@ TextureImporter:
       name: monster_hydra_death_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 32
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +144,12 @@ TextureImporter:
       name: monster_hydra_death_2
       rect:
         serializedVersion: 2
-        x: 69
+        x: 64
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -181,12 +166,12 @@ TextureImporter:
       name: monster_hydra_death_3
       rect:
         serializedVersion: 2
-        x: 103
-        y: 1
-        width: 20
-        height: 30
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -199,33 +184,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_hydra_death_4
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 1
-        width: 10
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 82ea483913a74f160800000000000000
-      internalID: 7058400869343342120
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ec98972121184a29ae219064
     internalID: 0
     vertices: []
     indices: 
@@ -239,7 +202,6 @@ TextureImporter:
       monster_hydra_death_1: -4114338131112808123
       monster_hydra_death_2: -5347525311040851930
       monster_hydra_death_3: 1284292527525227445
-      monster_hydra_death_4: 7058400869343342120
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

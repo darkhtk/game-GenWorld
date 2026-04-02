@@ -1,28 +1,7 @@
 fileFormatVersion: 2
-guid: 0ee29fc1f042e314a8cc69549847be77
+guid: 62f43fa33f5049bdab3f2136bfa761ed
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5756133894768153160
-    second: monster_dragonkin_death_0
-  - first:
-      213: 5060627335180506420
-    second: monster_dragonkin_death_1
-  - first:
-      213: -8431915524277160838
-    second: monster_dragonkin_death_2
-  - first:
-      213: 6619886821333482351
-    second: monster_dragonkin_death_3
-  - first:
-      213: -7699892137377434608
-    second: monster_dragonkin_death_4
-  - first:
-      213: 3580134927847855506
-    second: monster_dragonkin_death_5
-  - first:
-      213: -4919998596045324382
-    second: monster_dragonkin_death_6
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -66,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,12 +100,12 @@ TextureImporter:
       name: monster_dragonkin_death_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 0
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -143,12 +122,12 @@ TextureImporter:
       name: monster_dragonkin_death_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 32
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,12 +144,12 @@ TextureImporter:
       name: monster_dragonkin_death_2
       rect:
         serializedVersion: 2
-        x: 69
+        x: 64
         y: 0
-        width: 22
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,12 +166,12 @@ TextureImporter:
       name: monster_dragonkin_death_3
       rect:
         serializedVersion: 2
-        x: 103
-        y: 10
-        width: 19
-        height: 21
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,77 +184,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_dragonkin_death_4
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 0
-        width: 8
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0147bc695ec742590800000000000000
-      internalID: -7699892137377434608
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_dragonkin_death_5
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 0
-        width: 12
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 295175e9fb13fa130800000000000000
-      internalID: 3580134927847855506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_dragonkin_death_6
-      rect:
-        serializedVersion: 2
-        x: 115
-        y: 3
-        width: 7
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2af3c4b1857a8bbb0800000000000000
-      internalID: -4919998596045324382
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b0ae6348a5674280988a5701
     internalID: 0
     vertices: []
     indices: 
@@ -289,9 +202,6 @@ TextureImporter:
       monster_dragonkin_death_1: 5060627335180506420
       monster_dragonkin_death_2: -8431915524277160838
       monster_dragonkin_death_3: 6619886821333482351
-      monster_dragonkin_death_4: -7699892137377434608
-      monster_dragonkin_death_5: 3580134927847855506
-      monster_dragonkin_death_6: -4919998596045324382
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,22 +1,7 @@
 fileFormatVersion: 2
-guid: c8297aa9679202e44bc1037da25eee19
+guid: 00d10ca0947e4d928e7c77d923d05449
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -9100475896901757616
-    second: monster_bat_death_0
-  - first:
-      213: -7682525347880353428
-    second: monster_bat_death_1
-  - first:
-      213: -3891279215253049672
-    second: monster_bat_death_2
-  - first:
-      213: -1389429875629749986
-    second: monster_bat_death_3
-  - first:
-      213: 434816572779105413
-    second: monster_bat_death_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,12 +100,12 @@ TextureImporter:
       name: monster_bat_death_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 3
-        width: 27
-        height: 22
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -137,12 +122,12 @@ TextureImporter:
       name: monster_bat_death_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 3
-        width: 27
-        height: 22
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +144,12 @@ TextureImporter:
       name: monster_bat_death_2
       rect:
         serializedVersion: 2
-        x: 69
-        y: 3
-        width: 26
-        height: 22
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -181,12 +166,12 @@ TextureImporter:
       name: monster_bat_death_3
       rect:
         serializedVersion: 2
-        x: 101
-        y: 3
-        width: 23
-        height: 17
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -199,33 +184,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_bat_death_4
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 12
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 58c83f28e57c80600800000000000000
-      internalID: 434816572779105413
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 51cd9b752bf54bdb9157aa4d
     internalID: 0
     vertices: []
     indices: 
@@ -239,7 +202,6 @@ TextureImporter:
       monster_bat_death_1: -7682525347880353428
       monster_bat_death_2: -3891279215253049672
       monster_bat_death_3: -1389429875629749986
-      monster_bat_death_4: 434816572779105413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

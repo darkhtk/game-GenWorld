@@ -1,28 +1,7 @@
 fileFormatVersion: 2
-guid: b08a53ce8f103e34991f4fad39e49d87
+guid: a432cc88fa0c4a07a272b2afd2e1a80f
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 6299699523463852977
-    second: monster_treant_death_0
-  - first:
-      213: 725327331177892154
-    second: monster_treant_death_1
-  - first:
-      213: 9048316743779634490
-    second: monster_treant_death_2
-  - first:
-      213: -3315028864187887994
-    second: monster_treant_death_3
-  - first:
-      213: -7010156645807470184
-    second: monster_treant_death_4
-  - first:
-      213: 5152727768046094622
-    second: monster_treant_death_5
-  - first:
-      213: 1666757638823966059
-    second: monster_treant_death_6
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -66,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,12 +100,12 @@ TextureImporter:
       name: monster_treant_death_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 0
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -143,12 +122,12 @@ TextureImporter:
       name: monster_treant_death_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 32
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,12 +144,12 @@ TextureImporter:
       name: monster_treant_death_2
       rect:
         serializedVersion: 2
-        x: 69
+        x: 64
         y: 0
-        width: 23
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,12 +166,12 @@ TextureImporter:
       name: monster_treant_death_3
       rect:
         serializedVersion: 2
-        x: 101
-        y: 10
-        width: 23
-        height: 21
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,77 +184,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_treant_death_4
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 15
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8994dca0cabe6be90800000000000000
-      internalID: -7010156645807470184
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_treant_death_5
-      rect:
-        serializedVersion: 2
-        x: 111
-        y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e19cdaeca9a228740800000000000000
-      internalID: 5152727768046094622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monster_treant_death_6
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 0
-        width: 9
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b6575ccdd33812710800000000000000
-      internalID: 1666757638823966059
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b5395311b55045e29b3ab564
     internalID: 0
     vertices: []
     indices: 
@@ -289,9 +202,6 @@ TextureImporter:
       monster_treant_death_1: 725327331177892154
       monster_treant_death_2: 9048316743779634490
       monster_treant_death_3: -3315028864187887994
-      monster_treant_death_4: -7010156645807470184
-      monster_treant_death_5: 5152727768046094622
-      monster_treant_death_6: 1666757638823966059
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

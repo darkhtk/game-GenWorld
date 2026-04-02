@@ -1,22 +1,7 @@
 fileFormatVersion: 2
-guid: 5fd1131cd324e1c4bafea1358f454dd8
+guid: 1d5629cb4f0542428fcb9c53df1ddd01
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 2122966024023589943
-    second: monster_spider_death_0
-  - first:
-      213: -6441324895773027284
-    second: monster_spider_death_1
-  - first:
-      213: 4028057305318917470
-    second: monster_spider_death_2
-  - first:
-      213: -9216677434923557012
-    second: monster_spider_death_3
-  - first:
-      213: 166107039529955263
-    second: monster_spider_death_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,12 +100,12 @@ TextureImporter:
       name: monster_spider_death_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 3
-        width: 27
-        height: 22
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -137,12 +122,12 @@ TextureImporter:
       name: monster_spider_death_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 3
-        width: 27
-        height: 22
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +144,12 @@ TextureImporter:
       name: monster_spider_death_2
       rect:
         serializedVersion: 2
-        x: 69
-        y: 3
-        width: 27
-        height: 22
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -181,12 +166,12 @@ TextureImporter:
       name: monster_spider_death_3
       rect:
         serializedVersion: 2
-        x: 101
-        y: 3
-        width: 11
-        height: 18
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -199,33 +184,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: monster_spider_death_4
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 3
-        width: 19
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fbfefdde8712e4200800000000000000
-      internalID: 166107039529955263
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 183d5da42d5944e58b444894
     internalID: 0
     vertices: []
     indices: 
@@ -239,7 +202,6 @@ TextureImporter:
       monster_spider_death_1: -6441324895773027284
       monster_spider_death_2: 4028057305318917470
       monster_spider_death_3: -9216677434923557012
-      monster_spider_death_4: 166107039529955263
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

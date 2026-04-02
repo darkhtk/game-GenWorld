@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-guid: 221dbfd5a43d9554f82b3fb2c27a2ac9
+guid: 59eb4747549344a8b694b1da6ed50344
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -6800333373801537141
-    second: monster_lizardman_death_0
-  - first:
-      213: -8552484327980785353
-    second: monster_lizardman_death_1
-  - first:
-      213: 1055035498812903619
-    second: monster_lizardman_death_2
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -54,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,12 +100,12 @@ TextureImporter:
       name: monster_lizardman_death_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 0
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -131,12 +122,12 @@ TextureImporter:
       name: monster_lizardman_death_1
       rect:
         serializedVersion: 2
-        x: 41
+        x: 32
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,12 +144,12 @@ TextureImporter:
       name: monster_lizardman_death_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 64
         y: 0
-        width: 47
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -171,11 +162,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: monster_lizardman_death_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 355b36579bfc793c0800000000000000
+      internalID: -4352782119384926893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 480803ef00ec4eb4a3a713c8
     internalID: 0
     vertices: []
     indices: 
@@ -188,6 +201,7 @@ TextureImporter:
       monster_lizardman_death_0: -6800333373801537141
       monster_lizardman_death_1: -8552484327980785353
       monster_lizardman_death_2: 1055035498812903619
+      monster_lizardman_death_3: -4352782119384926893
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
