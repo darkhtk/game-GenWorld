@@ -54,6 +54,9 @@
 | 42 | R-036 Steam 클라우드 | P1 | 👀 | Steam |
 | 43 | R-037 Steam 업적 | P2 | 👀 | Steam |
 | 44 | R-038 SettingsManager | P2 | 👀 | Steam |
+| 45 | R-039 Settings UI | P2 | 👀 | Steam |
+| 46 | R-040 SteamPipe | P3 | 👀 | Steam |
+| 47 | R-041 QA 체크리스트 | P3 | 👀 | Steam |
 
 ---
 
@@ -71,8 +74,8 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-037 Steam 업적 | 2026-04-02 | (대기) | Steam |
-| R-038 SettingsManager | 2026-04-02 | (대기) | Steam |
+| R-037 Steam 업적 | 2026-04-02 | ✅ APPROVE | REVIEW-R037-v1 |
+| R-038 SettingsManager | 2026-04-02 | ✅ APPROVE | REVIEW-R038-v1 |
 
 ## ✅ Done
 
