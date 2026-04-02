@@ -67,17 +67,19 @@ public class InventoryUI : MonoBehaviour
         if (sortButton != null) sortButton.onClick.AddListener(() => OnSortCallback?.Invoke());
     }
 
-    public void Show() { panel.SetActive(true); }
+    public bool IsOpen => panel != null && panel.activeSelf;
+
+    public void Show() { if (panel != null) panel.SetActive(true); }
     public void Hide()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
         HideTooltip();
         CancelDrag();
     }
 
     public void Toggle()
     {
-        if (panel.activeSelf) Hide(); else Show();
+        if (IsOpen) Hide(); else Show();
     }
 
     public void Refresh(InventorySystem inventory, Dictionary<string, ItemInstance> equipment,
@@ -86,6 +88,8 @@ public class InventoryUI : MonoBehaviour
         _inventory = inventory;
         _equipment = equipment;
         _itemDefs = itemDefs;
+
+        if (_inventory == null || _itemDefs == null) return;
 
         RefreshGrid();
         RefreshEquipment();

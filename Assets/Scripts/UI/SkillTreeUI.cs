@@ -90,12 +90,15 @@ public class SkillTreeUI : MonoBehaviour
         }
     }
 
-    public void Show() { panel.SetActive(true); }
-    public void Hide() { panel.SetActive(false); }
-    public void Toggle() { if (panel.activeSelf) Hide(); else Show(); }
+    public bool IsOpen => panel != null && panel.activeSelf;
+
+    public void Show() { if (panel != null) panel.SetActive(true); }
+    public void Hide() { if (panel != null) panel.SetActive(false); }
+    public void Toggle() { if (IsOpen) Hide(); else Show(); }
 
     public void Refresh(SkillSystem skillSystem, SkillDef[] skillDefs, int skillPoints, int playerLevel)
     {
+        if (skillSystem == null || skillDefs == null) return;
         if (skillPointsText != null) skillPointsText.text = $"Skill Points: {skillPoints}";
         if (playerLevelText != null) playerLevelText.text = $"Lv.{playerLevel}";
 

@@ -35,6 +35,8 @@ public class ShopUI : MonoBehaviour
         if (closeButton != null) closeButton.onClick.AddListener(Close);
     }
 
+    public bool IsOpen => panel != null && panel.activeSelf;
+
     public void Open(InventorySystem inventory, Dictionary<string, ItemDef> itemDefs,
         Func<int> getGold, Action<int> spendGold)
     {
@@ -42,19 +44,20 @@ public class ShopUI : MonoBehaviour
         _itemDefs = itemDefs;
         _getGold = getGold;
         _spendGold = spendGold;
-        panel.SetActive(true);
+        if (panel != null) panel.SetActive(true);
+        if (_inventory == null || _itemDefs == null) return;
         Refresh();
     }
 
     public void Close()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
     }
 
     public void Toggle(InventorySystem inventory, Dictionary<string, ItemDef> itemDefs,
         Func<int> getGold, Action<int> spendGold)
     {
-        if (panel.activeSelf) Close();
+        if (IsOpen) Close();
         else Open(inventory, itemDefs, getGold, spendGold);
     }
 

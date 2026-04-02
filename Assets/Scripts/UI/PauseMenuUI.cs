@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -50,6 +51,8 @@ public class PauseMenuUI : MonoBehaviour
         if (panel.activeSelf) Close(); else Open();
     }
 
+    Coroutine _saveConfirmCoroutine;
+
     void DoSave()
     {
         OnSaveRequested?.Invoke();
@@ -57,14 +60,16 @@ public class PauseMenuUI : MonoBehaviour
         {
             saveConfirmText.gameObject.SetActive(true);
             saveConfirmText.text = "Saved!";
-            CancelInvoke(nameof(HideSaveConfirm));
-            Invoke(nameof(HideSaveConfirm), 2f);
+            if (_saveConfirmCoroutine != null) StopCoroutine(_saveConfirmCoroutine);
+            _saveConfirmCoroutine = StartCoroutine(HideSaveConfirmAfterDelay());
         }
     }
 
-    void HideSaveConfirm()
+    IEnumerator HideSaveConfirmAfterDelay()
     {
+        yield return new WaitForSecondsRealtime(2f);
         if (saveConfirmText != null) saveConfirmText.gameObject.SetActive(false);
+        _saveConfirmCoroutine = null;
     }
 
     void GoToMainMenu()

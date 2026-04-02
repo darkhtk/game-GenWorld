@@ -53,7 +53,7 @@ public class NpcQuestPanel : MonoBehaviour
 
     public void Show(string npcName, QuestDef quest, string status)
     {
-        panel.SetActive(true);
+        if (panel != null) panel.SetActive(true);
         _currentQuestId = quest.id;
 
         if (npcNameText != null) npcNameText.text = npcName;
@@ -91,7 +91,7 @@ public class NpcQuestPanel : MonoBehaviour
 
     public void Hide()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
         _currentQuestId = null;
     }
 }

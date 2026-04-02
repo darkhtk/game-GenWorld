@@ -35,6 +35,8 @@ public class EnhanceUI : MonoBehaviour
         if (closeButton != null) closeButton.onClick.AddListener(Close);
     }
 
+    public bool IsOpen => panel != null && panel.activeSelf;
+
     public void Open(Dictionary<string, ItemInstance> equipment, Dictionary<string, ItemDef> itemDefs,
         Func<int> getGold, Action<int> spendGold, Action<string> onEnhance)
     {
@@ -43,19 +45,19 @@ public class EnhanceUI : MonoBehaviour
         _getGold = getGold;
         _spendGold = spendGold;
         _onEnhance = onEnhance;
-        panel.SetActive(true);
+        if (panel != null) panel.SetActive(true);
         Refresh();
     }
 
     public void Close()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
     }
 
     public void Toggle(Dictionary<string, ItemInstance> equipment, Dictionary<string, ItemDef> itemDefs,
         Func<int> getGold, Action<int> spendGold, Action<string> onEnhance)
     {
-        if (panel.activeSelf) Close();
+        if (IsOpen) Close();
         else Open(equipment, itemDefs, getGold, spendGold, onEnhance);
     }
 

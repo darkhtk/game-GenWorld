@@ -28,7 +28,7 @@ public class NpcProfilePanel : MonoBehaviour
 
     public void Show(string npcName, string color, int relationship, string mood, List<string> memories)
     {
-        panel.SetActive(true);
+        if (panel != null) panel.SetActive(true);
 
         if (npcNameText != null)
         {
@@ -64,7 +64,7 @@ public class NpcProfilePanel : MonoBehaviour
 
     public void Hide()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
     }
 
     void RefreshMemories(List<string> memories)

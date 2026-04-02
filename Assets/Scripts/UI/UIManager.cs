@@ -36,28 +36,28 @@ public class UIManager : MonoBehaviour
         {
             if (IsAnyPanelOpen())
                 HideAll();
-            else
+            else if (pauseMenu != null)
                 pauseMenu.Toggle();
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.I)) inventory.Toggle();
-        if (Input.GetKeyDown(KeyCode.K)) skillTree.Toggle();
-        if (Input.GetKeyDown(KeyCode.J)) quest.Toggle();
+        if (Input.GetKeyDown(KeyCode.I) && inventory != null) inventory.Toggle();
+        if (Input.GetKeyDown(KeyCode.K) && skillTree != null) skillTree.Toggle();
+        if (Input.GetKeyDown(KeyCode.J) && quest != null) quest.Toggle();
     }
 
     public void HideAll()
     {
-        inventory.Hide();
-        shop.Close();
-        crafting.Close();
-        enhance.Close();
-        skillTree.Hide();
-        quest.Hide();
-        dialogue.Hide();
-        npcProfile.Hide();
-        npcQuest.Hide();
-        pauseMenu.Close();
+        if (inventory != null) inventory.Hide();
+        if (shop != null) shop.Close();
+        if (crafting != null) crafting.Close();
+        if (enhance != null) enhance.Close();
+        if (skillTree != null) skillTree.Hide();
+        if (quest != null) quest.Hide();
+        if (dialogue != null) dialogue.Hide();
+        if (npcProfile != null) npcProfile.Hide();
+        if (npcQuest != null) npcQuest.Hide();
+        if (pauseMenu != null) pauseMenu.Close();
         _dialogueOpen = false;
     }
 
@@ -68,11 +68,11 @@ public class UIManager : MonoBehaviour
 
     bool IsAnyPanelOpen()
     {
-        return inventory.gameObject.activeSelf
-            || shop.gameObject.activeSelf
-            || crafting.gameObject.activeSelf
-            || enhance.gameObject.activeSelf
-            || skillTree.gameObject.activeSelf
-            || quest.gameObject.activeSelf;
+        return (inventory != null && inventory.IsOpen)
+            || (shop != null && shop.IsOpen)
+            || (crafting != null && crafting.IsOpen)
+            || (enhance != null && enhance.IsOpen)
+            || (skillTree != null && skillTree.IsOpen)
+            || (quest != null && quest.IsOpen);
     }
 }

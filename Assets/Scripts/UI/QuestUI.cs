@@ -39,15 +39,18 @@ public class QuestUI : MonoBehaviour
         if (completedTab != null) completedTab.onClick.AddListener(() => SetTab(true));
     }
 
-    public void Show() { panel.SetActive(true); }
-    public void Hide() { panel.SetActive(false); }
-    public void Toggle() { if (panel.activeSelf) Hide(); else Show(); }
+    public bool IsOpen => panel != null && panel.activeSelf;
+
+    public void Show() { if (panel != null) panel.SetActive(true); }
+    public void Hide() { if (panel != null) panel.SetActive(false); }
+    public void Toggle() { if (IsOpen) Hide(); else Show(); }
 
     public void Refresh(QuestSystem questSystem, InventorySystem inventory, Dictionary<string, ItemDef> itemDefs)
     {
         _questSystem = questSystem;
         _inventory = inventory;
         _itemDefs = itemDefs;
+        if (_questSystem == null) return;
         RebuildList();
     }
 

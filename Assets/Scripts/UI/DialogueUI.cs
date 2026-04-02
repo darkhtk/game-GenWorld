@@ -89,7 +89,7 @@ public class DialogueUI : MonoBehaviour
     public void Show(NpcDef npcDef)
     {
         _currentNpc = npcDef;
-        panel.SetActive(true);
+        if (panel != null) panel.SetActive(true);
 
         if (npcNameText != null)
         {
@@ -102,7 +102,7 @@ public class DialogueUI : MonoBehaviour
 
     public void Hide()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
         if (_loadingCoroutine != null) { StopCoroutine(_loadingCoroutine); _loadingCoroutine = null; }
         if (loadingPanel != null) loadingPanel.SetActive(false);
         if (questProposalPanel != null) questProposalPanel.SetActive(false);

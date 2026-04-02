@@ -31,6 +31,8 @@ public class CraftingUI : MonoBehaviour
         if (closeButton != null) closeButton.onClick.AddListener(Close);
     }
 
+    public bool IsOpen => panel != null && panel.activeSelf;
+
     public void Open(CraftingSystem craftingSystem, InventorySystem inventory,
         Dictionary<string, ItemDef> itemDefs, Action<string> onCraft)
     {
@@ -38,19 +40,19 @@ public class CraftingUI : MonoBehaviour
         _inventory = inventory;
         _itemDefs = itemDefs;
         _onCraft = onCraft;
-        panel.SetActive(true);
+        if (panel != null) panel.SetActive(true);
         Refresh();
     }
 
     public void Close()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
     }
 
     public void Toggle(CraftingSystem craftingSystem, InventorySystem inventory,
         Dictionary<string, ItemDef> itemDefs, Action<string> onCraft)
     {
-        if (panel.activeSelf) Close();
+        if (IsOpen) Close();
         else Open(craftingSystem, inventory, itemDefs, onCraft);
     }
 
