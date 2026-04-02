@@ -69,7 +69,12 @@ public class InventoryUI : MonoBehaviour
 
     public bool IsOpen => panel != null && panel.activeSelf;
 
-    public void Show() { if (panel != null) panel.SetActive(true); }
+    public void Show()
+    {
+        if (panel != null) panel.SetActive(true);
+        Refresh();
+    }
+
     public void Hide()
     {
         if (panel != null) panel.SetActive(false);
@@ -80,6 +85,16 @@ public class InventoryUI : MonoBehaviour
     public void Toggle()
     {
         if (IsOpen) Hide(); else Show();
+    }
+
+    public void Refresh()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null) return;
+        var stats = gm.PlayerState.CurrentStats;
+        stats.hp = gm.PlayerState.Hp;
+        stats.mp = gm.PlayerState.Mp;
+        Refresh(gm.Inventory, gm.PlayerState.Equipment, gm.Data.Items, stats);
     }
 
     public void Refresh(InventorySystem inventory, Dictionary<string, ItemInstance> equipment,

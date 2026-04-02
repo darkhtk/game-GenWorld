@@ -41,9 +41,21 @@ public class QuestUI : MonoBehaviour
 
     public bool IsOpen => panel != null && panel.activeSelf;
 
-    public void Show() { if (panel != null) panel.SetActive(true); }
+    public void Show()
+    {
+        if (panel != null) panel.SetActive(true);
+        Refresh();
+    }
+
     public void Hide() { if (panel != null) panel.SetActive(false); }
     public void Toggle() { if (IsOpen) Hide(); else Show(); }
+
+    public void Refresh()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null) return;
+        Refresh(gm.Quests, gm.Inventory, gm.Data.Items);
+    }
 
     public void Refresh(QuestSystem questSystem, InventorySystem inventory, Dictionary<string, ItemDef> itemDefs)
     {

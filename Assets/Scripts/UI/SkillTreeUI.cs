@@ -87,9 +87,22 @@ public class SkillTreeUI : MonoBehaviour
 
     public bool IsOpen => panel != null && panel.activeSelf;
 
-    public void Show() { if (panel != null) panel.SetActive(true); }
+    public void Show()
+    {
+        if (panel != null) panel.SetActive(true);
+        Refresh();
+    }
+
     public void Hide() { if (panel != null) panel.SetActive(false); }
     public void Toggle() { if (IsOpen) Hide(); else Show(); }
+
+    public void Refresh()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null) return;
+        if (_rows.Count == 0) Init(gm.Data.SkillList);
+        Refresh(gm.Skills, gm.Data.SkillList, gm.PlayerState.SkillPoints, gm.PlayerState.Level);
+    }
 
     public void Refresh(SkillSystem skillSystem, SkillDef[] skillDefs, int skillPoints, int playerLevel)
     {

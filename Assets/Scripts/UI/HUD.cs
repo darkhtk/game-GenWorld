@@ -58,6 +58,7 @@ public class HUD : MonoBehaviour
     const int MaxHistoryEntries = 8;
     readonly List<TextMeshProUGUI> _historyEntries = new();
     bool _historyVisible = true;
+    PlayerController _cachedPlayer;
 
     void Awake()
     {
@@ -74,6 +75,63 @@ public class HUD : MonoBehaviour
             if (skillCooldownOverlays[i] != null)
                 skillCooldownOverlays[i].fillAmount = 0f;
         }
+    }
+
+    void Update()
+    {
+        UpdateCooldowns();
+        UpdateDodgeFromPlayer();
+        UpdatePotionsFromInventory();
+    }
+
+    void UpdateCooldowns()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null || gm.Skills == null || gm.Data == null) return;
+
+        float nowMs = Time.time * 1000f;
+        string[] equipped = gm.Skills.GetEquippedSkills();
+
+        for (int i = 0; i < GameConfig.SkillSlotCount; i++)
+        {
+            string skillId = i < equipped.Length ? equipped[i] : null;
+            if (string.IsNullOrEmpty(skillId))
+            {
+                SetSkillCooldown(i, 0, 0);
+                continue;
+            }
+
+            float remaining = gm.Skills.GetCooldownRemaining(skillId, nowMs);
+            if (remaining <= 0)
+            {
+                SetSkillCooldown(i, 0, 0);
+                continue;
+            }
+
+            float totalCooldown = 0;
+            if (gm.Data.Skills.TryGetValue(skillId, out var def))
+                totalCooldown = def.cooldown;
+
+            SetSkillCooldown(i, remaining, totalCooldown);
+        }
+    }
+
+    void UpdateDodgeFromPlayer()
+    {
+        if (_cachedPlayer == null)
+            _cachedPlayer = FindObjectOfType<PlayerController>();
+        if (_cachedPlayer != null)
+            UpdateDodgeCooldown(_cachedPlayer.GetDodgeCooldownFraction());
+    }
+
+    void UpdatePotionsFromInventory()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null || gm.Inventory == null) return;
+
+        int hpCount = gm.Inventory.GetCount("hp_potion");
+        int mpCount = gm.Inventory.GetCount("mp_potion");
+        UpdatePotionCounts(hpCount, mpCount);
     }
 
     public void UpdateBars(int hp, int maxHp, int mp, int maxMp)
