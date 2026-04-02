@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public PlayerStats PlayerState { get; private set; }
     public EffectHolder PlayerEffects { get; private set; }
     public RegionTracker RegionTracker { get; private set; }
+    public TimeSystem TimeSystem { get; private set; }
 
     readonly Dictionary<string, int> _killCounts = new();
     int _totalKills;

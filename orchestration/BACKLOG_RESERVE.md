@@ -87,7 +87,7 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 44. ~~**🎨 A-003 지역 진입 배너 스프라이트**~~ ✅ 완료 (8종: village/forest/cave/deep_cave/swamp/dark_swamp/volcano/dragon_lair — 128×32 그라디언트)
 45. ~~**🎨 A-004 몬스터 사망 애니메이션 시트**~~ ✅ 완료 (12종×4프레임: flash→red tint→dissolve→particles — 원본 스프라이트 기반)
 46. ~~**🎨 A-005 NPC 대화 포트레이트**~~ ✅ 완료 (8명: blacksmith/elder/guard/herbalist/hunter/innkeeper/merchant/scholar — 64×64 원형 프레임)
-47. **🎨 A-006 스킬트리 배경 + 노드** — 3개 트리(melee/ranged/magic) 배경 + 스킬 노드 아이콘. `Assets/Art/Sprites/UI/SkillTree/`
+47. ~~**🎨 A-006 스킬트리 배경 + 노드**~~ ✅ 완료 (3배경 melee/ranged/magic + 3노드 locked/available/learned + 3연결선 = 9종)
 48. **🎨 A-007 장비 세트 아이콘** — 8개 장비 세트별 세트 효과 아이콘. `Assets/Art/Sprites/Icons/`
 
 ### --- [2026-04-02] 스팀에 배포할 거야 ---

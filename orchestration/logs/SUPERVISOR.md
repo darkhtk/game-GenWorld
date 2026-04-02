@@ -1,24 +1,32 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #36)
-> **수행 행동:** 🎨 A-005 NPC 대화 포트레이트 8종
+> **최종 실행:** 2026-04-02 (루프 #37)
+> **수행 행동:** 🎨 A-006 스킬트리 에셋 + placeholder SFX 12종
 
 ## 이번 루프 요약
 
-### Step 1: 🎨 태스크 실행
-**A-005 NPC 대화 포트레이트** 완료.
+### Step 1: 🎨 A-006 실행
+**스킬트리 배경 + 노드** 완료 (9종):
+- 3 배경 (tree_bg_melee/ranged/magic): 128×192 그라디언트 + 헤더 + 경로선
+- 3 노드 (node_locked/available/learned): 24×24 둥근 사각 + 아이콘
+- 3 연결선 (conn_vertical/branch_left/branch_right): 8×32
 
-| NPC | 파일 | 악센트 색상 |
-|-----|------|-----------|
-| blacksmith | portrait_blacksmith.png | 따뜻한 갈색 |
-| elder | portrait_elder.png | 은빛 회색 |
-| guard | portrait_guard.png | 강철 파랑 |
-| herbalist | portrait_herbalist.png | 초록 |
-| hunter | portrait_hunter.png | 황갈색 |
-| innkeeper | portrait_innkeeper.png | 따뜻한 주황 |
-| merchant | portrait_merchant.png | 금색 |
-| scholar | portrait_scholar.png | 보라 |
+### 추가: Placeholder SFX 12종 생성
+사용자가 오디오 부재 언급 → Python wave 모듈로 기본 SFX 생성:
 
-- 64×64, 원본 npc_*.png에서 32×32 추출 → 2x Nearest 스케일
-- 원형 배경 + NPC별 악센트 테두리 + 상단 하이라이트
-- 대화 UI (DialogueUI) 포트레이트 슬롯용
+| # | 파일 | 설명 | 길이 |
+|---|------|------|------|
+| 1 | sfx_hit.wav | 타격 | 0.15s |
+| 2 | sfx_crit.wav | 크리티컬 | 0.2s |
+| 3 | sfx_heal.wav | 회복 | 0.4s |
+| 4 | sfx_levelup.wav | 레벨업 | 0.6s |
+| 5 | sfx_click.wav | UI 클릭 | 0.05s |
+| 6 | sfx_pickup.wav | 아이템 획득 | 0.15s |
+| 7 | sfx_dodge.wav | 회피 | 0.2s |
+| 8 | sfx_death.wav | 사망 | 0.3s |
+| 9 | sfx_potion.wav | 포션 | 0.25s |
+| 10 | sfx_error.wav | 에러 | 0.2s |
+| 11 | sfx_quest_complete.wav | 퀘스트 완료 | 0.5s |
+| 12 | sfx_coin.wav | 골드 | 0.1s |
+
+→ 사용자가 외부 오디오를 Assets/Audio에 넣었다고 알림. 다음 루프에서 확인.
