@@ -53,8 +53,7 @@
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-### R-027: AnimationDef — 엔티티별 애니메이션 정의 데이터
-플레이어·몬스터·NPC·스킬 각각에 필요한 애니메이션 클립과 상태를 정의하는 ScriptableObject 데이터 구조 작성. specs/SPEC-R-027.md 참조.
+~~R-027: AnimationDef~~ → BOARD로 이동
 
 ### R-028: AnimationPreviewUI — 인게임 애니메이션 미리보기 디버그 패널
 런타임에서 엔티티를 선택하고 애니메이션을 재생·일시정지·속도조절할 수 있는 디버그 UI 구현. specs/SPEC-R-028.md 참조.
