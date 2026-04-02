@@ -264,12 +264,12 @@ public class GameManager : MonoBehaviour
             };
             dlg.OnAcceptQuest = questId =>
             {
-                Quests.StartQuest(questId);
+                Quests.AcceptQuest(questId);
                 uiManager.Hud?.AddHistoryEntry($"Quest accepted: {questId}", Color.cyan);
             };
             dlg.OnCompleteQuest = questId =>
             {
-                Quests.CompleteQuest(questId);
+                Quests.CompleteQuest(questId, Inventory);
             };
         }
 
