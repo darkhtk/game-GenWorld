@@ -86,9 +86,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-039 Settings UI (Steam) | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R039-v1 [깊은 리뷰] |
-| R-040 SteamPipe (Steam) | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R040-v1 |
-| R-041 QA 체크리스트 (Steam) | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R041-v1 |
 
 ## ✅ Done
 
