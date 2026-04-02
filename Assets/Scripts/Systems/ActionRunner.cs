@@ -159,7 +159,18 @@ public class ActionRunner
                     affected.Add(m);
             }
         }
-        else if (targets != null) affected.AddRange(targets);
+        else if (targets != null && targets.Count > 0)
+        {
+            affected.AddRange(targets);
+        }
+        else
+        {
+            // Single-target fallback: find closest monster in range
+            Vector2 playerPos = (Vector2)ctx.player.position;
+            var closest = CombatSystem.FindClosest(playerPos, ctx.monsters.ToArray(),
+                ctx.range, m => m.Position, m => !m.IsDead);
+            if (closest != null) affected.Add(closest);
+        }
 
         foreach (var m in affected)
         {
