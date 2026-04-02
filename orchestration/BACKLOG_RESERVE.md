@@ -83,16 +83,16 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 
 ### 폴리시 / 완성도 (Polish) — 보통
 
-33. **R-033 로딩 화면 진행 바** — BootScene에서 데이터 로딩 시 진행률 표시. `BootSceneController.cs` 개선.
-34. **R-034 설정 메뉴 (볼륨/해상도)** — PauseMenuUI에 오디오 볼륨, 화면 해상도, 전체화면 토글 추가.
-35. **R-035 키 바인딩 표시** — 설정 또는 HUD에 현재 조작키 안내 표시. 새 UI 패널.
-36. **R-036 사망 화면 + 부활 옵션** — 플레이어 사망 시 결과 화면 + 마을 부활/제자리 부활 선택. 새 UI.
-37. **R-037 경험치 획득 플로팅 텍스트** — 몬스터 처치 시 +XP 텍스트 표시. `DamageText.SpawnText` 활용.
-38. **R-038 골드 변동 플로팅 텍스트** — 골드 획득/소비 시 +/-G 텍스트 표시.
-39. **R-039 자동 포션 사용** — HP가 일정 % 이하일 때 자동으로 HP 포션 사용. 설정 토글.
-40. **R-040 NPC 대화 시 카메라 줌인** — 대화 시작 시 Cinemachine 줌인, 종료 시 복원.
-41. **R-041 지역 진입 알림** — 새 지역 진입 시 화면 중앙에 지역명 페이드인/아웃 표시.
-42. **R-042 게임 통계 화면** — 플레이 시간, 처치 몬스터 수, 사용 스킬 횟수 등 통계 UI.
+33. ~~**R-033 로딩 화면 진행 바**~~ ✅ BOARD Done
+34. ~~**R-034 설정 메뉴 (볼륨/해상도)**~~ ✅ BOARD Done
+35. ~~**R-035 키 바인딩 표시**~~ ✅ BOARD Done
+36. ~~**R-036 사망 화면 + 부활 옵션**~~ ✅ BOARD Done
+37. ~~**R-037 경험치 획득 플로팅 텍스트**~~ ✅ BOARD Done
+38. ~~**R-038 골드 변동 플로팅 텍스트**~~ ✅ BOARD Done
+39. ~~**R-039 자동 포션 사용**~~ ✅ BOARD Done
+40. ~~**R-040 NPC 대화 시 카메라 줌인**~~ ✅ BOARD Done
+41. ~~**R-041 지역 진입 알림**~~ ✅ BOARD Done
+42. ~~**R-042 게임 통계 화면**~~ ✅ BOARD Done
 
 ### 🎨 에셋 2차 (감독관 전용)
 
@@ -110,30 +110,23 @@ VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_r
 
 ### 안정성 (Stability) — 최우선
 
-### R-035: Steamworks SDK 통합 및 초기화
-Steamworks.NET 패키지 설치, `SteamManager` 싱글턴 생성, `BootSceneController`에서 Steam 초기화 처리. specs/SPEC-R-035.md 참조.
+### ~~R-035: Steamworks SDK 통합 및 초기화~~ ✅ BOARD Done
 
-### R-036: Steam 클라우드 저장 연동
-`DataManager`의 저장/불러오기를 Steam Remote Storage API와 연동하여 클라우드 세이브 지원. specs/SPEC-R-036.md 참조.
+### ~~R-036: Steam 클라우드 저장 연동~~ ✅ BOARD Done
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-### R-037: Steam 업적(Achievement) 시스템
-`EventBus` 이벤트를 감지하여 Steam 업적을 해제하는 `SteamAchievementManager` 구현. specs/SPEC-R-037.md 참조.
+### ~~R-037: Steam 업적(Achievement) 시스템~~ ✅ BOARD Done
 
-### R-038: 게임 설정 시스템 (SettingsManager)
-해상도·전체화면·그래픽 품질·오디오 볼륨·키 바인딩을 관리하는 `SettingsManager` 데이터 계층 구현. specs/SPEC-R-038.md 참조.
+### ~~R-038: 게임 설정 시스템 (SettingsManager)~~ ✅ BOARD Done
 
-### R-039: 설정 UI (그래픽·오디오·조작 탭)
-`SettingsManager`와 연동되는 탭 형식 설정 UI 구현. `MainMenuController` 및 인게임 Pause 메뉴에서 접근 가능. specs/SPEC-R-039.md 참조.
+### ~~R-039: 설정 UI (그래픽·오디오·조작 탭)~~ 👀 BOARD In Review
 
 ### 폴리시 / 완성도 (Polish) — 보통
 
-### R-040: SteamPipe 빌드 및 배포 구성
-Steam 앱/디포 VDF 설정, 빌드 스크립트, SteamCMD 업로드 자동화 파이프라인 구성. specs/SPEC-R-040.md 참조.
+### ~~R-040: SteamPipe 빌드 및 배포 구성~~ 👀 BOARD In Review
 
-### R-041: 출시 전 통합 QA 체크리스트
-Steam API 연동 검증, 오프라인 모드 폴백, 성능 프로파일링, 빌드 사이즈 최적화 수행. specs/SPEC-R-041.md 참조.
+### ~~R-041: 출시 전 통합 QA 체크리스트~~ 👀 BOARD In Review
 
 ### 🎨 에셋 (감독관 전용) — 높음
 
