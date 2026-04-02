@@ -53,9 +53,11 @@ public class CombatManager : MonoBehaviour
         float swingAngle = Mathf.Atan2(aimDir.y, aimDir.x);
 
         bool stealthActive = _playerEffects.Has("stealth");
+        List<MonsterController> killed = null;
 
-        foreach (var m in monsters)
+        for (int i = 0; i < monsters.Count; i++)
         {
+            var m = monsters[i];
             if (m == null || m.IsDead) continue;
             float dist = Vector2.Distance(playerPos, m.Position);
             if (dist > swingRange) continue;
@@ -72,8 +74,11 @@ public class CombatManager : MonoBehaviour
 
             bool dead = m.TakeDamage(dmg);
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
-            if (dead) _onMonsterDeath?.Invoke(m);
+            if (dead) { killed ??= new(); killed.Add(m); }
         }
+
+        if (killed != null)
+            foreach (var m in killed) _onMonsterDeath?.Invoke(m);
 
         if (stealthActive)
             _playerEffects.Remove("stealth");
@@ -84,8 +89,9 @@ public class CombatManager : MonoBehaviour
         _cachedMonsters = monsters;
         if (_player.Invincible || _player.IsDodging) return;
 
-        foreach (var m in monsters)
+        for (int i = 0; i < monsters.Count; i++)
         {
+            var m = monsters[i];
             if (m == null || m.IsDead) continue;
             if (!m.CanAttack(now)) continue;
 
