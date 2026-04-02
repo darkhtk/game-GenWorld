@@ -1,27 +1,37 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillVFX : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer vfxRenderer;
-    [SerializeField] Sprite[] effectFrames;
-
-    static readonly Color DefaultColor = Color.white;
+    static readonly Dictionary<string, Sprite[]> _frameCache = new();
 
     public static void Show(MonoBehaviour context, string skillId, float fromX, float fromY, float toX, float toY)
     {
         if (context == null) return;
-        context.StartCoroutine(PlayEffect(context.transform, skillId, fromX, fromY, toX, toY));
+        string vfxName = ResolveVFXName(skillId);
+        context.StartCoroutine(PlayEffect(vfxName, fromX, fromY, toX, toY));
     }
 
-    static IEnumerator PlayEffect(Transform parent, string skillId, float fromX, float fromY, float toX, float toY)
+    public static void ShowAtPosition(MonoBehaviour context, string vfxName, float x, float y)
     {
-        var go = new GameObject($"VFX_{skillId}");
+        if (context == null) return;
+        context.StartCoroutine(PlayBurst(vfxName ?? "vfx_hit_impact", x, y));
+    }
+
+    public static void ShowAtPosition(MonoBehaviour context, float x, float y)
+    {
+        ShowAtPosition(context, "vfx_hit_impact", x, y);
+    }
+
+    static IEnumerator PlayEffect(string vfxName, float fromX, float fromY, float toX, float toY)
+    {
+        var frames = LoadFrames(vfxName);
+        var go = new GameObject($"VFX_{vfxName}");
         go.transform.position = new Vector3(fromX, fromY, 0);
 
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sortingOrder = 100;
-        sr.color = GetSkillColor(skillId);
 
         Vector3 from = new(fromX, fromY, 0);
         Vector3 to = new(toX, toY, 0);
@@ -35,28 +45,28 @@ public class SkillVFX : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / duration);
             go.transform.position = Vector3.Lerp(from, to, t);
 
+            if (frames != null && frames.Length > 0)
+            {
+                int frameIdx = Mathf.Min((int)(t * frames.Length), frames.Length - 1);
+                sr.sprite = frames[frameIdx];
+            }
+
             float alpha = t < 0.5f ? 1f : 1f - (t - 0.5f) * 2f;
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
+            sr.color = new Color(1f, 1f, 1f, alpha);
             yield return null;
         }
 
         Object.Destroy(go);
     }
 
-    public static void ShowAtPosition(MonoBehaviour context, float x, float y)
+    static IEnumerator PlayBurst(string vfxName, float x, float y)
     {
-        if (context == null) return;
-        context.StartCoroutine(PlayBurst(x, y));
-    }
-
-    static IEnumerator PlayBurst(float x, float y)
-    {
-        var go = new GameObject("VFX_Burst");
+        var frames = LoadFrames(vfxName);
+        var go = new GameObject($"VFX_{vfxName}");
         go.transform.position = new Vector3(x, y, 0);
 
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sortingOrder = 100;
-        sr.color = Color.white;
 
         float elapsed = 0f;
         const float duration = 0.3f;
@@ -64,6 +74,13 @@ public class SkillVFX : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
+
+            if (frames != null && frames.Length > 0)
+            {
+                int frameIdx = Mathf.Min((int)(t * frames.Length), frames.Length - 1);
+                sr.sprite = frames[frameIdx];
+            }
+
             float scale = 0.5f + t * 1.5f;
             go.transform.localScale = new Vector3(scale, scale, 1f);
             sr.color = new Color(1f, 1f, 1f, 1f - t);
@@ -73,11 +90,30 @@ public class SkillVFX : MonoBehaviour
         Object.Destroy(go);
     }
 
-    static Color GetSkillColor(string skillId)
+    static Sprite[] LoadFrames(string vfxName)
     {
-        if (string.IsNullOrEmpty(skillId)) return DefaultColor;
-        int hash = skillId.GetHashCode();
-        float h = Mathf.Abs(hash % 360) / 360f;
-        return Color.HSVToRGB(h, 0.7f, 1f);
+        if (_frameCache.TryGetValue(vfxName, out var cached))
+            return cached;
+
+        var sprites = Resources.LoadAll<Sprite>($"VFX/{vfxName}");
+        if (sprites == null || sprites.Length == 0)
+            sprites = Resources.LoadAll<Sprite>(vfxName);
+
+        _frameCache[vfxName] = sprites;
+        return sprites;
+    }
+
+    static string ResolveVFXName(string skillId)
+    {
+        if (string.IsNullOrEmpty(skillId)) return "vfx_hit_impact";
+        return skillId switch
+        {
+            "slash" or "power_slash" or "whirlwind" => "vfx_slash",
+            "fireball" or "meteor" or "fire_nova" => "vfx_fireball",
+            "ice_bolt" or "blizzard" or "frost_nova" => "vfx_ice_bolt",
+            "heal" or "rejuvenation" or "holy_light" => "vfx_heal",
+            "lightning" or "chain_lightning" or "thunder" => "vfx_lightning",
+            _ => "vfx_hit_impact"
+        };
     }
 }

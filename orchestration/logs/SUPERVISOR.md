@@ -1,40 +1,42 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #3)
-> **수행 행동:** 🎨 R-026 상태이상 아이콘 세트 생성
+> **최종 실행:** 2026-04-02 (루프 #4)
+> **수행 행동:** 🎨 R-027 스킬 이펙트 VFX 스프라이트 + SkillVFX.cs 개선
 
 ## 이번 루프 요약
 
-### Step 0: FREEZE 확인
-- BOARD.md에 FREEZE 없음 → 계속 진행
-
-### Step 0.5: 토론 확인
-- orchestration/discussions/ 비어 있음 → 스킵
+### Step 0/0.5
+- FREEZE 없음, 토론 없음 → 계속 진행
 
 ### Step 1: 🎨 태스크 실행
-**R-026 상태이상 아이콘 세트** 완료.
+**R-027 스킬 이펙트 VFX** 완료.
 
-생성된 에셋 (Assets/Art/Sprites/Icons/):
+#### 생성된 에셋 (Assets/Art/Sprites/VFX/)
 
-| # | 파일 | 크기 | 설명 |
-|---|------|------|------|
-| 1 | status_poison.png | 16×16 | 초록 독방울 + 해골 마크 |
-| 2 | status_burn.png | 16×16 | 주황-빨강 불꽃 |
-| 3 | status_slow.png | 16×16 | 파란 얼음 결정/눈꽃 |
-| 4 | status_stun.png | 16×16 | 노란 별 + 소용돌이 |
-| 5 | status_bleed.png | 16×16 | 붉은 피방울 3개 |
-| 6 | status_mana_shield.png | 16×16 | 파란 방패/버블 |
+| # | 파일 | 프레임 | 설명 |
+|---|------|--------|------|
+| 1 | vfx_slash.png | 6×32px | 호 형태 참격 이펙트 |
+| 2 | vfx_fireball.png | 6×32px | 팽창하는 화염구 |
+| 3 | vfx_ice_bolt.png | 6×32px | 회전 얼음 결정 |
+| 4 | vfx_heal.png | 6×32px | 확산 녹색 힐링 링 |
+| 5 | vfx_hit_impact.png | 6×32px | 범용 피격 스파크 |
+| 6 | vfx_lightning.png | 6×32px | 지그재그 번개 |
 
-- .meta 파일 재생성 (기존 Unity 자동생성 → PPU=32, FilterMode=Point, Compression=None)
-- 팔레트: 상태별 직관적 색상 (독=초록, 불=주황, 빙결=파랑, 기절=노랑, 출혈=빨강, 마나실드=청색)
+- .meta: spriteMode=Multiple, 6프레임 슬라이싱, PPU=32, Point, No compression
+
+#### 코드 개선 (SkillVFX.cs)
+- 스프라이트 기반 프레임 애니메이션으로 전환 (기존: 빈 SpriteRenderer + 색상만)
+- `LoadFrames()` — Resources.LoadAll로 VFX 스프라이트시트 로드 + 캐싱
+- `ResolveVFXName()` — skillId → VFX 에셋 매핑 (slash계열, fire계열, ice계열, heal계열, lightning계열)
+- `ShowAtPosition()` 오버로드 추가 — vfxName 지정 가능
 
 ### BOARD 상태
-- R-001: In Review (Developer 완료, 리뷰 대기)
-- Backlog: 0건 → 개발자가 RESERVE에서 다음 항목 가져갈 수 있음
+- R-001: ✅ APPROVE 완료
+- Backlog: 0건
 
 ### RESERVE 상태
-- R-025 ✅, R-026 ✅ 완료
-- 잔여: 30건 (🎨 6건 남음)
+- R-025 ✅, R-026 ✅, R-027 ✅ 완료
+- 잔여: 29건 (🎨 5건 남음)
 
 ### 다음 루프 예정
-- 🎨 R-027 (스킬 이펙트 파티클 프리팹) 또는 🎨 R-032 (미니맵 아이콘)
+- 🎨 R-028 (몬스터 피격/공격 이펙트) 또는 🎨 R-032 (미니맵 아이콘)
