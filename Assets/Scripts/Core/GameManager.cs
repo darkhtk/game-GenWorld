@@ -74,11 +74,13 @@ public class GameManager : MonoBehaviour
         SubscribeEvents();
         WirePotionCallbacks();
         WireUICallbacks();
+        WireAudio();
 
         if (SaveSystem.HasSave())
             LoadGame();
 
         PushInitialUiState();
+        PlayRegionBGM();
         Debug.Log("[GameManager] Initialized");
     }
 
