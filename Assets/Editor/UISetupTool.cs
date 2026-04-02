@@ -891,7 +891,7 @@ public static class UISetupTool
 
     // ─── HELPERS ───
 
-    struct BarResult { public Image fill; public TextMeshProUGUI text; }
+    struct BarResult { public GameObject root; public Image fill; public TextMeshProUGUI text; }
 
     static BarResult CreateBar(Transform parent, string name, Vector2 pos, Color fillColor, string label)
     {
