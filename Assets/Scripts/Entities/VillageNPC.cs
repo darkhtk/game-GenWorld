@@ -120,7 +120,7 @@ public class VillageNPC : MonoBehaviour
         _rb.linearVelocity = dir * _speed;
     }
 
-    public bool IsInInteractionRange(Vector2 playerPos, float range = 48f)
+    public bool IsInInteractionRange(Vector2 playerPos, float range = 1.5f)
     {
         return (Position - playerPos).sqrMagnitude <= range * range;
     }
