@@ -206,6 +206,8 @@ public class CombatManager : MonoBehaviour
                 case "duration_extend": durBonus *= combo.bonusValue; break;
             }
             EventBus.Emit(new ComboEvent { name = combo.comboName });
+            AudioManager.Instance?.PlaySFX("sfx_combo", 0f);
+            ShowFloatingText(_player.Position + Vector2.up, $"COMBO: {combo.comboName}!", new Color(1f, 0.8f, 0.2f));
         }
         float range = skill.range * (1f + (aoeBonus - 1f) * 0.5f);
 
