@@ -20,7 +20,9 @@ public class EffectHolder
     {
         if (type == "stun")
         {
-            expiresAt = Mathf.Min(expiresAt, MaxStunMs);
+            float now = Time.time * 1000f;
+            float maxExpiry = now + MaxStunMs;
+            expiresAt = Mathf.Min(expiresAt, maxExpiry);
             if (_effects.TryGetValue("stun", out var existing))
             {
                 existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using UnityEngine;
 
 public class EffectSystemTests
 {
@@ -17,8 +18,10 @@ public class EffectSystemTests
     [Test]
     public void Stun_CappedAt10Seconds()
     {
-        holder.Apply("stun", 99999f, 0);
-        Assert.LessOrEqual(holder.GetExpiresAt("stun"), EffectHolder.MaxStunMs);
+        float now = Time.time * 1000f;
+        holder.Apply("stun", now + 99999f, 0);
+        float maxAllowed = now + EffectHolder.MaxStunMs;
+        Assert.LessOrEqual(holder.GetExpiresAt("stun"), maxAllowed + 100f);
     }
 
     [Test]

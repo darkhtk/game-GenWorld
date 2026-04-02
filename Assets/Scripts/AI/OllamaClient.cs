@@ -49,7 +49,8 @@ public class OllamaClient
     {
         try
         {
-            var body = JsonBody(new { model = _fastModel, prompt = "hello", stream = false });
+            var warmReq = new OllamaRequest { model = _fastModel, prompt = "hello", stream = false };
+            var body = JsonUtility.ToJson(warmReq);
             string endpoint = $"{_url}/api/generate";
             using var req = new UnityWebRequest(endpoint, "POST");
             req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(body));
@@ -108,8 +109,6 @@ public class OllamaClient
             return null;
         }
     }
-
-    static string JsonBody(object obj) => JsonUtility.ToJson(obj);
 
     [Serializable]
     class OllamaRequest
