@@ -7,6 +7,15 @@ public class ActiveEffect
     public float value;
     public float interval;
     public float lastTick;
+    public float totalDuration;
+}
+
+public struct ActiveEffectInfo
+{
+    public string type;
+    public float expires;
+    public float totalDuration;
+    public float value;
 }
 
 public class EffectHolder
@@ -39,15 +48,18 @@ public class EffectHolder
                 return;
             }
         }
-        _effects[type] = new ActiveEffect { expiresAt = expiresAt, value = value };
+        float now = Time.time * 1000f;
+        _effects[type] = new ActiveEffect { expiresAt = expiresAt, value = value, totalDuration = expiresAt - now };
     }
 
     public void ApplyDot(float expiresAt, float damage, float interval = 1000f)
     {
+        float now = Time.time * 1000f;
         _effects["dot"] = new ActiveEffect
         {
             expiresAt = expiresAt, value = damage,
-            interval = interval, lastTick = 0f
+            interval = interval, lastTick = 0f,
+            totalDuration = expiresAt - now
         };
     }
 
