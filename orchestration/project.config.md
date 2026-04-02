@@ -1,6 +1,6 @@
 # Project Configuration
 
-> 자동 생성됨 (auto-setup.sh, 2026-04-02 20:22)
+> 자동 생성됨 (auto-setup.sh, 2026-04-02 20:34)
 > Claude 프로젝트 메모리 + 파일 구조에서 감지한 설정입니다.
 > 필요 시 수동으로 수정하세요.
 
