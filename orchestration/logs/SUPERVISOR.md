@@ -1,18 +1,12 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #43)
-> **수행 행동:** Step 2 성능/품질 감사 — NPC Schedule + MonsterSpawner night
+> **최종 실행:** 2026-04-02 (루프 #44)
+> **수행 행동:** Step 2 코드 품질 — R-022 AchievementSystem 감사
 
-## 이번 루프
+## AchievementSystem.cs (119줄) ✅
+- 6 업적 정의, EventBus 이벤트 구독, 진행률 추적
+- 보상 지급 (gold/item), 재진입 안전 (_completed 가드)
+- Serialize/Restore for save system
+- 수정 필요: 0건
 
-### VillageNPC.UpdateSchedule ✅
-- `_lastPeriod` 가드로 매 프레임 순회 방지 — 정확한 패턴
-- period 변경 시만 schedule 탐색 수행
-
-### MonsterSpawner night pool ✅
-- `ToArray()` 호출은 SpawnForRegion (리전 진입 시 1회) — 핫 패스 아님, 허용
-
-### 수정 필요: 0건
-
-### BOARD: 26건 Done, R-021 In Review
-### 코드베이스: 성숙 상태 — 주요 성능/품질 이슈 모두 해결됨
+## BOARD: 27건 Done (R-021 → Done), R-022 In Review
