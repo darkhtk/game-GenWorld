@@ -5,5 +5,14 @@
   "stone_floor": 3,
   "tree": 4,
   "bush": 5,
-  "wall": 6
+  "wall": 6,
+  "swamp_ground": 7,
+  "swamp_water": 8,
+  "dead_tree": 9,
+  "lava": 10,
+  "volcanic_rock": 11,
+  "ash_ground": 12,
+  "dark_stone": 13,
+  "crystal": 14,
+  "bone_pile": 15
 }

@@ -44,7 +44,7 @@
 27. ~~**🎨 R-027 스킬 이펙트 VFX 스프라이트**~~ ✅ 완료 (6종 스프라이트시트: slash, fireball, ice_bolt, heal, hit_impact, lightning + SkillVFX.cs 개선)
 28. ~~**🎨 R-028 몬스터 피격/공격 이펙트**~~ ✅ 완료 (3종: melee_hit, ranged_hit, magic_hit + CombatManager VFX 연동)
 29. ~~**🎨 R-029 아이템 드롭 이펙트**~~ ✅ 완료 (loot_glow 8프레임 + loot_pickup 6프레임 + LootDropVFX.cs 바운스/글로우 컴포넌트)
-30. **🎨 R-030 지역 전용 타일셋 보충** — swamp, volcano, dragon_lair 타일셋 PNG + TileAsset. `Assets/Art/Tiles/`
+30. ~~**🎨 R-030 지역 전용 타일셋 보충**~~ ✅ 완료 (9종: swamp×3, volcano×3, dragon_lair×3 — tileset.png 확장 7→16타일 + 9 TileAsset)
 31. **🎨 R-031 플레이어 애니메이션 컨트롤러** — idle/walk 4방향 AnimationClip + Animator 구성. `Assets/Art/Sprites/Player/`
 32. **🎨 R-032 미니맵 아이콘** — 플레이어, NPC, 몬스터, 포탈, 퀘스트 마커 아이콘 5종. `Assets/Art/Sprites/UI/Minimap/`
 

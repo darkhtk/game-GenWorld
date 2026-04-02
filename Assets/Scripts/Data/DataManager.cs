@@ -33,6 +33,7 @@ public class DataManager
         LoadQuests();
         LoadRegions();
         LoadNpcProfiles();
+        ValidateData();
         Debug.Log($"[DataManager] Loaded: {Items.Count} items, {Skills.Count} skills, " +
                   $"{Monsters.Count} monsters, {Npcs.Count} npcs, {Quests.Count} quests, " +
                   $"{Regions.Count} regions, {NpcProfiles.Count} profiles");
