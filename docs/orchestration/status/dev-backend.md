@@ -18,6 +18,9 @@ Loop — compile fixes, code review, test coverage
 - **Fixed: ActionRunner chain logic** — chain_lightning data was defined but never implemented
 - **Fixed: ActionRunner apply_effect single-target fallback** — shield_charge stun was never applied
 - **Fixed: ActionRunner onHit sub-actions** — deal_damage onHit callbacks were not processed
+- **Fixed: ActionRunner cone filtering** — ground_slam hit full 360° instead of forward arc
+- **Fixed: Projectile missing collider** — skill projectiles had no Collider2D/Rigidbody2D, OnTriggerEnter2D never fired (fireball, poison_arrow, ice_bolt, etc.)
+- **Fixed: MonsterController missing collider** — ensures BoxCollider2D exists for projectile trigger detection
 - Reported: 3 GameManager bugs to Director (questions/backend-gamemanager-bugs.md)
 
 ## Progress
