@@ -1,16 +1,16 @@
 # Coordinator Loop Log
-## [2026-04-02 21:14]
+## [2026-04-02 21:16]
 ### 점검 결과
-- BOARD 동기화: **2건 정리** — R-002/R-003 In Progress/In Review 취소선 잔여 제거 (Done 이동은 이미 반영)
-- RESERVE 잔여: 23건 (R-004 개발자 픽업 — 충분)
+- BOARD 동기화: 일치 (R-001~R-003 ✅ Done, R-004/R-005 👀 In Review)
+- RESERVE 잔여: 21건 (R-004/R-005 제거, R-030 완료 — 충분)
 - 에이전트 상태:
-  - DEVELOPER: R-002/R-003 승인 완료 → R-004 JSON 파싱 복구 완료, In Review 제출. 3건 Done + 1건 리뷰 대기.
-  - CLIENT: loop 14, R-002/R-003 승인 완료. R-004 리뷰 대기.
-  - SUPERVISOR: loop 6, R-029 드롭 이펙트 완료. 🎨 R-030~R-032 (3건) 남음.
-- 메일: 이메일 subject 미설정 — ��킵
+  - DEVELOPER: loop 8, R-004 완료 + R-005 완료. 둘 다 In Review 제출. **5건 완료 (3 Done + 2 Review).**
+  - CLIENT: loop 15, IDLE — R-004/R-005 리뷰 대기.
+  - SUPERVISOR: loop 7, R-030 타일셋 9종 완료 (swamp/volcano/dragon_lair). 🎨 2건 남음 (R-031/R-032).
+- 메일: 이메일 subject 미설정 — 스킵
 ### 자기 개선
-- **RESERVE 전체 spec 100% 완성 (R-001~R-024).** 이후 루프부터 동기화/감시에 집중.
+- git stash pop 충돌 발생 → BACKLOG_RESERVE 충돌 해결 + DamageText.cs upstream 채택. 향후 stash 전략 개선 필요.
 ### 행동
-- BOARD.md: In Progress/In Review 취소선 잔여 정리
-- specs/SPEC-R022.md (업적), SPEC-R023.md (강화 실패/파괴), SPEC-R024.md (월드 이벤트) 기획서 작성
-- **R-001~R-024 전체 24건 spec 완비** — RESERVE 모든 개발자 태스크에 기획서 존재
+- Merge 충돌 해결 (BACKLOG_RESERVE.md: R-003/R-004 제거 반영, DamageText.cs: upstream 채택)
+- 모니터링 전용 루프 — spec 작성 완료 상태, 새 행동 불필요
+- RESERVE 21건 > 10건 임계 — 보충 불필요
