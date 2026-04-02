@@ -23,7 +23,7 @@ public class CameraShake : MonoBehaviour
         }
 
         // Fallback: direct camera shake if no Cinemachine setup
-        var cam = Camera.main;
+        var cam = Camera.main; // Only called on shake, not per-frame
         if (cam == null) return;
 
         if (_activeShake != null)

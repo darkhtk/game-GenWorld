@@ -21,7 +21,8 @@ public static class EventBus
     public static void Emit<T>(T evt)
     {
         if (!_listeners.TryGetValue(typeof(T), out var list)) return;
-        foreach (var d in list.ToArray()) ((Action<T>)d).Invoke(evt);
+        for (int i = list.Count - 1; i >= 0; i--)
+            ((Action<T>)list[i]).Invoke(evt);
     }
 
     public static void Clear() => _listeners.Clear();

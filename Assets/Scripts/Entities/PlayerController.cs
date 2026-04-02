@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D _rb;
     SpriteRenderer _sr;
     PlayerAnimator _animator;
+    Camera _cachedCamera;
 
     public Vector2 AimDirection { get; private set; }
     public Vector2 Position => (Vector2)transform.position;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
         _animator = GetComponent<PlayerAnimator>();
+        _cachedCamera = Camera.main;
         _rb.gravityScale = 0;
         _rb.freezeRotation = true;
     }
@@ -37,9 +39,9 @@ public class PlayerController : MonoBehaviour
         if (Frozen) { _rb.linearVelocity = Vector2.zero; return; }
 
         // Aim direction (mouse)
-        if (Camera.main != null)
+        if (_cachedCamera != null)
         {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mouseWorld = _cachedCamera.ScreenToWorldPoint(Input.mousePosition);
             var aim = ((Vector2)mouseWorld - Position).normalized;
             if (aim.sqrMagnitude > 0.01f) AimDirection = aim;
         }

@@ -11,12 +11,20 @@ public class MonsterController : MonoBehaviour
     public MonsterAIState AIState { get; private set; } = MonsterAIState.Patrol;
     public float SpawnTime { get; set; }
     public float LastHitByPlayerTime { get; set; }
+    public bool IsReturning => AIState == MonsterAIState.Return;
 
     Rigidbody2D _rb;
     Vector2 _spawnPos;
     Vector2? _patrolTarget;
     float _lastAttackTime;
+    float _returnStartTime;
     int _currentPhase;
+
+    const float ReturnForceTeleport = 5f;
+    const float ReturnDamageReduction = 5f;
+    const float ReturnSpeedMult = 1.5f;
+    const float ReturnReaggroMult = 0.5f;
+    const float RecentHitWindow = 2f;
 
     float _atkMult = 1f, _defMult = 1f, _spdMult = 1f, _cooldownMult = 1f;
 
@@ -72,9 +80,13 @@ public class MonsterController : MonoBehaviour
                 MoveToward(playerPos, speed);
                 if (distToPlayer <= Def.attackRange)
                     AIState = MonsterAIState.Attack;
-                else if (distToPlayer > Def.detectRange * GameConfig.ChaseRangeMult ||
-                         Vector2.Distance(Position, _spawnPos) > GameConfig.MaxSpawnDistance)
+                else if ((distToPlayer > Def.detectRange * GameConfig.ChaseRangeMult ||
+                         Vector2.Distance(Position, _spawnPos) > GameConfig.MaxSpawnDistance) &&
+                         Time.time - LastHitByPlayerTime > RecentHitWindow)
+                {
                     AIState = MonsterAIState.Return;
+                    _returnStartTime = Time.time;
+                }
                 break;
 
             case MonsterAIState.Attack:
@@ -84,14 +96,23 @@ public class MonsterController : MonoBehaviour
                 break;
 
             case MonsterAIState.Return:
-                MoveToward(_spawnPos, speed);
+                if (Time.time - _returnStartTime > ReturnForceTeleport)
+                {
+                    transform.position = _spawnPos;
+                    Hp = Def.hp;
+                    AIState = MonsterAIState.Patrol;
+                    break;
+                }
+                MoveToward(_spawnPos, speed * ReturnSpeedMult);
                 if (Vector2.Distance(Position, _spawnPos) < 16f)
                 {
                     Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
                 }
-                if (distToPlayer <= Def.detectRange)
+                else if (distToPlayer <= Def.detectRange * ReturnReaggroMult)
+                {
                     AIState = MonsterAIState.Chase;
+                }
                 break;
         }
     }
@@ -135,6 +156,7 @@ public class MonsterController : MonoBehaviour
 
     public bool TakeDamage(int dmg)
     {
+        if (IsReturning) dmg = Mathf.Max(1, dmg / (int)ReturnDamageReduction);
         Hp -= dmg;
         return Hp <= 0;
     }

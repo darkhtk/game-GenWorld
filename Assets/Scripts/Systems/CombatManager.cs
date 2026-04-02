@@ -60,8 +60,8 @@ public class CombatManager : MonoBehaviour
         {
             var m = monsters[i];
             if (m == null || m.IsDead) continue;
-            float dist = Vector2.Distance(playerPos, m.Position);
-            if (dist > swingRange) continue;
+            float distSq = (playerPos - m.Position).sqrMagnitude;
+            if (distSq > swingRange * swingRange) continue;
 
             Vector2 toMonster = m.Position - playerPos;
             float angleToMonster = Mathf.Atan2(toMonster.y, toMonster.x);
@@ -99,8 +99,9 @@ public class CombatManager : MonoBehaviour
             if (m == null || m.IsDead) continue;
             if (!m.CanAttack(now)) continue;
 
-            float dist = Vector2.Distance(m.Position, _player.Position);
-            if (dist > m.Def.attackRange * 1.3f) continue;
+            float atkRange = m.Def.attackRange * 1.3f;
+            float distSq = (m.Position - _player.Position).sqrMagnitude;
+            if (distSq > atkRange * atkRange) continue;
 
             m.MarkAttacked(now);
 
