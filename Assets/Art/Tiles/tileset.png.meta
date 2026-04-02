@@ -5,6 +5,27 @@ TextureImporter:
   - first:
       213: 5663061954668274717
     second: tileset_0
+  - first:
+      213: -5201561873407731331
+    second: tileset_grass
+  - first:
+      213: -9180700788243497000
+    second: tileset_dirt
+  - first:
+      213: 2915884494263374796
+    second: tileset_water
+  - first:
+      213: -8835215647986322182
+    second: tileset_stone_floor
+  - first:
+      213: 4288730172943779002
+    second: tileset_tree
+  - first:
+      213: -2901141271065942440
+    second: tileset_bush
+  - first:
+      213: 496529293858064617
+    second: tileset_wall
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +134,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tileset_0
+      name: tileset_grass
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 224
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d142805f7dc379e40800000000000000
-      internalID: 5663061954668274717
+      spriteID: d791152090750d7b0800000000000000
+      internalID: -5201561873407731331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_dirt
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dff8974649979080800000000000000
+      internalID: -9180700788243497000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_water
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc353ae9f7d477820800000000000000
+      internalID: 2915884494263374796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_stone_floor
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af47dcbdd22036580800000000000000
+      internalID: -8835215647986322182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_tree
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab440df9e51a48b30800000000000000
+      internalID: 4288730172943779002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_bush
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 856a3e682631db7d0800000000000000
+      internalID: -2901141271065942440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_wall
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e84cf413c604e600800000000000000
+      internalID: 496529293858064617
       vertices: []
       indices: 
       edges: []
@@ -149,6 +302,13 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       tileset_0: 5663061954668274717
+      tileset_bush: -2901141271065942440
+      tileset_dirt: -9180700788243497000
+      tileset_grass: -5201561873407731331
+      tileset_stone_floor: -8835215647986322182
+      tileset_tree: 4288730172943779002
+      tileset_wall: 496529293858064617
+      tileset_water: 2915884494263374796
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
