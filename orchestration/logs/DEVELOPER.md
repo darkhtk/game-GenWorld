@@ -1,21 +1,22 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 28)
-**Status:** WORKING — R-019
+**Last run:** 2026-04-02 (loop 29)
+**Status:** WORKING — R-020
 
 ## Loop Result
 - FREEZE: N
-- Build errors: 0
-- R-001~R-018, R-027~R-032: ✅ Done (26 tasks!)
-- R-019: Completed → In Review (새 시스템)
+- Build errors: 0 (VillageNPC.TimeSystem stale)
+- R-001~R-019, R-027~R-032: ✅ Done (27 tasks!)
+- R-020: Completed → In Review (새 시스템)
 
 ## Completed This Loop
-**R-019 NPC 일과 시스템** — SPEC-R019 기반 구현 완료.
+**R-020 NPC 호감도 이벤트** — SPEC-R020 기반 구현 완료.
 
 ### Changes
-- `TimeSystem.cs` (NEW): Game hour (0-24), Period (night/dawn/morning/afternoon/evening), 60s/game-hour
-- `NpcDef.cs`: NpcSchedule class (period, activity, cx, cy, radius), schedule[] field
-- `VillageNPC.cs`: UpdateSchedule() — period change detection → patrol center/radius update, sleeping state
-- `GameManager.cs`: TimeSystem property + initialization + Update call
+- `NPCBrain.cs`: _triggeredEvents HashSet + HasTriggered/MarkTriggered + Serialize/Restore
+- `StatTypes.cs`: NPCBrainData.triggeredEvents field
+- `AIManager.cs`: EvaluateTriggers() — NpcTrigger evaluation after relationship change
+  - Threshold check, WantToTalk, memory, NpcTriggerEvent emission
+  - Called from ApplyResponse()
 
-Specs referenced: Y (SPEC-R019.md)
+Specs referenced: Y (SPEC-R020.md)
