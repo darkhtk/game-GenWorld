@@ -24,7 +24,6 @@
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-12. **R-012 HUD 버프/디버프 아이콘 표시** — 활성 상태이상을 HUD에 아이콘+타이머로 표시. `HUD.cs`, `EffectSystem.cs` 연동.
 13. **R-013 인벤토리 필터/정렬 강화** — 타입별 필터(무기/방어구/소모품), 등급순/이름순 정렬. `InventoryUI.cs` 개선.
 14. **R-014 퀘스트 추적 HUD 위젯** — 현재 진행 중 퀘스트 목표를 화면 우측에 상시 표시. `HUD.cs` 확장.
 15. **R-015 몬스터 HP 바** — 몬스터 머리 위에 체력 바 표시. `MonsterController.cs` + UI 프리팹.
@@ -77,5 +76,5 @@ EffectSystem·ComboSystem의 스킬 발동 애니메이션과 AreaEffect VFX 타
 
 ### 🎨 에셋 (감독관 전용) — 높음
 
-### 🎨 A-001: 누락 애니메이션 클립 제작/확보
-검증 과정에서 발견된 누락 애니메이션 클립(몬스터 hit/die, NPC react 등) 제작 또는 임시 placeholder 확보.
+### ~~🎨 A-001: 누락 애니메이션 클립 제작/확보~~ ✅ 완료
+VFX 오버레이 3종 생성: vfx_monster_death (8프레임 dissolve), vfx_npc_react (6프레임 느낌표 팝업), vfx_npc_talk (4프레임 말풍선)

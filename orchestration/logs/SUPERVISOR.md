@@ -1,35 +1,34 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #17)
-> **수행 행동:** Step 2 자동 행동 #2 — 코드 품질 감사 3차
+> **최종 실행:** 2026-04-02 (루프 #18)
+> **수행 행동:** 🎨 A-001 누락 애니메이션 클립 제작
 
 ## 이번 루프 요약
 
 ### Step 0/0.5
 - FREEZE 없음, 토론 없음
 
-### Step 1
-- 🎨 태스크 없음 → Step 2
+### Step 1: 🎨 태스크 실행
+**A-001 누락 애니메이션 클립 제작** 완료.
 
-### Step 2: 코드 품질 감사 3차
+#### 생성된 에셋 (Assets/Art/Sprites/VFX/)
 
-#### 감사 대상: R-009 (ComboSystem), R-010 (DodgeVFX) 개발자 코드
+| # | 파일 | 크기 | 프레임 | 설명 |
+|---|------|------|--------|------|
+| 1 | vfx_monster_death.png | 32px | 8프레임 | 소멸 파티클 + 유령 실루엣 페이드 |
+| 2 | vfx_npc_react.png | 16px | 6프레임 | 금색 느낌표 바운스 팝업 |
+| 3 | vfx_npc_talk.png | 16px | 4프레임 | 말풍선 인디케이터 (... 점) |
 
-| 파일 | 평가 | 비고 |
-|------|------|------|
-| ComboSystem.cs | ✅ 양호 | 순수 C#, 구조체 결과, 히스토리 만료, MaxHistory 캡 |
-| DodgeVFX.cs | ✅ 양호 | 정적 유틸리티, null 체크, 자동 Destroy |
-| CombatManager 연동 | ✅ 양호 | RecordSkill + CheckCombo 정상 배치, 콤보 보너스 적용 |
-| PlayerController 연동 | ✅ 양호 | DodgeTrailCoroutine 정상, SpriteRenderer 투명도 전환 |
-
-#### 수정 (1건)
-| 파일 | 수정 | 효과 |
-|------|------|------|
-| PlayerController.cs | `new WaitForSeconds(0.05f)` → `static readonly DodgeTrailInterval` | 닷지 중 매 0.05초 GC 할당 제거 |
+- .meta: spriteMode=Multiple, PPU=32, Point, No compression
+- 용도: MonsterController 사망 연출, NPC 반응/대화 상태 표시
 
 ### BOARD 상태
-- R-001~R-010 ✅ Done (10건 완료!)
-- R-011 👀 In Review (새 시스템 — 고객사 리뷰 필수)
+- R-001~R-010 ✅ Done (10건)
+- R-011 👀 In Review (툴팁 시스템)
+
+### RESERVE 상태
+- A-001 ✅ 완료
+- 잔여: R-012~R-016 (5건) + R-017~R-024 (8건) + R-027~R-032 new (6건) = 19건
 
 ### 다음 루프 예정
-- Step 2 자동 행동 #3: 성능 최적화 3차 또는 #1 에셋 선제 생성
+- Step 2 자동 행동 순환 계속 (#3 성능 최적화 3차 또는 #4 UX 3차)
