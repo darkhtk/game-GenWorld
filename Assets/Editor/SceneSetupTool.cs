@@ -79,7 +79,7 @@ public static class SceneSetupTool
         // Grid + Tilemaps
         var grid = new GameObject("Grid");
         var gridComp = grid.AddComponent<Grid>();
-        gridComp.cellSize = new Vector3(32, 32, 1);
+        gridComp.cellSize = new Vector3(1, 1, 1); // PPU=32 → 32px sprite = 1 unit
 
         var groundObj = new GameObject("GroundTilemap");
         groundObj.transform.SetParent(grid.transform);
@@ -300,7 +300,7 @@ public static class SceneSetupTool
         var cam = new GameObject(name);
         var c = cam.AddComponent<Camera>();
         c.orthographic = true;
-        c.orthographicSize = 384;
+        c.orthographicSize = 12; // 768px / 32 PPU / 2 = 12 units
         c.backgroundColor = bg;
         cam.tag = "MainCamera";
         return cam;
