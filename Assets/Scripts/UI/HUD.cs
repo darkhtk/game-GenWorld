@@ -67,6 +67,10 @@ public class HUD : MonoBehaviour
     [SerializeField] Transform questTrackerContent;
     [SerializeField] TextMeshProUGUI questTrackerEntryPrefab;
 
+    [Header("Region Announce")]
+    [SerializeField] TextMeshProUGUI regionAnnounceText;
+    [SerializeField] CanvasGroup regionAnnounceGroup;
+
     static readonly Color HpColor = new(1f, 0.267f, 0.267f);
     static readonly Color MpColor = new(0.267f, 0.533f, 1f);
 
