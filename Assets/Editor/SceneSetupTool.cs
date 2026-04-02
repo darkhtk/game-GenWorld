@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.U2D.Sprites;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
@@ -228,7 +230,7 @@ public static class SceneSetupTool
         tmp.fontSize = 24;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.white;
-        tmp.enableWordWrapping = false;
+        tmp.textWrappingMode = TextWrappingModes.NoWrap;
         var textRt = textObj.GetComponent<RectTransform>();
         textRt.anchorMin = Vector2.zero;
         textRt.anchorMax = Vector2.one;
@@ -315,6 +317,107 @@ public static class SceneSetupTool
         else
         {
             Debug.LogWarning($"[SceneSetup] Field '{fieldName}' not found on {target.GetType().Name}");
+        }
+    }
+
+    // --- Tile Asset Creation & Wiring ---
+
+    static readonly string[] TileNames = { "grass", "dirt", "water", "stone_floor", "tree", "bush", "wall" };
+    const string TileAssetPath = "Assets/Art/Tiles/";
+    const string TilesetPath = "Assets/Art/Tiles/tileset.png";
+
+    [MenuItem("GenWorld/Setup Tiles")]
+    public static void SetupTiles()
+    {
+        // Step 1: Slice tileset into 32x32 sprites
+        var importer = AssetImporter.GetAtPath(TilesetPath) as TextureImporter;
+        if (importer == null)
+        {
+            Debug.LogError("[TileSetup] tileset.png not found at " + TilesetPath);
+            return;
+        }
+
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.spritePixelsPerUnit = 32;
+        importer.filterMode = FilterMode.Point;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
+
+        var factory = new SpriteDataProviderFactories();
+        factory.Init();
+        var dataProvider = factory.GetSpriteEditorDataProviderFromObject(importer);
+        dataProvider.InitSpriteEditorDataProvider();
+
+        var rects = new UnityEditor.U2D.Sprites.SpriteRect[TileNames.Length];
+        for (int i = 0; i < TileNames.Length; i++)
+        {
+            rects[i] = new UnityEditor.U2D.Sprites.SpriteRect
+            {
+                name = "tileset_" + TileNames[i],
+                rect = new Rect(i * 32, 0, 32, 32),
+                alignment = SpriteAlignment.Center,
+                pivot = new Vector2(0.5f, 0.5f)
+            };
+        }
+        dataProvider.SetSpriteRects(rects);
+        dataProvider.Apply();
+        importer.SaveAndReimport();
+
+        // Step 2: Load sprites and create Tile assets
+        var allAssets = AssetDatabase.LoadAllAssetsAtPath(TilesetPath);
+        var sprites = new Dictionary<string, Sprite>();
+        foreach (var asset in allAssets)
+        {
+            if (asset is Sprite s)
+                sprites[s.name] = s;
+        }
+
+        var tiles = new Dictionary<string, UnityEngine.Tilemaps.Tile>();
+        foreach (string tileName in TileNames)
+        {
+            string spriteName = "tileset_" + tileName;
+            if (!sprites.TryGetValue(spriteName, out var sprite))
+            {
+                Debug.LogWarning($"[TileSetup] Sprite '{spriteName}' not found");
+                continue;
+            }
+
+            string tilePath = TileAssetPath + tileName + ".asset";
+            var tile = AssetDatabase.LoadAssetAtPath<UnityEngine.Tilemaps.Tile>(tilePath);
+            if (tile == null)
+            {
+                tile = ScriptableObject.CreateInstance<UnityEngine.Tilemaps.Tile>();
+                AssetDatabase.CreateAsset(tile, tilePath);
+            }
+            tile.sprite = sprite;
+            tile.colliderType = (tileName == "wall" || tileName == "tree")
+                ? UnityEngine.Tilemaps.Tile.ColliderType.Grid
+                : UnityEngine.Tilemaps.Tile.ColliderType.None;
+            EditorUtility.SetDirty(tile);
+            tiles[tileName] = tile;
+        }
+        AssetDatabase.SaveAssets();
+
+        Debug.Log($"[TileSetup] Created {tiles.Count} tile assets");
+
+        // Step 3: Wire to WorldMapGenerator in open scene
+        var wmg = Object.FindFirstObjectByType<WorldMapGenerator>();
+        if (wmg != null)
+        {
+            if (tiles.TryGetValue("grass", out var t)) Wire(wmg, "grassTile", t);
+            if (tiles.TryGetValue("dirt", out t)) Wire(wmg, "dirtTile", t);
+            if (tiles.TryGetValue("stone_floor", out t)) Wire(wmg, "stoneFloorTile", t);
+            if (tiles.TryGetValue("tree", out t)) Wire(wmg, "treeTile", t);
+            if (tiles.TryGetValue("bush", out t)) Wire(wmg, "bushTile", t);
+            if (tiles.TryGetValue("wall", out t)) Wire(wmg, "wallTile", t);
+
+            EditorUtility.SetDirty(wmg);
+            EditorSceneManager.MarkSceneDirty(wmg.gameObject.scene);
+            Debug.Log("[TileSetup] Wired tiles to WorldMapGenerator — save the scene!");
+        }
+        else
+        {
+            Debug.LogWarning("[TileSetup] WorldMapGenerator not found in scene. Open GameScene and run again.");
         }
     }
 
