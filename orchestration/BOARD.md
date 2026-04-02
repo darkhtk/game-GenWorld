@@ -27,6 +27,7 @@
 | 15 | R-015 몬스터 HP 바 | P2 | ✅ | REVIEW-R015-v1 |
 | 16 | R-016 장비 비교 팝업 | P2 | ✅ | REVIEW-R016-v1 |
 | 17 | R-027 AnimationDef | P2 | 👀 | SPEC-R-027 참조 |
+| 18 | R-028 AnimationPreviewUI | P2 | 👀 | SPEC-R-028 참조 |
 
 ---
 
@@ -44,7 +45,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| R-027 AnimationDef | 2026-04-02 | (대기) | QA/검증, 자가진행 허용 |
+| R-027 AnimationDef | 2026-04-02 | ❌ NEEDS_WORK | REVIEW-R027-v1 |
 
 ## ✅ Done
 
