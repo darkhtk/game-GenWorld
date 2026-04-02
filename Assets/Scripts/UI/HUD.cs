@@ -276,6 +276,33 @@ public class HUD : MonoBehaviour
     {
         if (regionText != null)
             regionText.text = regionName;
+        ShowRegionAnnounce(regionName);
+    }
+
+    void ShowRegionAnnounce(string regionName)
+    {
+        if (regionAnnounceText == null || regionAnnounceGroup == null) return;
+        regionAnnounceText.text = regionName;
+        StopCoroutine(nameof(RegionAnnounceCoroutine));
+        StartCoroutine(RegionAnnounceCoroutine());
+    }
+
+    System.Collections.IEnumerator RegionAnnounceCoroutine()
+    {
+        regionAnnounceGroup.alpha = 0f;
+        for (float t = 0; t < 0.5f; t += Time.deltaTime)
+        {
+            regionAnnounceGroup.alpha = t / 0.5f;
+            yield return null;
+        }
+        regionAnnounceGroup.alpha = 1f;
+        yield return new WaitForSeconds(2f);
+        for (float t = 0; t < 1f; t += Time.deltaTime)
+        {
+            regionAnnounceGroup.alpha = 1f - t;
+            yield return null;
+        }
+        regionAnnounceGroup.alpha = 0f;
     }
 
     public void UpdateLevel(int level, int skillPoints, int statPoints)
