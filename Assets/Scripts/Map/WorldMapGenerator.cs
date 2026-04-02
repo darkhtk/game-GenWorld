@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,10 +7,133 @@ public class WorldMapGenerator : MonoBehaviour
     [SerializeField] Tilemap groundTilemap;
     [SerializeField] Tilemap collisionTilemap;
 
-    int[,] _tileData;
-    RegionDef[] _regions;
+    [Header("Tile Assets")]
+    [SerializeField] TileBase grassTile;
+    [SerializeField] TileBase dirtTile;
+    [SerializeField] TileBase stoneFloorTile;
+    [SerializeField] TileBase treeTile;
+    [SerializeField] TileBase bushTile;
+    [SerializeField] TileBase wallTile;
 
-    public void Generate(RegionDef[] regions) { _regions = regions; Debug.Log("[WorldMap] Generate stub"); }
-    public bool IsWalkable(int tileX, int tileY) => true;
-    public bool IsVillageTile(int tileX, int tileY) => false;
+    RegionDef[] _regions;
+    bool[,] _walkable;
+
+    public void Generate(RegionDef[] regions)
+    {
+        _regions = regions;
+        int w = GameConfig.MapWidthTiles;
+        int h = GameConfig.MapHeightTiles;
+        _walkable = new bool[w, h];
+
+        for (int tx = 0; tx < w; tx++)
+        {
+            for (int ty = 0; ty < h; ty++)
+            {
+                _walkable[tx, ty] = true;
+
+                RegionDef region = GetRegionForTile(tx, ty);
+                string tileType = PickTileType(region);
+                TileBase tile = GetTileAsset(tileType);
+                Vector3Int cell = TileToCell(tx, ty);
+
+                if (tile != null)
+                    groundTilemap.SetTile(cell, tile);
+
+                if (tileType == "wall" || tileType == "tree")
+                {
+                    _walkable[tx, ty] = false;
+                    if (collisionTilemap != null && tile != null)
+                        collisionTilemap.SetTile(cell, tile);
+                }
+            }
+        }
+
+        Debug.Log($"[WorldMap] Generated {w}x{h} map with {regions.Length} regions");
+    }
+
+    public bool IsWalkable(int tileX, int tileY)
+    {
+        if (_walkable == null) return true;
+        if (tileX < 0 || tileX >= GameConfig.MapWidthTiles ||
+            tileY < 0 || tileY >= GameConfig.MapHeightTiles)
+            return false;
+        return _walkable[tileX, tileY];
+    }
+
+    public bool IsVillageTile(int tileX, int tileY)
+    {
+        if (_regions == null) return false;
+        foreach (var r in _regions)
+        {
+            if (r.id != "village") continue;
+            var b = r.bounds;
+            if (tileX >= b.x && tileX < b.x + b.width &&
+                tileY >= b.y && tileY < b.y + b.height)
+                return true;
+        }
+        return false;
+    }
+
+    // Picks the most specific (smallest area) region containing this tile
+    RegionDef GetRegionForTile(int tileX, int tileY)
+    {
+        RegionDef best = null;
+        int bestArea = int.MaxValue;
+
+        foreach (var r in _regions)
+        {
+            var b = r.bounds;
+            if (tileX >= b.x && tileX < b.x + b.width &&
+                tileY >= b.y && tileY < b.y + b.height)
+            {
+                int area = b.width * b.height;
+                if (area < bestArea)
+                {
+                    best = r;
+                    bestArea = area;
+                }
+            }
+        }
+        return best;
+    }
+
+    string PickTileType(RegionDef region)
+    {
+        if (region == null || region.tileWeights == null)
+            return "grass";
+
+        float roll = Random.value;
+        float cumulative = 0f;
+        foreach (var kv in region.tileWeights)
+        {
+            cumulative += kv.Value;
+            if (roll <= cumulative)
+                return kv.Key;
+        }
+
+        // Fallback: return first available type
+        foreach (var kv in region.tileWeights)
+            return kv.Key;
+        return "grass";
+    }
+
+    TileBase GetTileAsset(string tileType)
+    {
+        return tileType switch
+        {
+            "grass" => grassTile,
+            "dirt" => dirtTile,
+            "stone_floor" => stoneFloorTile,
+            "tree" => treeTile,
+            "bush" => bushTile,
+            "wall" => wallTile,
+            _ => grassTile
+        };
+    }
+
+    // Phaser tile coords (Y down) -> Unity Tilemap cell (Y up)
+    Vector3Int TileToCell(int tileX, int tileY)
+    {
+        return new Vector3Int(tileX, -tileY - 1, 0);
+    }
 }
