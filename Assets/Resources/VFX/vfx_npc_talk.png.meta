@@ -1,19 +1,7 @@
 fileFormatVersion: 2
-guid: b3a1eb8da6f8ea74a8a3bf02ada16d88
+guid: 8ed21f9bf64c49a7acdb4f70264639f3
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 2996523106801362643
-    second: vfx_npc_talk_0
-  - first:
-      213: -1704786965261836984
-    second: vfx_npc_talk_1
-  - first:
-      213: 6497907656916586890
-    second: vfx_npc_talk_2
-  - first:
-      213: -1440117045989887458
-    second: vfx_npc_talk_3
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -57,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -84,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -112,12 +100,12 @@ TextureImporter:
       name: vfx_npc_talk_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 13
-        height: 13
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +122,12 @@ TextureImporter:
       name: vfx_npc_talk_1
       rect:
         serializedVersion: 2
-        x: 18
-        y: 2
-        width: 13
-        height: 13
+        x: 16
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +144,12 @@ TextureImporter:
       name: vfx_npc_talk_2
       rect:
         serializedVersion: 2
-        x: 34
-        y: 2
-        width: 13
-        height: 13
+        x: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +166,12 @@ TextureImporter:
       name: vfx_npc_talk_3
       rect:
         serializedVersion: 2
-        x: 50
-        y: 2
-        width: 13
-        height: 13
+        x: 48
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3a0c16d0d87f418cae01572b
     internalID: 0
     vertices: []
     indices: 

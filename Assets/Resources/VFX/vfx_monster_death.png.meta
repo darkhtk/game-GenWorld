@@ -1,22 +1,7 @@
 fileFormatVersion: 2
-guid: 4c29cb277efab7d439d0ee09ab7a2c9c
+guid: 910f544eeec74d63be956f6236fa6ac9
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -7959574152329437330
-    second: vfx_monster_death_0
-  - first:
-      213: 1441045067853221595
-    second: vfx_monster_death_1
-  - first:
-      213: 4121295622725823956
-    second: vfx_monster_death_2
-  - first:
-      213: 2625484066979782482
-    second: vfx_monster_death_3
-  - first:
-      213: -7765661583625573339
-    second: vfx_monster_death_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,12 +100,12 @@ TextureImporter:
       name: vfx_monster_death_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 8
-        width: 15
-        height: 15
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -137,12 +122,12 @@ TextureImporter:
       name: vfx_monster_death_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 9
-        width: 14
-        height: 14
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +144,12 @@ TextureImporter:
       name: vfx_monster_death_2
       rect:
         serializedVersion: 2
-        x: 70
-        y: 6
-        width: 20
-        height: 19
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -181,12 +166,12 @@ TextureImporter:
       name: vfx_monster_death_3
       rect:
         serializedVersion: 2
-        x: 100
-        y: 7
-        width: 23
-        height: 20
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -203,12 +188,12 @@ TextureImporter:
       name: vfx_monster_death_4
       rect:
         serializedVersion: 2
-        x: 132
-        y: 2
-        width: 90
-        height: 30
+        x: 128
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -221,11 +206,77 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: vfx_monster_death_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4e62f238af00b040800000000000000
+      internalID: 4661242829412134477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_monster_death_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e66f5aae8d2c46dd0800000000000000
+      internalID: -2493654056750942610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_monster_death_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a4f2c64266176430800000000000000
+      internalID: 3776011423923238054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5ce3b60fe442461083a6122e
     internalID: 0
     vertices: []
     indices: 
@@ -240,6 +291,9 @@ TextureImporter:
       vfx_monster_death_2: 4121295622725823956
       vfx_monster_death_3: 2625484066979782482
       vfx_monster_death_4: -7765661583625573339
+      vfx_monster_death_5: 4661242829412134477
+      vfx_monster_death_6: -2493654056750942610
+      vfx_monster_death_7: 3776011423923238054
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

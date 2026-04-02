@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: d851619631dce9e4a9360b4c9890b659
+guid: 12e4b6e4358c4ca7babfc1f63a54d50b
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -4921637435741908464
-    second: vfx_slash_0
-  - first:
-      213: 7033972929557430367
-    second: vfx_slash_1
-  - first:
-      213: -8141162505191740085
-    second: vfx_slash_2
-  - first:
-      213: -6181083313504135300
-    second: vfx_slash_3
-  - first:
-      213: -8100466950863657849
-    second: vfx_slash_4
-  - first:
-      213: -6542686289670912073
-    second: vfx_slash_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,12 +100,12 @@ TextureImporter:
       name: vfx_slash_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 9
-        width: 8
-        height: 14
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +122,12 @@ TextureImporter:
       name: vfx_slash_1
       rect:
         serializedVersion: 2
-        x: 51
-        y: 5
-        width: 10
-        height: 14
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +144,12 @@ TextureImporter:
       name: vfx_slash_2
       rect:
         serializedVersion: 2
-        x: 79
-        y: 3
-        width: 15
-        height: 11
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +166,12 @@ TextureImporter:
       name: vfx_slash_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 1
-        width: 19
-        height: 9
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +188,12 @@ TextureImporter:
       name: vfx_slash_4
       rect:
         serializedVersion: 2
-        x: 132
+        x: 128
         y: 0
-        width: 20
-        height: 11
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +210,12 @@ TextureImporter:
       name: vfx_slash_5
       rect:
         serializedVersion: 2
-        x: 161
+        x: 160
         y: 0
-        width: 17
-        height: 17
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,7 +232,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 61c0634dcb744ec99fe4070f
     internalID: 0
     vertices: []
     indices: 
