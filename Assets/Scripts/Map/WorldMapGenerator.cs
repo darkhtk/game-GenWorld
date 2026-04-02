@@ -100,23 +100,52 @@ public class WorldMapGenerator : MonoBehaviour
         return best;
     }
 
+    const int BlendRadius = 3;
+
     string PickTileType(RegionDef region)
     {
-        if (region == null || region.tileWeights == null)
-            return "grass";
+        return PickFromWeights(region);
+    }
+
+    string PickTileTypeBlended(int tx, int ty, RegionDef primary)
+    {
+        if (primary == null) return "grass";
+
+        // Check if near a region boundary
+        var b = primary.bounds;
+        int distToEdge = Mathf.Min(tx - b.x, b.x + b.width - 1 - tx,
+                                    ty - b.y, b.y + b.height - 1 - ty);
+
+        if (distToEdge >= BlendRadius) return PickFromWeights(primary);
+
+        // Find neighbor region at closest edge
+        RegionDef neighbor = null;
+        if (tx - b.x < BlendRadius) neighbor = GetRegionForTile(tx - BlendRadius, ty);
+        else if (b.x + b.width - 1 - tx < BlendRadius) neighbor = GetRegionForTile(tx + BlendRadius, ty);
+        else if (ty - b.y < BlendRadius) neighbor = GetRegionForTile(tx, ty - BlendRadius);
+        else neighbor = GetRegionForTile(tx, ty + BlendRadius);
+
+        if (neighbor == null || neighbor == primary) return PickFromWeights(primary);
+
+        // Blend: closer to edge = more neighbor tiles
+        float blendFactor = 1f - (float)distToEdge / BlendRadius;
+        return Random.value < blendFactor * 0.6f
+            ? PickFromWeights(neighbor)
+            : PickFromWeights(primary);
+    }
+
+    static string PickFromWeights(RegionDef region)
+    {
+        if (region == null || region.tileWeights == null) return "grass";
 
         float roll = Random.value;
         float cumulative = 0f;
         foreach (var kv in region.tileWeights)
         {
             cumulative += kv.Value;
-            if (roll <= cumulative)
-                return kv.Key;
+            if (roll <= cumulative) return kv.Key;
         }
-
-        // Fallback: return first available type
-        foreach (var kv in region.tileWeights)
-            return kv.Key;
+        foreach (var kv in region.tileWeights) return kv.Key;
         return "grass";
     }
 
