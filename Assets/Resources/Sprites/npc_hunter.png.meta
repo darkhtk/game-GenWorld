@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: 24c860eb65ac66e4595bc741a01ffb16
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4894955288259448144
+    second: npc_hunter_0
+  - first:
+      213: 8827439927056112255
+    second: npc_hunter_1
+  - first:
+      213: 3776501696778563959
+    second: npc_hunter_2
+  - first:
+      213: 298167557196363353
+    second: npc_hunter_3
+  - first:
+      213: 6267054869888130954
+    second: npc_hunter_4
+  - first:
+      213: -8893394345709645402
+    second: npc_hunter_5
+  - first:
+      213: -2919107001950929699
+    second: npc_hunter_6
+  - first:
+      213: -3183736422090517917
+    second: npc_hunter_7
+  - first:
+      213: -4338826218380691976
+    second: npc_hunter_8
+  - first:
+      213: -7243411431955525504
+    second: npc_hunter_9
+  - first:
+      213: 5138548496743050521
+    second: npc_hunter_10
+  - first:
+      213: 4411101299099509191
+    second: npc_hunter_11
+  - first:
+      213: 5428735210816082378
+    second: npc_hunter_12
+  - first:
+      213: -7700673007569139445
+    second: npc_hunter_13
+  - first:
+      213: 1301935952416351171
+    second: npc_hunter_14
+  - first:
+      213: 5462408994983276647
+    second: npc_hunter_15
+  - first:
+      213: 2968700430801963855
+    second: npc_hunter_16
+  - first:
+      213: 6665580289864147673
+    second: npc_hunter_17
+  - first:
+      213: 6554953806325283003
+    second: npc_hunter_18
+  - first:
+      213: 7698745188712136099
+    second: npc_hunter_19
+  - first:
+      213: 2301525201201453621
+    second: npc_hunter_20
+  - first:
+      213: -4292176419861755578
+    second: npc_hunter_21
+  - first:
+      213: -4507896066675406897
+    second: npc_hunter_22
+  - first:
+      213: 4581875863443136555
+    second: npc_hunter_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: npc_hunter_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 95
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05dcf1c66ef5ee340800000000000000
+      internalID: 4894955288259448144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 100
+        width: 7
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a974808dd518a70800000000000000
+      internalID: 8827439927056112255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_2
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 96
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7717522d844d86430800000000000000
+      internalID: 3776501696778563959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 101
+        width: 7
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9563c3240dd432400800000000000000
+      internalID: 298167557196363353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_4
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 95
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f509b233d09f650800000000000000
+      internalID: 6267054869888130954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_5
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 100
+        width: 7
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1528836f0549480800000000000000
+      internalID: -8893394345709645402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_6
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 95
+        width: 15
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddcfb57d5af3d77d0800000000000000
+      internalID: -2919107001950929699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_7
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 99
+        width: 7
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36252de979811d3d0800000000000000
+      internalID: -3183736422090517917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_8
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 63
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f5744fda8469c3c0800000000000000
+      internalID: -4338826218380691976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_9
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 36
+        width: 7
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 080994c0eab3a7b90800000000000000
+      internalID: -7243411431955525504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_10
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 64
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91dac71f1aacf4740800000000000000
+      internalID: 5138548496743050521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_11
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 32
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c12711b241673d30800000000000000
+      internalID: 4411101299099509191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_12
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 37
+        width: 7
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac1195c59edb65b40800000000000000
+      internalID: 5428735210816082378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_13
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 63
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b09076413b6b12590800000000000000
+      internalID: -7700673007569139445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_14
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 36
+        width: 7
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c3261cc9d7611210800000000000000
+      internalID: 1301935952416351171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_15
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 63
+        width: 15
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76070e33a006ecb40800000000000000
+      internalID: 5462408994983276647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_16
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 35
+        width: 7
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b008e1051f23920800000000000000
+      internalID: 2968700430801963855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_17
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d2a23735f5e08c50800000000000000
+      internalID: 6665580289864147673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_18
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 31
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8fc19d1cfd7fa50800000000000000
+      internalID: 6554953806325283003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_19
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ad3f6d95ff67da60800000000000000
+      internalID: 7698745188712136099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_20
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ad83bf9f8a0ff10800000000000000
+      internalID: 2301525201201453621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_21
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 31
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64905dc79402f64c0800000000000000
+      internalID: -4292176419861755578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_22
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 31
+        width: 15
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc78e65496cb071c0800000000000000
+      internalID: -4507896066675406897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_hunter_23
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b20e67d62d7169f30800000000000000
+      internalID: 4581875863443136555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      npc_hunter_0: 4894955288259448144
+      npc_hunter_1: 8827439927056112255
+      npc_hunter_10: 5138548496743050521
+      npc_hunter_11: 4411101299099509191
+      npc_hunter_12: 5428735210816082378
+      npc_hunter_13: -7700673007569139445
+      npc_hunter_14: 1301935952416351171
+      npc_hunter_15: 5462408994983276647
+      npc_hunter_16: 2968700430801963855
+      npc_hunter_17: 6665580289864147673
+      npc_hunter_18: 6554953806325283003
+      npc_hunter_19: 7698745188712136099
+      npc_hunter_2: 3776501696778563959
+      npc_hunter_20: 2301525201201453621
+      npc_hunter_21: -4292176419861755578
+      npc_hunter_22: -4507896066675406897
+      npc_hunter_23: 4581875863443136555
+      npc_hunter_3: 298167557196363353
+      npc_hunter_4: 6267054869888130954
+      npc_hunter_5: -8893394345709645402
+      npc_hunter_6: -2919107001950929699
+      npc_hunter_7: -3183736422090517917
+      npc_hunter_8: -4338826218380691976
+      npc_hunter_9: -7243411431955525504
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

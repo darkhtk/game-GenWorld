@@ -152,7 +152,9 @@ public class PlayerAnimator : MonoBehaviour
 
     void LoadSpritesFromSheet()
     {
-        var allSprites = Resources.LoadAll<Sprite>("player");
+        var allSprites = Resources.LoadAll<Sprite>("Sprites/player");
+        if (allSprites == null || allSprites.Length == 0)
+            allSprites = Resources.LoadAll<Sprite>("player");
         if (allSprites == null || allSprites.Length < 16) return;
 
         var sorted = new System.Collections.Generic.Dictionary<string, Sprite>();
