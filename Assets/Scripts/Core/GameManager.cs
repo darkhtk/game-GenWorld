@@ -94,6 +94,14 @@ public class GameManager : MonoBehaviour
         float nowMs = Time.time * 1000f;
         var monsters = monsterSpawner.ActiveMonsters;
 
+        Vector2 playerPos = player.Position;
+        float nowSec = Time.time;
+        foreach (var m in monsters)
+        {
+            if (m != null && !m.IsDead)
+                m.UpdateAI(playerPos, nowSec);
+        }
+
         combatManager.PerformAutoAttack(monsters);
         combatManager.HandleMonsterAttacks(monsters, nowMs);
         HandleSkillInput();
