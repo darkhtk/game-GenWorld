@@ -249,12 +249,18 @@ public class GameManager : MonoBehaviour
                 uiManager.Hud?.AddHistoryEntry("HP/MP fully restored!", Color.green);
                 break;
             case "reset_skills":
-                Skills.ResetAll();
-                uiManager.Hud?.AddHistoryEntry("Skills reset!", Color.cyan);
+                int refunded = Skills.ResetAllSkills();
+                PlayerState.SkillPoints += refunded;
+                uiManager.Hud?.AddHistoryEntry($"Skills reset! (+{refunded} SP)", Color.cyan);
                 break;
             case "reset_stats":
-                PlayerState.ResetStatPoints();
-                uiManager.Hud?.AddHistoryEntry("Stat points reset!", Color.cyan);
+                int totalBonus = 0;
+                foreach (var kv in PlayerState.BonusStats) totalBonus += kv.Value;
+                foreach (var key in new List<string>(PlayerState.BonusStats.Keys))
+                    PlayerState.BonusStats[key] = 0;
+                PlayerState.StatPoints += totalBonus;
+                PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
+                uiManager.Hud?.AddHistoryEntry($"Stats reset! (+{totalBonus} points)", Color.cyan);
                 break;
             case "open_shop":
                 // TODO: open shop UI
