@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour
         Invincible = true;
         _lastDodgeTime = Time.time;
         _dodgeEndTime = Time.time + DodgeDuration;
+        ScreenFlash.Dodge();
     }
 
     public void SetSpeed(float speed) => _moveSpeed = speed;

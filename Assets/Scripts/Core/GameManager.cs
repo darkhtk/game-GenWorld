@@ -181,9 +181,8 @@ public class GameManager : MonoBehaviour
 
         EventBus.On<LevelUpEvent>(e =>
         {
-            // PlayerState is already updated by OnMonsterKilled before this fires effectively.
-            // StatsSystem.AddXp already increments skillPoints/statPoints in the ref state.
-            // RecalcStats/FullHeal are called in OnMonsterKilled after PlayerState update.
+            ScreenFlash.LevelUp();
+            CameraShake.Shake(this, 200f, 0.15f);
         });
 
         EventBus.On<EquipChangeEvent>(e =>

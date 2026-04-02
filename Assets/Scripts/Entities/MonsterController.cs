@@ -158,7 +158,23 @@ public class MonsterController : MonoBehaviour
     {
         if (IsReturning) dmg = Mathf.Max(1, dmg / (int)ReturnDamageReduction);
         Hp -= dmg;
+        FlashWhite();
         return Hp <= 0;
+    }
+
+    void FlashWhite()
+    {
+        var sr = GetComponent<SpriteRenderer>();
+        if (sr == null) return;
+        StartCoroutine(DoFlash(sr));
+    }
+
+    static readonly WaitForSeconds FlashWait = new(0.08f);
+    System.Collections.IEnumerator DoFlash(SpriteRenderer sr)
+    {
+        sr.color = Color.white;
+        yield return FlashWait;
+        sr.color = new Color(1f, 1f, 1f, 1f);
     }
 
     public bool CanAttack(float now)
