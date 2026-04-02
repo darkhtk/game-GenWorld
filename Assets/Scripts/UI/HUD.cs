@@ -107,6 +107,7 @@ public class HUD : MonoBehaviour
     void Update()
     {
         UpdateCooldowns();
+        UpdateBuffDurations();
         UpdateDodgeFromPlayer();
         UpdatePotionsFromInventory();
     }
@@ -124,6 +125,37 @@ public class HUD : MonoBehaviour
             float f = i < fractions.Length ? fractions[i] : 0f;
             if (i < skillCooldownOverlays.Length && skillCooldownOverlays[i] != null)
                 skillCooldownOverlays[i].fillAmount = f;
+        }
+    }
+
+    void UpdateBuffDurations()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null || gm.Skills == null || gm.PlayerEffects == null || gm.Data == null) return;
+
+        float nowMs = Time.time * 1000f;
+        string[] equipped = gm.Skills.GetEquippedSkills();
+
+        for (int i = 0; i < GameConfig.SkillSlotCount; i++)
+        {
+            string skillId = i < equipped.Length ? equipped[i] : null;
+            if (string.IsNullOrEmpty(skillId) || !gm.Data.Skills.TryGetValue(skillId, out var def)
+                || string.IsNullOrEmpty(def.buffType))
+            {
+                SetBuffDuration(i, 0, null);
+                continue;
+            }
+
+            if (gm.PlayerEffects.Has(def.buffType))
+            {
+                float expiresAt = gm.PlayerEffects.GetExpiresAt(def.buffType);
+                float remaining = expiresAt - nowMs;
+                SetBuffDuration(i, remaining > 0 ? remaining : 0, def.buffType);
+            }
+            else
+            {
+                SetBuffDuration(i, 0, null);
+            }
         }
     }
 
