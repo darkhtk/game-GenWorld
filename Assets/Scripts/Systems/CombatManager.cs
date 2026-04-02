@@ -35,6 +35,7 @@ public class CombatManager : MonoBehaviour
 
     public void PerformAutoAttack(List<MonsterController> monsters)
     {
+        if (monsters == null) return;
         _cachedMonsters = monsters;
 
         float nowMs = Time.time * 1000f;
@@ -86,6 +87,7 @@ public class CombatManager : MonoBehaviour
 
     public void HandleMonsterAttacks(List<MonsterController> monsters, float now)
     {
+        if (monsters == null) return;
         _cachedMonsters = monsters;
         if (_player.Invincible || _player.IsDodging) return;
 

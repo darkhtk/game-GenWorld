@@ -12,6 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     public void SpawnForRegion(RegionDef region, Dictionary<string, MonsterDef> monsterDefs,
         WorldMapGenerator worldMap)
     {
+        if (region == null || monsterDefs == null || worldMap == null) return;
         if (region.monsterIds == null || region.monsterIds.Length == 0) return;
 
         int area = region.bounds.width * region.bounds.height;
