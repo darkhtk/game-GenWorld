@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
         _sr.color = new Color(1f, 1f, 1f, 0.5f);
         StartCoroutine(DodgeTrailCoroutine());
         ScreenFlash.Dodge();
+        AudioManager.Instance?.PlaySFX("sfx_escape_whoosh");
     }
 
     IEnumerator DodgeTrailCoroutine()
