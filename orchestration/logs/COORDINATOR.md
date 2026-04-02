@@ -1,14 +1,15 @@
 # Coordinator Loop Log
-## [2026-04-02 22:26]
+## [2026-04-02 22:28]
 ### 점검 결과
-- BOARD 동기화: 일치 (Done 24건, R-019 👀 In Review 대기)
-- RESERVE 잔여: ~5건 (R-020~R-024)
+- BOARD 동기화: **1건 수정** — R-019 APPROVE → Done + 로드맵 ✅ + In Review 정리
+- RESERVE 잔여: ~4건 (R-020~R-024 중 일부 BOARD 진행)
 - 에이전트 상태:
-  - DEVELOPER: loop 28, R-019 NPC 일과 시스템 완료 (TimeSystem + NpcSchedule + VillageNPC 연동). In Review.
-  - CLIENT: IDLE — R-019 리뷰 대기.
-  - SUPERVISOR: 에셋 아이콘 작업 (set_crystal, set_dragon 등 16파일 커밋).
+  - DEVELOPER: R-020 NPC 호감도 이벤트 구현 중 (AIManager/NPCBrain/StatTypes 수정 감지).
+  - CLIENT: R-019 APPROVE (깊은 리뷰).
+  - SUPERVISOR: 세트 아이콘 에셋 16파일 생성.
 - 메일: 스킵
 ### 자기 개선
-- 모니터링 루프. 파이프라인 원활. Done 26건(BOARD 기준 24 + 리뷰 대기 2).
+- Done 25건. 신규 기능 3/8 완료. 남은 5건(R-020~R-024).
 ### 행동
-- 변경 없음 (모니터링 전용 루프)
+- BOARD.md: R-019 In Review→Done, 로드맵 ✅, In Review 정리
+- **Done 25건** — 신규 기능 3/8 완료

@@ -229,6 +229,42 @@ public class AIManager
         brain.TalkReason = "";
     }
 
+    void EvaluateTriggers(NPCBrain brain)
+    {
+        var gm = GameManager.Instance;
+        if (gm == null || gm.Data == null) return;
+        if (!gm.Data.Npcs.TryGetValue(brain.NpcId, out var npcDef)) return;
+        if (npcDef.triggers == null) return;
+
+        foreach (var trigger in npcDef.triggers)
+        {
+            string triggerId = $"{brain.NpcId}_{trigger.eventType}_{trigger.threshold}";
+            if (brain.HasTriggered(triggerId)) continue;
+
+            int rel = brain.GetRelationship(trigger.target ?? "player");
+            if (rel < trigger.threshold) continue;
+
+            brain.MarkTriggered(triggerId);
+
+            if (trigger.wantToTalk)
+            {
+                brain.WantToTalk = true;
+                brain.TalkReason = trigger.talkReason ?? "I have something for you.";
+            }
+            if (!string.IsNullOrEmpty(trigger.memory))
+                brain.AddMemory(trigger.memory, 8);
+
+            EventBus.Emit(new NpcTriggerEvent
+            {
+                npcId = brain.NpcId,
+                eventType = trigger.eventType ?? "",
+                target = trigger.target ?? "player"
+            });
+
+            UnityEngine.Debug.Log($"[AIManager] Trigger fired: {triggerId} (rel={rel})");
+        }
+    }
+
     public void RecordQuestRejection(string npcId)
     {
         _rejectionCounts.TryGetValue(npcId, out int count);
