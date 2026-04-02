@@ -98,14 +98,16 @@ public class EffectHolder
         return 0f;
     }
 
+    static readonly List<ActiveEffectInfo> _activeBuffer = new();
+
     public List<ActiveEffectInfo> GetActive(float now)
     {
-        var result = new List<ActiveEffectInfo>();
+        _activeBuffer.Clear();
         foreach (var kv in _effects)
         {
             if (kv.Value.expiresAt > now)
             {
-                result.Add(new ActiveEffectInfo
+                _activeBuffer.Add(new ActiveEffectInfo
                 {
                     type = kv.Key,
                     expires = kv.Value.expiresAt,
@@ -114,7 +116,7 @@ public class EffectHolder
                 });
             }
         }
-        return result;
+        return _activeBuffer;
     }
 
     public void Clear() => _effects.Clear();
