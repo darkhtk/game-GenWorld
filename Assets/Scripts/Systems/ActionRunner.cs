@@ -223,8 +223,8 @@ public class ActionRunner
             float sr = a.scatterRadius > 0 ? a.scatterRadius : 60f;
             for (int i = 0; i < count; i++)
             {
-                float angle = Random.value * Mathf.PI * 2f;
-                float d = Random.value * sr;
+                float angle = UnityEngine.Random.value * Mathf.PI * 2f;
+                float d = UnityEngine.Random.value * sr;
                 var target = new Vector2(ctx.targetX + Mathf.Cos(angle) * d,
                     ctx.targetY + Mathf.Sin(angle) * d);
                 projTargets.Add((origin, target));
