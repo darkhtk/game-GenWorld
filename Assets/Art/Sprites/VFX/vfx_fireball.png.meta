@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: 6b0d023429e101240b2e20e2018eb9b5
+guid: 177c27c7670f4c6eae895045651cbc5d
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 4725138209040201671
-    second: vfx_fireball_0
-  - first:
-      213: 8575576390238489366
-    second: vfx_fireball_1
-  - first:
-      213: -4690856441337486855
-    second: vfx_fireball_2
-  - first:
-      213: -3000911681162714315
-    second: vfx_fireball_3
-  - first:
-      213: 8453377597101952355
-    second: vfx_fireball_4
-  - first:
-      213: 4302627206294833510
-    second: vfx_fireball_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,12 +100,12 @@ TextureImporter:
       name: vfx_fireball_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 6
-        width: 19
-        height: 19
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +122,12 @@ TextureImporter:
       name: vfx_fireball_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 8
-        width: 16
-        height: 16
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +144,12 @@ TextureImporter:
       name: vfx_fireball_2
       rect:
         serializedVersion: 2
-        x: 68
-        y: 3
-        width: 25
-        height: 25
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +166,12 @@ TextureImporter:
       name: vfx_fireball_3
       rect:
         serializedVersion: 2
-        x: 101
-        y: 5
-        width: 22
-        height: 22
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -208,10 +190,10 @@ TextureImporter:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 29
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +210,12 @@ TextureImporter:
       name: vfx_fireball_5
       rect:
         serializedVersion: 2
-        x: 158
+        x: 160
         y: 0
-        width: 34
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,7 +232,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fce9d31f317a4ec1a9e5c6ed
     internalID: 0
     vertices: []
     indices: 

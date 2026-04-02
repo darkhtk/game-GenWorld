@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: 31582ec645eafbd4481221e7dd4e0bc5
+guid: 91f216448d274950be63ed65c3c8ef6b
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 7030690505112506493
-    second: vfx_lightning_0
-  - first:
-      213: 4849898697097815408
-    second: vfx_lightning_1
-  - first:
-      213: 9198151248976239267
-    second: vfx_lightning_2
-  - first:
-      213: 3746417290107383782
-    second: vfx_lightning_3
-  - first:
-      213: -3632925802483065245
-    second: vfx_lightning_4
-  - first:
-      213: -3387069135599814932
-    second: vfx_lightning_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,12 +100,12 @@ TextureImporter:
       name: vfx_lightning_0
       rect:
         serializedVersion: 2
-        x: 12
+        x: 0
         y: 0
-        width: 12
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +122,12 @@ TextureImporter:
       name: vfx_lightning_1
       rect:
         serializedVersion: 2
-        x: 46
+        x: 32
         y: 0
-        width: 16
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +144,12 @@ TextureImporter:
       name: vfx_lightning_2
       rect:
         serializedVersion: 2
-        x: 78
+        x: 64
         y: 0
-        width: 15
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +166,12 @@ TextureImporter:
       name: vfx_lightning_3
       rect:
         serializedVersion: 2
-        x: 107
+        x: 96
         y: 0
-        width: 11
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +188,12 @@ TextureImporter:
       name: vfx_lightning_4
       rect:
         serializedVersion: 2
-        x: 142
+        x: 128
         y: 0
-        width: 12
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +210,12 @@ TextureImporter:
       name: vfx_lightning_5
       rect:
         serializedVersion: 2
-        x: 170
+        x: 160
         y: 0
-        width: 11
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,7 +232,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0cbddb00ff7d4f8c82e387d2
     internalID: 0
     vertices: []
     indices: 
