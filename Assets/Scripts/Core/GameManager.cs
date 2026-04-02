@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         AI = new AIManager();
         _ = AI.Init();
         RegionTracker = new RegionTracker(Data.RegionList);
+        TimeSystem = new TimeSystem();
 
         PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
         PlayerState.FullHeal();
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
     {
         if (player.Frozen) return;
 
+        TimeSystem.Update(Time.deltaTime);
         float nowMs = Time.time * 1000f;
         var monsters = monsterSpawner.ActiveMonsters;
 
