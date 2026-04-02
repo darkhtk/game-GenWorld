@@ -1,32 +1,38 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #37)
-> **수행 행동:** 🎨 A-006 스킬트리 에셋 + placeholder SFX 12종
+> **최종 실행:** 2026-04-02 (루프 #38)
+> **수행 행동:** 🎨 A-007 장비 세트 아이콘 + placeholder SFX 정리
 
 ## 이번 루프 요약
 
-### Step 1: 🎨 A-006 실행
-**스킬트리 배경 + 노드** 완료 (9종):
-- 3 배경 (tree_bg_melee/ranged/magic): 128×192 그라디언트 + 헤더 + 경로선
-- 3 노드 (node_locked/available/learned): 24×24 둥근 사각 + 아이콘
-- 3 연결선 (conn_vertical/branch_left/branch_right): 8×32
+### Step 1: 🎨 A-007 실행
+**장비 세트 아이콘** 완료 (8종, items.json setBonuses 데이터 기반):
 
-### 추가: Placeholder SFX 12종 생성
-사용자가 오디오 부재 언급 → Python wave 모듈로 기본 SFX 생성:
+| 세트 | 파일 | 색상 |
+|------|------|------|
+| wolf | set_wolf.png | 빨강 |
+| treant | set_treant.png | 초록 |
+| golem | set_golem.png | 파랑 |
+| crystal | set_crystal.png | 금색 |
+| venom | set_venom.png | 보라 |
+| scale | set_scale.png | 강철 |
+| dragon | set_dragon.png | 시안 |
+| legend | set_legend.png | 주황 |
 
-| # | 파일 | 설명 | 길이 |
-|---|------|------|------|
-| 1 | sfx_hit.wav | 타격 | 0.15s |
-| 2 | sfx_crit.wav | 크리티컬 | 0.2s |
-| 3 | sfx_heal.wav | 회복 | 0.4s |
-| 4 | sfx_levelup.wav | 레벨업 | 0.6s |
-| 5 | sfx_click.wav | UI 클릭 | 0.05s |
-| 6 | sfx_pickup.wav | 아이템 획득 | 0.15s |
-| 7 | sfx_dodge.wav | 회피 | 0.2s |
-| 8 | sfx_death.wav | 사망 | 0.3s |
-| 9 | sfx_potion.wav | 포션 | 0.25s |
-| 10 | sfx_error.wav | 에러 | 0.2s |
-| 11 | sfx_quest_complete.wav | 퀘스트 완료 | 0.5s |
-| 12 | sfx_coin.wav | 골드 | 0.1s |
+- 16×16 실드 엠블럼 + 중앙 보석 + 하이라이트
 
-→ 사용자가 외부 오디오를 Assets/Audio에 넣었다고 알림. 다음 루프에서 확인.
+### 추가: Placeholder SFX 삭제
+- `Assets/Audio/SFX/` 제거 (사용자가 115개 외부 WAV 제공 → Assets/Audio/Generated/)
+
+### 🎨 에셋 2차 전부 완료 (A-002~A-007)
+
+| 태스크 | 산출물 |
+|--------|--------|
+| A-002 등급 프레임 | 5종 |
+| A-003 지역 배너 | 8종 |
+| A-004 몬스터 사망 | 12종×4프레임 |
+| A-005 NPC 포트레이트 | 8종 |
+| A-006 스킬트리 | 9종 |
+| A-007 세트 아이콘 | 8종 |
+
+다음 🎨: A-008 (스팀 스토어 에셋) 또는 A-009 (업적 아이콘)
