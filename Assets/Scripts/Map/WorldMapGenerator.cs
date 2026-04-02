@@ -124,6 +124,7 @@ public class WorldMapGenerator : MonoBehaviour
         {
             "grass" => grassTile,
             "dirt" => dirtTile,
+            "water" => waterTile,
             "stone_floor" => stoneFloorTile,
             "tree" => treeTile,
             "bush" => bushTile,
