@@ -34,6 +34,7 @@ public class PauseMenuUI : MonoBehaviour
 
     public void Open()
     {
+        if (panel == null) return;
         panel.SetActive(true);
         _previousTimeScale = Time.timeScale;
         Time.timeScale = 0f;
@@ -41,13 +42,14 @@ public class PauseMenuUI : MonoBehaviour
 
     public void Close()
     {
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
         Time.timeScale = _previousTimeScale > 0 ? _previousTimeScale : 1f;
         if (saveConfirmText != null) saveConfirmText.gameObject.SetActive(false);
     }
 
     public void Toggle()
     {
+        if (panel == null) return;
         if (panel.activeSelf) Close(); else Open();
     }
 

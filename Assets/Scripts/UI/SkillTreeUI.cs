@@ -35,11 +35,6 @@ public class SkillTreeUI : MonoBehaviour
     static readonly Color RangedColor = new(0.3f, 0.9f, 0.3f);
     static readonly Color MagicColor = new(0.3f, 0.5f, 1f);
 
-    static readonly Color MaxedBg = new(0.1f, 0.3f, 0.1f);
-    static readonly Color LearnedBg = new(0.1f, 0.15f, 0.3f);
-    static readonly Color LearnableBg = new(0.25f, 0.2f, 0.15f);
-    static readonly Color LockedBg = new(0.15f, 0.15f, 0.15f);
-
     readonly Dictionary<string, SkillRowUI> _rows = new();
     string _selectedSkillId;
 
