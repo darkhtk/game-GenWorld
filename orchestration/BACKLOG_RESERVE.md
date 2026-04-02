@@ -42,7 +42,7 @@
 ### 🎨 에셋 (감독관 전용) — 높음
 
 25. ~~**🎨 R-025 UI 공통 스프라이트**~~ ✅ 완료 (14종 생성: panel, button×3, slot×2, tooltip, frame, bars×4, dialog, separator)
-26. **🎨 R-026 상태이상 아이콘 세트** — poison, burn, slow, stun, bleed, mana_shield 아이콘 6종. `Assets/Art/Sprites/Icons/`
+26. ~~**🎨 R-026 상태이상 아이콘 세트**~~ ✅ 완료 (6종: poison, burn, slow, stun, bleed, mana_shield — 16×16 pixel art)
 27. **🎨 R-027 스킬 이펙트 파티클 프리팹** — slash, fireball, ice_bolt, heal 등 주요 스킬 VFX. `Assets/Prefabs/Effects/`
 28. **🎨 R-028 몬스터 피격/공격 이펙트** — 근접/원거리/마법 타격 VFX 3종. `Assets/Prefabs/Effects/`
 29. **🎨 R-029 아이템 드롭 이펙트** — 루팅 시 빛나는 파티클 + 바운스 애니메이션 프리팹. `Assets/Prefabs/Effects/`
