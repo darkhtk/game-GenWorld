@@ -9,11 +9,13 @@ public class SkillSystem
     readonly Dictionary<string, int> _learned = new();
     readonly Dictionary<string, float> _cooldowns = new();
     readonly string[] _equipped;
+    readonly float[] _cooldownBuffer;
 
     public SkillSystem(Dictionary<string, SkillDef> defs)
     {
         _defs = defs;
         _equipped = new string[GameConfig.SkillSlotCount];
+        _cooldownBuffer = new float[GameConfig.SkillSlotCount];
     }
 
     public int GetSkillLevel(string id) =>
@@ -135,15 +137,15 @@ public class SkillSystem
 
     public float[] GetCooldowns(float now)
     {
-        var result = new float[_equipped.Length];
-        for (int i = 0; i < _equipped.Length; i++)
+        for (int i = 0; i < _cooldownBuffer.Length; i++)
         {
+            _cooldownBuffer[i] = 0f;
             if (_equipped[i] == null) continue;
             if (!_defs.TryGetValue(_equipped[i], out var def)) continue;
             float remaining = GetCooldownRemaining(_equipped[i], now);
-            result[i] = def.cooldown > 0 ? remaining / def.cooldown : 0f;
+            _cooldownBuffer[i] = def.cooldown > 0 ? remaining / def.cooldown : 0f;
         }
-        return result;
+        return _cooldownBuffer;
     }
 
     public Dictionary<string, int> GetLearnedSkills() => new(_learned);
