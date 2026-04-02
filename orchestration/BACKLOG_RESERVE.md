@@ -24,7 +24,7 @@
 
 ### 게임플레이 개선 (Existing Feature Enhancement) — 높음
 
-16. **R-016 장비 비교 팝업** — 장비 장착 전 현재 장비와 스탯 비교 표시. `InventoryUI.cs` 개선.
+(all gameplay enhancement completed: R-007~R-016)
 
 ### 🎨 에셋 (감독관 전용) — 높음
 
