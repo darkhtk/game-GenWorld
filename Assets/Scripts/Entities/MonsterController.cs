@@ -9,6 +9,8 @@ public class MonsterController : MonoBehaviour
     public Vector2 Position => (Vector2)transform.position;
     public EffectHolder Effects { get; } = new();
     public MonsterAIState AIState { get; private set; } = MonsterAIState.Patrol;
+    public float SpawnTime { get; set; }
+    public float LastHitByPlayerTime { get; set; }
 
     Rigidbody2D _rb;
     Vector2 _spawnPos;
@@ -26,6 +28,7 @@ public class MonsterController : MonoBehaviour
         Def = def;
         Hp = def.hp;
         _spawnPos = spawnPos;
+        SpawnTime = Time.time;
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale = 0;
         _rb.freezeRotation = true;

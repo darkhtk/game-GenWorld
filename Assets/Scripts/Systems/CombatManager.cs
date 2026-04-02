@@ -73,6 +73,7 @@ public class CombatManager : MonoBehaviour
             bool isCrit = stealthActive || CombatSystem.CalcCrit(stats.crit);
             int dmg = CombatSystem.CalcDamage(baseDmg, m.EffectiveDef, isCrit);
 
+            m.LastHitByPlayerTime = Time.time;
             bool dead = m.TakeDamage(dmg);
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
             if (dead) { killed ??= new(); killed.Add(m); }
@@ -274,6 +275,7 @@ public class CombatManager : MonoBehaviour
     bool DealDamageToMonster(MonsterController m, float baseDmg, bool isCrit, int tintColor)
     {
         if (m == null || m.IsDead) return false;
+        m.LastHitByPlayerTime = Time.time;
         int dmg = CombatSystem.CalcDamage(Mathf.RoundToInt(baseDmg), m.EffectiveDef, isCrit);
         bool dead = m.TakeDamage(dmg);
         ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
