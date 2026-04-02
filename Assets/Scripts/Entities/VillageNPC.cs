@@ -38,19 +38,19 @@ public class VillageNPC : MonoBehaviour
     {
         if (Def.patrol == null) return;
 
-        if (_patrolTarget == null || Vector2.Distance(Position, _patrolTarget.Value) < 4f)
+        if (_patrolTarget == null || (Position - _patrolTarget.Value).sqrMagnitude < 16f)
         {
             float radius = Def.patrol.radius * GameConfig.TileSize;
             _patrolTarget = _patrolCenter + Random.insideUnitCircle * radius;
         }
 
         Vector2 dir = (_patrolTarget.Value - Position).normalized;
-        _rb.linearVelocity = dir * _speed * Time.fixedDeltaTime * 60f;
+        _rb.linearVelocity = dir * _speed;
     }
 
     public bool IsInInteractionRange(Vector2 playerPos, float range = 48f)
     {
-        return Vector2.Distance(Position, playerPos) <= range;
+        return (Position - playerPos).sqrMagnitude <= range * range;
     }
 
     public ConditionalDialogue EvaluateConditionalDialogue(QuestSystem quests,
