@@ -1,0 +1,15 @@
+"DepotBuild"
+{
+    // TODO: Replace with actual DepotID from Steamworks Partner site
+    "DepotID" "481"
+    "ContentRoot" "../SteamBuild/output"
+    "FileMapping"
+    {
+        "LocalPath" "*"
+        "DepotPath" "."
+        "recursive" "1"
+    }
+    "FileExclusion" "*.pdb"
+    "FileExclusion" "steam_appid.txt"
+    "FileExclusion" "*.log"
+}

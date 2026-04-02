@@ -1,12 +1,14 @@
 "AppBuild"
 {
-    "AppID" "0"
+    // TODO: Replace with actual Steam AppID from Steamworks Partner site
+    "AppID" "480"
     "Desc" "GenWorld RPG Build"
-    "ContentRoot" "../Build/Windows"
-    "BuildOutput" "../Build/SteamOutput"
+    "ContentRoot" "../SteamBuild/output"
+    "BuildOutput" "../SteamBuild/logs"
     "Depots"
     {
-        "0"
+        // TODO: Replace with actual DepotID from Steamworks Partner site
+        "481"
         {
             "FileMapping"
             {
@@ -15,6 +17,8 @@
                 "recursive" "1"
             }
             "FileExclusion" "*.pdb"
+            "FileExclusion" "steam_appid.txt"
+            "FileExclusion" "*.log"
         }
     }
 }
