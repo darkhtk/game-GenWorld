@@ -86,10 +86,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (player == null || PlayerState == null) return;
         if (player.Frozen) return;
 
-        TimeSystem.Update(Time.deltaTime);
-        WorldEvents.Update(TimeSystem.GameHour);
+        TimeSystem?.Update(Time.deltaTime);
+        WorldEvents?.Update(TimeSystem?.GameHour ?? 8f);
         float nowMs = Time.time * 1000f;
         var monsters = monsterSpawner.ActiveMonsters;
 
