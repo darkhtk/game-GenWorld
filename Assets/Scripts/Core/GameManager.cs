@@ -104,6 +104,17 @@ public class GameManager : MonoBehaviour
         HandleRegionTransition();
     }
 
+    void LateUpdate()
+    {
+        // Camera follow player
+        var cam = Camera.main;
+        if (cam != null && player != null)
+        {
+            var pos = player.transform.position;
+            cam.transform.position = new Vector3(pos.x, pos.y, cam.transform.position.z);
+        }
+    }
+
     void HandleSkillInput()
     {
         for (int i = 0; i < GameConfig.SkillSlotCount; i++)
