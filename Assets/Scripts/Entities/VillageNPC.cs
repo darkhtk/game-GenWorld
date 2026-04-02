@@ -11,6 +11,9 @@ public class VillageNPC : MonoBehaviour
     Vector2 _patrolCenter;
     Vector2? _patrolTarget;
     float _speed = 30f;
+    int _currentPatrolRadius;
+    string _currentActivity;
+    string _lastPeriod;
 
     Rigidbody2D _rb;
 
@@ -57,16 +60,46 @@ public class VillageNPC : MonoBehaviour
             if (_rb) _rb.linearVelocity = Vector2.zero;
             return;
         }
+        UpdateSchedule();
+        if (_currentActivity == "sleeping")
+        {
+            if (_rb) _rb.linearVelocity = Vector2.zero;
+            return;
+        }
         DoPatrol();
+    }
+
+    void UpdateSchedule()
+    {
+        if (Def.schedule == null || Def.schedule.Length == 0) return;
+        var gm = GameManager.Instance;
+        if (gm == null || gm.TimeSystem == null) return;
+
+        string period = gm.TimeSystem.Period;
+        if (period == _lastPeriod) return;
+        _lastPeriod = period;
+
+        foreach (var s in Def.schedule)
+        {
+            if (s.period != period) continue;
+            float x = (s.cx + 0.5f) * GameConfig.TileSize;
+            float y = -(s.cy + 0.5f) * GameConfig.TileSize;
+            _patrolCenter = new Vector2(x, y);
+            _currentPatrolRadius = s.radius;
+            _currentActivity = s.activity;
+            _patrolTarget = null;
+            break;
+        }
     }
 
     void DoPatrol()
     {
-        if (Def.patrol == null) return;
+        if (Def.patrol == null && _currentPatrolRadius == 0) return;
 
         if (_patrolTarget == null || (Position - _patrolTarget.Value).sqrMagnitude < 16f)
         {
-            float radius = Def.patrol.radius * GameConfig.TileSize;
+            int r = _currentPatrolRadius > 0 ? _currentPatrolRadius : (Def.patrol?.radius ?? 2);
+            float radius = r * GameConfig.TileSize;
             _patrolTarget = _patrolCenter + Random.insideUnitCircle * radius;
         }
 
