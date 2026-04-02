@@ -1,27 +1,29 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 25)
-**Status:** WORKING — R-031 + R-032
+**Last run:** 2026-04-02 (loop 26)
+**Status:** WORKING — R-017
 
 ## Loop Result
 - FREEZE: N
 - Build errors: 0
-- R-001~R-016, R-027~R-029: ✅ Done
-- R-030: In Review
-- R-031 + R-032: Completed → In Review
+- R-001~R-016, R-027~R-032: ✅ Done (24 tasks!)
+- R-017: Completed → In Review (새 시스템, 고객사 리뷰 필수)
 
 ## Completed This Loop
+**R-017 사운드/음악 시스템 기반** — SPEC-R017 기반 구현 완료.
 
-### R-031 NPC 애니메이션 검증 (VillageNPC.cs)
-- ValidateAnimations(): Init에서 idle/talk/react 클립 검증
-- SetAnimationState(): AnimationDef 기반 Animator.Play()
-- StopMoving → talk animation, ResumeMoving → idle animation
+### Changes
+- `AudioManager.cs` (NEW): Singleton, DontDestroyOnLoad
+  - PlayBGM with crossfade, StopBGM with fade out
+  - PlaySFX (PlayOneShot), PlaySFXAt (positional)
+  - Volume: master/bgm/sfx with PlayerPrefs persistence
+  - Clip caching via Resources.Load
+  - Auto-creates AudioSource children if not assigned
+- `Assets/Resources/Audio/BGM/`, `SFX/`, `Ambient/` directories created
 
-### R-032 스킬 이펙트 애니메이션 검증
-- SkillDef.cs: [JsonIgnore] animationDef field 추가
-- SkillVFX.ValidateSkillAnimations(): 전체 스킬의 cast/projectile/impact 클립 검증
+### UI 자가 검증
+1. Core method call: AudioManager.Instance.PlayBGM/PlaySFX ✅
+2. UI: PauseMenuUI sliders (Phase 2 — SPEC allows) ✅
+3. SPEC UI wireframe: N/A (no wireframe in SPEC) ✅
 
-### Note
-모든 애니메이션 검증 태스크 (R-027~R-032) 완료! 다음: 신규 기능(R-017+) 또는 폴리시(R-033+).
-
-Specs referenced: Y (SPEC-R-031.md, SPEC-R-032.md)
+Specs referenced: Y (SPEC-R017.md)
