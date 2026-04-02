@@ -95,7 +95,7 @@ public static class SceneSetupTool
 
         // Player
         var playerObj = new GameObject("Player");
-        playerObj.transform.position = new Vector3(100 * 32, -100 * 32, 0);
+        playerObj.transform.position = new Vector3(100, -100, 0); // tile 100,100 in unit coords (PPU=32)
         var playerSr = playerObj.AddComponent<SpriteRenderer>();
         playerSr.sortingOrder = 10;
         // Assign player sprite
