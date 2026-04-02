@@ -133,6 +133,19 @@ public class SkillSystem
         return System.Math.Max(0f, readyAt - now);
     }
 
+    public float[] GetCooldowns(float now)
+    {
+        var result = new float[_equipped.Length];
+        for (int i = 0; i < _equipped.Length; i++)
+        {
+            if (_equipped[i] == null) continue;
+            if (!_defs.TryGetValue(_equipped[i], out var def)) continue;
+            float remaining = GetCooldownRemaining(_equipped[i], now);
+            result[i] = def.cooldown > 0 ? remaining / def.cooldown : 0f;
+        }
+        return result;
+    }
+
     public Dictionary<string, int> GetLearnedSkills() => new(_learned);
 
     public void RestoreLearnedSkills(Dictionary<string, int> data)

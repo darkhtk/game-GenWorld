@@ -89,4 +89,85 @@ public class QuestSystemTests
         inv.AddItem("leather", 5, true, 99);
         Assert.AreEqual("completable", qs.GetStatus("q1", inv));
     }
+
+    // Kill quest tests
+
+    QuestSystem killQs;
+
+    void SetupKillQuest()
+    {
+        var quests = new[] {
+            new QuestDef {
+                id = "kill_wolves", npcId = "hunter", title = "Wolf Hunt",
+                requirements = new QuestRequirement[0],
+                killRequirements = new[] { new QuestKillRequirement { monsterId = "wolf", count = 3 } },
+                rewards = new QuestReward { gold = 100, xp = 50, items = new QuestRewardItem[0] }
+            }
+        };
+        killQs = new QuestSystem(quests);
+        killQs.SubscribeEvents();
+    }
+
+    [Test]
+    public void KillQuest_TracksKillProgress()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 1, totalKills = 1 });
+        Assert.AreEqual(1, killQs.GetKillProgress("kill_wolves", "wolf"));
+
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 2, totalKills = 2 });
+        Assert.AreEqual(2, killQs.GetKillProgress("kill_wolves", "wolf"));
+    }
+
+    [Test]
+    public void KillQuest_NotCompletable_UntilKillsMet()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+        var emptyInv = new InventorySystem(5);
+
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 1, totalKills = 1 });
+        Assert.AreEqual("active", killQs.GetStatus("kill_wolves", emptyInv));
+    }
+
+    [Test]
+    public void KillQuest_Completable_WhenKillsMet()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+        var emptyInv = new InventorySystem(5);
+
+        for (int i = 0; i < 3; i++)
+            EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = i + 1, totalKills = i + 1 });
+
+        Assert.AreEqual("completable", killQs.GetStatus("kill_wolves", emptyInv));
+    }
+
+    [Test]
+    public void KillQuest_Complete_ReturnsReward()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+        var emptyInv = new InventorySystem(5);
+
+        for (int i = 0; i < 3; i++)
+            EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = i + 1, totalKills = i + 1 });
+
+        var reward = killQs.CompleteQuest("kill_wolves", emptyInv);
+        Assert.IsNotNull(reward);
+        Assert.AreEqual(100, reward.gold);
+        Assert.IsTrue(killQs.IsCompleted("kill_wolves"));
+    }
+
+    [Test]
+    public void KillQuest_IgnoresWrongMonster()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+
+        EventBus.Emit(new MonsterKillEvent { monsterId = "goblin", monsterName = "Goblin", killCount = 1, totalKills = 1 });
+        Assert.AreEqual(0, killQs.GetKillProgress("kill_wolves", "wolf"));
+    }
 }

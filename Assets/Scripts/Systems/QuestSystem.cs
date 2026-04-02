@@ -9,10 +9,34 @@ public class QuestSystem
     readonly QuestDef[] _defs;
     readonly Dictionary<string, QuestDef> _active = new();
     readonly HashSet<string> _completed = new();
+    readonly Dictionary<string, Dictionary<string, int>> _killProgress = new();
 
     public QuestSystem(QuestDef[] defs) => _defs = defs;
 
     public QuestDef[] GetQuestDefs() => _defs;
+
+    public void SubscribeEvents()
+    {
+        EventBus.On<MonsterKillEvent>(OnMonsterKill);
+    }
+
+    void OnMonsterKill(MonsterKillEvent e)
+    {
+        foreach (var kvp in _active)
+        {
+            var def = kvp.Value;
+            if (def.killRequirements == null || def.killRequirements.Length == 0) continue;
+
+            foreach (var kr in def.killRequirements)
+            {
+                if (kr.monsterId != e.monsterId) continue;
+                if (!_killProgress.ContainsKey(kvp.Key))
+                    _killProgress[kvp.Key] = new Dictionary<string, int>();
+                _killProgress[kvp.Key].TryGetValue(kr.monsterId, out int count);
+                _killProgress[kvp.Key][kr.monsterId] = count + 1;
+            }
+        }
+    }
 
     public bool AcceptQuest(string questId)
     {
@@ -27,12 +51,13 @@ public class QuestSystem
     public QuestReward CompleteQuest(string questId, InventorySystem inv)
     {
         if (!_active.TryGetValue(questId, out var def)) return null;
-        if (!def.requirements.All(r => inv.HasItems(r.itemId, r.count))) return null;
+        if (!AreRequirementsMet(def, inv)) return null;
 
         foreach (var r in def.requirements)
             inv.RemoveItem(r.itemId, r.count);
 
         _active.Remove(questId);
+        _killProgress.Remove(questId);
         _completed.Add(questId);
         EventBus.Emit(new QuestCompleteEvent
         {
@@ -40,6 +65,32 @@ public class QuestSystem
             completedCount = _completed.Count
         });
         return def.rewards;
+    }
+
+    bool AreRequirementsMet(QuestDef def, InventorySystem inv)
+    {
+        if (def.requirements != null && !def.requirements.All(r => inv.HasItems(r.itemId, r.count)))
+            return false;
+
+        if (def.killRequirements != null && def.killRequirements.Length > 0)
+        {
+            _killProgress.TryGetValue(def.id, out var progress);
+            if (progress == null) return false;
+            foreach (var kr in def.killRequirements)
+            {
+                progress.TryGetValue(kr.monsterId, out int count);
+                if (count < kr.count) return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int GetKillProgress(string questId, string monsterId)
+    {
+        if (!_killProgress.TryGetValue(questId, out var progress)) return 0;
+        progress.TryGetValue(monsterId, out int count);
+        return count;
     }
 
     public QuestDef[] GetActiveQuests() => _active.Values.ToArray();
@@ -52,8 +103,7 @@ public class QuestSystem
         if (_active.ContainsKey(questId))
         {
             var def = _active[questId];
-            bool met = def.requirements.All(r => inv.HasItems(r.itemId, r.count));
-            return met ? "completable" : "active";
+            return AreRequirementsMet(def, inv) ? "completable" : "active";
         }
         return "available";
     }
@@ -63,8 +113,7 @@ public class QuestSystem
         foreach (var kvp in _active)
         {
             if (kvp.Value.npcId != npcId) continue;
-            bool met = kvp.Value.requirements.All(r => inv.HasItems(r.itemId, r.count));
-            if (met) return (kvp.Value, "completable");
+            if (AreRequirementsMet(kvp.Value, inv)) return (kvp.Value, "completable");
         }
         foreach (var kvp in _active)
         {
@@ -104,6 +153,7 @@ public class QuestSystem
     {
         _active.Clear();
         _completed.Clear();
+        _killProgress.Clear();
         if (data.completed != null)
             foreach (var id in data.completed) _completed.Add(id);
         if (data.active != null)
