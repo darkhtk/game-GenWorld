@@ -24,6 +24,18 @@ public class VillageNPC : MonoBehaviour
         _rb.gravityScale = 0;
         _rb.freezeRotation = true;
         transform.position = position;
+
+        // Load sprite
+        if (!string.IsNullOrEmpty(def.sprite))
+        {
+            var sprite = Resources.Load<Sprite>($"Sprites/{def.sprite}");
+            if (sprite == null) sprite = Resources.Load<Sprite>(def.sprite);
+            if (sprite != null)
+            {
+                var sr = GetComponent<SpriteRenderer>();
+                if (sr != null) sr.sprite = sprite;
+            }
+        }
         _patrolCenter = position;
         ValidateAnimations();
     }

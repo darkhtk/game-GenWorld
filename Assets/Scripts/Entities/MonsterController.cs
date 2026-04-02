@@ -48,6 +48,18 @@ public class MonsterController : MonoBehaviour
             var col = gameObject.AddComponent<BoxCollider2D>();
             col.size = new Vector2(0.8f, 0.8f);
         }
+        // Load sprite from Resources
+        if (!string.IsNullOrEmpty(def.sprite))
+        {
+            var sprite = Resources.Load<Sprite>($"Sprites/{def.sprite}");
+            if (sprite == null) sprite = Resources.Load<Sprite>(def.sprite);
+            if (sprite != null)
+            {
+                _sr = GetComponent<SpriteRenderer>();
+                if (_sr != null) _sr.sprite = sprite;
+            }
+        }
+
         _hpBar = MonsterHPBar.Create(transform, def.hp);
         ValidateAnimations();
     }
