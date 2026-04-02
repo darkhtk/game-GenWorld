@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3402597518169661497}
   - component: {fileID: 4866432488194348575}
   - component: {fileID: 7658715958486187470}
-  - component: {fileID: 1022793349747995364}
+  - component: {fileID: 742912109463573426}
   m_Layer: 0
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1022793349747995364
+--- !u!114 &742912109463573426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
