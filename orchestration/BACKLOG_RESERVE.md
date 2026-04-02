@@ -57,8 +57,7 @@
 
 ~~R-028: AnimationPreviewUI~~ → BOARD로 이동
 
-### R-029: PlayerAnimator 검증 및 상태 정리
-PlayerAnimator·PlayerController 연동 점검, 누락 상태 보완, AnimationDef 연결. specs/SPEC-R-029.md 참조.
+~~R-029: PlayerAnimator 검증~~ → BOARD로 이동
 
 ### R-030: MonsterController 애니메이션 검증 및 연동
 MonsterDef에 AnimationDef 참조 추가, MonsterController에서 idle·walk·attack·hit·die 상태 전이 검증. specs/SPEC-R-030.md 참조.

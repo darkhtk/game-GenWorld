@@ -1,27 +1,24 @@
 # DEVELOPER Loop Log
 
-**Last run:** 2026-04-02 (loop 22)
-**Status:** WORKING — R-027 fix + R-028
+**Last run:** 2026-04-02 (loop 23)
+**Status:** WORKING — R-029
 
 ## Loop Result
 - FREEZE: N
 - Build errors: 0
 - R-001~R-016: ✅ Done
-- R-027: NEEDS_WORK → FIXED (v2: AnimationDefGenerator Editor script)
-- R-028: Completed → In Review
+- R-027 v2, R-028: In Review
+- R-029: Completed → In Review
 
-## R-027 Fix
-Review: 4 .asset files missing. Added `AnimationDefGenerator.cs` Editor script (Menu: Game > Generate Default AnimationDefs) that creates:
-- PlayerAnimDef: idle, run, attack, dodge, hit, die
-- MonsterAnimDef: idle, walk, attack, hit, die
-- NPCAnimDef: idle, talk, react
-- SkillAnimDef: cast, projectile, impact
+## Completed This Loop
+**R-029 PlayerAnimator 검증 및 상태 정리** — SPEC-R-029 기반 구현 완료.
 
-## R-028 AnimationPreviewUI
-- `AnimationPreviewUI.cs` (NEW): Debug panel with F9 toggle
-  - Entity click selection, AnimationDef-based animation list
-  - Play buttons per state, speed slider (0.1x~3.0x)
-  - Missing clip warning ⚠
-  - #if DEBUG || DEVELOPMENT_BUILD conditional compilation
+### Changes (PlayerAnimator.cs)
+- Added State enum: Idle, Walk, Attack, Dodge, Hit, Die
+- PlayAttack/PlayDodge/PlayHit/PlayDie methods with duration-based auto-return
+- AnimationDef SO reference field + LogMissingClips on Start
+- ValidateAnimationStates() editor method (checks 6 required states)
+- Documented all state names in header comments
+- Die state locks out all input/movement
 
-Specs referenced: Y (SPEC-R-027.md, SPEC-R-028.md)
+Specs referenced: Y (SPEC-R-029.md)

@@ -28,6 +28,7 @@
 | 16 | R-016 장비 비교 팝업 | P2 | ✅ | REVIEW-R016-v1 |
 | 17 | R-027 AnimationDef | P2 | 👀 | SPEC-R-027 참조 |
 | 18 | R-028 AnimationPreviewUI | P2 | 👀 | SPEC-R-028 참조 |
+| 19 | R-029 PlayerAnimator 검증 | P2 | 👀 | SPEC-R-029 참조 |
 
 ---
 
@@ -47,6 +48,7 @@
 |--------|--------|------|------|
 | R-027 AnimationDef | 2026-04-02 | (대기 v2) | 수정: .asset 생성 Editor 스크립트 추가 |
 | R-028 AnimationPreviewUI | 2026-04-02 | (대기) | QA/검증, 자가진행 허용 |
+| R-029 PlayerAnimator 검증 | 2026-04-02 | (대기) | QA/검증, 자가진행 허용 |
 
 ## ✅ Done
 
