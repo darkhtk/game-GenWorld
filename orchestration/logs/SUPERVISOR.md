@@ -1,7 +1,7 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-02 (루프 #11)
-> **수행 행동:** Step 2 자동 행동 #4 — UX 개선
+> **최종 실행:** 2026-04-02 (루프 #12)
+> **수행 행동:** Step 2 자동 행동 #5 — 에러 점검
 
 ## 이번 루프 요약
 
@@ -11,24 +11,33 @@
 ### Step 1
 - 🎨 태스크 없음 → Step 2
 
-### Step 2: UX 개선 (4건)
+### Step 2: 에러 점검 (#5)
 
-| # | 파일 | 수정 내용 | 효과 |
-|---|------|----------|------|
-| 1 | ScreenFlash.cs (신규) | 전체 화면 플래시 컴포넌트 | 피격(빨강), 회복(초록), 레벨업(금색), 닷지(흰색) |
-| 2 | CombatManager.cs | ApplyDamageToPlayer + healPlayer에 ScreenFlash 호출 | 전투 피드백 강화 |
-| 3 | HUD.cs:UpdateBars | HP 25% 이하 시 HP 바 맥동 경고 | 위험 상황 인지 개선 |
-| 4 | HUD.cs:UpdateDodgeFromPlayer | FindFirstObjectByType → Start()에서 1회만 | 성능 개선 |
+#### Unity Editor.log 스캔 결과
+- **84개 에러** 감지 → 전부 **STALE** (이전 빌드 잔여)
+  - DamageText.cs merge conflict markers (42건) — 이미 해결됨
+  - DataManager.cs Exception/ValidateData (21건) — 이미 코드에 존재
+  - NpcDef.cs ConditionalDialogue (21건) — 이미 클래스 정의됨
+- Unity 재컴파일 시 자동 해소 예상
 
-#### ScreenFlash.cs 상세
-- `ScreenFlash.Damage()` — 빨간 플래시 0.3초 (피격 시)
-- `ScreenFlash.Heal()` — 초록 플래시 0.4초 (회복 시)
-- `ScreenFlash.LevelUp()` — 금색 플래시 0.6초 (레벨업 시)
-- `ScreenFlash.Dodge()` — 흰 플래시 0.15초 (회피 시)
-- 전체 화면 Image 오버레이, raycastTarget=false
+#### 추가 검증
+- `<<<<<<` / `>>>>>>>` 잔여 merge conflict: **0건** (전체 Assets/Scripts/ 스캔)
+- GetHashCode 위험 사용: **0건**
+- 현재 코드베이스: **클린 상태**
 
-### BOARD 상태
-- R-001~R-006 ✅ Done, R-007 👀 In Review
+### BOARD 동기화
+- R-007 → ✅ Done (이미 다른 에이전트가 동기화)
+- 전체: R-001~R-007 모두 Done, In Review 0건, In Progress 0건
+- Backlog 0건 → 개발자가 RESERVE에서 다음 항목 배정 예정
+
+### 자동 행동 순환 현황 (루프 #1~#12)
+| 행동 | 마지막 실행 | 비고 |
+|------|-----------|------|
+| #1 에셋 선제 생성 | — | RESERVE 코드 태스크만 남아 해당 없음 |
+| #2 코드 품질 감사 | 루프 #1 | 8건 버그 수정 |
+| #3 성능 최적화 | 루프 #10 | 7건 perf 개선 |
+| #4 UX 개선 | 루프 #11 | ScreenFlash + HP 맥동 + HUD 캐싱 |
+| #5 에러 점검 | 루프 #12 (이번) | 84 stale, 0 real |
 
 ### 다음 루프 예정
-- Step 2 자동 행동 순환: #1 에셋 선제 생성 또는 #5 에러 점검
+- Step 2 자동 행동 #2: 코드 품질 감사 (2차 라운드 — 최근 개발자 코드 변경 대상)
