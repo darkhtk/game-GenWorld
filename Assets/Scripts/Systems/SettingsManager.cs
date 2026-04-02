@@ -58,4 +58,42 @@ public static class SettingsManager
     }
 
     public static void SaveAll() => PlayerPrefs.Save();
+
+    // Key Bindings
+    static readonly (string action, KeyCode defaultKey)[] DefaultBindings = {
+        ("move_up", KeyCode.W),
+        ("move_down", KeyCode.S),
+        ("move_left", KeyCode.A),
+        ("move_right", KeyCode.D),
+        ("dodge", KeyCode.Space),
+        ("interact", KeyCode.F),
+        ("inventory", KeyCode.I),
+        ("skills", KeyCode.K),
+        ("quests", KeyCode.J),
+        ("hp_potion", KeyCode.R),
+        ("mp_potion", KeyCode.T),
+        ("minimap", KeyCode.Tab),
+    };
+
+    public static KeyCode GetKey(string action)
+    {
+        int saved = PlayerPrefs.GetInt($"key_{action}", -1);
+        if (saved >= 0) return (KeyCode)saved;
+        foreach (var b in DefaultBindings)
+            if (b.action == action) return b.defaultKey;
+        return KeyCode.None;
+    }
+
+    public static void SetKey(string action, KeyCode key)
+    {
+        PlayerPrefs.SetInt($"key_{action}", (int)key);
+    }
+
+    public static (string action, KeyCode defaultKey)[] GetDefaultBindings() => DefaultBindings;
+
+    public static void ResetKeyBindings()
+    {
+        foreach (var b in DefaultBindings)
+            PlayerPrefs.DeleteKey($"key_{b.action}");
+    }
 }
