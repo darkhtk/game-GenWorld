@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEditor.U2D.Sprites;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
@@ -343,24 +342,20 @@ public static class SceneSetupTool
         importer.filterMode = FilterMode.Point;
         importer.textureCompression = TextureImporterCompression.Uncompressed;
 
-        var factory = new SpriteDataProviderFactories();
-        factory.Init();
-        var dataProvider = factory.GetSpriteEditorDataProviderFromObject(importer);
-        dataProvider.InitSpriteEditorDataProvider();
-
-        var rects = new UnityEditor.U2D.Sprites.SpriteRect[TileNames.Length];
+        var spriteData = new SpriteMetaData[TileNames.Length];
         for (int i = 0; i < TileNames.Length; i++)
         {
-            rects[i] = new UnityEditor.U2D.Sprites.SpriteRect
+            spriteData[i] = new SpriteMetaData
             {
                 name = "tileset_" + TileNames[i],
                 rect = new Rect(i * 32, 0, 32, 32),
-                alignment = SpriteAlignment.Center,
+                alignment = (int)SpriteAlignment.Center,
                 pivot = new Vector2(0.5f, 0.5f)
             };
         }
-        dataProvider.SetSpriteRects(rects);
-        dataProvider.Apply();
+#pragma warning disable CS0618
+        importer.spritesheet = spriteData;
+#pragma warning restore CS0618
         importer.SaveAndReimport();
 
         // Step 2: Load sprites and create Tile assets
