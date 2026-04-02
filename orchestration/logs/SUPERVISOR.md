@@ -1,33 +1,37 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #8)
-> **모드:** 에러 점검 — 빌드 3회 연속 Clean
+> **최종 실행:** 2026-04-03 (루프 #9)
+> **모드:** 에셋 선제 생성 — 아이템 아이콘 25종
 
 ## 이번 루프 수행 내용
 
-### 에러 점검 ✅
-- Unity Editor.log 스캔: 0 컴파일 에러, 0 경고, 0 런타임 예외
-- 빌드 상태: Clean (루프 #4, #6, #8 연속 3회 Clean)
-- 프로젝트 안정 상태 확인
+### 아이템 아이콘 25종 생성 ✅ (Resources/Sprites/Items/)
+V-002 (인벤토리 그리드 미관) 대비 — 기존에 아이템 아이콘이 전혀 없었음.
 
-## 누적 감사 현황 (루프 #1~#8)
+**재료 14종** (16×16 pixel art):
+wood, leather, herb, wolf_fang, treant_core, ore, gem, crystal, venom, scale, magic_essence, lava_stone, dragon_scale, legendary_essence
+
+**포션 2종**: hp_potion (빨간 병), mp_potion (파란 병)
+
+**무기 5종**: wooden_sword, fang_blade, ore_sword, crystal_staff, dragon_blade
+
+**방어구 4종**: leather_armor, treant_armor, dragon_armor, scale_armor
+
+InventoryUI가 `Resources.Load<Sprite>("Sprites/Items/{icon}")` 경로로 로딩.
+items.json의 icon 필드와 파일명 일치.
+
+## 누적 현황 (루프 #1~#9)
 | 루프 | 행동 | 결과 |
 |------|------|------|
-| #1 | 에셋 A-010~A-014 + AI 대화 수정 | 치명 버그 8건 수정 |
-| #2 | 성능 최적화 | HUD 더티플래그, playerPos 캐싱, 스폰 버퍼 |
-| #3 | UX 피드백 | SFX 5건 추가 (장비/스킬/크리티컬/드롭/회피) |
-| #4 | 에러 점검 + 에셋 선제 생성 | 빌드 Clean, 아이콘 6종 |
-| #5 | 코드 품질 감사 | 퀘스트 치명 버그 2건 수정 |
-| #6 | 성능 감사 | 전체 시스템 정상 확인 |
-| #7 | UX 개선 + HUD 최적화 | 포션/퀘스트 스로틀링 |
-| #8 | 에러 점검 | 3회 연속 Clean 확인 |
-
-## 총 기여 요약
-- 치명적 버그 수정: 10건 (AI 대화 8건 + 퀘스트 2건)
-- 성능 최적화: 5건 (HUD 더티플래그, playerPos, 스폰, HUD 스로틀, 시스템 감사)
-- UX SFX 추가: 5건 (장비/스킬/크리티컬/드롭/회피)
-- 에셋 생성: 20종+ (A-010~A-014, 선제 아이콘 6종)
-- 에러: 3회 연속 Clean
+| #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
+| #2 | 성능 최적화 | HUD 더티플래그, playerPos, 스폰 버퍼 |
+| #3 | UX 피드백 | SFX 5건 (장비/스킬/크리티컬/드롭/회피) |
+| #4 | 에러 + 에셋 선제 | Clean, HUD 아이콘 6종 |
+| #5 | 코드 감사 | 퀘스트 치명 버그 2건 수정 |
+| #6 | 성능 감사 | 전체 정상 |
+| #7 | UX + HUD 최적화 | 포션/퀘스트 스로틀링 |
+| #8 | 에러 점검 | 3회 연속 Clean |
+| #9 | 에셋 선제 생성 | 아이템 아이콘 25종 |
 
 ## 다음 루프 예정
-- 자동 행동 사이클 #4 또는 RESERVE 🎨 대기
+- 코드 품질 감사 (#2)
