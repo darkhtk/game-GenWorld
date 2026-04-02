@@ -125,13 +125,17 @@ public class InventoryUI : MonoBehaviour
 
     public void Show()
     {
-        if (panel != null) panel.SetActive(true);
+        var anim = panel != null ? panel.GetComponent<PanelAnimator>() : null;
+        if (anim != null) anim.Show();
+        else if (panel != null) panel.SetActive(true);
         Refresh();
     }
 
     public void Hide()
     {
-        if (panel != null) panel.SetActive(false);
+        var anim = panel != null ? panel.GetComponent<PanelAnimator>() : null;
+        if (anim != null) anim.Hide();
+        else if (panel != null) panel.SetActive(false);
         HideTooltip();
         CancelDrag();
     }
