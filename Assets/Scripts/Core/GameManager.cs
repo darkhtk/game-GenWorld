@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         SpawnInitialRegion();
         RegisterNpcs();
         SubscribeEvents();
+        WirePotionCallbacks();
 
         if (SaveSystem.HasSave())
             LoadGame();
@@ -153,6 +154,24 @@ public class GameManager : MonoBehaviour
             string profile = Data.NpcProfiles.GetValueOrDefault(npc.id);
             AI.RegisterNpc(npc.id, npc.name, npc.personality, profile);
         }
+    }
+
+    void WirePotionCallbacks()
+    {
+        if (uiManager == null) return;
+        uiManager.OnUseHpPotion = () => UsePotion("hp_potion");
+        uiManager.OnUseMpPotion = () => UsePotion("mp_potion");
+    }
+
+    void UsePotion(string potionId)
+    {
+        if (!Inventory.RemoveItem(potionId, 1)) return;
+        if (!Data.Items.TryGetValue(potionId, out var def)) return;
+        var s = PlayerState.CurrentStats;
+        if (def.healHp > 0)
+            PlayerState.Hp = Mathf.Min(PlayerState.Hp + def.healHp, s.maxHp);
+        if (def.healMp > 0)
+            PlayerState.Mp = Mathf.Min(PlayerState.Mp + def.healMp, s.maxMp);
     }
 
     void SubscribeEvents()
