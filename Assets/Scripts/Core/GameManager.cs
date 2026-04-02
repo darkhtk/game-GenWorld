@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     readonly Dictionary<string, int> _killCounts = new();
     int _totalKills;
     float _hpRegenAccum;
+    public bool AutoPotionEnabled { get; set; } = true;
+    float _lastAutoPotionTime;
     float _lastAutoSaveTime;
     string _lastRegionId = "";
 
@@ -94,6 +96,7 @@ public class GameManager : MonoBehaviour
         PlayerEffects.Tick(nowMs);
         RegenHp();
         RefreshHud();
+        AutoUsePotion();
 
         RegionTracker.UpdatePlayerRegion(player.Position.x, player.Position.y);
         HandleRegionTransition();
