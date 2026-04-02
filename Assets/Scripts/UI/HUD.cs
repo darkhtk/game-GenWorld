@@ -278,10 +278,16 @@ public class HUD : MonoBehaviour
         cg.alpha = 1f;
     }
 
-    void ToggleHistory()
+    public void ToggleHistory()
     {
         _historyVisible = !_historyVisible;
         if (historyRoot != null) historyRoot.SetActive(_historyVisible);
+    }
+
+    public void ToggleMinimap()
+    {
+        if (minimapImage != null)
+            minimapImage.gameObject.SetActive(!minimapImage.gameObject.activeSelf);
     }
 
     public void ShowSaveIndicator()

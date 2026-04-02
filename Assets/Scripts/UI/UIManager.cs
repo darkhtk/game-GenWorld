@@ -50,6 +50,8 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J) && quest != null) quest.Toggle();
         if (Input.GetKeyDown(KeyCode.R)) OnUseHpPotion?.Invoke();
         if (Input.GetKeyDown(KeyCode.T)) OnUseMpPotion?.Invoke();
+        if (Input.GetKeyDown(KeyCode.H) && hud != null) hud.ToggleHistory();
+        if (Input.GetKeyDown(KeyCode.Tab) && hud != null) hud.ToggleMinimap();
     }
 
     public void HideAll()

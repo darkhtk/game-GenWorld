@@ -36,6 +36,17 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI hpStatText;
     [SerializeField] TextMeshProUGUI mpStatText;
 
+    [Header("Stat Allocation")]
+    [SerializeField] TextMeshProUGUI strText;
+    [SerializeField] TextMeshProUGUI dexText;
+    [SerializeField] TextMeshProUGUI wisText;
+    [SerializeField] TextMeshProUGUI lucText;
+    [SerializeField] Button strAddButton;
+    [SerializeField] Button dexAddButton;
+    [SerializeField] Button wisAddButton;
+    [SerializeField] Button lucAddButton;
+    [SerializeField] TextMeshProUGUI statPointsText;
+
     [Header("Info")]
     [SerializeField] TextMeshProUGUI levelGoldText;
 
@@ -65,6 +76,11 @@ public class InventoryUI : MonoBehaviour
         if (dragIcon != null) dragIcon.gameObject.SetActive(false);
         if (closeButton != null) closeButton.onClick.AddListener(Hide);
         if (sortButton != null) sortButton.onClick.AddListener(() => OnSortCallback?.Invoke());
+
+        if (strAddButton != null) strAddButton.onClick.AddListener(() => AllocateStat("str"));
+        if (dexAddButton != null) dexAddButton.onClick.AddListener(() => AllocateStat("dex"));
+        if (wisAddButton != null) wisAddButton.onClick.AddListener(() => AllocateStat("wis"));
+        if (lucAddButton != null) lucAddButton.onClick.AddListener(() => AllocateStat("luc"));
     }
 
     public bool IsOpen => panel != null && panel.activeSelf;
@@ -286,6 +302,53 @@ public class InventoryUI : MonoBehaviour
         if (critText != null) critText.text = $"CRIT {stats.crit}%";
         if (hpStatText != null) hpStatText.text = $"HP {stats.hp}/{stats.maxHp}";
         if (mpStatText != null) mpStatText.text = $"MP {stats.mp}/{stats.maxMp}";
+
+        RefreshStatAllocation();
+    }
+
+    void RefreshStatAllocation()
+    {
+        var gm = GameManager.Instance;
+        if (gm == null || gm.PlayerState == null) return;
+
+        var bonus = gm.PlayerState.BonusStats;
+        int points = gm.PlayerState.StatPoints;
+        bool hasPoints = points > 0;
+
+        if (statPointsText != null)
+            statPointsText.text = hasPoints ? $"SP: {points}" : "";
+
+        int strVal = bonus != null && bonus.TryGetValue("str", out int s) ? s : 0;
+        int dexVal = bonus != null && bonus.TryGetValue("dex", out int d) ? d : 0;
+        int wisVal = bonus != null && bonus.TryGetValue("wis", out int w) ? w : 0;
+        int lucVal = bonus != null && bonus.TryGetValue("luc", out int l) ? l : 0;
+
+        if (strText != null) strText.text = $"STR {strVal}  ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}";
+        if (dexText != null) dexText.text = $"DEX {dexVal}  SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}";
+        if (wisText != null) wisText.text = $"WIS {wisVal}  MP+{wisVal * GameConfig.WisMpBonus:F0}";
+        if (lucText != null) lucText.text = $"LUC {lucVal}  CRIT+{lucVal * GameConfig.LucCritBonus:F0}";
+
+        if (strAddButton != null) strAddButton.gameObject.SetActive(hasPoints);
+        if (dexAddButton != null) dexAddButton.gameObject.SetActive(hasPoints);
+        if (wisAddButton != null) wisAddButton.gameObject.SetActive(hasPoints);
+        if (lucAddButton != null) lucAddButton.gameObject.SetActive(hasPoints);
+    }
+
+    void AllocateStat(string statName)
+    {
+        var gm = GameManager.Instance;
+        if (gm == null || gm.PlayerState == null) return;
+        if (gm.PlayerState.StatPoints <= 0) return;
+
+        if (gm.PlayerState.BonusStats == null)
+            gm.PlayerState.BonusStats = new Dictionary<string, int>();
+
+        gm.PlayerState.BonusStats.TryGetValue(statName, out int current);
+        gm.PlayerState.BonusStats[statName] = current + 1;
+        gm.PlayerState.StatPoints--;
+        gm.PlayerState.RecalcStats(gm.Data.Items, gm.Data.SetBonuses);
+
+        Refresh();
     }
 }
 
