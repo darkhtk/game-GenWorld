@@ -24,11 +24,21 @@ public class MonsterSpawner : MonoBehaviour
         if (region.monsterIds == null || region.monsterIds.Length == 0) return;
 
         int area = region.bounds.width * region.bounds.height;
-        int count = Mathf.RoundToInt(area / 100f * region.monsterDensity);
+        bool isNight = GameManager.Instance?.TimeSystem?.Period == "night";
+        float densityMult = isNight && region.nightDensityMult > 0 ? region.nightDensityMult : 1f;
+        int count = Mathf.RoundToInt(area / 100f * region.monsterDensity * densityMult);
+
+        string[] monsterPool = region.monsterIds;
+        if (isNight && region.nightMonsterIds != null && region.nightMonsterIds.Length > 0)
+        {
+            var combined = new System.Collections.Generic.List<string>(region.monsterIds);
+            combined.AddRange(region.nightMonsterIds);
+            monsterPool = combined.ToArray();
+        }
 
         for (int i = 0; i < count; i++)
         {
-            string monsterId = region.monsterIds[Random.Range(0, region.monsterIds.Length)];
+            string monsterId = monsterPool[Random.Range(0, monsterPool.Length)];
             if (!monsterDefs.TryGetValue(monsterId, out var def)) continue;
 
             Vector2 pos = Vector2.zero;
