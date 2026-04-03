@@ -7,7 +7,7 @@
 
 | # | ID | 태그 | 태스크 | 우선순위 | 상태 |
 |---|-----|------|--------|---------|------|
-| 1 | S-002 | 🔧 | EventBus 구독 누수 방지 — GameManager OnDestroy에서 EventBus.Clear() 호출 | P1 | ⬜ |
+| 1 | S-002 | 🔧 | EventBus 구독 누수 방지 — GameManager OnDestroy에서 EventBus.Clear() 호출 | P1 | 👀 |
 | 2 | S-003 | 🔧 | GameManager async fire-and-forget 방어 — AI.Init(), HandleDialogueResponse 예외 핸들링 | P1 | ⬜ |
 | 3 | S-004 | 🔧 | MonsterController DoT 사망 시 킬 보상/제거 미처리 — MonsterSpawner.RemoveMonster 연결 필요 | P1 | ⬜ |
 | 4 | S-005 | 🔧 | InventorySystem.OccupiedSlots LINQ 할당 제거 — Count() → 수동 카운트 변환 | P2 | ⬜ |

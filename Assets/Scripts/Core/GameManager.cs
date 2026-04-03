@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    void OnDestroy()
+    {
+        EventBus.Clear();
+    }
+
     void Start()
     {
         Data = new DataManager();
