@@ -114,6 +114,8 @@ public class InventoryUI : MonoBehaviour
         }
         if (sortModeButton != null)
             sortModeButton.onClick.AddListener(CycleSortMode);
+        if (sortModeText != null)
+            sortModeText.text = $"<color=#aaddff>{SortModeNames[_currentSortMode]}</color>";
 
         if (strAddButton != null) strAddButton.onClick.AddListener(() => AllocateStat("str"));
         if (dexAddButton != null) dexAddButton.onClick.AddListener(() => AllocateStat("dex"));
