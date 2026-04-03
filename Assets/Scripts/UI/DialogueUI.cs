@@ -146,12 +146,10 @@ public class DialogueUI : MonoBehaviour
         if (logContent == null || logEntryPrefab == null) return;
 
         var entry = Instantiate(logEntryPrefab, logContent);
-        entry.text = $"[{sender}] {text}";
-
-        if (!string.IsNullOrEmpty(color) && ColorUtility.TryParseHtmlString(color, out var c))
-            entry.color = c;
-        else
-            entry.color = sender == "You" ? new Color(0.8f, 0.9f, 1f) : Color.white;
+        string senderColor = !string.IsNullOrEmpty(color) ? color
+            : sender == "You" ? "#ccddff" : "#ffe8aa";
+        entry.text = $"<b><color={senderColor}>{sender}:</color></b> {text}";
+        entry.color = Color.white;
 
         entry.overflowMode = TMPro.TextOverflowModes.Overflow;
         entry.enableWordWrapping = true;
@@ -268,7 +266,7 @@ public class DialogueUI : MonoBehaviour
         if (questProposalPanel == null) return;
         questProposalPanel.SetActive(true);
 
-        if (questProposalTitle != null) questProposalTitle.text = quest.title;
+        if (questProposalTitle != null) { questProposalTitle.text = $"\u25b8 {quest.title}"; questProposalTitle.color = new Color(1f, 0.95f, 0.5f); }
         if (questProposalDesc != null) questProposalDesc.text = quest.description;
 
         if (questProposalRequirements != null)
@@ -277,7 +275,7 @@ public class DialogueUI : MonoBehaviour
             if (quest.requirements != null)
             {
                 foreach (var req in quest.requirements)
-                    lines.Add($"  {req.itemId} x{req.count}");
+                    lines.Add($"  \u25b9 {req.itemId} \u00d7{req.count}");
             }
             questProposalRequirements.text = lines.Count > 0
                 ? string.Join("\n", lines) : "None";
@@ -286,12 +284,12 @@ public class DialogueUI : MonoBehaviour
         if (questProposalRewards != null)
         {
             var lines = new List<string>();
-            if (scaledRewards.gold > 0) lines.Add($"  Gold: {scaledRewards.gold}");
-            if (scaledRewards.xp > 0) lines.Add($"  XP: {scaledRewards.xp}");
+            if (scaledRewards.gold > 0) lines.Add($"  <color=#ffd900>\u25b8 Gold: {scaledRewards.gold}</color>");
+            if (scaledRewards.xp > 0) lines.Add($"  <color=#aaffaa>\u25b8 XP: {scaledRewards.xp}</color>");
             if (scaledRewards.items != null)
             {
                 foreach (var item in scaledRewards.items)
-                    lines.Add($"  {item.itemId} x{item.count}");
+                    lines.Add($"  \u25b9 {item.itemId} \u00d7{item.count}");
             }
             questProposalRewards.text = string.Join("\n", lines);
         }

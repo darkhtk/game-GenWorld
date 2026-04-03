@@ -32,7 +32,12 @@ public class DeathScreenUI : MonoBehaviour
         if (gm != null)
         {
             int loss = Mathf.FloorToInt(gm.PlayerState.Gold * GameConfig.DeathGoldPenalty);
-            if (goldLossText != null) goldLossText.text = $"Gold lost: {loss}";
+            if (goldLossText != null)
+            {
+                goldLossText.text = loss > 0 ? $"<color=#ff4444>-{loss}G</color>" : "";
+                goldLossText.color = Color.white;
+            }
+            if (titleText != null) { titleText.text = "YOU DIED"; titleText.color = new Color(0.9f, 0.1f, 0.1f); }
             var pc = gm.GetComponentInChildren<PlayerController>();
             if (pc != null) { pc.SetSpeed(0); pc.Frozen = true; }
         }

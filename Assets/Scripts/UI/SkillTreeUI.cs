@@ -127,8 +127,12 @@ public class SkillTreeUI : MonoBehaviour
     public void Refresh(SkillSystem skillSystem, SkillDef[] skillDefs, int skillPoints, int playerLevel)
     {
         if (skillSystem == null || skillDefs == null) return;
-        if (skillPointsText != null) skillPointsText.text = $"Skill Points: {skillPoints}";
-        if (playerLevelText != null) playerLevelText.text = $"Lv.{playerLevel}";
+        if (skillPointsText != null)
+        {
+            skillPointsText.text = $"Skill Points: <color=#ffd900>{skillPoints}</color>";
+            skillPointsText.color = skillPoints > 0 ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+        }
+        if (playerLevelText != null) { playerLevelText.text = $"Lv.{playerLevel}"; playerLevelText.color = new Color(0.6f, 1f, 0.6f); }
 
         foreach (var def in skillDefs)
         {
