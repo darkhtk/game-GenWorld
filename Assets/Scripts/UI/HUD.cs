@@ -499,8 +499,9 @@ public class HUD : MonoBehaviour
         if (historyContent == null || historyEntryPrefab == null) return;
 
         var entry = Instantiate(historyEntryPrefab, historyContent);
-        entry.text = text;
-        entry.color = color;
+        string colorHex = ColorUtility.ToHtmlStringRGB(color);
+        entry.text = $"<color=#{colorHex}>{text}</color>";
+        entry.color = Color.white;
         var fitter = entry.GetComponent<UnityEngine.UI.ContentSizeFitter>();
         if (fitter == null) fitter = entry.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
         fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;

@@ -72,6 +72,7 @@ public class PauseMenuUI : MonoBehaviour
         if (saveConfirmText != null)
         {
             saveConfirmText.gameObject.SetActive(true);
+            saveConfirmText.color = Color.white;
             saveConfirmText.text = "<color=#aaffaa>\u2713 Saved!</color>";
             if (_saveConfirmCoroutine != null) StopCoroutine(_saveConfirmCoroutine);
             _saveConfirmCoroutine = StartCoroutine(HideSaveConfirmAfterDelay());

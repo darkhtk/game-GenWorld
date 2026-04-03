@@ -50,7 +50,7 @@ public class ShopUI : MonoBehaviour
         _getGold = getGold;
         _spendGold = spendGold;
         if (panel != null) panel.SetActive(true);
-        if (titleText != null) titleText.text = "<b><color=#ffd900>Shop</color></b>";
+        if (titleText != null) { titleText.color = Color.white; titleText.text = "<b><color=#ffd900>Shop</color></b>"; }
         AudioManager.Instance?.PlaySFX("sfx_menu_open");
         if (_inventory == null || _itemDefs == null) return;
         Refresh();
