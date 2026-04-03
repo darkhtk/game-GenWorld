@@ -8,7 +8,7 @@
 | # | ID | 태그 | 태스크 | 우선순위 | 상태 |
 |---|-----|------|--------|---------|------|
 | 1 | S-006 | 🔧 | GameManager 분할 리팩토링 — 884줄 → 300줄 이하 (DialogueManager, SaveController 등 분리) | P2 | ⬜ |
-| 2 | S-026 | 🔧 | NPC 이동 재개 실패 — 대화 종료 후 SetDialogueOpen/dialogueNpc 복구 누락 (NEEDS_WORK) | P2 | ❌ |
+| 2 | S-026 | 🔧 | NPC 이동 재개 실패 — v2 수정 완료 (SetDialogueOpen+_dialogueNpc 복구 추가) | P2 | ✅ |
 | 4 | S-021 | 🔧 | 테스트 커버리지 확장 — CombatSystem, InventorySystem, SaveMigrations 단위 테스트 추가 | P3 | ⬜ |
 | 5 | S-025 | 🔧 | DialogueCameraZoom 복원 보장 — 대화 중 강제 종료 시 카메라 줌 원복 | P3 | ✅ |
 | 6 | S-027 | 🔧 | MonsterSpawner 중복 스폰 방지 — 같은 위치 동시 스폰 시 겹침 처리 | P2 | ⬜ |
