@@ -207,7 +207,14 @@ public class QuestUI : MonoBehaviour
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
         if (texts.Length > 0)
         {
-            texts[0].text = $"<color=#66ff66>\u2713</color> <color=#aaaaaa>{questId}</color>";
+            string title = questId;
+            if (_questSystem != null)
+            {
+                var defs = _questSystem.GetQuestDefs();
+                foreach (var d in defs)
+                    if (d.id == questId) { title = d.title; break; }
+            }
+            texts[0].text = $"<color=#66ff66>\u2713 {title}</color>";
             texts[0].color = Color.white;
         }
         for (int i = 1; i < texts.Length; i++)
