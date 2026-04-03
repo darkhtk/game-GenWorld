@@ -311,8 +311,8 @@ public class SettingsUI : MonoBehaviour
                     row.KeyText = texts[0];
                 }
 
-                if (row.LabelText != null) row.LabelText.text = FormatActionName(b.action);
-                if (row.KeyText != null) row.KeyText.text = FormatKeyName(current);
+                if (row.LabelText != null) { row.LabelText.color = Color.white; row.LabelText.text = FormatActionName(b.action); }
+                if (row.KeyText != null) { row.KeyText.color = Color.white; row.KeyText.text = FormatKeyName(current); }
 
                 var btn = row.Go.GetComponentInChildren<Button>();
                 if (btn != null)

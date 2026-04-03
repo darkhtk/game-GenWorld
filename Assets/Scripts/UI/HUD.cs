@@ -583,6 +583,7 @@ public class HUD : MonoBehaviour
             var fitter = entry.GetComponent<UnityEngine.UI.ContentSizeFitter>();
             if (fitter == null) fitter = entry.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
             fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+            entry.color = Color.white;
             entry.overflowMode = TMPro.TextOverflowModes.Overflow;
             entry.enableWordWrapping = true;
             entry.gameObject.SetActive(true);
