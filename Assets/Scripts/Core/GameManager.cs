@@ -54,6 +54,12 @@ public class GameManager : MonoBehaviour
         EventBus.Clear();
     }
 
+    async System.Threading.Tasks.Task InitAISafe()
+    {
+        try { await AI.Init(); }
+        catch (System.Exception ex) { Debug.LogError($"[GameManager] AI init failed: {ex.Message}"); }
+    }
+
     void Start()
     {
         Data = new DataManager();
@@ -66,7 +72,7 @@ public class GameManager : MonoBehaviour
         Crafting = new CraftingSystem(Data.Recipes, Data.Items);
         Quests = new QuestSystem(Data.QuestList);
         AI = new AIManager();
-        _ = AI.Init();
+        _ = InitAISafe();
         RegionTracker = new RegionTracker(Data.RegionList);
         TimeSystem = new TimeSystem();
         Achievements = new AchievementSystem();
@@ -206,59 +212,69 @@ public class GameManager : MonoBehaviour
         var dlg = uiManager.Dialogue;
         dlg?.ShowLoading(true);
 
-        string loreContext = BuildLoreContext(npc.Def);
-
-        var response = await AI.GenerateDialogue(
-            npc.Def.id, playerInput, _dialogueHistory,
-            PlayerState.Level, PlayerState.Gold,
-            Inventory, Data.Items, Quests,
-            loreContext, npc.Def.actions, npc.Def.dialogueTraits);
-
-        dlg?.ShowLoading(false);
-        _dialogueGenerating = false;
-
-        if (response == null || dlg == null) return;
-
-        // Add NPC response to history
-        _dialogueHistory.Add(new DialogueEntry { role = "npc", text = response.dialogue });
-
-        // Display in UI
-        dlg.AppendLog(npc.Def.name, response.dialogue, npc.Def.color);
-
-        if (response.options != null && response.options.Length > 0)
-            dlg.ShowOptions(response.options);
-        else
+        try
         {
-            // No options = farewell, auto-close after 1.5s
-            StartCoroutine(AutoCloseDialogue(1.5f));
-        }
+            string loreContext = BuildLoreContext(npc.Def);
 
-        // Handle quest offer
-        if (response.offerQuest)
-        {
-            var questInfo = Quests.GetQuestStatusForNpc(npc.Def.id, Inventory);
-            if (questInfo.HasValue)
+            var response = await AI.GenerateDialogue(
+                npc.Def.id, playerInput, _dialogueHistory,
+                PlayerState.Level, PlayerState.Gold,
+                Inventory, Data.Items, Quests,
+                loreContext, npc.Def.actions, npc.Def.dialogueTraits);
+
+            dlg?.ShowLoading(false);
+            _dialogueGenerating = false;
+
+            if (response == null || dlg == null) return;
+
+            // Add NPC response to history
+            _dialogueHistory.Add(new DialogueEntry { role = "npc", text = response.dialogue });
+
+            // Display in UI
+            dlg.AppendLog(npc.Def.name, response.dialogue, npc.Def.color);
+
+            if (response.options != null && response.options.Length > 0)
+                dlg.ShowOptions(response.options);
+            else
             {
-                if (questInfo.Value.status == "available")
+                // No options = farewell, auto-close after 1.5s
+                StartCoroutine(AutoCloseDialogue(1.5f));
+            }
+
+            // Handle quest offer
+            if (response.offerQuest)
+            {
+                var questInfo = Quests.GetQuestStatusForNpc(npc.Def.id, Inventory);
+                if (questInfo.HasValue)
                 {
-                    var quest = questInfo.Value.quest;
-                    var brain = AI.GetBrain(npc.Def.id);
-                    int rel = brain?.GetRelationship("player") ?? 0;
-                    float genMult = npc.Def.dialogueTraits?.generosity / 10f ?? 0.5f;
-                    var rewards = Quests.GetScaledRewards(quest, 0, rel, genMult);
-                    dlg.ShowQuestProposal(quest, rewards);
-                }
-                else if (questInfo.Value.status == "completable")
-                {
-                    dlg.OnCompleteQuest?.Invoke(questInfo.Value.quest.id);
-                    dlg.AppendLog("System", "Quest completed!", "#00ff00");
+                    if (questInfo.Value.status == "available")
+                    {
+                        var quest = questInfo.Value.quest;
+                        var brain = AI.GetBrain(npc.Def.id);
+                        int rel = brain?.GetRelationship("player") ?? 0;
+                        float genMult = npc.Def.dialogueTraits?.generosity / 10f ?? 0.5f;
+                        var rewards = Quests.GetScaledRewards(quest, 0, rel, genMult);
+                        dlg.ShowQuestProposal(quest, rewards);
+                    }
+                    else if (questInfo.Value.status == "completable")
+                    {
+                        dlg.OnCompleteQuest?.Invoke(questInfo.Value.quest.id);
+                        dlg.AppendLog("System", "Quest completed!", "#00ff00");
+                    }
                 }
             }
-        }
 
-        // Handle AI-triggered action
-        if (!string.IsNullOrEmpty(response.action))
-            HandleNpcAction(npc, response.action);
+            // Handle AI-triggered action
+            if (!string.IsNullOrEmpty(response.action))
+                HandleNpcAction(npc, response.action);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[GameManager] Dialogue error: {ex.Message}");
+            dlg?.ShowLoading(false);
+            _dialogueGenerating = false;
+            dlg?.AppendLog("System", "...", "#999999");
+        }
     }
 
     System.Collections.IEnumerator AutoCloseDialogue(float delay)

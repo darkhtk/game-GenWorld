@@ -80,7 +80,7 @@
 | 68 | V-012 타일맵 경계 블렌딩 | P4 | ✅ | 폴리시 — 자가진행 |
 | 69 | S-001 세이브 파일 손상 복구 | P1 | ✅ | REVIEW-S001-v1 |
 | 70 | S-002 EventBus 구독 누수 방지 | P1 | 👀 | GameManager OnDestroy + EventBus.Clear |
-| 71 | S-003 async fire-and-forget 방어 | P1 | ⬜ | AI.Init/HandleDialogueResponse 예외 |
+| 71 | S-003 async fire-and-forget 방어 | P1 | 👀 | AI.Init/HandleDialogueResponse 예외 |
 | 72 | S-004 DoT 사망 킬 보상 미처리 | P1 | ⬜ | MonsterSpawner.RemoveMonster 연결 |
 | 73 | S-005 LINQ 할당 제거 | P2 | ⬜ | InventorySystem.OccupiedSlots |
 | 74 | S-007 CombatManager stale ref 방어 | P2 | ⬜ | _cachedMonsters 참조 안정성 |
@@ -103,6 +103,7 @@
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
 | S-002 EventBus 구독 누수 방지 | 2026-04-03 | 대기 | GameManager OnDestroy + EventBus.Clear() |
+| S-003 async fire-and-forget 방어 | 2026-04-03 | 대기 | try-catch + 상태 복구 |
 
 ## ✅ Done
 
