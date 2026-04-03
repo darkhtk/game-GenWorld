@@ -109,11 +109,12 @@ public class TooltipUI : MonoBehaviour
         var rt = _instance._panelRect;
 
         Vector2 size = rt.sizeDelta;
-        float x = screenPos.x + 10f;
-        float y = screenPos.y - 10f;
+        float pad = 10f * (Screen.height / 1080f);
+        float x = screenPos.x + pad;
+        float y = screenPos.y - pad;
 
-        if (x + size.x > Screen.width) x = screenPos.x - size.x - 10f;
-        if (y - size.y < 0) y = screenPos.y + size.y + 10f;
+        if (x + size.x > Screen.width) x = screenPos.x - size.x - pad;
+        if (y - size.y < 0) y = screenPos.y + size.y + pad;
 
         rt.position = new Vector3(x, y, 0);
     }

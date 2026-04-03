@@ -671,7 +671,10 @@ public class HUD : MonoBehaviour
         {
             var rt = skillTooltipPanel.GetComponent<RectTransform>();
             if (rt != null)
-                rt.position = skillIcons[slotIndex].transform.position + new Vector3(0, 60, 0);
+            {
+                float scale = Screen.height / 1080f;
+                rt.position = skillIcons[slotIndex].transform.position + new Vector3(0, 60f * scale, 0);
+            }
         }
     }
 
