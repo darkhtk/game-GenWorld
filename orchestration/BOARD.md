@@ -145,9 +145,10 @@
 | 133 | S-053 PlayerController 벽 끼임 방지 | P3 | ✅ | REVIEW-S053-v1 |
 | 134 | S-055 UI 해상도 대응 | P3 | ✅ | REVIEW-S055-v1 |
 | 135 | S-069 Projectile 풀 반환 null 콜백 방어 | P3 | ✅ | REVIEW-S069-v1 |
-| 136 | S-076 CombatManager 동시 공격 순차 처리 | P3 | 👀 | player death guard + pendingKills 통일 |
-| 137 | S-077 SaveSystem 슬롯 데이터 무결성 검증 | P2 | 👀 | SaveData.Validate() + TryLoadFrom 호출 |
-| 138 | S-078 DialogueSystem AI 응답 타임아웃 | P2 | 👀 | CTS 30초 상한 + 폴백 텍스트 |
+| 136 | S-076 CombatManager 동시 공격 순차 처리 | P3 | ✅ | REVIEW-S076-v1 ✅ APPROVE |
+| 137 | S-077 SaveSystem 슬롯 데이터 무결성 검증 | P2 | ✅ | REVIEW-S077-v1 ✅ APPROVE |
+| 138 | S-078 DialogueSystem AI 응답 타임아웃 | P2 | ✅ | REVIEW-S078-v1 ✅ APPROVE |
+| 139 | S-079 EffectHolder 버프 스택 상한 | P3 | 👀 | maxStack + DefaultMaxStack + stackCount 추적 |
 
 ---
 
@@ -170,14 +171,15 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-076 CombatManager 동시 공격 순차 처리 | 2026-04-03 | ✅ APPROVE | REVIEW-S076-v1 |
-| S-077 SaveSystem 슬롯 데이터 무결성 검증 | 2026-04-03 | ✅ APPROVE | REVIEW-S077-v1 [깊은 리뷰] |
-| S-078 DialogueSystem AI 응답 타임아웃 | 2026-04-03 | ⏳ | CTS 30초 상한 + 폴백 텍스트 + 경과 시간 UI |
+| S-079 EffectHolder 버프 스택 상한 | 2026-04-03 | ⏳ | maxStack + DefaultMaxStack + GetStackCount + 8 tests |
 
 ## ✅ Done
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-078 DialogueSystem AI 응답 타임아웃 | 2026-04-03 | REVIEW-S078-v1 ✅ APPROVE |
+| S-077 SaveSystem 슬롯 데이터 무결성 검증 | 2026-04-03 | REVIEW-S077-v1 ✅ APPROVE |
+| S-076 CombatManager 동시 공격 순차 처리 | 2026-04-03 | REVIEW-S076-v1 ✅ APPROVE |
 | S-069 Projectile 풀 반환 null 콜백 방어 | 2026-04-03 | REVIEW-S069-v1 ✅ APPROVE |
 | S-053 PlayerController 벽 끼임 방지 | 2026-04-03 | REVIEW-S053-v1 ✅ APPROVE |
 | S-055 UI 해상도 대응 | 2026-04-03 | REVIEW-S055-v1 ✅ APPROVE |
