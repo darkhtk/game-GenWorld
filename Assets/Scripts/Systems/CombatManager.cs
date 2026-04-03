@@ -16,6 +16,7 @@ public class CombatManager : MonoBehaviour
 
     float _lastAutoAttackTime;
     List<MonsterController> _cachedMonsters;
+    List<MonsterController> _pendingKills;
 
     // Set by Director after Init
     public SkillSystem Skills { get; set; }
@@ -222,6 +223,9 @@ public class CombatManager : MonoBehaviour
         if (monsters == null) return;
         var stats = _getStats();
 
+        _pendingKills ??= new List<MonsterController>();
+        _pendingKills.Clear();
+
         if (skill.actions != null && skill.actions.Length > 0 && string.IsNullOrEmpty(skill.behavior))
         {
             var ctx = BuildActionContext(skill, result.skillLevel, stats, monsters, nowMs,
@@ -234,6 +238,10 @@ public class CombatManager : MonoBehaviour
                 dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetX, targetY);
             _skillExecutor.Execute(ctx);
         }
+
+        for (int i = 0; i < _pendingKills.Count; i++)
+            _onMonsterDeath?.Invoke(_pendingKills[i]);
+        _pendingKills.Clear();
     }
 
     SkillContext BuildSkillContext(SkillDef skill, int skillLevel, Stats stats,
@@ -259,7 +267,7 @@ public class CombatManager : MonoBehaviour
             dealDamage = DealDamageToMonster,
             showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
             showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
-            onKill = m => _onMonsterDeath?.Invoke(m),
+            onKill = m => _pendingKills?.Add(m),
             recalcStats = s => { },
             shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
             applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
@@ -297,7 +305,7 @@ public class CombatManager : MonoBehaviour
             dealDamage = DealDamageToMonster,
             showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
             showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
-            onKill = m => _onMonsterDeath?.Invoke(m),
+            onKill = m => _pendingKills?.Add(m),
             recalcStats = s => { },
             shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
             applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
@@ -330,7 +338,13 @@ public class CombatManager : MonoBehaviour
             dmgColor = new Color(r, g, b);
         }
         ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit, dmgColor);
-        if (dead) _onMonsterDeath?.Invoke(m);
+        if (dead)
+        {
+            if (_pendingKills != null)
+                _pendingKills.Add(m);
+            else
+                _onMonsterDeath?.Invoke(m);
+        }
         return dead;
     }
 

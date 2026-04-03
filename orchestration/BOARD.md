@@ -81,7 +81,7 @@
 | 69 | S-001 세이브 파일 손상 복구 | P1 | ✅ | REVIEW-S001-v1 |
 | 70 | S-002 EventBus 구독 누수 방지 | P1 | ✅ | 이미 구현됨 확인 |
 | 71 | S-003 async fire-and-forget 방어 | P1 | ✅ | 이미 구현됨 확인 |
-| 72 | S-004 DoT 사망 킬 보상 미처리 | P1 | 👀 | MonsterSpawner.RemoveMonster 연결 |
+| 72 | S-004 DoT 사망 킬 보상 미처리 | P1 | ✅ | REVIEW-S004-v1 |
 | 73 | S-005 LINQ 할당 제거 | P2 | ✅ | Where/ToList→수동 루프, using Linq 제거 |
 | 74 | S-007 CombatManager stale ref 방어 | P2 | ✅ | _pendingKills 지연 처리 |
 | 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
@@ -105,7 +105,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | ✅ APPROVE | REVIEW-S004-v1 |
 | S-008 PlayerController 카메라 null 방어 | 2026-04-03 | 대기 | _cachedCamera 재획득 로직 |
 | S-011 DataManager 로드 실패 폴백 | 2026-04-03 | 대기 | Array.Empty 기본값 초기화 |
 
@@ -192,6 +191,7 @@
 | S-005 LINQ 할당 제거 | 2026-04-03 | Where/ToList→수동 루프 ✅ |
 | S-007 CombatManager stale ref 방어 | 2026-04-03 | _pendingKills 지연 처리 ✅ |
 | S-010 QuestSystem null 방어 | 2026-04-03 | CompleteQuest rewards null 기본값 ✅ |
+| S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | REVIEW-S004-v1 ✅ |
 
 ## 📋 Backlog
 

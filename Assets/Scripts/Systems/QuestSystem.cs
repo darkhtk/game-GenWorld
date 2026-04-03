@@ -65,7 +65,7 @@ public class QuestSystem
             questTitle = def.title,
             completedCount = _completed.Count
         });
-        return def.rewards;
+        return def.rewards ?? new QuestReward { gold = 0, xp = 0, items = null };
     }
 
     bool AreRequirementsMet(QuestDef def, InventorySystem inv)

@@ -1,27 +1,31 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #20)
-> **모드:** 🎨 에셋 태스크 + 코드 품질 감사
+> **최종 실행:** 2026-04-03 (루프 #21)
+> **모드:** 코드 품질 감사 (Step 2-2)
 
 ## 이번 루프 수행 내용
 
-### 🎨 에셋 태스크 처리 (4건)
-- **S-017** ✅ `vfx_monster_death.png` 이미 존재 확인
-- **S-018** ✅ `sfx_combo.wav` placeholder 생성 (sfx_error 이미 존재)
-- **S-019** ✅ `icon_quest_marker.png`, `icon_quest_complete.png` 생성
-- **S-020** ✅ `status_stealth.png` 생성 (stun/slow/poison/mana_shield 이미 존재)
-
 ### 🔧 코드 품질 감사 (3건)
-- **S-002** ✅ EventBus.Clear() 이미 GameManager.OnDestroy:54에 구현됨 → 완료 처리
-- **S-003** ✅ async try-catch 이미 InitAISafe:59, HandleDialogueResponse:215에 구현됨 → 완료 처리
-- **S-009** ✅ MonsterController FlashWhite 코루틴 중복 방지 수정
-  - `_flashCoroutine` 필드 추가, `StopCoroutine` 가드로 연타 히트 색상 깨짐 방지
+
+#### S-005 InventorySystem LINQ 할당 제거 ✅
+- `SortItems()`: `Slots.Where(s => s != null).ToList()` → 수동 for 루프
+- `GetFiltered()`: LINQ Where/ToList 2회 → 수동 루프, ToArray() → 수동 배열 복사
+- `using System.Linq;` 완전 제거
+
+#### S-007 CombatManager stale ref 방어 ✅ (버그 발견+수정)
+- **발견:** `_cachedMonsters`는 `MonsterSpawner._monsters`와 동일 참조
+- `DealDamageToMonster` → `_onMonsterDeath` → `RemoveMonster` → `_monsters.Remove(m)` 호출 시
+  SkillExecutor/ActionRunner `foreach(m in ctx.monsters)` 도중 리스트 변조 = `InvalidOperationException`
+- **수정:** `_pendingKills` 리스트 도입. ExecuteSkill 내 kills 지연 수집, 실행 완료 후 일괄 처리
+
+#### S-010 QuestSystem null 방어 ✅
+- `CompleteQuest()`: `def.rewards` null 시 안전 기본값 반환
 
 ### BOARD/RESERVE 동기화
-- RESERVE 7건 완료 처리, 미완료 18건 잔존 (보충 불필요)
-- BOARD 로드맵/Done 섹션 갱신
+- RESERVE: S-005/S-007/S-010 완료 처리, 미완료 15건 잔존
+- BOARD: 로드맵/Done/InReview 섹션 갱신
 
-## 누적 현황 (루프 #1~#20)
+## 누적 현황 (루프 #1~#21)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -40,15 +44,16 @@
 | #14~18 | 순찰 (안정) | 빌드 Clean, 변경 없음 |
 | #19 | 코드 감사 + RESERVE 재건 | 버그 2건 수정, 25건 태스크 보충 |
 | #20 | 🎨 에셋 4건 + 코드 감사 3건 | S-009 버그수정, S-002/003 완료확인, 에셋 4종 |
+| #21 | 코드 품질 감사 3건 | S-005 LINQ제거, S-007 stale ref(버그!), S-010 null방어 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 13건 (+1 이번 루프)
-- **성능 최적화**: 6건
-- **UX SFX 추가**: 6건 (+sfx_combo)
-- **에셋 생성**: 46종 (+4 이번 루프)
+- **치명 버그 수정**: 14건 (+1 S-007 foreach 중 리스트 변조)
+- **성능 최적화**: 7건 (+1 S-005 LINQ→수동 루프)
+- **UX SFX 추가**: 6건
+- **에셋 생성**: 46종
 - **RESERVE 태스크 보충**: 25건
 - **감사 시스템**: 29개 클래스 + 7개 재감사
 
 ## 다음 루프 예정
-- 코드 품질 감사 계속 (S-022 EffectHolder.Tick, S-026 NPC ResumeMoving 등)
-- 에셋 선제 생성 — RESERVE 다음 5건 필요 에셋 확인
+- Step 2-3 성능 최적화 또는 Step 2-4 UX 개선
+- S-008 PlayerController 카메라 null 방어 (In Review 대기)

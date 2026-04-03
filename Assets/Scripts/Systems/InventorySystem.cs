@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 public class InventorySystem
 {
@@ -97,7 +96,9 @@ public class InventorySystem
 
     public void SortItems(Dictionary<string, ItemDef> itemDefs)
     {
-        var items = Slots.Where(s => s != null).ToList();
+        var items = new List<ItemInstance>();
+        for (int i = 0; i < Slots.Length; i++)
+            if (Slots[i] != null) items.Add(Slots[i]);
         items.Sort((a, b) =>
         {
             itemDefs.TryGetValue(a.itemId, out var defA);
@@ -117,14 +118,17 @@ public class InventorySystem
 
     public ItemInstance[] GetFiltered(Dictionary<string, ItemDef> defs, string typeFilter, int sortMode)
     {
-        var items = Slots.Where(s => s != null).ToList();
+        var items = new List<ItemInstance>();
+        for (int i = 0; i < Slots.Length; i++)
+            if (Slots[i] != null) items.Add(Slots[i]);
 
         if (!string.IsNullOrEmpty(typeFilter) && typeFilter != "all")
         {
-            items = items.Where(s =>
+            var filtered = new List<ItemInstance>();
+            for (int i = 0; i < items.Count; i++)
             {
-                if (!defs.TryGetValue(s.itemId, out var def)) return false;
-                return typeFilter switch
+                if (!defs.TryGetValue(items[i].itemId, out var def)) continue;
+                bool match = typeFilter switch
                 {
                     "weapon" => def.type == "weapon",
                     "armor" => def.type == "helmet" || def.type == "armor" || def.type == "boots" || def.type == "accessory",
@@ -132,7 +136,9 @@ public class InventorySystem
                     "material" => def.type == "material",
                     _ => true
                 };
-            }).ToList();
+                if (match) filtered.Add(items[i]);
+            }
+            items = filtered;
         }
 
         if (sortMode == 3)
@@ -157,6 +163,8 @@ public class InventorySystem
             });
         }
 
-        return items.ToArray();
+        var result = new ItemInstance[items.Count];
+        for (int i = 0; i < items.Count; i++) result[i] = items[i];
+        return result;
     }
 }
