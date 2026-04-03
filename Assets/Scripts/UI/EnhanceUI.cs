@@ -105,7 +105,7 @@ public class EnhanceUI : MonoBehaviour
         if (_equipment == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>";
+        if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>"; }
 
         for (int i = 0; i < GameConfig.EquipSlots.Length; i++)
         {
@@ -175,6 +175,7 @@ public class EnhanceUI : MonoBehaviour
 
         if (texts.Length > 2)
         {
+            texts[2].color = Color.white;
             if (!hasEquip) texts[2].text = "";
             else if (maxed) { texts[2].text = "<color=#ffd900>MAX</color>"; }
             else
@@ -280,7 +281,7 @@ public class EnhanceUI : MonoBehaviour
 
     void ShowResult(string text)
     {
-        if (resultText != null) resultText.text = text;
+        if (resultText != null) { resultText.color = Color.white; resultText.text = text; }
     }
 
     void ClearEntries()
