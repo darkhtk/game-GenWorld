@@ -65,6 +65,7 @@ public class InventorySystem
 
     public bool RemoveItem(string itemId, int count)
     {
+        if (count <= 0) return false;
         if (!HasItems(itemId, count)) return false;
         int remaining = count;
         for (int i = MaxSlots - 1; i >= 0 && remaining > 0; i--)

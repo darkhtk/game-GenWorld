@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Coordinator — S-069 APPROVE 동기화, S-088~S-099 보충 12건)
+> **최종 갱신:** 2026-04-03 (Supervisor — S-076~S-078 커밋 동기화, S-089/S-093/S-099 버그 수정, S-081/S-088/S-090/S-095 검증 완료)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -43,30 +43,30 @@
 | 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ✅ |
 | 35 | S-074 | 🔧 | MonsterSpawner _nightPoolBuffer stale 데이터 — Clear()를 night 조건 밖으로 이동, Def null 방어 추가 | P3 | ✅ |
 | 36 | S-075 | 🔧 | MonsterController 사망 상태 피격 방지 — TakeDamage에 IsDead/DeathProcessed 조기 반환 추가 | P2 | ✅ |
-| 37 | S-076 | 🔧 | CombatManager 동시 공격 순차 처리 — 동일 프레임 다중 공격 요청 시 큐잉/순차 처리 보장 | P3 | ⬜ |
-| 38 | S-077 | 🔧 | SaveSystem 슬롯 데이터 무결성 검증 — 로드 시 필수 필드 누락 체크 + 기본값 폴백 | P2 | ⬜ |
-| 39 | S-078 | 🔧 | DialogueSystem AI 응답 타임아웃 — Ollama 무응답 시 폴백 텍스트 표시 (30초 상한) | P2 | ⬜ |
+| 37 | S-076 | 🔧 | CombatManager 동시 공격 순차 처리 — player death guard + pendingKills 통합 (bd123e4) | P3 | ✅ |
+| 38 | S-077 | 🔧 | SaveSystem 슬롯 데이터 무결성 검증 — SaveData.Validate() 로드 시 필드 검증 + 폴백 (fb8f223) | P2 | ✅ |
+| 39 | S-078 | 🔧 | DialogueSystem AI 응답 타임아웃 — CancellationToken 30s + fallback + elapsed UI (3185a32) | P2 | ✅ |
 | 40 | S-079 | 🔧 | EffectHolder 버프 스택 상한 — 동일 버프 무한 중첩 방지 (maxStack 도입 검토) | P3 | ⬜ |
 | 41 | S-080 | 🔧 | PlayerController CCD 확인 — CollisionDetectionMode2D.Continuous 설정 검증 완료 | P3 | ✅ |
-| 42 | S-081 | 🔧 | InventorySystem 중복 아이템 ID 병합 — 동일 ID 아이템 추가 시 기존 스택에 올바르게 합산 확인 | P3 | ⬜ |
+| 42 | S-081 | 🔧 | InventorySystem 중복 아이템 ID 병합 — 검증 완료: 스택 로직 정상 동작 | P3 | ✅ |
 | 43 | S-082 | 🔧 | UIManager 패널 중복 열기 방지 — 8개 UI에 IsOpen 가드 추가 완료 | P2 | ✅ |
 | 44 | S-083 | 🔧 | AudioManager BGM 동시 변경 안정성 — 연속 BGM 전환 요청 시 마지막 요청만 수행 검증 | P3 | ⬜ |
 | 45 | S-084 | 🔧 | WorldEventSystem 종료 잔존 오브젝트 정리 — 이벤트 완료 후 스폰된 오브젝트 확실히 제거 확인 | P3 | ⬜ |
 | 46 | S-085 | 🔧 | NPC 대화 종료 직후 재진입 방지 — Close 후 쿨다운 타이머로 즉시 재대화 차단 | P3 | ⬜ |
 | 47 | S-086 | 🔧 | SkillBar 쿨다운 시각 동기화 — 스킬 사용 후 쿨다운 필 업데이트 정밀도 확인 | P3 | ⬜ |
 | 48 | S-087 | 🔧 | RegionManager 씬 전환 중 입력 차단 — 로딩 중 PlayerController 입력 비활성 확인 | P2 | ⬜ |
-| 49 | S-088 | 🔧 | CombatManager 빈 스킬 슬롯 사용 방어 — 빈 슬롯 클릭/키 입력 시 NPE 방지 가드 확인 | P2 | ⬜ |
-| 50 | S-089 | 🔧 | InventorySystem RemoveItem 음수 수량 방어 — count <= 0 입력 시 가드 추가 검증 | P2 | ⬜ |
-| 51 | S-090 | 🔧 | QuestSystem 중복 수락 방지 — AcceptQuest에서 이미 진행 중인 퀘스트 재수락 차단 확인 | P2 | ⬜ |
+| 49 | S-088 | 🔧 | CombatManager 빈 스킬 슬롯 사용 방어 — 검증 완료: UseSkill null 방어 + result.success 체크 정상 | P2 | ✅ |
+| 50 | S-089 | 🔧 | InventorySystem RemoveItem 음수 수량 방어 — count <= 0 가드 추가 완료 | P2 | ✅ |
+| 51 | S-090 | 🔧 | QuestSystem 중복 수락 방지 — 검증 완료: _active.ContainsKey 이미 구현됨 | P2 | ✅ |
 | 52 | S-091 | 🔧 | UIManager 씬 전환 시 열린 패널 일괄 닫기 — 씬 전환 후 잔존 UI 패널 정리 확인 | P2 | ⬜ |
 | 53 | S-092 | 🔧 | DialogueUI 긴 텍스트 오버플로 처리 — AI 응답이 텍스트 영역 초과 시 스크롤/잘림 확인 | P3 | ⬜ |
-| 54 | S-093 | 🔧 | PlayerController 사망 후 입력 차단 — 사망 애니메이션 중 이동/공격 입력 무시 확인 | P2 | ⬜ |
+| 54 | S-093 | 🔧 | PlayerController 사망 후 입력 차단 — DeathScreenUI에서 Frozen=true 설정, Respawn에서 복원 | P2 | ✅ |
 | 55 | S-094 | 🔧 | CraftingUI 재료 부족 항목별 표시 — 어떤 재료가 부족한지 개별 색상/텍스트로 표시 확인 | P3 | ⬜ |
-| 56 | S-095 | 🔧 | EquipmentSystem 빈 슬롯 장착 해제 방어 — 빈 슬롯 Unequip 호출 시 NPE 방지 | P2 | ⬜ |
+| 56 | S-095 | 🔧 | EquipmentSystem 빈 슬롯 장착 해제 방어 — 검증 완료: TryGetValue+null 체크 이미 구현됨 | P2 | ✅ |
 | 57 | S-096 | 🔧 | MonsterController 공격 범위 외 데미지 차단 — 거리 체크 없는 피해 적용 경로 확인 | P3 | ⬜ |
 | 58 | S-097 | 🔧 | SaveSystem 슬롯 삭제 확인 팝업 — 세이브 삭제 시 확인 없이 즉시 삭제되는 문제 확인 | P3 | ⬜ |
 | 59 | S-098 | 🔧 | AchievementUI 알림 큐 중복 방지 — 동시 달성 시 알림 겹침/누락 확인 | P3 | ⬜ |
-| 60 | S-099 | 🔧 | HUD 상태바 음수 값 표시 방지 — HP/MP/XP 바가 음수 비율로 표시되지 않도록 clamp 확인 | P2 | ⬜ |
+| 60 | S-099 | 🔧 | HUD 상태바 음수 값 표시 방지 — Mathf.Clamp01 적용 (HP/MP/XP/Effect fill) | P2 | ✅ |
 
 ## 완료 태스크
 

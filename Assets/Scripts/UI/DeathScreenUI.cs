@@ -33,7 +33,8 @@ public class DeathScreenUI : MonoBehaviour
         {
             int loss = Mathf.FloorToInt(gm.PlayerState.Gold * GameConfig.DeathGoldPenalty);
             if (goldLossText != null) goldLossText.text = $"Gold lost: {loss}";
-            gm.GetComponentInChildren<PlayerController>()?.SetSpeed(0);
+            var pc = gm.GetComponentInChildren<PlayerController>();
+            if (pc != null) { pc.SetSpeed(0); pc.Frozen = true; }
         }
 
         if (canvasGroup != null) StartCoroutine(FadeIn());
@@ -64,7 +65,11 @@ public class DeathScreenUI : MonoBehaviour
 
         gm.PlayerState.FullHeal();
         var pc = gm.GetComponentInChildren<PlayerController>();
-        if (pc != null) pc.SetSpeed(gm.PlayerState.CurrentStats.spd);
+        if (pc != null)
+        {
+            pc.Frozen = false;
+            pc.SetSpeed(gm.PlayerState.CurrentStats.spd);
+        }
 
         AudioManager.Instance?.PlaySFX("sfx_confirm");
         if (panel != null) panel.SetActive(false);

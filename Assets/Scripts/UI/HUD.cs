@@ -296,8 +296,8 @@ public class HUD : MonoBehaviour
 
     public void UpdateBars(int hp, int maxHp, int mp, int maxMp)
     {
-        _targetHpFill = maxHp > 0 ? (float)hp / maxHp : 0f;
-        _targetMpFill = maxMp > 0 ? (float)mp / maxMp : 0f;
+        _targetHpFill = Mathf.Clamp01(maxHp > 0 ? (float)hp / maxHp : 0f);
+        _targetMpFill = Mathf.Clamp01(maxMp > 0 ? (float)mp / maxMp : 0f);
 
         // Low HP pulsing warning (below 25%)
         if (hpFill != null)
@@ -319,7 +319,7 @@ public class HUD : MonoBehaviour
 
     public void UpdateXpBar(int currentXp, int totalXp)
     {
-        _targetXpFill = totalXp > 0 ? (float)currentXp / totalXp : 0f;
+        _targetXpFill = Mathf.Clamp01(totalXp > 0 ? (float)currentXp / totalXp : 0f);
     }
 
     public void UpdateSkillBar(string[] equipped, float[] cooldowns)
@@ -623,7 +623,7 @@ public class HUD : MonoBehaviour
                 float remaining = (info.expires - nowMs) / 1000f;
                 if (_effectTimerTexts[i] != null) _effectTimerTexts[i].text = $"{remaining:F0}s";
                 if (_effectFillImages[i] != null && info.totalDuration > 0)
-                    _effectFillImages[i].fillAmount = (info.expires - nowMs) / info.totalDuration;
+                    _effectFillImages[i].fillAmount = Mathf.Clamp01((info.expires - nowMs) / info.totalDuration);
             }
             else
             {
