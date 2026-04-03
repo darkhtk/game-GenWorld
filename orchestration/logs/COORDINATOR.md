@@ -1,20 +1,17 @@
 # Coordinator Loop Log
-## [2026-04-03 21:00]
+## [2026-04-03 21:30]
 ### 점검 결과
-- BOARD 동기화: 11건 수정 — Supervisor 자가진행 완료 항목이 BOARD 로드맵/Done에 미반영
-  - 추가: S-059, S-062, S-063, S-066, S-067, S-068, S-070, S-071, S-072, S-073, S-075
-  - 로드맵 #121~#131 추가 + Done 섹션 11건 추가
-- RESERVE 잔여: 16건 ⬜ (보충 불필요, 10건 초과)
+- BOARD 동기화: 1건 수정 — S-074 (nightPoolBuffer stale fix) Supervisor 완료 → 로드맵 #132 추가 + Done 반영
+- RESERVE 잔여: 15건 ⬜ (보충 불필요, 10건 초과)
   - P2: S-077, S-078, S-082, S-087
-  - P3: S-053, S-055, S-069, S-074, S-076, S-079, S-080, S-081, S-083, S-084, S-085, S-086
+  - P3: S-053(In Review), S-055, S-069, S-076, S-079, S-080, S-081, S-083, S-084, S-085, S-086
 - 에이전트 상태:
-  - Developer: IDLE — 다음 태스크 대기 중. 정상.
-  - Client: IDLE — In Review 대상 없음. 정상.
-  - Supervisor: 루프 #32 — S-075 버그 수정 + 코드 감사 13파일. 활성.
+  - Developer: IDLE — S-040~S-052 완료, 다음 태스크 착수 예정. 정상.
+  - Client: IDLE — S-053 In Review 대기 중이나 Client 미인식. 다음 루프에서 픽업 예상.
+  - Supervisor: 루프 #33 — nightPoolBuffer CRITICAL 버그 수정 + EventBus/MonsterSpawner null 방어. 활성.
 - 메일: 이메일 subject 미설정 — 스킵
 ### 자기 개선
-- Supervisor 자가진행 항목의 BOARD 동기화 누락 11건 발견. 매 루프 RESERVE ✅ vs BOARD Done 교차검증 강화.
+- Supervisor 완료 항목(S-074) BOARD 미반영 1건 발견. 매 루프 RESERVE ✅ 신규 vs BOARD 교차검증 유지.
 ### 행동
-- BOARD.md 로드맵 11건 추가 (S-059~S-075) + Done 섹션 11건 추가
-- SPEC-S-082.md 신규 작성 (UIManager 패널 중복 방지)
-- SPEC-S-087.md 신규 작성 (씬 전환 중 입력 차단)
+- BOARD.md 로드맵 S-074 추가 + Done 섹션 반영
+- SPEC-S-076, S-079, S-080 기획서 작성 중 (백그라운드)

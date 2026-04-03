@@ -141,7 +141,8 @@
 | 129 | S-072 상태이상 아이콘 추가 | P3 | ✅ | Supervisor — 7종 아이콘 생성 |
 | 130 | S-073 TimeSystem 기간 전환 로그 스팸 | P3 | ✅ | Supervisor — _lastPeriod 추적 중복 제거 |
 | 131 | S-075 MonsterController 사망 상태 피격 방지 | P2 | ✅ | Supervisor — TakeDamage 조기 반환 |
-| 132 | S-053 PlayerController 벽 끼임 방지 | P3 | 👀 | CCD Continuous 추가 |
+| 132 | S-074 MonsterSpawner nightPoolBuffer stale 데이터 | P3 | ✅ | Supervisor — Clear 위치 이동 + Def null 방어 |
+| 133 | S-053 PlayerController 벽 끼임 방지 | P3 | 👀 | CCD Continuous 추가 |
 
 ---
 
@@ -171,6 +172,7 @@
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-074 MonsterSpawner nightPoolBuffer stale 데이터 | 2026-04-03 | Supervisor — Clear 위치 이동 + Def null 방어 ✅ |
 | S-075 MonsterController 사망 상태 피격 방지 | 2026-04-03 | Supervisor — TakeDamage 조기 반환 ✅ |
 | S-073 TimeSystem 기간 전환 로그 스팸 | 2026-04-03 | Supervisor — _lastPeriod 추적 중복 제거 ✅ |
 | S-072 상태이상 아이콘 추가 | 2026-04-03 | Supervisor — 7종 아이콘 생성 ✅ |
