@@ -15,6 +15,7 @@ public class GameUIWiring
     readonly CombatManager _combatManager;
     readonly Action<string> _usePotion;
     readonly Action _saveGame;
+    bool _pendingSave;
 
     public GameUIWiring(UIManager uiManager, InventorySystem inventory, SkillSystem skills,
         PlayerStats playerState, PlayerController player, DataManager data, QuestSystem quests,
@@ -244,6 +245,12 @@ public class GameUIWiring
 
             float now = Time.time;
             if (now - getLastAutoSaveTime() < 30f) return;
+            if (_combatManager != null && _combatManager.IsInCombat)
+            {
+                _pendingSave = true;
+                Debug.Log("[AutoSave] Deferred — in combat");
+                return;
+            }
             setLastAutoSaveTime(now);
             EventBus.Emit(new SaveEvent());
             Debug.Log($"[AutoSave] Region changed to {e.regionName}");
@@ -253,6 +260,13 @@ public class GameUIWiring
         {
             if (hud != null)
                 hud.AddHistoryEntry($"Defeated {e.monsterName} (x{e.killCount})", Color.white);
+            if (_pendingSave && (_combatManager == null || !_combatManager.IsInCombat))
+            {
+                _pendingSave = false;
+                setLastAutoSaveTime(Time.time);
+                EventBus.Emit(new SaveEvent());
+                Debug.Log("[AutoSave] Deferred save executed — combat ended");
+            }
         });
 
         EventBus.On<PlayerDeathEvent>(e =>

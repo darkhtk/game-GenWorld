@@ -18,6 +18,22 @@ public class CombatManager : MonoBehaviour
     List<MonsterController> _cachedMonsters;
     List<MonsterController> _pendingKills;
 
+    public bool IsInCombat
+    {
+        get
+        {
+            if (_cachedMonsters == null) return false;
+            float now = Time.time;
+            for (int i = 0; i < _cachedMonsters.Count; i++)
+            {
+                var m = _cachedMonsters[i];
+                if (m != null && !m.IsDead && now - m.LastHitByPlayerTime < 3f)
+                    return true;
+            }
+            return false;
+        }
+    }
+
     // Cached delegates to avoid per-skill-use allocation
     System.Func<MonsterController, float, bool, int, bool> _dealDmgDel;
     System.Action<float, float, int, bool, Color?> _showDmgDel;
