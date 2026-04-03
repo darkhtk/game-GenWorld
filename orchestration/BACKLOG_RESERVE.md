@@ -17,7 +17,7 @@
 | 8 | S-045 | 🔧 | QuestSystem 진행률 저장 — v2 APPROVE | P2 | ✅ |
 | ~~9~~ | ~~S-046~~ | ~~🔧~~ | ~~MonsterSpawner 리전 전환 클린업 — APPROVE~~ | ~~P2~~ | ✅ |
 | ~~10~~ | ~~S-047~~ | ~~🔧~~ | ~~DialogueSystem 동시 대화 방지 — APPROVE~~ | ~~P2~~ | ✅ |
-| 11 | S-048 | 🔧 | SkillSystem 데이터 무결성 — NEEDS_WORK (SkillList null-id 잔존) | P2 | ⬜ |
+| ~~11~~ | ~~S-048~~ | ~~🔧~~ | ~~SkillSystem 데이터 무결성 — REVIEW-S048-v2 APPROVE~~ | ~~P2~~ | ✅ |
 | 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 풀 무한 성장 방지 (maxSize 상한 도입 검토) | P3 | ⬜ |
 | ~~13~~ | ~~S-050~~ | ~~🔧~~ | ~~InputSystem UI/게임 입력 분리 — APPROVE~~ | ~~P2~~ | ✅ |
 | 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — NEEDS_WORK (Clear 미호출 + DDOL 구독 소멸) | P2 | ⬜ |
@@ -93,3 +93,4 @@
 | S-046 | MonsterSpawner 리전 전환 클린업 — REVIEW-S046-v1 APPROVE | 2026-04-03 |
 | S-071 | ShopUI Destroy GC 스파이크 → SetActive(false) 풀링 교체 | 2026-04-03 |
 | S-073 | TimeSystem 기간 전환 로그 스팸 → _lastPeriod 추적으로 중복 제거 | 2026-04-03 |
+| S-048 | SkillSystem 데이터 무결성 v2 — REVIEW-S048-v2 APPROVE | 2026-04-03 |
