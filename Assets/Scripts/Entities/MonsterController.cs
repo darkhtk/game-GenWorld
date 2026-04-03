@@ -97,8 +97,9 @@ public class MonsterController : MonoBehaviour
         float slowFactor = Effects.Has("slow") ? Effects.GetValue("slow") : 1f;
         float speed = Def.spd * _spdMult * slowFactor;
 
-        // DoT tick
-        float dotDmg = Effects.TickDot(now);
+        // DoT tick (EffectHolder uses ms internally)
+        float nowMs = now * 1000f;
+        float dotDmg = Effects.TickDot(nowMs);
         if (dotDmg > 0)
         {
             Hp -= Mathf.RoundToInt(dotDmg);
@@ -107,7 +108,7 @@ public class MonsterController : MonoBehaviour
         }
 
         // Expire effects
-        Effects.Tick(now);
+        Effects.Tick(nowMs);
 
         // Phase check (boss)
         CheckPhase();

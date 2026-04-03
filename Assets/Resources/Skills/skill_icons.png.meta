@@ -4,7 +4,85 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -6207298038394112916
-    second: skill_icons_0
+    second: skill_icons_heavy_strike
+  - first:
+      213: -6207298038394112917
+    second: skill_icons_spin_slash
+  - first:
+      213: -6207298038394112918
+    second: skill_icons_shield_charge
+  - first:
+      213: -6207298038394112919
+    second: skill_icons_rage
+  - first:
+      213: -6207298038394112920
+    second: skill_icons_war_cry
+  - first:
+      213: -6207298038394112921
+    second: skill_icons_ground_slam
+  - first:
+      213: -6207298038394112922
+    second: skill_icons_whirlwind
+  - first:
+      213: -6207298038394112923
+    second: skill_icons_earthquake
+  - first:
+      213: -6207298038394112924
+    second: skill_icons_berserker_fury
+  - first:
+      213: -6207298038394112925
+    second: skill_icons_piercing_arrow
+  - first:
+      213: -6207298038394112926
+    second: skill_icons_multi_shot
+  - first:
+      213: -6207298038394112927
+    second: skill_icons_poison_arrow
+  - first:
+      213: -6207298038394112928
+    second: skill_icons_trap
+  - first:
+      213: -6207298038394112929
+    second: skill_icons_stealth
+  - first:
+      213: -6207298038394112930
+    second: skill_icons_explosive_arrow
+  - first:
+      213: -6207298038394112931
+    second: skill_icons_arrow_rain
+  - first:
+      213: -6207298038394112932
+    second: skill_icons_assassinate
+  - first:
+      213: -6207298038394112933
+    second: skill_icons_shadow_step
+  - first:
+      213: -6207298038394112934
+    second: skill_icons_fireball
+  - first:
+      213: -6207298038394112935
+    second: skill_icons_ice_bolt
+  - first:
+      213: -6207298038394112936
+    second: skill_icons_chain_lightning
+  - first:
+      213: -6207298038394112937
+    second: skill_icons_heal
+  - first:
+      213: -6207298038394112938
+    second: skill_icons_mana_shield
+  - first:
+      213: -6207298038394112939
+    second: skill_icons_frost_nova
+  - first:
+      213: -6207298038394112940
+    second: skill_icons_meteor
+  - first:
+      213: -6207298038394112941
+    second: skill_icons_blizzard
+  - first:
+      213: -6207298038394112942
+    second: skill_icons_arcane_storm
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +115,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +129,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +153,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -88,7 +166,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,44 +178,642 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: skill_icons_0
+      name: skill_icons_heavy_strike
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 864
+        width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c643a8e525f3bd9a0800000000000000
+      spriteID: a001000000000000a000000000000000
       internalID: -6207298038394112916
       vertices: []
-      indices: 
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_spin_slash
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a002000000000000a000000000000000
+      internalID: -6207298038394112917
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_shield_charge
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a003000000000000a000000000000000
+      internalID: -6207298038394112918
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_rage
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a004000000000000a000000000000000
+      internalID: -6207298038394112919
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_war_cry
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a005000000000000a000000000000000
+      internalID: -6207298038394112920
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_ground_slam
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a006000000000000a000000000000000
+      internalID: -6207298038394112921
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_whirlwind
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a007000000000000a000000000000000
+      internalID: -6207298038394112922
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_earthquake
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a008000000000000a000000000000000
+      internalID: -6207298038394112923
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_berserker_fury
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a009000000000000a000000000000000
+      internalID: -6207298038394112924
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_piercing_arrow
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a010000000000000a000000000000000
+      internalID: -6207298038394112925
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_multi_shot
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a011000000000000a000000000000000
+      internalID: -6207298038394112926
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_poison_arrow
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a012000000000000a000000000000000
+      internalID: -6207298038394112927
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_trap
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a013000000000000a000000000000000
+      internalID: -6207298038394112928
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_stealth
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a014000000000000a000000000000000
+      internalID: -6207298038394112929
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_explosive_arrow
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a015000000000000a000000000000000
+      internalID: -6207298038394112930
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_arrow_rain
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a016000000000000a000000000000000
+      internalID: -6207298038394112931
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_assassinate
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a017000000000000a000000000000000
+      internalID: -6207298038394112932
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_shadow_step
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a018000000000000a000000000000000
+      internalID: -6207298038394112933
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_fireball
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a019000000000000a000000000000000
+      internalID: -6207298038394112934
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_ice_bolt
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a020000000000000a000000000000000
+      internalID: -6207298038394112935
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_chain_lightning
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a021000000000000a000000000000000
+      internalID: -6207298038394112936
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_heal
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a022000000000000a000000000000000
+      internalID: -6207298038394112937
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_mana_shield
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a023000000000000a000000000000000
+      internalID: -6207298038394112938
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_frost_nova
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a024000000000000a000000000000000
+      internalID: -6207298038394112939
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_meteor
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a025000000000000a000000000000000
+      internalID: -6207298038394112940
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_blizzard
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a026000000000000a000000000000000
+      internalID: -6207298038394112941
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_icons_arcane_storm
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a027000000000000a000000000000000
+      internalID: -6207298038394112942
+      vertices: []
+      indices:
       edges: []
       weights: []
     outline: []
-    customData: 
+    customData:
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID:
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      skill_icons_0: -6207298038394112916
-  mipmapLimitGroupName: 
+      skill_icons_heavy_strike: -6207298038394112916
+      skill_icons_spin_slash: -6207298038394112917
+      skill_icons_shield_charge: -6207298038394112918
+      skill_icons_rage: -6207298038394112919
+      skill_icons_war_cry: -6207298038394112920
+      skill_icons_ground_slam: -6207298038394112921
+      skill_icons_whirlwind: -6207298038394112922
+      skill_icons_earthquake: -6207298038394112923
+      skill_icons_berserker_fury: -6207298038394112924
+      skill_icons_piercing_arrow: -6207298038394112925
+      skill_icons_multi_shot: -6207298038394112926
+      skill_icons_poison_arrow: -6207298038394112927
+      skill_icons_trap: -6207298038394112928
+      skill_icons_stealth: -6207298038394112929
+      skill_icons_explosive_arrow: -6207298038394112930
+      skill_icons_arrow_rain: -6207298038394112931
+      skill_icons_assassinate: -6207298038394112932
+      skill_icons_shadow_step: -6207298038394112933
+      skill_icons_fireball: -6207298038394112934
+      skill_icons_ice_bolt: -6207298038394112935
+      skill_icons_chain_lightning: -6207298038394112936
+      skill_icons_heal: -6207298038394112937
+      skill_icons_mana_shield: -6207298038394112938
+      skill_icons_frost_nova: -6207298038394112939
+      skill_icons_meteor: -6207298038394112940
+      skill_icons_blizzard: -6207298038394112941
+      skill_icons_arcane_storm: -6207298038394112942
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:
