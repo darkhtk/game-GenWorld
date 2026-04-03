@@ -1,13 +1,13 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Coordinator 동기화 — S-006/S-039/S-057/S-058 완료 이동)
+> **최종 갱신:** 2026-04-03 (Coordinator 동기화 — S-021 APPROVE → Done)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
 
 | # | ID | 태그 | 태스크 | 우선순위 | 상태 |
 |---|-----|------|--------|---------|------|
-| 1 | S-021 | 🔧 | 테스트 커버리지 확장 — CombatSystem, InventorySystem, SaveMigrations 단위 테스트 추가 | P3 | 🔧 |
+| ~~1~~ | ~~S-021~~ | ~~🔧~~ | ~~테스트 커버리지 확장 — CombatSystem, InventorySystem, SaveMigrations 단위 테스트 추가~~ | ~~P3~~ | ✅ |
 | 2 | S-038 | 🔧 | WorldEvent 동시 실행 방지 — 월드 이벤트 중복 발동 방어 | P3 | ⬜ |
 | 3 | S-040 | 🔧 | CombatManager 타겟팅 범위 — 화면 밖 몬스터 자동 타겟팅 방지 | P3 | ⬜ |
 | 4 | S-041 | 🔧 | NPC 호감도 데이터 저장 — 세이브/로드 시 호감도 누락 확인 | P3 | ⬜ |
