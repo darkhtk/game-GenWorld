@@ -1,40 +1,31 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #25)
-> **모드:** 🎨 에셋 점검 2건 + 코드 품질 감사 (치명 버그 1건 수정)
+> **최종 실행:** 2026-04-03 (루프 #26)
+> **모드:** 코드 품질 감사 — S-042, S-043 버그 수정
 
 ## 이번 루프 수행 내용
 
-### 🎨 S-057 스킬 아이콘 누락 점검 ✅
+### 코드 품질 감사 — 3건 감사, 2건 수정
 
-**분석 결과:**
-- skills.json에 27개 스킬 정의
-- `Resources/Skills/skill_icons.png` 스프라이트시트 존재 (864x32 = 27셀)
-- **문제:** 메타 파일에 sprite가 1개만 슬라이스됨 (`skill_icons_0`), 코드는 `skill_icons_{skillId}` 이름으로 로드
-- **수정:** 메타 파일 재작성 — 27개 개별 sprite 슬라이스 정의 (PPU=32, Filter=Point)
+**감사 대상 (RESERVE P2 태스크 3건):**
 
-### 🎨 S-058 몬스터 스프라이트 누락 점검 ✅
+#### S-042 SaveSystem 동시 저장 경합 방지 ✅ — **CRITICAL BUG FIXED**
+- **문제:** Save() 메서드에 재진입 방어 없음. auto-save + manual-save 동시 호출 시 파일 손상 가능
+- **수정 1:** `static bool _isSaving` 잠금 플래그 추가 — 중복 Save() 호출 차단
+- **수정 2:** 원자적 파일 쓰기 — `rpg_save.json.tmp`에 먼저 쓰고 `File.Move()`로 교체
+- **효과:** 백업 로테이션 중 crash/중복 호출 시에도 메인 세이브 파일 손상 방지
 
-**분석 결과:**
-- monsters.json에 12종 고유 몬스터 (wolf, goblin, treant, bat, golem, crystal_slime, spider, lizardman, hydra, fire_imp, dragonkin, dragon)
-- `Resources/Sprites/monster_*.png` 12종 + death 변종 12종 전부 존재
-- Import 설정 정상 (PPU=32, Filter=Point)
-- **결과:** 누락 없음
+#### S-043 CombatRewardHandler 중복 보상 방어 ✅ — **MEDIUM BUG FIXED**
+- **문제:** OnMonsterKilled()에 DeathProcessed 조기 반환 없음. 이론상 같은 몬스터 보상 2회 지급 가능
+- **수정:** `if (monster.DeathProcessed) return;` 가드 추가 (line 39)
+- **참고:** 현재 IsDead 체크로 대부분 방어되지만, DoT+스킬 동시 사망 edge case 방어
 
-### 코드 품질 감사 — MonsterController 시간 단위 버그 수정
+#### S-044 장비 교체 시 스탯 복원 — 버그 없음 확인
+- RecalcStats()가 매번 Equipment 딕셔너리에서 전체 재계산
+- null 장비 슬롯은 스킵, 교체 시 old 장비는 딕셔너리에서 제거됨
+- **결론:** 스탯 누수 불가능. 수정 불필요.
 
-**발견한 치명 버그:**
-- `MonsterController.UpdateAI()` 에서 `Effects.TickDot(now)`, `Effects.Tick(now)` 호출 시 `now`가 **초 단위** (Time.time)
-- `EffectHolder` 내부는 **ms 단위** (Time.time * 1000f)
-- **증상:** 몬스터에게 적용된 stun/slow/DoT가 사실상 영구 지속 (1초 효과가 1000초 후에야 만료)
-- **수정:** `float nowMs = now * 1000f;` 변환 후 전달
-
-**감사 추가 확인:**
-- InventorySystem.cs (171줄) — 로직 정상, 버그 없음
-- CombatSystem.cs (56줄) — 유틸리티, 정상
-- SkillExecutor/ActionRunner의 ctx.now — nowMs (ms) 전달 확인, 정상
-
-## 누적 현황 (루프 #1~#25)
+## 누적 현황 (루프 #1~#26)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -58,23 +49,24 @@
 | #23 | 🎨 에셋 점검 2건 + 코드 감사 5건 | S-031/S-035 누락 없음, 5파일 버그 0건, RESERVE +2 |
 | #24 | 🎨 S-039 UI SFX 누락 수정 | 8개 UI에 PlaySFX 22건 추가 |
 | #25 | 🎨 S-057/S-058 점검 + 코드 감사 | 스킬아이콘 27셀 슬라이스, 몬스터 누락 0건, 시간단위 치명버그 수정 |
+| #26 | 코드 품질 감사 3건 | S-042 저장 잠금(CRITICAL), S-043 보상 방어(MEDIUM), S-044 정상확인 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 17건 (+1: MonsterController Effects 시간 단위)
+- **치명 버그 수정**: 18건 (+1: SaveSystem 동시 저장 경합)
+- **방어 코드 강화**: 4건 (+1: CombatRewardHandler DeathProcessed)
 - **성능 최적화**: 7건
-- **방어 코드 강화**: 3건
 - **UX SFX 추가**: 28건
-- **에셋 생성/수정**: 47종 (+1: skill_icons.png.meta 27셀 슬라이스)
-- **에셋 점검 완료**: 4건 (+2: S-057 스킬아이콘, S-058 몬스터스프라이트)
+- **에셋 생성/수정**: 47종
+- **에셋 점검 완료**: 4건
 - **RESERVE 태스크 보충**: 42건 (누적)
-- **감사 시스템**: 41개 클래스 (+3: MonsterController, InventorySystem, CombatSystem)
+- **감사 시스템**: 44개 클래스 (+3: SaveSystem, CombatManager, CombatRewardHandler)
 
 ## 수정 파일 (이번 루프)
-- `Assets/Resources/Skills/skill_icons.png.meta` (27개 sprite 슬라이스 재정의)
-- `Assets/Scripts/Entities/MonsterController.cs` (Effects 시간 단위 버그 수정)
-- `orchestration/BACKLOG_RESERVE.md` (S-057, S-058 완료 표시)
+- `Assets/Scripts/Systems/SaveSystem.cs` (_isSaving 잠금 + 원자적 쓰기)
+- `Assets/Scripts/Core/CombatRewardHandler.cs` (DeathProcessed 조기 반환)
+- `orchestration/BACKLOG_RESERVE.md` (S-042, S-043 완료 표시)
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
 - Step 2-3 성능 최적화 또는 Step 2-4 UX 개선
-- RESERVE 항목 순차 진행
+- RESERVE 항목 순차 진행 (S-044 확인 완료 → S-038, S-040 등)

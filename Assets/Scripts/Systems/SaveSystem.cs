@@ -12,12 +12,19 @@ public static class SaveSystem
     const int CurrentVersion = 1;
     const int MaxBackups = 3;
     static string SavePath => Path.Combine(Application.persistentDataPath, "rpg_save.json");
+    static bool _isSaving;
 
     static string BackupPath(int index) =>
         Path.Combine(Application.persistentDataPath, $"rpg_save.bak{index}.json");
 
     public static void Save(SaveData data)
     {
+        if (_isSaving)
+        {
+            Debug.LogWarning("[SaveSystem] Save already in progress, skipping duplicate request");
+            return;
+        }
+        _isSaving = true;
         try
         {
             data.timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -36,7 +43,10 @@ public static class SaveSystem
 
             RotateBackups();
 
-            File.WriteAllText(SavePath, json);
+            string tempPath = SavePath + ".tmp";
+            File.WriteAllText(tempPath, json);
+            if (File.Exists(SavePath)) File.Delete(SavePath);
+            File.Move(tempPath, SavePath);
             Debug.Log($"[SaveSystem] Saved v{CurrentVersion} (checksum={checksum[..8]}…) to {SavePath}");
 
             if (SteamCloudStorage.IsAvailable)
@@ -49,6 +59,10 @@ public static class SaveSystem
         catch (Exception e)
         {
             Debug.LogError($"[SaveSystem] Failed to save: {e.Message}");
+        }
+        finally
+        {
+            _isSaving = false;
         }
     }
 

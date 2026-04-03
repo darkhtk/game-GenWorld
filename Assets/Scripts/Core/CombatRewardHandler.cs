@@ -36,6 +36,7 @@ public class CombatRewardHandler
 
     public void OnMonsterKilled(MonsterController monster)
     {
+        if (monster.DeathProcessed) return;
         monster.DeathProcessed = true;
         SkillVFX.ShowAtPosition(_host, "vfx_monster_death", monster.Position.x, monster.Position.y);
 
