@@ -98,7 +98,12 @@ public class MonsterController : MonoBehaviour
 
         // DoT tick
         float dotDmg = Effects.TickDot(now);
-        if (dotDmg > 0) Hp -= Mathf.RoundToInt(dotDmg);
+        if (dotDmg > 0)
+        {
+            Hp -= Mathf.RoundToInt(dotDmg);
+            if (_hpBar != null) _hpBar.UpdateHP(Hp, Def.hp);
+            if (Hp <= 0) { PlayAnimation("die"); return; }
+        }
 
         // Expire effects
         Effects.Tick(now);

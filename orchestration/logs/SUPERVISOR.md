@@ -1,33 +1,39 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #18)
-> **모드:** 순찰 — 빌드 10회 연속 Clean, 신규 변경 없음
+> **최종 실행:** 2026-04-03 (루프 #19)
+> **모드:** 코드 감사 + RESERVE 보충
 
 ## 이번 루프 수행 내용
 
-### 에러 점검 + 상태 확인 ✅
-- 빌드: Clean (6회 연속)
-- 신규 코드 변경: 없음 (마지막 #13 EventVFX 수정 이후 안정)
-- RESERVE: 18건+ 미완료 (보충 불필요)
-- 프로젝트 안정 상태 유지 중
+### 버그 수정 (2건) ✅
 
-### 이전 루프 (#13) 수행 기록
-**EventVFX.cs — 2건 수정:**
-1. `FindFirstObjectByType` 매 이벤트 호출 → `_cachedPlayer` 캐시 도입
-2. `OnDisable` 누락 → `EventBus.Off` 구독 해제 추가 (이벤트 리크 방지)
+**1. MonsterController.cs — DoT 사망 미처리 (치명)**
+- DoT(독/화상 등) 데미지로 HP가 0 이하가 되어도 사망 처리가 발생하지 않았음
+- `UpdateAI()`에서 DoT 데미지 적용 후 `Hp <= 0` 체크 + `PlayAnimation("die")` + early return 추가
+- HP바 갱신도 DoT 히트 시 반영하도록 수정
+- **주의:** 킬 보상/몬스터 제거는 외부 콜백(OnMonsterKilled) 연결이 필요 → S-004 태스크로 등록
 
-**PanelAnimator.cs — 정상:**
-- CanvasGroup fade, unscaledDeltaTime, coroutine cleanup 모두 양호
+**2. SaveSystem.cs — Save() 예외 미처리**
+- `File.WriteAllText` 호출부에 try/catch 부재 → 디스크 풀/권한 에러 시 크래시
+- Save() 전체를 try/catch로 감싸고 `Debug.LogError`로 실패 로그 출력
 
-### 감사 완료 시스템 목록
-GameManager, CombatManager, AIManager, OllamaClient, PromptBuilder, NPCBrain,
-DialogueUI, HUD, InventoryUI, SkillTreeUI, SkillSystem, QuestSystem,
-InventorySystem, CraftingSystem, LootSystem, SaveSystem, DataManager,
-EventBus, EffectSystem, AudioManager, TimeSystem, RegionTracker,
-WorldMapGenerator, MonsterSpawner, MonsterController, PlayerController,
-VillageNPC, DamageText, PlayerStats
+### BACKLOG_RESERVE 재건 ✅
+- 기존 RESERVE 파일이 파손 상태 (AI 응답 메시지로 덮어써짐)
+- 25건 신규 태스크 작성 (🔧 19건 + 🎨 4건 + 테스트 2건)
+- P1: 3건 (EventBus 누수, async 방어, DoT 킬 연결)
+- P2: 14건 (코드 방어/최적화)
+- P3: 8건 (에셋/테스트/경계조건)
 
-## 누적 현황 (루프 #1~#12)
+### 코드 감사 범위
+- GameManager.cs (884줄 — 분할 태스크 S-006 등록)
+- CombatManager.cs (정상, 방어코드 양호)
+- SaveSystem.cs (S-001 개선 반영 확인 + Save 예외처리 추가)
+- MonsterController.cs (DoT 버그 수정)
+- InventorySystem.cs (LINQ 할당 이슈 S-005 등록)
+- PlayerController.cs (정상)
+- EventBus.cs (Clear 미호출 이슈 S-002 등록)
+
+## 누적 현황 (루프 #1~#19)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -42,14 +48,17 @@ VillageNPC, DamageText, PlayerStats
 | #10 | 코드 감사 + 최적화 | 쿨다운 버퍼 재사용 |
 | #11 | 성능 잔여 스캔 | 할당 0건, Clean |
 | #12 | UX/방어 코드 감사 | 전체 시스템 완전 감사 완료 |
+| #13 | EventVFX 캐싱 + 리크 수정 | FindFirstObjectByType 캐시, OnDisable 추가 |
+| #14~18 | 순찰 (안정) | 빌드 Clean, 변경 없음 |
+| #19 | 코드 감사 + RESERVE 재건 | 버그 2건 수정, 25건 태스크 보충 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 10건 (AI 대화 연결 8건 + 퀘스트 보상/킬추적 2건)
-- **성능 최적화**: 6건 (HUD 더티플래그, playerPos 캐싱, 스폰 버퍼, HUD 스로틀, 쿨다운 버퍼, 잔여 스캔)
-- **UX SFX 추가**: 5건 (장비/스킬/크리티컬/아이템드롭/회피)
-- **에셋 생성**: 42종 (A-010~A-014 5종, HUD 아이콘 6종, 아이템 아이콘 25종, UI 슬롯 2종, Ollama 모델 2종, 기타 2종)
-- **빌드**: 5회 연속 Clean
-- **감사 시스템**: 29개 클래스 전체 점검 완료
+- **치명 버그 수정**: 12건 (+2 이번 루프)
+- **성능 최적화**: 6건
+- **UX SFX 추가**: 5건
+- **에셋 생성**: 42종
+- **RESERVE 태스크 보충**: 25건 (이번 루프)
+- **감사 시스템**: 29개 클래스 + 7개 재감사
 
 ## 다음 루프 예정
-- 새로운 🎨 태스크 또는 사용자 지시 대기
+- S-002 (EventBus 누수) 또는 다음 🎨 태스크 실행
