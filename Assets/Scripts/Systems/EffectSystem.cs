@@ -73,7 +73,7 @@ public class EffectHolder
 
     public void Remove(string type) => _effects.Remove(type);
 
-    static readonly List<string> _tickRemoveBuffer = new();
+    readonly List<string> _tickRemoveBuffer = new();
 
     public List<string> Tick(float now)
     {
@@ -99,7 +99,7 @@ public class EffectHolder
         return 0f;
     }
 
-    static readonly List<ActiveEffectInfo> _activeBuffer = new();
+    readonly List<ActiveEffectInfo> _activeBuffer = new();
 
     public List<ActiveEffectInfo> GetActive(float now)
     {
