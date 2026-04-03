@@ -105,7 +105,7 @@ public class EnhanceUI : MonoBehaviour
         if (_equipment == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) goldText.text = $"Gold: {gold:N0}";
+        if (goldText != null) goldText.text = $"<color=#ffd900>{gold:N0}G</color>";
 
         for (int i = 0; i < GameConfig.EquipSlots.Length; i++)
         {
@@ -161,9 +161,17 @@ public class EnhanceUI : MonoBehaviour
         if (texts.Length > 2)
         {
             if (!hasEquip) texts[2].text = "";
-            else if (maxed) texts[2].text = "MAX";
-            else texts[2].text = $"Cost: {cost}G | {info.success * 100:F0}% success" +
-                (info.destroy > 0 ? $" | {info.destroy * 100:F0}% destroy" : "");
+            else if (maxed) { texts[2].text = "<color=#ffd900>MAX</color>"; }
+            else
+            {
+                float succ = info.success;
+                string succColor = succ >= 0.7f ? "#66ff88" : succ >= 0.4f ? "#ffdd44" : "#ff6666";
+                string costPart = $"<color=#ffd900>{cost}G</color>";
+                string succPart = $"<color={succColor}>{succ * 100:F0}%</color>";
+                string destPart = info.destroy > 0
+                    ? $" | <color=#ff5555>{info.destroy * 100:F0}% lose</color>" : "";
+                texts[2].text = $"{costPart} | {succPart}{destPart}";
+            }
         }
 
         var btn = go.GetComponent<Button>();
@@ -200,10 +208,10 @@ public class EnhanceUI : MonoBehaviour
         if (confirmPopup != null) confirmPopup.SetActive(true);
         if (confirmText != null)
         {
-            confirmText.text = $"Enhance {itemName} +{level} → +{level + 1}?\n" +
-                $"Success: {info.success * 100:F0}%\n" +
+            confirmText.text = $"Enhance <b>{itemName}</b> <color=#aaffaa>+{level}</color> \u2192 <color=#ffd900>+{level + 1}</color>?\n" +
+                $"<color=#66ff88>Success: {info.success * 100:F0}%</color>\n" +
                 $"<color=#ff4444>Destroy: {info.destroy * 100:F0}%</color>\n" +
-                $"Cost: {info.gold}G";
+                $"Cost: <color=#ffd900>{info.gold}G</color>";
         }
     }
 
