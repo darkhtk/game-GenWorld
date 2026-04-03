@@ -61,9 +61,10 @@ public class TooltipUI : MonoBehaviour
             }
             if (item.healHp > 0) lines.Add($"<color=#ff9999>Heal HP {item.healHp}</color>");
             if (item.healMp > 0) lines.Add($"<color=#9999ff>Heal MP {item.healMp}</color>");
-            if (item.shopPrice > 0) lines.Add($"<color=#ffd900>Value: {item.shopPrice}G</color>");
-            lines.Add($"Grade: <color=#{ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum))}>{item.grade ?? "common"}</color>");
-            if (item.stackable) lines.Add($"<color=#888888>Stack: {item.maxStack}</color>");
+            if (item.shopPrice > 0) lines.Add($"<color=#888888>Value</color> <color=#ffd900>\u25c6 {item.shopPrice:N0}G</color>");
+            string gradeHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum));
+            lines.Add($"<color=#888888>Grade</color> <color={gradeHex}>{item.grade ?? "common"}</color>");
+            if (item.stackable) lines.Add($"<color=#888888>Stack</color> <color=#aaaaaa>{item.maxStack}</color>");
             _instance.statsText.text = string.Join("  ", lines);
         }
 
