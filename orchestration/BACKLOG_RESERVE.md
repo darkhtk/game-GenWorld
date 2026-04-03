@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Coordinator 동기화 — S-047 상태 복원, S-038 Done 확인)
+> **최종 갱신:** 2026-04-03 (Supervisor #28 — UX 개선 3건 + RESERVE 15건 보충)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -14,9 +14,9 @@
 | 5 | S-042 | 🔧 | SaveSystem 동시 저장 경합 방지 — 자동 저장 중 수동 저장 요청 시 잠금/대기 처리 | P2 | ✅ |
 | 6 | S-043 | 🔧 | CombatManager 동시 사망 보상 — 동시에 여러 몬스터 사망 시 XP/골드 누적 정확성 검증 | P2 | ✅ |
 | 7 | S-044 | 🔧 | 장비 교체 시 스탯 복원 — 장비 해제/교체 시 이전 스탯 보너스 정확히 제거 확인 | P2 | ✅ |
-| 8 | S-045 | 🔧 | QuestSystem 진행률 저장 — 게임 종료/크래시 시 퀘스트 중간 진행 상태 보존 확인 | P2 | 👀 |
-| 9 | S-046 | 🔧 | MonsterSpawner 리전 전환 클린업 — 리전 전환 시 이전 리전 몬스터 오브젝트 정리 확인 | P2 | 👀 |
-| 10 | S-047 | 🔧 | DialogueSystem 동시 대화 방지 — 다중 NPC 동시 대화 시작 잠금 확인 | P2 | ⬜ |
+| 8 | S-045 | 🔧 | QuestSystem 진행률 저장 — 단위 테스트 추가 필요 (NEEDS_WORK) | P2 | ⬜ |
+| ~~9~~ | ~~S-046~~ | ~~🔧~~ | ~~MonsterSpawner 리전 전환 클린업 — APPROVE~~ | ~~P2~~ | ✅ |
+| 10 | S-047 | 🔧 | DialogueSystem 동시 대화 방지 — 다중 NPC 동시 대화 시작 잠금 확인 | P2 | 👀 |
 | 11 | S-048 | 🔧 | SkillSystem 데이터 무결성 — skills.json 필드 누락/잘못된 타입 시 방어 로딩 | P2 | 👀 |
 | 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 풀 무한 성장 방지 (maxSize 상한 도입 검토) | P3 | ⬜ |
 | 13 | S-050 | 🔧 | InputSystem UI/게임 입력 분리 — UI 패널 열린 상태에서 게임 입력 차단 확인 | P2 | 👀 |
@@ -25,7 +25,22 @@
 | 16 | S-053 | 🔧 | PlayerController 벽 끼임 방지 — 콜라이더 경계에서 플레이어 위치 보정 확인 | P3 | ⬜ |
 | 17 | S-054 | 🔧 | AutoSave 전투 중 저장 방지 — 전투 상태에서 자동 저장 스킵 (데이터 일관성) | P2 | 👀 |
 | 18 | S-055 | 🔧 | UI 해상도 대응 — 다양한 해상도에서 UI 앵커/레이아웃 정상 동작 검증 | P3 | ⬜ |
-| 19 | S-056 | 🔧 | GameManager 초기화 순서 — Awake/Start 의존성 순서 보장 및 경합 확인 | P2 | ⬜ |
+| 19 | S-056 | 🔧 | GameManager 초기화 순서 — Awake/Start 의존성 순서 보장 및 경합 확인 | P2 | 👀 |
+| 20 | S-059 | 🔧 | AudioManager 클립 캐시 메모리 누수 — _clipCache 무한 성장 방지, LRU 또는 씬 전환 시 정리 | P2 | ⬜ |
+| 21 | S-060 | 🔧 | MinimapUI 텍스처 재생성 누수 — Init() 호출 시 이전 Texture2D 미파괴 확인 | P2 | ⬜ |
+| 22 | S-061 | 🔧 | QuestSystem killProgress 고아 항목 — 완료/포기된 퀘스트의 진행 데이터 잔류 정리 | P2 | ⬜ |
+| 23 | S-062 | 🔧 | ShopUI 구매 실패 피드백 — 골드 부족/인벤 풀 시 플레이어에게 사유 표시 | P3 | ⬜ |
+| 24 | S-063 | 🔧 | EnhanceUI 강화 전 확인 팝업 — 파괴 확률 경고 없이 바로 실행되는 문제 | P3 | ⬜ |
+| 25 | S-064 | 🔧 | DialogueUI 코루틴 중복 실행 — AI 응답 대기 중 재진입 시 이전 코루틴 미정리 | P2 | ⬜ |
+| 26 | S-065 | 🔧 | EffectHolder DoT 중복 적용 — 동일 DoT 재적용 시 기존 값 덮어쓰기 검증 | P2 | ⬜ |
+| 27 | S-066 | 🔧 | CraftingSystem LINQ 잔여 제거 — using System.Linq 제거, 수동 루프 교체 | P3 | ✅ |
+| 28 | S-067 | 🔧 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 구분 없이 회색 표시되는 문제 | P3 | ✅ |
+| 29 | S-068 | 🔧 | QuestUI 빈 목록 안내 — 퀘스트 없을 때 빈 화면 → placeholder 텍스트 표시 | P3 | ✅ |
+| 30 | S-069 | 🔧 | Projectile 풀 반환 시 null 콜백 방어 — OnHit 콜백에서 풀 반환된 투사체 참조 방지 | P3 | ⬜ |
+| 31 | S-070 | 🎨 | ShopUI/InventoryUI 아이템 아이콘 폴백 — 누락 아이콘 시 기본 placeholder 스프라이트 표시 | P3 | ⬜ |
+| 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ⬜ |
+| 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ⬜ |
+| 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ⬜ |
 
 ## 완료 태스크
 
@@ -71,3 +86,6 @@
 | S-058 | 몬스터 스프라이트 누락 점검 — monsters.json 대비 교차검증 완료 | 2026-04-03 |
 | S-042 | SaveSystem 동시 저장 경합 방지 — _isSaving 잠금 + 원자적 파일 쓰기 (tmp→move) | 2026-04-03 |
 | S-043 | CombatRewardHandler 중복 보상 방어 — DeathProcessed 조기 반환 추가 | 2026-04-03 |
+| S-066 | CraftingSystem LINQ 잔여 제거 — Where/FirstOrDefault/All → 수동 루프 + using Linq 제거 | 2026-04-03 |
+| S-067 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 분리 표시 (빨간색) | 2026-04-03 |
+| S-068 | QuestUI 빈 목록 안내 — "No active/completed quests" placeholder 추가 | 2026-04-03 |

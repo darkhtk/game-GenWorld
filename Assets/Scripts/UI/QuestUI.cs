@@ -100,6 +100,29 @@ public class QuestUI : MonoBehaviour
             foreach (var quest in activeQuests)
                 AddActiveEntry(quest);
         }
+
+        if (_entries.Count == 0)
+            AddEmptyPlaceholder(_showCompleted ? "No completed quests" : "No active quests");
+    }
+
+    void AddEmptyPlaceholder(string message)
+    {
+        if (questListContent == null || questEntryPrefab == null) return;
+
+        var go = Instantiate(questEntryPrefab, questListContent);
+        go.SetActive(true);
+
+        var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
+        if (texts.Length > 0)
+        {
+            texts[0].text = message;
+            texts[0].color = new Color(0.5f, 0.5f, 0.5f);
+            texts[0].fontStyle = FontStyles.Italic;
+        }
+        for (int i = 1; i < texts.Length; i++)
+            texts[i].text = "";
+
+        _entries.Add(go);
     }
 
     void AddActiveEntry(QuestDef quest)

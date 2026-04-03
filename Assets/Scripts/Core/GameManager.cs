@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     SaveController _save;
     CombatRewardHandler _combatRewards;
     Camera _cachedCam;
+    bool _initialized;
 
     void Awake()
     {
@@ -108,11 +109,13 @@ public class GameManager : MonoBehaviour
 
         uiWiring.PushInitialState();
         PlayRegionBGM();
+        _initialized = true;
         Debug.Log("[GameManager] Initialized");
     }
 
     void Update()
     {
+        if (!_initialized) return;
         if (player == null || PlayerState == null) return;
         if (player.Frozen) return;
 

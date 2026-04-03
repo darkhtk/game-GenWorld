@@ -138,7 +138,7 @@ public class SkillTreeUI : MonoBehaviour
             bool isLearned = level > 0;
             bool canLearn = !isMaxed && skillPoints >= def.requiredPoints && playerLevel >= def.requiredLevel;
 
-            row.UpdateState(level, isMaxed, isLearned, canLearn, def.requiredPoints, def.requiredLevel);
+            row.UpdateState(level, isMaxed, isLearned, canLearn, def.requiredPoints, def.requiredLevel, playerLevel, skillPoints);
         }
 
         RefreshEquipBar(skillSystem, skillDefs);
@@ -228,7 +228,7 @@ public class SkillRowUI : MonoBehaviour
     }
 
     public void UpdateState(int level, bool isMaxed, bool isLearned, bool canLearn,
-        int requiredPoints, int requiredLevel)
+        int requiredPoints, int requiredLevel, int playerLevel = 0, int playerSkillPoints = 0)
     {
         if (levelText != null)
         {
@@ -240,7 +240,16 @@ public class SkillRowUI : MonoBehaviour
         {
             if (isMaxed) costText.text = "";
             else if (canLearn) { costText.text = $"{requiredPoints}pt"; costText.color = Color.yellow; }
-            else { costText.text = $"Lv.{requiredLevel}"; costText.color = Color.gray; }
+            else if (playerLevel > 0 && playerLevel < requiredLevel)
+            {
+                costText.text = $"Req Lv.{requiredLevel}";
+                costText.color = new Color(1f, 0.4f, 0.4f);
+            }
+            else
+            {
+                costText.text = $"Need {requiredPoints}pt";
+                costText.color = new Color(1f, 0.4f, 0.4f);
+            }
         }
 
         if (learnButton != null)

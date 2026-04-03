@@ -121,6 +121,7 @@
 | 109 | S-050 InputSystem UI/게임 입력 분리 | P2 | 👀 | In Review |
 | 110 | S-051 SceneTransition 메모리 누수 | P2 | 👀 | In Review |
 | 111 | S-054 AutoSave 전투 중 저장 방지 | P2 | 👀 | In Review |
+| 112 | S-056 GameManager 초기화 순서 | P2 | 👀 | In Review |
 
 ---
 
@@ -129,6 +130,7 @@
 | 태스크 | 사유 | REVIEW | 비고 |
 |--------|------|--------|------|
 | ~~S-026~~ | v2 수정 완료 → In Review | REVIEW-S026-v1 | 두 누락 항목 추가 |
+| S-045 | 단위 테스트 누락 | REVIEW-S045-v1 | 코드 정확하나 테스트 필요 |
 
 ## 🔧 In Progress
 
@@ -139,13 +141,12 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-045 QuestSystem 진행률 저장 | 2026-04-03 | ❌ NEEDS_WORK | 코드 정확하나 단위 테스트 누락 — REVIEW-S045-v1 |
-| S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | ✅ APPROVE | REVIEW-S046-v1 |
 | S-047 DialogueSystem 동시 대화 방지 | 2026-04-03 | ⏳ | _inDialogue 가드 추가 |
 | S-048 SkillSystem 데이터 무결성 | 2026-04-03 | ⏳ | ValidateSkills + LoadSkills null id 스킵 |
 | S-050 InputSystem UI/게임 입력 분리 | 2026-04-03 | ⏳ | IsInputBlocked + GameManager 가드 |
 | S-051 SceneTransition 메모리 누수 | 2026-04-03 | ⏳ | ObjectPool.Clear + Resources.UnloadUnusedAssets |
 | S-054 AutoSave 전투 중 저장 방지 | 2026-04-03 | ⏳ | IsInCombat + _pendingSave 지연 저장 |
+| S-056 GameManager 초기화 순서 | 2026-04-03 | ⏳ | 감사 완료 + _initialized 가드 |
 
 ## ✅ Done
 
@@ -256,6 +257,7 @@
 | S-043 CombatRewardHandler 중복 보상 방어 | 2026-04-03 | Supervisor 감사 — MEDIUM 수정 ✅ |
 | S-044 장비 교체 시 스탯 복원 | 2026-04-03 | Supervisor 감사 — 버그 없음 확인 ✅ |
 | S-038 WorldEvent 동시 실행 방지 | 2026-04-03 | REVIEW-S038 ✅ APPROVE |
+| S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | REVIEW-S046-v1 ✅ APPROVE |
 
 ## 📋 Backlog
 
