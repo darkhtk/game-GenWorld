@@ -48,6 +48,14 @@ public class QuestSystem
         return true;
     }
 
+    public bool AbandonQuest(string questId)
+    {
+        if (!_active.Remove(questId)) return false;
+        _killProgress.Remove(questId);
+        EventBus.Emit(new QuestAbandonEvent { questId = questId });
+        return true;
+    }
+
     public QuestReward CompleteQuest(string questId, InventorySystem inv)
     {
         if (!_active.TryGetValue(questId, out var def)) return null;
@@ -150,8 +158,16 @@ public class QuestSystem
         };
     }
 
-    public (string[] active, string[] completed, Dictionary<string, Dictionary<string, int>> killProgress) Serialize() =>
-        (_active.Keys.ToArray(), _completed.ToArray(), new Dictionary<string, Dictionary<string, int>>(_killProgress));
+    public (string[] active, string[] completed, Dictionary<string, Dictionary<string, int>> killProgress) Serialize()
+    {
+        var filtered = new Dictionary<string, Dictionary<string, int>>();
+        foreach (var kvp in _killProgress)
+        {
+            if (_active.ContainsKey(kvp.Key))
+                filtered[kvp.Key] = new Dictionary<string, int>(kvp.Value);
+        }
+        return (_active.Keys.ToArray(), _completed.ToArray(), filtered);
+    }
 
     public void Restore((string[] active, string[] completed, Dictionary<string, Dictionary<string, int>> killProgress) data)
     {
@@ -168,6 +184,9 @@ public class QuestSystem
             }
         if (data.killProgress != null)
             foreach (var kvp in data.killProgress)
-                _killProgress[kvp.Key] = new Dictionary<string, int>(kvp.Value);
+            {
+                if (_active.ContainsKey(kvp.Key))
+                    _killProgress[kvp.Key] = new Dictionary<string, int>(kvp.Value);
+            }
     }
 }

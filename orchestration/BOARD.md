@@ -122,6 +122,8 @@
 | 110 | S-051 SceneTransition 메모리 누수 | P2 | 👀 | v2 재제출 — ClearPool 호출 + EventVFX 재구독 + UnloadAssets 타이밍 |
 | 111 | S-054 AutoSave 전투 중 저장 방지 | P2 | ✅ | REVIEW-S054-v1 APPROVE |
 | 112 | S-056 GameManager 초기화 순서 | P2 | ✅ | REVIEW-S056-v1 APPROVE |
+| 113 | S-060 MinimapUI 텍스처 재생성 누수 | P2 | ✅ | 이미 구현됨 확인 (Init Destroy + OnDestroy) |
+| 114 | S-061 QuestSystem killProgress 고아 항목 | P2 | 👀 | AbandonQuest + Restore/Serialize 필터 |
 
 ---
 
@@ -145,6 +147,7 @@
 |--------|--------|------|------|
 | S-048 SkillSystem 데이터 무결성 v2 | 2026-04-03 | ⏳ | SkillList 필터링 + mpCost/reqLevel/reqPoints 검증 + 테스트 |
 | S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | ⏳ | ClearPool + EventVFX sceneLoaded 재구독 + UnloadAssets 타이밍 |
+| S-061 QuestSystem killProgress 고아 항목 | 2026-04-03 | ⏳ | AbandonQuest + Restore/Serialize 필터 + 테스트 4건 |
 
 ## ✅ Done
 

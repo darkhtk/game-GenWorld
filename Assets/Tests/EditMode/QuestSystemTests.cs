@@ -206,4 +206,59 @@ public class QuestSystemTests
         Assert.AreEqual(1, qs.GetActiveQuests().Length);
         Assert.AreEqual(0, qs.GetKillProgress("q1", "anything"));
     }
+
+    // S-061 orphan killProgress tests
+
+    [Test]
+    public void AbandonQuest_RemovesKillProgress()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 1, totalKills = 1 });
+        Assert.AreEqual(1, killQs.GetKillProgress("kill_wolves", "wolf"));
+
+        Assert.IsTrue(killQs.AbandonQuest("kill_wolves"));
+        Assert.IsFalse(killQs.IsActive("kill_wolves"));
+        Assert.AreEqual(0, killQs.GetKillProgress("kill_wolves", "wolf"));
+    }
+
+    [Test]
+    public void AbandonQuest_ReturnsFalse_ForInactiveQuest()
+    {
+        SetupKillQuest();
+        Assert.IsFalse(killQs.AbandonQuest("kill_wolves"));
+    }
+
+    [Test]
+    public void Restore_FiltersOrphanKillProgress()
+    {
+        var orphanProgress = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<string, int>>
+        {
+            ["kill_wolves"] = new() { ["wolf"] = 2 },
+            ["removed_quest"] = new() { ["goblin"] = 5 }
+        };
+        var data = (
+            active: new[] { "kill_wolves" },
+            completed: new string[0],
+            killProgress: orphanProgress
+        );
+        SetupKillQuest();
+        killQs.Restore(data);
+        Assert.AreEqual(2, killQs.GetKillProgress("kill_wolves", "wolf"));
+        Assert.AreEqual(0, killQs.GetKillProgress("removed_quest", "goblin"));
+    }
+
+    [Test]
+    public void Serialize_ExcludesOrphanKillProgress()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 1, totalKills = 1 });
+
+        // Abandon to create orphan scenario, then verify serialize is clean
+        killQs.AbandonQuest("kill_wolves");
+        var data = killQs.Serialize();
+        Assert.AreEqual(0, data.active.Length);
+        Assert.AreEqual(0, data.killProgress.Count);
+    }
 }

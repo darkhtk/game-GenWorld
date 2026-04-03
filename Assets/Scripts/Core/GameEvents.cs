@@ -3,6 +3,7 @@ public struct PlayerDeathEvent { public float deathX, deathY; }
 public struct LevelUpEvent { public int level, prevLevel; }
 public struct QuestCompleteEvent { public string questTitle; public int completedCount; }
 public struct QuestAcceptEvent { public string questId, npcId; }
+public struct QuestAbandonEvent { public string questId; }
 public struct RegionVisitEvent { public string regionId, regionName; }
 public struct ItemCollectEvent { public string itemId; public int count, totalCollected; }
 public struct GoldChangeEvent { public int gold; }
