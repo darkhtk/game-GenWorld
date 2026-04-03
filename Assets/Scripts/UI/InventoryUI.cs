@@ -512,7 +512,8 @@ public class EquipSlotUI : MonoBehaviour
     {
         if (nameText != null)
         {
-            nameText.text = enhanceLevel > 0 ? $"{itemName} +{enhanceLevel}" : itemName;
+            string enh = enhanceLevel > 0 ? $" <color=#ffd900>+{enhanceLevel}</color>" : "";
+            nameText.text = $"{itemName}{enh}";
             nameText.color = gradeColor;
         }
         if (borderImage != null) borderImage.color = gradeColor;
