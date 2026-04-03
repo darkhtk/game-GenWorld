@@ -25,8 +25,18 @@ public class MinimapUI : MonoBehaviour
     {
         _mapWidth = width;
         _mapHeight = height;
+
+        if (mapImage == null) mapImage = GetComponentInChildren<RawImage>(true);
+        if (mapImage == null)
+        {
+            Debug.LogWarning("[MinimapUI] No RawImage found");
+            return;
+        }
+
         _mapTexture = GenerateMapTexture(walkability, width, height);
-        if (mapImage != null) mapImage.texture = _mapTexture;
+        mapImage.texture = _mapTexture;
+        mapImage.enabled = true;
+        Debug.Log($"[MinimapUI] Initialized {width}x{height}");
     }
 
     static Texture2D GenerateMapTexture(bool[,] walkability, int w, int h)
