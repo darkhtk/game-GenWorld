@@ -719,14 +719,15 @@ public class HUD : MonoBehaviour
                 "magic"  => new Color(0.4f, 0.6f, 1f),
                 _        => new Color(0.95f, 0.45f, 0.45f)
             };
-            skillTooltipName.text = def.name;
-            skillTooltipName.color = treeColor;
-            skillTooltipName.fontStyle = TMPro.FontStyles.Bold;
+            string treeHex = "#" + ColorUtility.ToHtmlStringRGB(treeColor);
+            skillTooltipName.color = Color.white;
+            skillTooltipName.fontStyle = TMPro.FontStyles.Normal;
+            skillTooltipName.text = $"<b><color={treeHex}>{def.name}</color></b>";
         }
         if (skillTooltipDesc != null)
         {
-            skillTooltipDesc.text = def.description ?? "";
-            skillTooltipDesc.color = new Color(0.75f, 0.75f, 0.75f);
+            skillTooltipDesc.color = Color.white;
+            skillTooltipDesc.text = $"<color=#bbbbbb>{def.description ?? ""}</color>";
         }
 
         if (skillTooltipStats != null)

@@ -32,16 +32,17 @@ public class TooltipUI : MonoBehaviour
 
         if (_instance.titleText != null)
         {
-            _instance.titleText.text = item.name ?? "unknown";
-            _instance.titleText.color = GameConfig.GetGradeColor(item.GradeEnum);
-            _instance.titleText.fontStyle = TMPro.FontStyles.Bold;
+            string gradeHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum));
+            _instance.titleText.color = Color.white;
+            _instance.titleText.fontStyle = TMPro.FontStyles.Normal;
+            _instance.titleText.text = $"<b><color={gradeHex}>{item.name ?? "unknown"}</color></b>";
         }
 
         if (_instance.descText != null)
         {
-            _instance.descText.text = item.description ?? "";
-            _instance.descText.color = new Color(0.75f, 0.75f, 0.75f);
+            _instance.descText.color = Color.white;
             _instance.descText.fontStyle = TMPro.FontStyles.Italic;
+            _instance.descText.text = $"<color=#bbbbbb>{item.description ?? ""}</color>";
         }
 
         if (_instance.statsText != null)
@@ -86,16 +87,17 @@ public class TooltipUI : MonoBehaviour
                 "magic"  => new Color(0.3f, 0.5f, 1f),
                 _        => new Color(0.9f, 0.4f, 0.4f)
             };
-            _instance.titleText.text = skill.name ?? skill.id;
-            _instance.titleText.color = treeColor;
-            _instance.titleText.fontStyle = TMPro.FontStyles.Bold;
+            string treeHex = "#" + ColorUtility.ToHtmlStringRGB(treeColor);
+            _instance.titleText.color = Color.white;
+            _instance.titleText.fontStyle = TMPro.FontStyles.Normal;
+            _instance.titleText.text = $"<b><color={treeHex}>{skill.name ?? skill.id}</color></b>";
         }
 
         if (_instance.descText != null)
         {
-            _instance.descText.text = skill.description ?? "";
-            _instance.descText.color = new Color(0.75f, 0.75f, 0.75f);
+            _instance.descText.color = Color.white;
             _instance.descText.fontStyle = TMPro.FontStyles.Italic;
+            _instance.descText.text = $"<color=#bbbbbb>{skill.description ?? ""}</color>";
         }
 
         if (_instance.statsText != null)
