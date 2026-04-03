@@ -161,7 +161,7 @@ public class InventoryUI : MonoBehaviour
         Refresh(gm.Inventory, gm.PlayerState.Equipment, gm.Data.Items, stats);
 
         if (levelGoldText != null)
-            levelGoldText.text = $"<color=#99ff99>Lv.{gm.PlayerState.Level}</color>  <color=#ffd900>{gm.PlayerState.Gold:N0}G</color>";
+            levelGoldText.text = $"<color=#99ff99>Lv.{gm.PlayerState.Level}</color>  <color=#ffd900>\u25c6 {gm.PlayerState.Gold:N0}G</color>";
     }
 
     public void Refresh(InventorySystem inventory, Dictionary<string, ItemInstance> equipment,

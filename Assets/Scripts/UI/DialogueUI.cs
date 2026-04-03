@@ -299,8 +299,8 @@ public class DialogueUI : MonoBehaviour
         {
             questProposalRewards.color = Color.white;
             var lines = new List<string>();
-            if (scaledRewards.gold > 0) lines.Add($"  <color=#ffd900>\u25b8 Gold: {scaledRewards.gold}</color>");
-            if (scaledRewards.xp > 0) lines.Add($"  <color=#aaffaa>\u25b8 XP: {scaledRewards.xp}</color>");
+            if (scaledRewards.gold > 0) lines.Add($"  <color=#ffd900>\u25c6 {scaledRewards.gold:N0}G</color>");
+            if (scaledRewards.xp > 0) lines.Add($"  <color=#aaffaa>\u25b8 {scaledRewards.xp} XP</color>");
             if (scaledRewards.items != null)
             {
                 foreach (var item in scaledRewards.items)
