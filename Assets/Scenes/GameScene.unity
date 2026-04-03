@@ -27364,6 +27364,7 @@ RectTransform:
   - {fileID: 1094904550}
   - {fileID: 3700001001}
   - {fileID: 3700002001}
+  - {fileID: 4700001001}
   m_Father: {fileID: 1434966479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -27424,7 +27425,12 @@ MonoBehaviour:
   panel: {fileID: 2070316350}
   closeButton: {fileID: 693807384}
   sortButton: {fileID: 209430243}
-  filterButtons: []
+  filterButtons:
+  - {fileID: 4700002004}
+  - {fileID: 4700003004}
+  - {fileID: 4700004004}
+  - {fileID: 4700005004}
+  - {fileID: 4700006004}
   sortModeButton: {fileID: 3700001004}
   sortModeText: {fileID: 3700001012}
   gridContent: {fileID: 2067993274}

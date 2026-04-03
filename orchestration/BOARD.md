@@ -320,6 +320,9 @@
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
+| S-087 RegionManager 씬 전환 중 입력 차단 | P2 | SPEC-S-087 |
+| S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | P2 | SPEC-S-091 |
+| S-083 AudioManager BGM 동시 변경 안정성 | P3 | |
 | ~~S-004~~ | P1 | ✅ Done |
 | ~~S-008~~ | P2 | ✅ Done |
 | ~~S-022~~ | P2 | ✅ Done (APPROVE) |
