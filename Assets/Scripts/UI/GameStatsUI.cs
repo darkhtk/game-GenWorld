@@ -54,8 +54,9 @@ public class GameStatsUI : MonoBehaviour
         int completed = 0;
         foreach (var a in achievements)
             if (gm.Achievements.IsCompleted(a.id)) completed++;
-        string achColor = completed == achievements.Length ? "#ffd900" : "#ffffff";
-        sb.AppendLine($"Achievements: <color={achColor}>{completed}/{achievements.Length}</color>");
+        string achColor = completed == achievements.Length ? "#ffd900" : completed > 0 ? "#aaffaa" : "#888888";
+        string achSuffix = completed == achievements.Length ? " <color=#ffd900>\u2605</color>" : "";
+        sb.AppendLine($"Achievements: <color={achColor}>{completed}/{achievements.Length}</color>{achSuffix}");
 
         if (gm.WorldEvents.IsEventActive)
             sb.AppendLine($"<color=#ff9966>Active Event: {gm.WorldEvents.ActiveEvent?.name}</color>");

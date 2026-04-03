@@ -32,7 +32,17 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (countText != null)
             countText.text = count > 1 ? count.ToString() : "";
         if (enhanceText != null)
-            enhanceText.text = enhanceLevel > 0 ? $"+{enhanceLevel}" : "";
+        {
+            if (enhanceLevel > 0)
+            {
+                string eColor = enhanceLevel >= 10 ? "#ff9900"
+                    : enhanceLevel >= 7 ? "#66aaff"
+                    : enhanceLevel >= 4 ? "#66ff66"
+                    : "#aaaaaa";
+                enhanceText.text = $"<color={eColor}>+{enhanceLevel}</color>";
+            }
+            else enhanceText.text = "";
+        }
         if (borderImage != null) borderImage.color = gradeColor;
         if (iconImage != null)
         {

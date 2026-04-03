@@ -244,7 +244,7 @@ public class DialogueUI : MonoBehaviour
             if (loadingText != null)
             {
                 loadingText.text = totalElapsed > 10f
-                    ? $"{phrase} ({(int)totalElapsed}s)"
+                    ? $"{phrase} <color=#ff9944>({(int)totalElapsed}s)</color>"
                     : phrase;
             }
             index++;
@@ -267,7 +267,12 @@ public class DialogueUI : MonoBehaviour
         questProposalPanel.SetActive(true);
 
         if (questProposalTitle != null) { questProposalTitle.text = $"\u25b8 {quest.title}"; questProposalTitle.color = new Color(1f, 0.95f, 0.5f); }
-        if (questProposalDesc != null) questProposalDesc.text = quest.description;
+        if (questProposalDesc != null)
+        {
+            questProposalDesc.text = quest.description;
+            questProposalDesc.color = new Color(0.78f, 0.78f, 0.78f);
+            questProposalDesc.fontStyle = TMPro.FontStyles.Italic;
+        }
 
         if (questProposalRequirements != null)
         {
@@ -289,7 +294,7 @@ public class DialogueUI : MonoBehaviour
             if (scaledRewards.items != null)
             {
                 foreach (var item in scaledRewards.items)
-                    lines.Add($"  \u25b9 {item.itemId} \u00d7{item.count}");
+                    lines.Add($"  <color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
             }
             questProposalRewards.text = string.Join("\n", lines);
         }
