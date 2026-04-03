@@ -1,31 +1,37 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #21)
-> **모드:** 코드 품질 감사 (Step 2-2)
+> **최종 실행:** 2026-04-03 (루프 #22)
+> **모드:** 코드 품질 감사 (Step 2-2) + RESERVE 보충 (Step 2.5)
 
 ## 이번 루프 수행 내용
 
-### 🔧 코드 품질 감사 (3건)
+### 🔧 코드 품질 감사 (4건)
 
-#### S-005 InventorySystem LINQ 할당 제거 ✅
-- `SortItems()`: `Slots.Where(s => s != null).ToList()` → 수동 for 루프
-- `GetFiltered()`: LINQ Where/ToList 2회 → 수동 루프, ToArray() → 수동 배열 복사
-- `using System.Linq;` 완전 제거
+#### S-013 DamageText 풀링 누수 방어 ✅ (버그 발견+수정)
+- **발견:** 씬 전환/비활성화 시 Coroutine 중단되어 풀 반환 누락 → 오브젝트 영구 손실
+- **수정:** `OnDisable()` + `_inUse` bool 가드로 이중반환 방지, `ReturnSelf()` 메서드 통합
 
-#### S-007 CombatManager stale ref 방어 ✅ (버그 발견+수정)
-- **발견:** `_cachedMonsters`는 `MonsterSpawner._monsters`와 동일 참조
-- `DealDamageToMonster` → `_onMonsterDeath` → `RemoveMonster` → `_monsters.Remove(m)` 호출 시
-  SkillExecutor/ActionRunner `foreach(m in ctx.monsters)` 도중 리스트 변조 = `InvalidOperationException`
-- **수정:** `_pendingKills` 리스트 도입. ExecuteSkill 내 kills 지연 수집, 실행 완료 후 일괄 처리
+#### ObjectPool 이중반환 방지 ✅ (개선)
+- `Return()` 에 `!activeSelf` 조기반환 추가
+- DamageText 외 모든 풀 사용자에 동일 보호 적용
 
-#### S-010 QuestSystem null 방어 ✅
-- `CompleteQuest()`: `def.rewards` null 시 안전 기본값 반환
+#### S-015 WorldMapGenerator null 방어 ✅ (버그 수정)
+- `Generate(null)` 또는 빈 배열 호출 시 NPE 방지 가드 추가
 
-### BOARD/RESERVE 동기화
-- RESERVE: S-005/S-007/S-010 완료 처리, 미완료 15건 잔존
-- BOARD: 로드맵/Done/InReview 섹션 갱신
+#### S-016 SkillSystem 쿨다운 동기화 ✅ (검증 완료)
+- CombatManager: `nowMs = Time.time * 1000f` (ms)
+- skills.json: `cooldown: 3000` (ms)
+- 단위 일관성 확인 → 문제 없음
 
-## 누적 현황 (루프 #1~#21)
+### BOARD 동기화
+- S-011, S-022 → In Review에서 Done으로 이동 (APPROVE)
+- S-013, S-015, S-016, ObjectPool → Done 반영
+
+### RESERVE 보충 (Step 2.5)
+- 미완료 7건 → 21건으로 보충 (S-027 ~ S-041 신규 15건)
+- 🎨 3건 포함 (S-031 미니맵 아이콘, S-035 장비 아이콘, S-039 UI 사운드)
+
+## 누적 현황 (루프 #1~#22)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -45,15 +51,25 @@
 | #19 | 코드 감사 + RESERVE 재건 | 버그 2건 수정, 25건 태스크 보충 |
 | #20 | 🎨 에셋 4건 + 코드 감사 3건 | S-009 버그수정, S-002/003 완료확인, 에셋 4종 |
 | #21 | 코드 품질 감사 3건 | S-005 LINQ제거, S-007 stale ref(버그!), S-010 null방어 |
+| #22 | 코드 품질 감사 4건 + RESERVE 보충 | S-013 풀 누수(버그!), S-015 null방어, S-016 검증, ObjectPool 가드 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 14건 (+1 S-007 foreach 중 리스트 변조)
-- **성능 최적화**: 7건 (+1 S-005 LINQ→수동 루프)
+- **치명 버그 수정**: 16건 (+2 S-013 풀 누수, S-015 Generate NPE)
+- **성능 최적화**: 7건
+- **방어 코드 강화**: 3건 (+1 ObjectPool 이중반환)
 - **UX SFX 추가**: 6건
 - **에셋 생성**: 46종
-- **RESERVE 태스크 보충**: 25건
-- **감사 시스템**: 29개 클래스 + 7개 재감사
+- **RESERVE 태스크 보충**: 40건 (누적)
+- **감사 시스템**: 33개 클래스 + 7개 재감사
+
+## 수정 파일 (이번 루프)
+- `Assets/Scripts/Effects/DamageText.cs`
+- `Assets/Scripts/Map/WorldMapGenerator.cs`
+- `Assets/Scripts/Core/ObjectPool.cs`
+- `orchestration/BOARD.md`
+- `orchestration/BACKLOG_RESERVE.md`
+- `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
 - Step 2-3 성능 최적화 또는 Step 2-4 UX 개선
-- S-008 PlayerController 카메라 null 방어 (In Review 대기)
+- S-027~S-041 중 즉시 실행 가능한 항목 착수

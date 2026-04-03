@@ -56,6 +56,7 @@ public class ObjectPool<T> where T : Component
     public void Return(T obj)
     {
         if (obj == null) return;
+        if (!obj.gameObject.activeSelf) return;
         obj.gameObject.SetActive(false);
         if (_parent != null) obj.transform.SetParent(_parent);
         _available.Enqueue(obj);

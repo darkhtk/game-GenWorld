@@ -115,8 +115,8 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-023 RegionTracker 경계 조건 | 2026-04-03 | 대기 | null/empty 배열 방어 |
-| S-026 NPC 이동 재개 실패 | 2026-04-03 | 대기 | dlg null 시 NPC 복구 |
+| S-023 RegionTracker 경계 조건 | 2026-04-03 | ✅ APPROVE | REVIEW-S023-v1 |
+| S-026 NPC 이동 재개 실패 | 2026-04-03 | ❌ NEEDS_WORK | REVIEW-S026-v1 — SetDialogueOpen/dialogueNpc 미복구 |
 | S-025 DialogueCameraZoom 복원 보장 | 2026-04-03 | 대기 | OnDisable 강제 원복 |
 
 ## ✅ Done
@@ -204,6 +204,13 @@
 | S-010 QuestSystem null 방어 | 2026-04-03 | CompleteQuest rewards null 기본값 ✅ |
 | S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | REVIEW-S004-v1 ✅ |
 | S-008 PlayerController 카메라 null 방어 | 2026-04-03 | REVIEW-S005-S007-S008-S010-v1 ✅ |
+| S-011 DataManager 로드 실패 폴백 | 2026-04-03 | REVIEW-S011-v1 ✅ |
+| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | REVIEW-S022-v1 ✅ |
+| S-013 DamageText 풀링 검증 | 2026-04-03 | 버그 없음 확인 ✅ |
+| S-014 Projectile 풀링 검증 | 2026-04-03 | 버그 없음 확인 ✅ |
+| S-015 WorldMapGenerator null 방어 | 2026-04-03 | null/empty regions 가드 ✅ |
+| S-016 SkillSystem 쿨다운 동기화 | 2026-04-03 | ms 단위 일관성 확인 ✅ |
+| S-024 ComboSystem 타이머 정밀도 | 2026-04-03 | float 정밀도 충분 확인 ✅ |
 
 ## 📋 Backlog
 
@@ -212,6 +219,6 @@
 | ~~S-004~~ | P1 | ✅ Done |
 | ~~S-008~~ | P2 | ✅ Done |
 | ~~S-022~~ | P2 | ✅ Done (APPROVE) |
-| S-026 NPC 이동 재개 실패 | P2 | ⬜ RESERVE에서 승격 |
+| S-026 NPC 이동 재개 실패 | P2 | 👀 In Review |
 | ~~S-014~~ | P2 | ✅ Done |
 | ~~S-015~~ | P2 | ✅ Done |

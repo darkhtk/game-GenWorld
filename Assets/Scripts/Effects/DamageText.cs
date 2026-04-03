@@ -14,6 +14,7 @@ public class DamageText : MonoBehaviour
     static Transform _poolParent;
 
     TextMeshPro _tmp;
+    bool _inUse;
 
     static void EnsurePool()
     {
@@ -53,6 +54,7 @@ public class DamageText : MonoBehaviour
 
     void Run(Vector2 pos, string text, bool isCrit, Color color)
     {
+        _inUse = true;
         transform.SetParent(null);
         transform.position = new Vector3(pos.x, pos.y, 0);
         transform.localScale = Vector3.one;
@@ -92,6 +94,19 @@ public class DamageText : MonoBehaviour
             yield return null;
         }
 
+        ReturnSelf();
+    }
+
+    void ReturnSelf()
+    {
+        if (!_inUse) return;
+        _inUse = false;
         _pool?.Return(this);
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        ReturnSelf();
     }
 }

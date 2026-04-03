@@ -21,6 +21,12 @@ public class WorldMapGenerator : MonoBehaviour
 
     public void Generate(RegionDef[] regions)
     {
+        if (regions == null || regions.Length == 0)
+        {
+            Debug.LogWarning("[WorldMap] Generate called with null/empty regions");
+            _regions = System.Array.Empty<RegionDef>();
+            return;
+        }
         _regions = regions;
         int w = GameConfig.MapWidthTiles;
         int h = GameConfig.MapHeightTiles;
