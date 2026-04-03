@@ -4428,7 +4428,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Armor
+  m_text: "<color=#666666>(empty)</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
   m_sharedMaterial: {fileID: -2069019959098571013, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
@@ -4816,7 +4816,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Boots
+  m_text: "<color=#666666>(empty)</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
   m_sharedMaterial: {fileID: -2069019959098571013, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
@@ -5560,7 +5560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Accessory
+  m_text: "<color=#666666>(empty)</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
   m_sharedMaterial: {fileID: -2069019959098571013, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
@@ -7515,7 +7515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Weapon
+  m_text: "<color=#666666>(empty)</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
   m_sharedMaterial: {fileID: -2069019959098571013, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
@@ -24164,7 +24164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Helmet
+  m_text: "<color=#666666>(empty)</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
   m_sharedMaterial: {fileID: -2069019959098571013, guid: c6c46a4e972356e4e91e2a3f3f099811, type: 2}
