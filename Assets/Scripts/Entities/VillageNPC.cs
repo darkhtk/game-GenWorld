@@ -16,6 +16,9 @@ public class VillageNPC : MonoBehaviour
     string _lastPeriod;
 
     Rigidbody2D _rb;
+    SpriteRenderer _sr;
+    Sprite[] _sprites;           // all 16 frames (4 dirs x 4 walk frames)
+    const float WalkFps = 6f;    // walk animation frame rate
 
     public void Init(NpcDef def, Vector2 position)
     {
@@ -25,17 +28,15 @@ public class VillageNPC : MonoBehaviour
         _rb.freezeRotation = true;
         transform.position = position;
 
-        // Load sprite (Multiple spritesheet → LoadAll, use first frame)
+        // Load all spritesheet frames and cache
         if (!string.IsNullOrEmpty(def.sprite))
         {
-            var sprites = Resources.LoadAll<Sprite>($"Sprites/{def.sprite}");
-            if (sprites == null || sprites.Length == 0)
-                sprites = Resources.LoadAll<Sprite>(def.sprite);
-            if (sprites != null && sprites.Length > 0)
-            {
-                var sr = GetComponent<SpriteRenderer>();
-                if (sr != null) sr.sprite = sprites[0];
-            }
+            _sprites = Resources.LoadAll<Sprite>($"Sprites/{def.sprite}");
+            if (_sprites == null || _sprites.Length == 0)
+                _sprites = Resources.LoadAll<Sprite>(def.sprite);
+            _sr = GetComponent<SpriteRenderer>();
+            if (_sr != null && _sprites != null && _sprites.Length > 0)
+                _sr.sprite = _sprites[0];
         }
         _patrolCenter = position;
         NameLabel.Create(transform, def.name, new Color(0.4f, 0.8f, 1f), 1.0f);
@@ -119,6 +120,20 @@ public class VillageNPC : MonoBehaviour
 
         Vector2 dir = (_patrolTarget.Value - Position).normalized;
         _rb.linearVelocity = dir * _speed;
+        UpdateWalkSprite(dir);
+    }
+
+    void UpdateWalkSprite(Vector2 dir)
+    {
+        if (_sprites == null || _sprites.Length < 16 || _sr == null) return;
+        // Row layout (RPG Maker charset): 0=down, 1=left, 2=right, 3=up
+        int row;
+        if (Mathf.Abs(dir.y) > Mathf.Abs(dir.x))
+            row = dir.y > 0 ? 3 : 0;
+        else
+            row = dir.x > 0 ? 2 : 1;
+        int frame = Mathf.FloorToInt(Time.time * WalkFps) % 4;
+        _sr.sprite = _sprites[row * 4 + frame];
     }
 
     public bool IsInInteractionRange(Vector2 playerPos, float range = 1.5f)
@@ -137,6 +152,9 @@ public class VillageNPC : MonoBehaviour
     {
         IsStopped = true;
         if (_rb) _rb.linearVelocity = Vector2.zero;
+        // Reset to idle pose (frame 0 = down-facing neutral stance)
+        if (_sr != null && _sprites != null && _sprites.Length > 0)
+            _sr.sprite = _sprites[0];
         SetAnimationState("talk");
     }
 

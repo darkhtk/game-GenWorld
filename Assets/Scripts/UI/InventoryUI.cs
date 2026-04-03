@@ -74,7 +74,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Button compareEquipButton;
     [SerializeField] Button compareCancelButton;
 
-    const int Columns = 5;
+    const int Columns = 10;
     readonly List<InventorySlotUI> _slots = new();
 
     InventorySystem _inventory;

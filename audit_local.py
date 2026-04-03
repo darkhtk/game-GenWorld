@@ -85,7 +85,7 @@ def is_active(fid,rts_=None,gos_=None):
     d=rts_.get(fid,{}); gf=d.get('go_fid')
     return gos_[gf]['active'] if gf and gf in gos_ else True
 
-OVERLAYS={'DragIcon','Tooltip','DragSlot','DragGhost','DragItem','Loading','QuestProposal'}
+OVERLAYS={'DragIcon','Tooltip','DragSlot','DragGhost','DragItem','Loading','QuestProposal','Grid'}
 # Runtime-exclusive pairs that legitimately overlap in static YAML
 EXCLUSIVE=[
     {'Options','ActionButtons','InputField','SendButton','FreeToggle'},
