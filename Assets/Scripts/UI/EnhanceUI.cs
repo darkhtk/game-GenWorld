@@ -73,6 +73,7 @@ public class EnhanceUI : MonoBehaviour
     public void Open(Dictionary<string, ItemInstance> equipment, Dictionary<string, ItemDef> itemDefs,
         Func<int> getGold, Action<int> spendGold, Action<string> onEnhance)
     {
+        if (IsOpen) return;
         _equipment = equipment;
         _itemDefs = itemDefs;
         _getGold = getGold;

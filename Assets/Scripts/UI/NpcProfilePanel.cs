@@ -28,6 +28,7 @@ public class NpcProfilePanel : MonoBehaviour
 
     public void Show(string npcName, string color, int relationship, string mood, List<string> memories)
     {
+        if (panel != null && panel.activeSelf) return;
         if (panel != null) panel.SetActive(true);
 
         if (npcNameText != null)

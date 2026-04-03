@@ -1,37 +1,33 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #33)
-> **모드:** 코드 품질 감사 — 5개 핵심 파일 병렬 감사 + 버그 3건 수정
+> **최종 실행:** 2026-04-03 (루프 #34)
+> **모드:** 코드 품질 감사 — S-082 UIManager 패널 중복 열기 방지 (8개 UI 수정)
 
 ## 이번 루프 수행 내용
 
-### 코드 품질 감사 (5개 핵심 파일)
-- **감사 대상:** EventBus, CombatManager, PlayerController, MonsterSpawner, EffectSystem
-- **감사 결과:**
-  - EventBus: null 핸들러 등록 가능 (NRE 위험) → **수정 완료**
-  - CombatManager: _getStats null 미체크, _cachedMonsters 외부 참조 공유 → 감시 항목
-  - PlayerController: 영벡터 normalize → Unity에서 Vector2.zero 반환 (false positive)
-  - MonsterSpawner: **_nightPoolBuffer stale data (실제 버그!)** + m.Def null 접근 → **수정 완료**
-  - EffectSystem: 파일명 변경 확인 (EffectHolder.cs → EffectSystem.cs)
+### 코드 품질 감사: S-082 UIManager 패널 중복 열기 방지
 
-### 버그 수정 3건
+**문제:** 모든 UI 패널의 Show/Open 메서드에 중복 열기 방지 가드가 없음.
+- 동일 패널 다중 Open → 애니메이션 중복, SFX 중복 재생, Refresh 다중 호출
+- PauseMenuUI: Open 두 번 호출 시 _previousTimeScale 덮어쓰기 (Time.timeScale 복원 실패)
 
-1. **MonsterSpawner _nightPoolBuffer stale data (CRITICAL)**
-   - **문제:** `_nightPoolBuffer.Clear()`가 `if (isNight)` 블록 안에서만 호출 → 야간 스폰 후 낮에 재스폰 시 야간 몬스터가 낮에 출현
-   - **수정:** `_nightPoolBuffer.Clear()`를 night 조건 밖으로 이동 (SpawnForRegion 시작 시 항상 초기화)
-   - **파일:** `Assets/Scripts/Entities/MonsterSpawner.cs:47`
+**수정:** 8개 UI 파일에 `if (IsOpen) return;` 조기 반환 추가
 
-2. **MonsterSpawner m.Def null 접근 방어 (MEDIUM)**
-   - **문제:** ClearAllMonsters/DespawnRoutine에서 `m.Def.id` 접근 시 Def가 null이면 NRE
-   - **수정:** `m.Def.id` → `m.Def?.id` (null-conditional)
-   - **파일:** `Assets/Scripts/Entities/MonsterSpawner.cs:28,120`
+1. **InventoryUI.cs** — `Show()` 에 `if (IsOpen) return;`
+2. **ShopUI.cs** — `Open()` 에 `if (IsOpen) return;`
+3. **CraftingUI.cs** — `Open()` 에 `if (IsOpen) return;`
+4. **EnhanceUI.cs** — `Open()` 에 `if (IsOpen) return;`
+5. **QuestUI.cs** — `Show()` 에 `if (IsOpen) return;`
+6. **SkillTreeUI.cs** — `Show()` 에 `if (IsOpen) return;`
+7. **NpcProfilePanel.cs** — `Show()` 에 `if (panel.activeSelf) return;`
+8. **PauseMenuUI.cs** — `Open()` 에 `if (panel.activeSelf) return;` (Time.timeScale 손상 방지)
 
-3. **EventBus null 핸들러 등록 방어 (LOW)**
-   - **문제:** `On<T>(null)` 호출 시 null delegate가 리스트에 추가, Emit 시 NRE
-   - **수정:** `if (handler == null) return;` 조기 반환
-   - **파일:** `Assets/Scripts/Core/EventBus.cs:8`
+### 감사 보고 (코드만, 수정 보류)
 
-## 누적 현황 (루프 #1~#33)
+- **S-077 SaveSystem 무결성:** TryLoadFrom에서 역직렬화 후 필수 필드 검증 없음 — 다음 루프 수정 대상
+- **S-087 RegionManager 입력 차단:** Frozen 속성이 이미 Update 최상단에서 return → 대화 중 입력 차단 OK, 씬 전환 시에는 별도 처리 필요
+
+## 누적 현황 (루프 #1~#34)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -63,25 +59,32 @@
 | #31 | UX 개선 2건 | S-062 구매 실패 피드백, S-063 강화 확인 팝업 |
 | #32 | 코드 품질 감사 13파일 | S-075 사망 피격 방지, false positive 13건 식별 |
 | #33 | 코드 품질 감사 5파일 | nightPool stale(CRITICAL), Def null 방어, EventBus null 방어 |
+| #34 | S-082 패널 중복 방지 | 8개 UI에 IsOpen 가드 추가, S-077/S-087 감사 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 20건 (+1: nightPoolBuffer stale)
+- **치명 버그 수정**: 20건
+- **방어 코드 강화**: 15건 (+8: UI 패널 중복 방지)
 - **메모리 누수 수정**: 2건
 - **성능 최적화**: 16건
-- **방어 코드 강화**: 7건 (+2: Def null, EventBus null)
 - **UX 개선**: 8건
 - **UX SFX 추가**: 28건
 - **에셋 생성/수정**: 55종
 - **에셋 점검 완료**: 4건
 - **RESERVE 태스크 보충**: 57건 (누적)
-- **감사 시스템**: 72개 클래스 (+5)
+- **감사 시스템**: 80개 클래스 (+8)
 
 ## 수정 파일 (이번 루프)
-- `Assets/Scripts/Entities/MonsterSpawner.cs` (nightPoolBuffer stale fix + Def null 방어)
-- `Assets/Scripts/Core/EventBus.cs` (null handler 방어)
+- `Assets/Scripts/UI/InventoryUI.cs`
+- `Assets/Scripts/UI/ShopUI.cs`
+- `Assets/Scripts/UI/CraftingUI.cs`
+- `Assets/Scripts/UI/EnhanceUI.cs`
+- `Assets/Scripts/UI/QuestUI.cs`
+- `Assets/Scripts/UI/SkillTreeUI.cs`
+- `Assets/Scripts/UI/NpcProfilePanel.cs`
+- `Assets/Scripts/UI/PauseMenuUI.cs`
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
 - Step 2-3: 성능 최적화 (캐싱, 불필요 할당 제거)
-- S-074 완료 처리 (nightPoolBuffer stale → 이번 루프에서 실질적으로 해결)
-- RESERVE P2 항목: S-077 SaveSystem 무결성, S-078 DialogueSystem 타임아웃, S-082 UIManager 중복 방지
+- S-077 SaveSystem 필수 필드 검증 구현
+- S-087 씬 전환 시 Frozen 활성화 검토

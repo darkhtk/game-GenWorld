@@ -125,6 +125,7 @@ public class InventoryUI : MonoBehaviour
 
     public void Show()
     {
+        if (IsOpen) return;
         var anim = panel != null ? panel.GetComponent<PanelAnimator>() : null;
         if (anim != null) anim.Show();
         else if (panel != null) panel.SetActive(true);
@@ -310,12 +311,13 @@ public class InventoryUI : MonoBehaviour
 
         var rt = tooltipPanel.GetComponent<RectTransform>();
         Vector2 pos = Input.mousePosition;
-        float x = pos.x + 10f;
-        float y = pos.y - 10f;
+        float pad = 10f * (Screen.height / 1080f);
+        float x = pos.x + pad;
+        float y = pos.y - pad;
         if (rt != null)
         {
-            if (x + rt.sizeDelta.x > Screen.width) x = pos.x - rt.sizeDelta.x - 10f;
-            if (y - rt.sizeDelta.y < 0) y = pos.y + rt.sizeDelta.y + 10f;
+            if (x + rt.sizeDelta.x > Screen.width) x = pos.x - rt.sizeDelta.x - pad;
+            if (y - rt.sizeDelta.y < 0) y = pos.y + rt.sizeDelta.y + pad;
         }
         tooltipPanel.transform.position = new Vector3(x, y, 0);
     }

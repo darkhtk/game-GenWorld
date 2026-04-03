@@ -42,6 +42,7 @@ public class PauseMenuUI : MonoBehaviour
     public void Open()
     {
         if (panel == null) return;
+        if (panel.activeSelf) return;
         panel.SetActive(true);
         _previousTimeScale = Time.timeScale;
         Time.timeScale = 0f;

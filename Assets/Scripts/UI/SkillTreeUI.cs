@@ -103,6 +103,7 @@ public class SkillTreeUI : MonoBehaviour
 
     public void Show()
     {
+        if (IsOpen) return;
         if (panel != null) panel.SetActive(true);
         AudioManager.Instance?.PlaySFX("sfx_menu_open");
         Refresh();

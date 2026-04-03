@@ -36,6 +36,7 @@ public class CraftingUI : MonoBehaviour
     public void Open(CraftingSystem craftingSystem, InventorySystem inventory,
         Dictionary<string, ItemDef> itemDefs, Action<string> onCraft)
     {
+        if (IsOpen) return;
         _craftingSystem = craftingSystem;
         _inventory = inventory;
         _itemDefs = itemDefs;

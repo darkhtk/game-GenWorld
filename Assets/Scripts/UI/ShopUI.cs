@@ -44,6 +44,7 @@ public class ShopUI : MonoBehaviour
     public void Open(InventorySystem inventory, Dictionary<string, ItemDef> itemDefs,
         Func<int> getGold, Action<int> spendGold)
     {
+        if (IsOpen) return;
         _inventory = inventory;
         _itemDefs = itemDefs;
         _getGold = getGold;

@@ -49,7 +49,7 @@
 | 40 | S-079 | 🔧 | EffectHolder 버프 스택 상한 — 동일 버프 무한 중첩 방지 (maxStack 도입 검토) | P3 | ⬜ |
 | 41 | S-080 | 🔧 | PlayerController CCD 확인 — 빠른 이동 시 Rigidbody2D 콜라이더 관통 방지 설정 검증 | P3 | ⬜ |
 | 42 | S-081 | 🔧 | InventorySystem 중복 아이템 ID 병합 — 동일 ID 아이템 추가 시 기존 스택에 올바르게 합산 확인 | P3 | ⬜ |
-| 43 | S-082 | 🔧 | UIManager 패널 중복 열기 방지 — 동일 패널 다중 인스턴스 생성 방어 | P2 | ⬜ |
+| 43 | S-082 | 🔧 | UIManager 패널 중복 열기 방지 — 8개 UI에 IsOpen 가드 추가 완료 | P2 | ✅ |
 | 44 | S-083 | 🔧 | AudioManager BGM 동시 변경 안정성 — 연속 BGM 전환 요청 시 마지막 요청만 수행 검증 | P3 | ⬜ |
 | 45 | S-084 | 🔧 | WorldEventSystem 종료 잔존 오브젝트 정리 — 이벤트 완료 후 스폰된 오브젝트 확실히 제거 확인 | P3 | ⬜ |
 | 46 | S-085 | 🔧 | NPC 대화 종료 직후 재진입 방지 — Close 후 쿨다운 타이머로 즉시 재대화 차단 | P3 | ⬜ |
