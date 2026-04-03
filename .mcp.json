@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "mcp-unity": {
+      "type": "websocket",
+      "url": "ws://localhost:6400"
+    }
+  }
+}
