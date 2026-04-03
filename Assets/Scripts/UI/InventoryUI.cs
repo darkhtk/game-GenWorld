@@ -130,6 +130,7 @@ public class InventoryUI : MonoBehaviour
         if (anim != null) anim.Show();
         else if (panel != null) panel.SetActive(true);
         AudioManager.Instance?.PlaySFX("sfx_menu_open");
+        UpdateFilterButtonHighlight(System.Array.IndexOf(FilterNames, _currentFilter));
         Refresh();
     }
 
