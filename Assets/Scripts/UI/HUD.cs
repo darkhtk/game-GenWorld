@@ -577,9 +577,11 @@ public class HUD : MonoBehaviour
                     {
                         int have = gm.Inventory.GetCount(r.itemId);
                         bool done = have >= r.count;
-                        string color = done ? "#88ff88" : "#ffffff";
+                        string itemName = gm.Data?.Items != null && gm.Data.Items.TryGetValue(r.itemId, out var iDef)
+                            ? iDef.name : r.itemId;
+                        string color = done ? "#88ff88" : have > 0 ? "#ffcc44" : "#aaaaaa";
                         string check = done ? " <color=#66ff66>\u2713</color>" : "";
-                        _questSb.AppendLine($"  <color={color}>{r.itemId}: {Mathf.Min(have, r.count)}/{r.count}{check}</color>");
+                        _questSb.AppendLine($"  <color={color}>{itemName}: {Mathf.Min(have, r.count)}/{r.count}{check}</color>");
                     }
                 }
                 if (q.killRequirements != null)
@@ -588,9 +590,9 @@ public class HUD : MonoBehaviour
                     {
                         int kills = gm.Quests.GetKillProgress(q.id, kr.monsterId);
                         bool done = kills >= kr.count;
-                        string color = done ? "#88ff88" : "#ffffff";
+                        string color = done ? "#88ff88" : kills > 0 ? "#ffcc44" : "#aaaaaa";
                         string check = done ? " <color=#66ff66>\u2713</color>" : "";
-                        _questSb.AppendLine($"  <color={color}>{kr.monsterId}: {Mathf.Min(kills, kr.count)}/{kr.count}{check}</color>");
+                        _questSb.AppendLine($"  <color={color}><color=#ffbb77>{kr.monsterId}</color>: {Mathf.Min(kills, kr.count)}/{kr.count}{check}</color>");
                     }
                 }
                 _questTrackerEntries[i].text = _questSb.ToString().TrimEnd();
