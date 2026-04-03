@@ -89,6 +89,8 @@ public class DialogueUI : MonoBehaviour
 
     public void Show(NpcDef npcDef, ConditionalDialogue conditional = null)
     {
+        if (panel != null && panel.activeSelf) Hide();
+
         _currentNpc = npcDef;
         gameObject.SetActive(true);
         if (panel != null) panel.SetActive(true);
@@ -211,6 +213,7 @@ public class DialogueUI : MonoBehaviour
 
         if (show)
         {
+            if (_loadingCoroutine != null) StopCoroutine(_loadingCoroutine);
             loadingPanel.SetActive(true);
             _loadingCoroutine = StartCoroutine(LoadingAnimation());
         }

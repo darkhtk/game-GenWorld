@@ -129,4 +129,43 @@ public class EffectSystemTests
         Assert.AreEqual(2, expired.Count);
         Assert.IsTrue(holder.Has("rage"));
     }
+
+    // S-065 DoT reapplication tests
+
+    [Test]
+    public void Dot_SameDamage_ExtendsDuration()
+    {
+        holder.ApplyDot(3000f, 10, 1000f);
+        holder.ApplyDot(5000f, 10, 1000f);
+        Assert.AreEqual(5000f, holder.GetExpiresAt("dot"));
+        Assert.AreEqual(10f, holder.GetValue("dot"));
+    }
+
+    [Test]
+    public void Dot_StrongerDamage_Overwrites()
+    {
+        holder.ApplyDot(3000f, 10, 1000f);
+        holder.ApplyDot(5000f, 20, 1000f);
+        Assert.AreEqual(5000f, holder.GetExpiresAt("dot"));
+        Assert.AreEqual(20f, holder.GetValue("dot"));
+    }
+
+    [Test]
+    public void Dot_WeakerDamage_KeepsCurrent()
+    {
+        holder.ApplyDot(3000f, 20, 1000f);
+        holder.ApplyDot(5000f, 10, 1000f);
+        Assert.AreEqual(5000f, holder.GetExpiresAt("dot"));
+        Assert.AreEqual(20f, holder.GetValue("dot"));
+    }
+
+    [Test]
+    public void Dot_Reapply_PreservesLastTick()
+    {
+        holder.ApplyDot(5000f, 10, 1000f);
+        holder.TickDot(1500f); // triggers tick, lastTick = 1500
+        holder.ApplyDot(8000f, 10, 1000f); // reapply
+        float dmg = holder.TickDot(2000f); // only 500ms since lastTick=1500
+        Assert.AreEqual(0f, dmg); // should NOT tick again yet
+    }
 }

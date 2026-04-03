@@ -55,6 +55,14 @@ public class EffectHolder
     public void ApplyDot(float expiresAt, float damage, float interval = 1000f)
     {
         float now = Time.time * 1000f;
+        if (_effects.TryGetValue("dot", out var existing))
+        {
+            existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
+            existing.totalDuration = existing.expiresAt - now;
+            if (damage > existing.value)
+                existing.value = damage;
+            return;
+        }
         _effects["dot"] = new ActiveEffect
         {
             expiresAt = expiresAt, value = damage,
