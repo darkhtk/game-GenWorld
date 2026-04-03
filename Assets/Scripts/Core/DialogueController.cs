@@ -167,7 +167,19 @@ public class DialogueController
             dlg?.ShowLoading(false);
             _dialogueGenerating = false;
 
-            if (response == null || dlg == null) return;
+            if (dlg == null) return;
+
+            if (response == null)
+            {
+                response = new DialogueResponse
+                {
+                    dialogue = "...무슨 말을 하려 했는데, 기억이 안 나는군.",
+                    options = new[] { "괜찮습니다.", "다시 말해주세요." },
+                    relationshipChange = 0,
+                    newMemory = "대화 시도"
+                };
+                dlg.AppendLog("System", "(응답 지연 — 대체 응답)", "#999999");
+            }
 
             _dialogueHistory.Add(new DialogueEntry { role = "npc", text = response.dialogue });
             dlg.AppendLog(npc.Def.name, response.dialogue, npc.Def.color);

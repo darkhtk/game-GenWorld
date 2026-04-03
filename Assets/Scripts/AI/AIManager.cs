@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -124,9 +126,13 @@ public class AIManager
     {
         string prompt = PromptBuilder.BuildDialoguePrompt(brain, ctx);
 
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+
         for (int attempt = 0; attempt < 2; attempt++)
         {
-            string rawResponse = await _client.GenerateDialogue(prompt);
+            if (cts.Token.IsCancellationRequested) break;
+
+            string rawResponse = await _client.GenerateDialogue(prompt, cts.Token);
             if (string.IsNullOrEmpty(rawResponse)) continue;
 
             try

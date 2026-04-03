@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -63,7 +64,8 @@ public class OllamaClient
         catch (Exception e) { Debug.LogWarning($"[OllamaClient] Warm-up skipped: {e.Message}"); }
     }
 
-    public async Task<string> GenerateDialogue(string prompt)
+    public async Task<string> GenerateDialogue(string prompt,
+        CancellationToken cancellationToken = default)
     {
         try
         {
@@ -91,7 +93,11 @@ public class OllamaClient
             req.timeout = (int)DialogueTimeout;
 
             var op = req.SendWebRequest();
-            while (!op.isDone) await Task.Yield();
+            while (!op.isDone)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Task.Yield();
+            }
 
             if (req.result != UnityWebRequest.Result.Success)
             {
@@ -102,6 +108,11 @@ public class OllamaClient
             string responseText = req.downloadHandler.text;
             var response = JsonUtility.FromJson<OllamaResponse>(responseText);
             return response?.response;
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.LogWarning("[OllamaClient] Request cancelled (timeout)");
+            return null;
         }
         catch (Exception e)
         {

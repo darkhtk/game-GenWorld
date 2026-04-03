@@ -227,19 +227,26 @@ public class DialogueUI : MonoBehaviour
     IEnumerator LoadingAnimation()
     {
         int index = 0;
+        float totalElapsed = 0f;
         var cg = loadingPanel.GetComponent<CanvasGroup>();
         if (cg == null) cg = loadingPanel.AddComponent<CanvasGroup>();
 
         while (true)
         {
+            string phrase = ThinkingPhrases[index % ThinkingPhrases.Length];
             if (loadingText != null)
-                loadingText.text = ThinkingPhrases[index % ThinkingPhrases.Length];
+            {
+                loadingText.text = totalElapsed > 10f
+                    ? $"{phrase} ({(int)totalElapsed}s)"
+                    : phrase;
+            }
             index++;
 
             float elapsed = 0f;
             while (elapsed < 2f)
             {
                 elapsed += Time.unscaledDeltaTime;
+                totalElapsed += Time.unscaledDeltaTime;
                 float alpha = 0.3f + 0.7f * (0.5f + 0.5f * Mathf.Sin(elapsed * Mathf.PI));
                 cg.alpha = alpha;
                 yield return null;
