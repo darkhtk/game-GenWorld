@@ -75,7 +75,7 @@ public class ShopUI : MonoBehaviour
         if (_itemDefs == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>";
+        if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>"; }
 
         foreach (var kv in _itemDefs)
         {
@@ -152,7 +152,7 @@ public class ShopUI : MonoBehaviour
 
     void ShowStatus(string text)
     {
-        if (statusText != null) statusText.text = text;
+        if (statusText != null) { statusText.color = Color.white; statusText.text = text; }
     }
 
     GameObject GetOrCreateEntry()

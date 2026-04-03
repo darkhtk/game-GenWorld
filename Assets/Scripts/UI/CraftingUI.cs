@@ -94,6 +94,7 @@ public class CraftingUI : MonoBehaviour
 
         if (texts.Length > 1 && recipe.materials != null)
         {
+            texts[1].color = Color.white;
             var matLines = new List<string>();
             foreach (var mat in recipe.materials)
             {
