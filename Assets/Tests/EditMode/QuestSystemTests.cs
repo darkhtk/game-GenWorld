@@ -170,4 +170,40 @@ public class QuestSystemTests
         EventBus.Emit(new MonsterKillEvent { monsterId = "goblin", monsterName = "Goblin", killCount = 1, totalKills = 1 });
         Assert.AreEqual(0, killQs.GetKillProgress("kill_wolves", "wolf"));
     }
+
+    [Test]
+    public void SerializeRestore_PreservesKillProgress()
+    {
+        SetupKillQuest();
+        killQs.AcceptQuest("kill_wolves");
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 1, totalKills = 1 });
+        EventBus.Emit(new MonsterKillEvent { monsterId = "wolf", monsterName = "Wolf", killCount = 2, totalKills = 2 });
+
+        var data = killQs.Serialize();
+        Assert.IsNotNull(data.killProgress);
+        Assert.AreEqual(2, data.killProgress["kill_wolves"]["wolf"]);
+
+        var restored = new QuestSystem(new[] { new QuestDef {
+            id = "kill_wolves", npcId = "hunter",
+            killRequirements = new[] { new QuestKillRequirement { monsterId = "wolf", count = 3 } },
+            requirements = new QuestRequirement[0],
+            rewards = new QuestReward { gold = 100, xp = 50, items = new QuestRewardItem[0] }
+        } });
+        restored.Restore(data);
+        Assert.AreEqual(2, restored.GetKillProgress("kill_wolves", "wolf"));
+        Assert.AreEqual(1, restored.GetActiveQuests().Length);
+    }
+
+    [Test]
+    public void Restore_NullKillProgress_DoesNotCrash()
+    {
+        var data = (
+            active: new[] { "q1" },
+            completed: new string[0],
+            killProgress: (System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<string, int>>)null
+        );
+        qs.Restore(data);
+        Assert.AreEqual(1, qs.GetActiveQuests().Length);
+        Assert.AreEqual(0, qs.GetKillProgress("q1", "anything"));
+    }
 }

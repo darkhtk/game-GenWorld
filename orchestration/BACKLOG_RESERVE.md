@@ -41,6 +41,7 @@
 | 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ⬜ |
 | 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ⬜ |
 | 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ⬜ |
+| 35 | S-074 | 🔧 | MonsterSpawner _nightPoolBuffer stale 데이터 — 야간 전환 시 이전 풀 데이터 잔존 정리 (Client 리뷰 발견) | P3 | ⬜ |
 
 ## 완료 태스크
 

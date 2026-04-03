@@ -114,7 +114,7 @@
 | 102 | S-042 SaveSystem 동시 저장 경합 방지 | P2 | ✅ | Supervisor 감사 — _isSaving 잠금 + 원자적 쓰기 |
 | 103 | S-043 CombatRewardHandler 중복 보상 방어 | P2 | ✅ | Supervisor 감사 — DeathProcessed 조기 반환 |
 | 104 | S-044 장비 교체 시 스탯 복원 | P2 | ✅ | Supervisor 감사 — 버그 없음 확인 |
-| 105 | S-045 QuestSystem 진행률 저장 | P2 | ❌ | NEEDS_WORK — 단위 테스트 누락 |
+| 105 | S-045 QuestSystem 진행률 저장 | P2 | 👀 | v2 재제출 — 테스트 추가 |
 | 106 | S-046 MonsterSpawner 리전 전환 클린업 | P2 | ✅ | REVIEW-S046-v1 |
 | 107 | S-047 DialogueSystem 동시 대화 방지 | P2 | 👀 | In Review |
 | 108 | S-048 SkillSystem 데이터 무결성 | P2 | 👀 | In Review |
@@ -130,7 +130,7 @@
 | 태스크 | 사유 | REVIEW | 비고 |
 |--------|------|--------|------|
 | ~~S-026~~ | v2 수정 완료 → In Review | REVIEW-S026-v1 | 두 누락 항목 추가 |
-| S-045 | 단위 테스트 누락 | REVIEW-S045-v1 | 코드 정확하나 테스트 필요 |
+| ~~S-045~~ | ~~단위 테스트 누락~~ | ~~REVIEW-S045-v1~~ | v2 테스트 추가 → In Review |
 
 ## 🔧 In Progress
 
@@ -147,6 +147,7 @@
 | S-051 SceneTransition 메모리 누수 | 2026-04-03 | ⏳ | ObjectPool.Clear + Resources.UnloadUnusedAssets |
 | S-054 AutoSave 전투 중 저장 방지 | 2026-04-03 | ⏳ | IsInCombat + _pendingSave 지연 저장 |
 | S-056 GameManager 초기화 순서 | 2026-04-03 | ⏳ | 감사 완료 + _initialized 가드 |
+| S-045 QuestSystem 진행률 저장 v2 | 2026-04-03 | ⏳ | 킬 진행률 왕복 + null 폴백 테스트 추가 |
 
 ## ✅ Done
 

@@ -1,19 +1,22 @@
 # Coordinator Loop Log
-## [2026-04-03 18:05]
+## [2026-04-03 18:15]
 ### 점검 결과
-- BOARD 동기화: 일치
-  - S-045, S-046 In Review (⏳) — 로드맵 👀 일치
-  - In Review에 APPROVE/NEEDS_WORK 없음 — 변동 없음
-- RESERVE 잔여: 11건 (보충 불필요, 임계치 10 이상)
-  - S-047 상태 오류 수정: 👀 → ⬜ (BOARD/Developer 로그에 미반영, 오기입 복원)
-  - S-048 외부 변경 감지: ⬜ → 👀 (Developer 또는 Supervisor가 픽업한 것으로 추정)
+- BOARD 동기화: 2건 수정
+  - S-046 ✅ APPROVE → Done 이동 + 로드맵 ✅
+  - S-045 ❌ NEEDS_WORK → Rejected 이동 + 로드맵 ❌ (단위 테스트 누락)
+  - S-047 RESERVE ⬜→👀 동기화 (BOARD In Review와 일치)
+- RESERVE 잔여: 20건 (보충 불필요)
+  - S-045 ⬜ 복귀 (재작업 필요)
+  - S-046 ✅ 완료 처리
+  - S-074 신규 추가 (_nightPoolBuffer stale 데이터 — Client 리뷰 발견)
 - 에이전트 상태:
-  - Developer: S-045/S-046 In Review 제출 완료. 빌드 에러 0. 정상.
-  - Client: IDLE 상태이나 S-045/S-046 미감지 — 다음 루프에서 리뷰 예상
-  - Supervisor: 루프 #26, S-042 CRITICAL + S-043 MEDIUM 수정 완료. 정상.
+  - Developer: S-045/S-046 제출 완료. 빌드 에러 0. In Progress 비어있음 — S-045 재작업 대기.
+  - Client: S-045 NEEDS_WORK, S-046 APPROVE 판정 완료. S-047/S-048/S-050 리뷰 대기.
+  - Supervisor: 루프 #27~#28, 성능 최적화 7건 + UX 개선 3건. 정상 운영.
 - 메일: 미설정 (subject 없음)
 ### 자기 개선
-- RESERVE 오기입 발견 속도 양호. 미작성 스펙 3건 즉시 작성 완료. 효율 양호.
+- Client 리뷰 결과 BOARD 즉시 반영 완료. 응답 시간 양호. _nightPoolBuffer 버그 RESERVE 추적 추가.
 ### 행동
-- BACKLOG_RESERVE: S-047 상태 👀→⬜ 복원
-- 기획서 선제 작성 3건: SPEC-S-052 (EventBus 순서), SPEC-S-053 (벽 끼임), SPEC-S-055 (해상도 대응)
+- BOARD: S-046 Done 이동, S-045 Rejected 이동, 로드맵 상태 갱신
+- RESERVE: S-045 ⬜ 복귀, S-046 ✅, S-047 👀 동기화, S-074 신규 추가
+- 기획서: 기존 스펙 전부 존재 확인 — 추가 작성 불필요
