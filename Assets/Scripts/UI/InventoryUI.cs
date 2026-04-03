@@ -526,7 +526,8 @@ public class EquipSlotUI : MonoBehaviour
         if (unequipButton != null) unequipButton.gameObject.SetActive(false);
     }
 }
-
+// InventorySlotUI moved to InventorySlotUI.cs
+/*
 public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
@@ -615,3 +616,4 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         OnHoverExit?.Invoke(SlotIndex);
     }
 }
+*/
