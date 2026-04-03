@@ -76,7 +76,10 @@ public class SkillRowUI : MonoBehaviour
         }
 
         if (learnButton != null)
-            learnButton.gameObject.SetActive(canLearn);
+        {
+            learnButton.gameObject.SetActive(true);
+            learnButton.interactable = canLearn;
+        }
 
         if (backgroundImage != null)
         {
