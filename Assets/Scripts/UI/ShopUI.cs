@@ -107,12 +107,6 @@ public class ShopUI : MonoBehaviour
             texts[1].color = canAfford ? new Color(1f, 0.85f, 0.2f) : new Color(0.6f, 0.5f, 0.2f);
         }
 
-        if (texts.Length > 2)
-        {
-            texts[2].text = def.description ?? "";
-            texts[2].color = new Color(0.72f, 0.72f, 0.72f);
-        }
-
         var btn = go.GetComponent<Button>();
         if (btn == null) btn = go.AddComponent<Button>();
         btn.onClick.RemoveAllListeners();
