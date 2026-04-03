@@ -163,7 +163,8 @@ public class EnhanceUI : MonoBehaviour
                 string eColor = enhLevel >= 10 ? "#ff9900" : enhLevel >= 7 ? "#66aaff" : enhLevel >= 4 ? "#66ff66" : "#aaaaaa";
                 string enhTag = enhLevel > 0 ? $" <color={eColor}><b>+{enhLevel}</b></color>" : "";
                 string nameColor = canAfford ? "#66ff66" : "#888888";
-                texts[1].text = $"{prefix} <color={nameColor}>{itemName}</color>{enhTag}";
+                string nameStr = canAfford ? $"<b><color={nameColor}>{itemName}</color></b>" : $"<color={nameColor}>{itemName}</color>";
+                texts[1].text = $"{prefix} {nameStr}{enhTag}";
                 texts[1].color = Color.white;
             }
             else
