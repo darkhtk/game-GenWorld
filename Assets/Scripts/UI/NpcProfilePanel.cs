@@ -43,21 +43,21 @@ public class NpcProfilePanel : MonoBehaviour
             int hearts = Mathf.Clamp(Mathf.RoundToInt((relationship + 100f) / 200f * MaxHearts), 0, MaxHearts);
             var sb = new System.Text.StringBuilder();
             for (int i = 0; i < MaxHearts; i++)
-                sb.Append(i < hearts ? "<color=#ff4444>H</color>" : "<color=#666666>H</color>");
+                sb.Append(i < hearts ? "<color=#ff4444>\u2665</color>" : "<color=#444444>\u2665</color>");
             relationshipText.text = sb.ToString();
         }
 
         if (moodText != null)
         {
-            string emoji = mood switch
+            var (emoji, col) = mood switch
             {
-                "Happy" => ":)",
-                "Angry" => ">:(",
-                "Scared" => ":O",
-                "Grateful" => ":D",
-                _ => ":|"
+                "Happy"    => (":)", "#88ff88"),
+                "Angry"    => (">:(", "#ff6666"),
+                "Scared"   => (":O", "#ffee66"),
+                "Grateful" => (":D", "#66ffee"),
+                _          => (":|", "#aaaaaa")
             };
-            moodText.text = $"Mood: {emoji} {mood}";
+            moodText.text = $"Mood: <color={col}>{emoji} {mood}</color>";
         }
 
         RefreshMemories(memories);
@@ -76,8 +76,8 @@ public class NpcProfilePanel : MonoBehaviour
         foreach (string mem in memories)
         {
             var entry = Instantiate(memoryEntryPrefab, memoriesContent);
-            entry.text = $"- {mem}";
-            entry.color = new Color(0.7f, 0.7f, 0.8f);
+            entry.text = $"\u2022 {mem}";
+            entry.color = new Color(0.75f, 0.75f, 0.85f);
             entry.gameObject.SetActive(true);
             _memoryEntries.Add(entry.gameObject);
         }
