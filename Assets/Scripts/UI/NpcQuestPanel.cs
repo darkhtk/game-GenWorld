@@ -56,8 +56,8 @@ public class NpcQuestPanel : MonoBehaviour
         if (panel != null) panel.SetActive(true);
         _currentQuestId = quest.id;
 
-        if (npcNameText != null) { npcNameText.text = npcName; npcNameText.color = new Color(1f, 0.9f, 0.6f); }
-        if (questTitleText != null) { questTitleText.text = $"\u25b8 {quest.title}"; questTitleText.color = new Color(1f, 0.95f, 0.5f); }
+        if (npcNameText != null) { npcNameText.color = Color.white; npcNameText.text = $"<b><color=#ffdd88>{npcName}</color></b>"; }
+        if (questTitleText != null) { questTitleText.color = Color.white; questTitleText.text = $"<b><color=#ffe888>\u25b8 {quest.title}</color></b>"; }
         if (questDescText != null) { questDescText.text = quest.description ?? ""; questDescText.color = new Color(0.78f, 0.78f, 0.78f); }
         if (statusText != null)
         {

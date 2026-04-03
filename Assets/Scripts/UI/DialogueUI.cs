@@ -269,7 +269,7 @@ public class DialogueUI : MonoBehaviour
         if (questProposalPanel == null) return;
         questProposalPanel.SetActive(true);
 
-        if (questProposalTitle != null) { questProposalTitle.text = $"\u25b8 {quest.title}"; questProposalTitle.color = new Color(1f, 0.95f, 0.5f); }
+        if (questProposalTitle != null) { questProposalTitle.color = Color.white; questProposalTitle.text = $"<b><color=#ffe888>\u25b8 {quest.title}</color></b>"; }
         if (questProposalDesc != null)
         {
             questProposalDesc.text = quest.description;

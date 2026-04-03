@@ -137,8 +137,8 @@ public class QuestUI : MonoBehaviour
         if (texts.Length == 0) return;
 
         var titleText = texts[0];
-        titleText.text = $"\u25b8 {quest.title}";
-        titleText.color = new Color(1f, 0.9f, 0.5f);
+        titleText.color = Color.white;
+        titleText.text = $"<b><color=#ffe888>\u25b8 {quest.title}</color></b>";
 
         if (texts.Length > 1)
         {
