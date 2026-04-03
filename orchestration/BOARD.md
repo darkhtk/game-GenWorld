@@ -119,6 +119,7 @@
 | 107 | S-047 DialogueSystem 동시 대화 방지 | P2 | 👀 | In Review |
 | 108 | S-048 SkillSystem 데이터 무결성 | P2 | 👀 | In Review |
 | 109 | S-050 InputSystem UI/게임 입력 분리 | P2 | 👀 | In Review |
+| 110 | S-051 SceneTransition 메모리 누수 | P2 | 👀 | In Review |
 
 ---
 
@@ -137,11 +138,12 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-045 QuestSystem 진행률 저장 | 2026-04-03 | ⏳ | killProgress 직렬화/복원 추가 |
-| S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | ⏳ | ClearAllMonsters + SpawnForRegion 진입부 호출 |
+| S-045 QuestSystem 진행률 저장 | 2026-04-03 | ❌ NEEDS_WORK | 코드 정확하나 단위 테스트 누락 — REVIEW-S045-v1 |
+| S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | ✅ APPROVE | REVIEW-S046-v1 |
 | S-047 DialogueSystem 동시 대화 방지 | 2026-04-03 | ⏳ | _inDialogue 가드 추가 |
 | S-048 SkillSystem 데이터 무결성 | 2026-04-03 | ⏳ | ValidateSkills + LoadSkills null id 스킵 |
 | S-050 InputSystem UI/게임 입력 분리 | 2026-04-03 | ⏳ | IsInputBlocked + GameManager 가드 |
+| S-051 SceneTransition 메모리 누수 | 2026-04-03 | ⏳ | ObjectPool.Clear + Resources.UnloadUnusedAssets |
 
 ## ✅ Done
 

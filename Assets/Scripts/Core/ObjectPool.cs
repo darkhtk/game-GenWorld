@@ -61,4 +61,14 @@ public class ObjectPool<T> where T : Component
         if (_parent != null) obj.transform.SetParent(_parent);
         _available.Enqueue(obj);
     }
+
+    public void Clear()
+    {
+        while (_available.Count > 0)
+        {
+            var obj = _available.Dequeue();
+            if (obj != null) UnityEngine.Object.Destroy(obj.gameObject);
+        }
+        _totalCreated = 0;
+    }
 }

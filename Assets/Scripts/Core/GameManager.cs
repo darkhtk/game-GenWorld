@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     void OnDestroy()
     {
         EventBus.Clear();
+        Resources.UnloadUnusedAssets();
     }
 
     async System.Threading.Tasks.Task InitAISafe()
