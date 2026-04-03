@@ -1,16 +1,18 @@
 # Coordinator Loop Log
-## [2026-04-03 16:00]
+## [2026-04-03 16:15]
 ### 점검 결과
-- BOARD 동기화: 2건 수정 — S-002, S-003 In Review(APPROVE) → In Review에서 제거 (Done에 이미 존재 확인)
-- RESERVE 잔여: 18건 (보충 불필요)
+- BOARD 동기화: 3건 수정
+  - S-004: In Review(APPROVE) → Done 이동 + 로드맵 ✅
+  - S-008: In Review(APPROVE) → Done 이동 + 로드맵 ✅
+  - S-012: Supervisor가 이미 확인 완료 → 로드맵 ✅ 반영됨
+- RESERVE 잔여: 14건 ⬜ (보충 불필요)
 - 에이전트 상태:
-  - Developer: 정상 — S-004 In Review 제출 완료, 다음 태스크 대기
-  - Client: 정상 — S-002/S-003 APPROVE 리뷰 완료
-  - Supervisor: 정상 — 루프 #20, 에셋 4건 + 코드 감사 3건 완료
+  - Developer: Backlog 비어있음 → S-022/S-026/S-014/S-015 4건 Backlog 승격
+  - Client: S-011 리뷰 대기 중
+  - Supervisor: 정상 — S-012 완료, S-022 👀 개발자 제출
 - 메일: 미설정 (subject 미지정)
 ### 자기 개선
-- In Review APPROVE 항목이 Done 이동 없이 잔류하는 패턴 — 매 루프 자동 정리 루틴 안정적으로 작동
+- 파일 동시 수정 경합이 잦음 — Edit 전 Read 직후 바로 수정해야 경합 최소화
 ### 행동
-- BOARD In Review에서 S-002/S-003 APPROVE 항목 제거 (Done에 이미 반영됨)
-- 기획서 작성: SPEC-S-007 (CombatManager stale ref), SPEC-S-010 (QuestSystem null 방어)
-- S-004 In Review 대기 확인 (Client 리뷰 필요)
+- BOARD: S-004/S-008 Done 이동, Backlog에 S-022/S-026/S-014/S-015 승격
+- 기획서 3건 작성 중 (SPEC-S-022, SPEC-S-026, SPEC-S-014) — 서브에이전트 병렬 처리

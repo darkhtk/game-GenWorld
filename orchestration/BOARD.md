@@ -86,8 +86,10 @@
 | 74 | S-007 CombatManager stale ref 방어 | P2 | ✅ | _pendingKills 지연 처리 |
 | 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
 | 76 | S-010 QuestSystem null 방어 | P2 | ✅ | CompleteQuest rewards null 기본값 |
-| 77 | S-008 PlayerController 카메라 null 방어 | P2 | 👀 | _cachedCamera 재획득 |
+| 77 | S-008 PlayerController 카메라 null 방어 | P2 | ✅ | REVIEW-S005-S007-S008-S010-v1 |
 | 78 | S-011 DataManager 로드 실패 폴백 | P2 | 👀 | 배열 프로퍼티 Empty 초기화 |
+| 79 | S-012 AudioManager null 방어 | P2 | ✅ | 이미 ?./!=null 체크 완비 확인 |
+| 80 | S-022 EffectHolder.Tick 안전성 | P2 | 👀 | static→instance 버퍼 변환 |
 
 ---
 
@@ -105,8 +107,8 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-008 PlayerController 카메라 null 방어 | 2026-04-03 | 대기 | _cachedCamera 재획득 로직 |
-| S-011 DataManager 로드 실패 폴백 | 2026-04-03 | 대기 | Array.Empty 기본값 초기화 |
+| S-011 DataManager 로드 실패 폴백 | 2026-04-03 | ✅ APPROVE | REVIEW-S011-v1 |
+| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | 대기 | static→instance 버퍼 |
 
 ## ✅ Done
 
@@ -192,10 +194,15 @@
 | S-007 CombatManager stale ref 방어 | 2026-04-03 | _pendingKills 지연 처리 ✅ |
 | S-010 QuestSystem null 방어 | 2026-04-03 | CompleteQuest rewards null 기본값 ✅ |
 | S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | REVIEW-S004-v1 ✅ |
+| S-008 PlayerController 카메라 null 방어 | 2026-04-03 | REVIEW-S005-S007-S008-S010-v1 ✅ |
 
 ## 📋 Backlog
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
-| ~~S-004~~ | P1 | 👀 In Review 제출 |
-| S-008 PlayerController 카메라 null 방어 | P2 | 👀 In Review |
+| ~~S-004~~ | P1 | ✅ Done |
+| ~~S-008~~ | P2 | ✅ Done |
+| S-022 EffectHolder.Tick 스레드 안전성 | P2 | ⬜ RESERVE에서 승격 |
+| S-026 NPC 이동 재개 실패 | P2 | ⬜ RESERVE에서 승격 |
+| S-014 Projectile 풀링 검증 | P2 | ⬜ RESERVE에서 승격 |
+| S-015 WorldMapGenerator null 방어 | P2 | ⬜ RESERVE에서 승격 |
