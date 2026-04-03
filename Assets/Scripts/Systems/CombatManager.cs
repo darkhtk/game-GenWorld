@@ -218,7 +218,8 @@ public class CombatManager : MonoBehaviour
         float targetX = playerPos.x + Mathf.Cos(angle) * clampedDist;
         float targetY = playerPos.y + Mathf.Sin(angle) * clampedDist;
 
-        var monsters = _cachedMonsters ?? new List<MonsterController>();
+        var monsters = _cachedMonsters;
+        if (monsters == null) return;
         var stats = _getStats();
 
         if (skill.actions != null && skill.actions.Length > 0 && string.IsNullOrEmpty(skill.behavior))
