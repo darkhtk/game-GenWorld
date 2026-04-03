@@ -34,6 +34,7 @@ public class KeybindingsUI : MonoBehaviour
         const string K = "<color=#aaddff>";
         const string KE = "</color>";
         keybindingsText.text =
+            $"<b><color=#ffffff>Keybindings</color></b>  <color=#555555>[F1 to close]</color>\n\n" +
             $"{H}Movement{HE}\n" +
             $"  {K}WASD / Arrows{KE} — Move\n" +
             $"  {K}Mouse{KE} — Aim direction\n\n" +

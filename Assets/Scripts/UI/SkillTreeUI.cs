@@ -172,7 +172,7 @@ public class SkillTreeUI : MonoBehaviour
                 };
                 int lvl = skillSystem.GetSkillLevel(skillId);
                 string lvlStr = lvl > 0 ? $" <color=#555555>Lv.{lvl}</color>" : "";
-                equipSlotLabels[i].text = $"<color=#{ColorUtility.ToHtmlStringRGB(treeColor)}>{def.name}</color>{lvlStr}";
+                equipSlotLabels[i].text = $"<b><color=#{ColorUtility.ToHtmlStringRGB(treeColor)}>{def.name}</color></b>{lvlStr}";
                 equipSlotLabels[i].color = Color.white;
             }
             else
