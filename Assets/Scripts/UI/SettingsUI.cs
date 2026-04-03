@@ -102,6 +102,18 @@ public class SettingsUI : MonoBehaviour
         if (graphicsTab != null) graphicsTab.SetActive(idx == 0);
         if (audioTab != null) audioTab.SetActive(idx == 1);
         if (controlsTab != null) controlsTab.SetActive(idx == 2);
+        SetTabStyle(graphicsTabButton, idx == 0);
+        SetTabStyle(audioTabButton, idx == 1);
+        SetTabStyle(controlsTabButton, idx == 2);
+    }
+
+    void SetTabStyle(Button btn, bool active)
+    {
+        if (btn == null) return;
+        var label = btn.GetComponentInChildren<TextMeshProUGUI>();
+        if (label == null) return;
+        label.color = active ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+        label.fontStyle = active ? TMPro.FontStyles.Bold : TMPro.FontStyles.Normal;
     }
 
     void PopulateResolutions()
