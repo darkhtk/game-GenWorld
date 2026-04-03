@@ -7,7 +7,7 @@
 
 | # | ID | 태그 | 태스크 | 우선순위 | 상태 |
 |---|-----|------|--------|---------|------|
-| 1 | S-004 | 🔧 | MonsterController DoT 사망 시 킬 보상/제거 미처리 — MonsterSpawner.RemoveMonster 연결 필요 | P1 | ⬜ |
+| 1 | S-004 | 🔧 | MonsterController DoT 사망 시 킬 보상/제거 미처리 — MonsterSpawner.RemoveMonster 연결 필요 | P1 | 👀 |
 | 2 | S-005 | 🔧 | InventorySystem.OccupiedSlots LINQ 할당 제거 — Count() → 수동 카운트 변환 | P2 | ⬜ |
 | 3 | S-006 | 🔧 | GameManager 분할 리팩토링 — 884줄 → 300줄 이하 (DialogueManager, SaveController 등 분리) | P2 | ⬜ |
 | 4 | S-007 | 🔧 | CombatManager _cachedMonsters 참조 안정성 — stale reference 방어 | P2 | ⬜ |

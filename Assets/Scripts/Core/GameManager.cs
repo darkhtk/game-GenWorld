@@ -125,6 +125,17 @@ public class GameManager : MonoBehaviour
                 m.UpdateAI(playerPos, nowSec);
         }
 
+        // Process DoT deaths — monsters killed by DoT bypass CombatManager
+        for (int i = monsters.Count - 1; i >= 0; i--)
+        {
+            var m = monsters[i];
+            if (m != null && m.IsDead && !m.DeathProcessed)
+            {
+                m.DeathProcessed = true;
+                OnMonsterKilled(m);
+            }
+        }
+
         combatManager.PerformAutoAttack(monsters);
         combatManager.HandleMonsterAttacks(monsters, nowMs);
         HandleSkillInput();
@@ -763,6 +774,8 @@ public class GameManager : MonoBehaviour
 
     void OnMonsterKilled(MonsterController monster)
     {
+        monster.DeathProcessed = true;
+
         // Death VFX at monster position
         SkillVFX.ShowAtPosition(this, "vfx_monster_death", monster.Position.x, monster.Position.y);
 

@@ -6,6 +6,7 @@ public class MonsterController : MonoBehaviour
     public MonsterDef Def { get; private set; }
     public int Hp { get; set; }
     public bool IsDead => Hp <= 0;
+    public bool DeathProcessed { get; set; }
     public Vector2 Position => (Vector2)transform.position;
     public EffectHolder Effects { get; } = new();
     public MonsterAIState AIState { get; private set; } = MonsterAIState.Patrol;

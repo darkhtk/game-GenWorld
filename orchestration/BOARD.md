@@ -81,7 +81,7 @@
 | 69 | S-001 세이브 파일 손상 복구 | P1 | ✅ | REVIEW-S001-v1 |
 | 70 | S-002 EventBus 구독 누수 방지 | P1 | ✅ | 이미 구현됨 확인 |
 | 71 | S-003 async fire-and-forget 방어 | P1 | ✅ | 이미 구현됨 확인 |
-| 72 | S-004 DoT 사망 킬 보상 미처리 | P1 | ⬜ | MonsterSpawner.RemoveMonster 연결 |
+| 72 | S-004 DoT 사망 킬 보상 미처리 | P1 | 👀 | MonsterSpawner.RemoveMonster 연결 |
 | 73 | S-005 LINQ 할당 제거 | P2 | ⬜ | InventorySystem.OccupiedSlots |
 | 74 | S-007 CombatManager stale ref 방어 | P2 | ⬜ | _cachedMonsters 참조 안정성 |
 | 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
@@ -103,8 +103,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-002 EventBus 구독 누수 방지 | 2026-04-03 | ✅ APPROVE | REVIEW-S002-v1 |
-| S-003 async fire-and-forget 방어 | 2026-04-03 | 대기 | try-catch + 상태 복구 |
+| S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | 대기 | DeathProcessed 플래그 + 사망 감지 루프 |
 
 ## ✅ Done
 
@@ -191,7 +190,7 @@
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
-| S-004 MonsterController DoT 사망 시 킬 보상/제거 미처리 — MonsterSpawner.RemoveMonster 연결 | P1 | RESERVE에서 이동 |
+| ~~S-004~~ | P1 | 👀 In Review 제출 |
 | S-005 InventorySystem.OccupiedSlots LINQ 할당 제거 — Count() → 수동 카운트 | P2 | RESERVE에서 이동 |
 | S-007 CombatManager _cachedMonsters 참조 안정성 — stale reference 방어 | P2 | RESERVE에서 이동 |
 | S-010 QuestSystem null 방어 강화 — quest 완료 보상에서 items null 체크 | P2 | RESERVE에서 이동 |
