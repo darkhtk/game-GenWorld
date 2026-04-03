@@ -401,12 +401,12 @@ public class InventoryUI : MonoBehaviour
     static string FormatStats(ItemStats s)
     {
         var lines = new System.Text.StringBuilder();
-        if (s.atk > 0) lines.AppendLine($"<color=#ff9933>ATK: {s.atk}</color>");
-        if (s.def > 0) lines.AppendLine($"<color=#4499ff>DEF: {s.def}</color>");
-        if (s.maxHp > 0) lines.AppendLine($"<color=#ff5555>HP: {s.maxHp}</color>");
-        if (s.maxMp > 0) lines.AppendLine($"<color=#6677ff>MP: {s.maxMp}</color>");
-        if (s.spd > 0) lines.AppendLine($"<color=#44dd77>SPD: {s.spd}</color>");
-        if (s.crit > 0) lines.AppendLine($"<color=#ffd900>CRIT: {s.crit}%</color>");
+        if (s.atk > 0) lines.AppendLine($"<color=#885522>ATK</color> <color=#ff9933><b>{s.atk}</b></color>");
+        if (s.def > 0) lines.AppendLine($"<color=#224488>DEF</color> <color=#4499ff><b>{s.def}</b></color>");
+        if (s.maxHp > 0) lines.AppendLine($"<color=#882222>HP</color> <color=#ff5555><b>{s.maxHp}</b></color>");
+        if (s.maxMp > 0) lines.AppendLine($"<color=#333388>MP</color> <color=#6677ff><b>{s.maxMp}</b></color>");
+        if (s.spd > 0) lines.AppendLine($"<color=#226644>SPD</color> <color=#44dd77><b>{s.spd}</b></color>");
+        if (s.crit > 0) lines.AppendLine($"<color=#886600>CRIT</color> <color=#ffd900><b>{s.crit}%</b></color>");
         return lines.ToString().TrimEnd();
     }
 
@@ -424,8 +424,8 @@ public class InventoryUI : MonoBehaviour
 
     static void AppendDiff(System.Text.StringBuilder sb, string label, int diff)
     {
-        if (diff > 0) sb.AppendLine($"<color=#66ff66>{label}: +{diff} \u25b2</color>");
-        else if (diff < 0) sb.AppendLine($"<color=#ff6666>{label}: {diff} \u25bc</color>");
+        if (diff > 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#66ff66><b>+{diff} \u25b2</b></color>");
+        else if (diff < 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#ff6666><b>{diff} \u25bc</b></color>");
     }
 
     void SetFilter(int idx)
