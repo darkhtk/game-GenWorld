@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Coordinator — S-045 NEEDS_WORK 복귀, S-046 APPROVE→✅, S-047 👀 동기화)
+> **최종 갱신:** 2026-04-03 (Supervisor #31 — S-062/S-063 UX 구현, S-061/S-064/S-065 완료 동기화)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -28,11 +28,11 @@
 | 19 | S-056 | 🔧 | GameManager 초기화 순서 — Awake/Start 의존성 순서 보장 및 경합 확인 | P2 | ✅ |
 | 20 | S-059 | 🔧 | AudioManager 클립 캐시 메모리 누수 — _clipCache 무한 성장 방지, LRU 또는 씬 전환 시 정리 | P2 | ✅ |
 | 21 | S-060 | 🔧 | MinimapUI 텍스처 재생성 누수 — Init() 호출 시 이전 Texture2D 미파괴 확인 | P2 | ✅ |
-| 22 | S-061 | 🔧 | QuestSystem killProgress 고아 항목 — 완료/포기된 퀘스트의 진행 데이터 잔류 정리 | P2 | ⬜ |
-| 23 | S-062 | 🔧 | ShopUI 구매 실패 피드백 — 골드 부족/인벤 풀 시 플레이어에게 사유 표시 | P3 | ⬜ |
-| 24 | S-063 | 🔧 | EnhanceUI 강화 전 확인 팝업 — 파괴 확률 경고 없이 바로 실행되는 문제 | P3 | ⬜ |
-| 25 | S-064 | 🔧 | DialogueUI 코루틴 중복 실행 — AI 응답 대기 중 재진입 시 이전 코루틴 미정리 | P2 | ⬜ |
-| 26 | S-065 | 🔧 | EffectHolder DoT 중복 적용 — 동일 DoT 재적용 시 기존 값 덮어쓰기 검증 | P2 | ⬜ |
+| 22 | S-061 | 🔧 | QuestSystem killProgress 고아 항목 — 완료/포기된 퀘스트의 진행 데이터 잔류 정리 | P2 | ✅ |
+| 23 | S-062 | 🔧 | ShopUI 구매 실패 피드백 — 골드 부족/인벤 풀 시 플레이어에게 사유 표시 | P3 | ✅ |
+| 24 | S-063 | 🔧 | EnhanceUI 강화 전 확인 팝업 — 파괴 확률 경고 없이 바로 실행되는 문제 | P3 | ✅ |
+| 25 | S-064 | 🔧 | DialogueUI 코루틴 중복 실행 — AI 응답 대기 중 재진입 시 이전 코루틴 미정리 | P2 | ✅ |
+| 26 | S-065 | 🔧 | EffectHolder DoT 중복 적용 — 동일 DoT 재적용 시 기존 값 덮어쓰기 검증 | P2 | ✅ |
 | 27 | S-066 | 🔧 | CraftingSystem LINQ 잔여 제거 — using System.Linq 제거, 수동 루프 교체 | P3 | ✅ |
 | 28 | S-067 | 🔧 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 구분 없이 회색 표시되는 문제 | P3 | ✅ |
 | 29 | S-068 | 🔧 | QuestUI 빈 목록 안내 — 퀘스트 없을 때 빈 화면 → placeholder 텍스트 표시 | P3 | ✅ |
@@ -94,3 +94,8 @@
 | S-071 | ShopUI Destroy GC 스파이크 → SetActive(false) 풀링 교체 | 2026-04-03 |
 | S-073 | TimeSystem 기간 전환 로그 스팸 → _lastPeriod 추적으로 중복 제거 | 2026-04-03 |
 | S-048 | SkillSystem 데이터 무결성 v2 — REVIEW-S048-v2 APPROVE | 2026-04-03 |
+| S-061 | QuestSystem killProgress 고아 항목 정리 (Developer commit) | 2026-04-03 |
+| S-062 | ShopUI 구매 실패 피드백 — 골드 부족/인벤 풀 사유 표시 추가 | 2026-04-03 |
+| S-063 | EnhanceUI 강화 전 확인 팝업 — 파괴 확률 경고 표시 | 2026-04-03 |
+| S-064 | DialogueUI 코루틴 재진입 방지 (Developer commit) | 2026-04-03 |
+| S-065 | EffectHolder DoT 재적용 로직 수정 (Developer commit) | 2026-04-03 |

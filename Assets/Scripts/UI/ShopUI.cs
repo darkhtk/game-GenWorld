@@ -14,6 +14,9 @@ public class ShopUI : MonoBehaviour
     [Header("Gold")]
     [SerializeField] TextMeshProUGUI goldText;
 
+    [Header("Status")]
+    [SerializeField] TextMeshProUGUI statusText;
+
     [Header("Item List")]
     [SerializeField] ScrollRect scrollRect;
     [SerializeField] Transform itemListContent;
@@ -117,15 +120,32 @@ public class ShopUI : MonoBehaviour
     void BuyItem(string itemId, int price, bool stackable, int maxStack)
     {
         if (_getGold == null || _spendGold == null || _inventory == null) return;
-        if (_getGold() < price) return;
+
+        if (_getGold() < price)
+        {
+            ShowStatus("<color=#ff4444>Not enough gold!</color>");
+            AudioManager.Instance?.PlaySFX("sfx_error");
+            return;
+        }
 
         int overflow = _inventory.AddItem(itemId, 1, stackable, maxStack);
         if (overflow == 0)
         {
             _spendGold(price);
             AudioManager.Instance?.PlaySFX("sfx_coin");
+            ShowStatus("<color=#66ff66>Purchased!</color>");
             Refresh();
         }
+        else
+        {
+            ShowStatus("<color=#ffaa44>Inventory full!</color>");
+            AudioManager.Instance?.PlaySFX("sfx_error");
+        }
+    }
+
+    void ShowStatus(string text)
+    {
+        if (statusText != null) statusText.text = text;
     }
 
     GameObject GetOrCreateEntry()

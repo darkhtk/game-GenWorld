@@ -20,6 +20,12 @@ public class EnhanceUI : MonoBehaviour
     [Header("Result")]
     [SerializeField] TextMeshProUGUI resultText;
 
+    [Header("Confirm Popup")]
+    [SerializeField] GameObject confirmPopup;
+    [SerializeField] TextMeshProUGUI confirmText;
+    [SerializeField] Button confirmOkButton;
+    [SerializeField] Button confirmCancelButton;
+
     static readonly Color AffordableColor = new(0.4f, 1f, 0.4f);
     static readonly Color UnaffordableColor = new(0.4f, 0.4f, 0.4f);
     static readonly string[] SlotLabels = { "Weapon", "Helmet", "Armor", "Boots", "Accessory" };
@@ -45,6 +51,7 @@ public class EnhanceUI : MonoBehaviour
     }
 
     readonly List<GameObject> _entries = new();
+    string _pendingSlot;
 
     Dictionary<string, ItemInstance> _equipment;
     Dictionary<string, ItemDef> _itemDefs;
@@ -56,6 +63,9 @@ public class EnhanceUI : MonoBehaviour
     {
         if (panel != null) panel.SetActive(false);
         if (closeButton != null) closeButton.onClick.AddListener(Close);
+        if (confirmOkButton != null) confirmOkButton.onClick.AddListener(OnConfirmOk);
+        if (confirmCancelButton != null) confirmCancelButton.onClick.AddListener(OnConfirmCancel);
+        if (confirmPopup != null) confirmPopup.SetActive(false);
     }
 
     public bool IsOpen => panel != null && panel.activeSelf;
@@ -75,6 +85,8 @@ public class EnhanceUI : MonoBehaviour
 
     public void Close()
     {
+        if (confirmPopup != null) confirmPopup.SetActive(false);
+        _pendingSlot = null;
         if (panel != null) panel.SetActive(false);
         AudioManager.Instance?.PlaySFX("sfx_menu_close");
     }
@@ -157,9 +169,58 @@ public class EnhanceUI : MonoBehaviour
         if (btn == null) btn = go.AddComponent<Button>();
         btn.interactable = canAfford;
         string captured = slotName;
-        btn.onClick.AddListener(() => TryEnhance(captured));
+        btn.onClick.AddListener(() => RequestEnhance(captured));
 
         _entries.Add(go);
+    }
+
+    void RequestEnhance(string slotName)
+    {
+        if (_equipment == null || !_equipment.TryGetValue(slotName, out var inst) || inst == null) return;
+        var info = GetEnhanceInfo(inst.enhanceLevel);
+        if (info.gold <= 0) return;
+
+        if (info.destroy > 0)
+        {
+            _pendingSlot = slotName;
+            string itemName = _itemDefs != null && _itemDefs.TryGetValue(inst.itemId, out var def)
+                ? def.name : inst.itemId;
+            ShowConfirmPopup(itemName, inst.enhanceLevel, info);
+        }
+        else
+        {
+            TryEnhance(slotName);
+        }
+    }
+
+    void ShowConfirmPopup(string itemName, int level,
+        (float success, float destroy, int gold) info)
+    {
+        if (confirmPopup != null) confirmPopup.SetActive(true);
+        if (confirmText != null)
+        {
+            confirmText.text = $"Enhance {itemName} +{level} → +{level + 1}?\n" +
+                $"Success: {info.success * 100:F0}%\n" +
+                $"<color=#ff4444>Destroy: {info.destroy * 100:F0}%</color>\n" +
+                $"Cost: {info.gold}G";
+        }
+    }
+
+    void OnConfirmOk()
+    {
+        if (confirmPopup != null) confirmPopup.SetActive(false);
+        if (_pendingSlot != null)
+        {
+            string slot = _pendingSlot;
+            _pendingSlot = null;
+            TryEnhance(slot);
+        }
+    }
+
+    void OnConfirmCancel()
+    {
+        if (confirmPopup != null) confirmPopup.SetActive(false);
+        _pendingSlot = null;
     }
 
     void TryEnhance(string slotName)

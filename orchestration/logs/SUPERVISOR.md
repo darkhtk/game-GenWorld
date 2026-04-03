@@ -1,25 +1,26 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #30)
-> **모드:** 성능 최적화 2건 + 코루틴 버그 확인 1건
+> **최종 실행:** 2026-04-03 (루프 #31)
+> **모드:** UX 개선 2건 + RESERVE 동기화 3건
 
 ## 이번 루프 수행 내용
 
-### S-071: ShopUI ClearEntries GC 스파이크 수정
-- **문제:** ClearEntries()에서 매 Refresh()마다 모든 항목을 Destroy() → GC 스파이크
-- **수정:** Destroy → SetActive(false) 풀링 교체. GetOrCreateEntry()로 재사용, btn.onClick.RemoveAllListeners()로 리스너 정리, OnDestroy()에서 풀 정리
+### S-062: ShopUI 구매 실패 피드백 추가
+- **문제:** 골드 부족/인벤토리 풀 시 BuyItem이 조용히 실패 → 플레이어 혼란
+- **수정:** statusText 필드 추가, 골드 부족 시 빨간색 "Not enough gold!" + sfx_error, 인벤 풀 시 노란색 "Inventory full!" + sfx_error, 성공 시 초록색 "Purchased!"
 - **파일:** `Assets/Scripts/UI/ShopUI.cs`
 
-### S-073: TimeSystem 기간 전환 로그 스팸 수정
-- **문제:** prevPeriod를 매 프레임 재계산 → 경계 근처에서 중복 로그 가능, _lastPeriod 미사용
-- **수정:** _lastPeriod 필드 활용, Period 변경 시만 로그 출력 + _lastPeriod 갱신
-- **파일:** `Assets/Scripts/Systems/TimeSystem.cs`
+### S-063: EnhanceUI 강화 전 확인 팝업 추가
+- **문제:** +4 이상 강화 시 파괴 확률 있는데 경고 없이 바로 실행
+- **수정:** confirmPopup/confirmText/confirmOkButton/confirmCancelButton 추가. RequestEnhance()에서 destroy>0이면 팝업 표시 (아이템명, 레벨, 성공률, 파괴률 빨간색). Safe 레벨(+0~+3)은 바로 진행. Close()에서 팝업 정리.
+- **파일:** `Assets/Scripts/UI/EnhanceUI.cs`
 
-### S-064: DialogueUI 코루틴 중복 확인
-- **결과:** 이미 수정됨 (ShowLoading에서 기존 코루틴 StopCoroutine 후 재시작)
-- **파일:** `Assets/Scripts/UI/DialogueUI.cs` — 추가 수정 불필요
+### RESERVE 동기화 (Developer 커밋 반영)
+- S-061: QuestSystem killProgress 고아 항목 정리 → ✅
+- S-064: DialogueUI 코루틴 재진입 방지 → ✅
+- S-065: EffectHolder DoT 재적용 로직 수정 → ✅
 
-## 누적 현황 (루프 #1~#30)
+## 누적 현황 (루프 #1~#31)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -48,13 +49,14 @@
 | #28 | UX 개선 3건 + RESERVE 보충 | QuestUI placeholder, SkillTree 사유표시, LINQ 제거, +15 태스크 |
 | #29 | 🎨 에셋 2건 + 코드 감사 2건 | S-070 아이콘 폴백, S-072 상태아이콘 7종, S-059/S-060 메모리 누수 수정 |
 | #30 | 성능 최적화 2건 | S-071 ShopUI 풀링, S-073 TimeSystem 로그 중복 제거 |
+| #31 | UX 개선 2건 | S-062 구매 실패 피드백, S-063 강화 확인 팝업 |
 
 ## 총 기여 요약
 - **치명 버그 수정**: 18건
 - **메모리 누수 수정**: 2건
-- **성능 최적화**: 16건 (+2: ShopUI 풀링, TimeSystem 로그 중복)
+- **성능 최적화**: 16건
 - **방어 코드 강화**: 4건
-- **UX 개선**: 6건
+- **UX 개선**: 8건 (+2: ShopUI 피드백, EnhanceUI 확인 팝업)
 - **UX SFX 추가**: 28건
 - **에셋 생성/수정**: 55종
 - **에셋 점검 완료**: 4건
@@ -62,11 +64,11 @@
 - **감사 시스템**: 54개 클래스
 
 ## 수정 파일 (이번 루프)
-- `Assets/Scripts/UI/ShopUI.cs` (Destroy→풀링 교체)
-- `Assets/Scripts/Systems/TimeSystem.cs` (_lastPeriod 추적)
-- `orchestration/BACKLOG_RESERVE.md` (S-071/S-073 완료)
+- `Assets/Scripts/UI/ShopUI.cs` (구매 실패 피드백 추가)
+- `Assets/Scripts/UI/EnhanceUI.cs` (강화 확인 팝업 추가)
+- `orchestration/BACKLOG_RESERVE.md` (S-062/063 완료, S-061/064/065 동기화)
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
-- Step 2-4: UX 개선 (ShopUI 구매 실패 피드백, EnhanceUI 확인 팝업 등)
-- RESERVE P2 항목 순차 진행
+- Step 2-5: 에러 점검 (빌드/런타임 스캔)
+- RESERVE 미완료 P2 항목 순차 진행 (S-051 SceneTransition, S-052 EventBus 등)
