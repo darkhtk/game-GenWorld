@@ -48,7 +48,7 @@ public class Projectile : MonoBehaviour
     {
         _pool?.Clear();
         _pool = null;
-        if (_poolParent != null) Object.Destroy(_poolParent.gameObject);
+        if (_poolParent != null) UnityEngine.Object.Destroy(_poolParent.gameObject);
         _poolParent = null;
     }
 
