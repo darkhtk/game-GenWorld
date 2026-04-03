@@ -179,7 +179,7 @@ public class DialogueUI : MonoBehaviour
         {
             var btn = Instantiate(optionButtonPrefab, optionsContainer);
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
-            if (label != null) label.text = option;
+            if (label != null) { label.text = $"<color=#aaaaaa>\u25b8</color> {option}"; label.color = Color.white; }
 
             string captured = option;
             btn.onClick.AddListener(() =>
@@ -203,8 +203,10 @@ public class DialogueUI : MonoBehaviour
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
             if (label != null)
             {
-                label.text = (actionDefs != null && actionDefs.TryGetValue(action, out var def))
+                string display = (actionDefs != null && actionDefs.TryGetValue(action, out var def))
                     ? def.label : action;
+                label.text = $"<color=#ffcc66>\u25cf</color> {display}";
+                label.color = Color.white;
             }
 
             string captured = action;
