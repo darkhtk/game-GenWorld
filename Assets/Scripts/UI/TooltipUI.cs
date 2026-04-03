@@ -45,17 +45,17 @@ public class TooltipUI : MonoBehaviour
             var s = item.stats;
             if (s != null)
             {
-                if (s.atk > 0) lines.Add($"ATK +{s.atk}");
-                if (s.def > 0) lines.Add($"DEF +{s.def}");
-                if (s.maxHp > 0) lines.Add($"HP +{s.maxHp}");
-                if (s.maxMp > 0) lines.Add($"MP +{s.maxMp}");
-                if (s.spd > 0) lines.Add($"SPD +{s.spd}");
-                if (s.crit > 0) lines.Add($"CRIT +{s.crit}");
+                if (s.atk > 0) lines.Add($"<color=#ffaa55>ATK +{s.atk}</color>");
+                if (s.def > 0) lines.Add($"<color=#55aaff>DEF +{s.def}</color>");
+                if (s.maxHp > 0) lines.Add($"<color=#ff6666>HP +{s.maxHp}</color>");
+                if (s.maxMp > 0) lines.Add($"<color=#6688ff>MP +{s.maxMp}</color>");
+                if (s.spd > 0) lines.Add($"<color=#66ff88>SPD +{s.spd}</color>");
+                if (s.crit > 0) lines.Add($"<color=#ffdd44>CRIT +{s.crit}</color>");
             }
-            if (item.healHp > 0) lines.Add($"Heal HP {item.healHp}");
-            if (item.healMp > 0) lines.Add($"Heal MP {item.healMp}");
-            if (item.shopPrice > 0) lines.Add($"Value: {item.shopPrice}g");
-            lines.Add($"Grade: {item.grade ?? "common"}");
+            if (item.healHp > 0) lines.Add($"<color=#ff9999>Heal HP {item.healHp}</color>");
+            if (item.healMp > 0) lines.Add($"<color=#9999ff>Heal MP {item.healMp}</color>");
+            if (item.shopPrice > 0) lines.Add($"<color=#ffd900>Value: {item.shopPrice}G</color>");
+            lines.Add($"Grade: <color=#{ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum))}>{item.grade ?? "common"}</color>");
             if (item.stackable) lines.Add($"Stack: max {item.maxStack}");
             _instance.statsText.text = string.Join("\n", lines);
         }
@@ -81,9 +81,9 @@ public class TooltipUI : MonoBehaviour
         if (_instance.statsText != null)
         {
             var lines = new List<string>();
-            lines.Add($"Level: {level}/{GameConfig.SkillMaxLevel}");
-            if (skill.damage > 0) lines.Add($"Damage: {skill.damage}");
-            if (skill.mpCost > 0) lines.Add($"MP Cost: {skill.mpCost}");
+            lines.Add($"Level: <color=#aaffaa>{level}/{GameConfig.SkillMaxLevel}</color>");
+            if (skill.damage > 0) lines.Add($"<color=#ffaa55>Damage: {skill.damage}</color>");
+            if (skill.mpCost > 0) lines.Add($"<color=#6688ff>MP Cost: {skill.mpCost}</color>");
             if (skill.cooldown > 0) lines.Add($"Cooldown: {skill.cooldown / 1000f:F1}s");
             if (skill.range > 0) lines.Add($"Range: {skill.range:F0}");
             if (skill.aoe > 0) lines.Add($"AoE: {skill.aoe:F0}");

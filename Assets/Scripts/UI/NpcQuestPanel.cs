@@ -56,28 +56,38 @@ public class NpcQuestPanel : MonoBehaviour
         if (panel != null) panel.SetActive(true);
         _currentQuestId = quest.id;
 
-        if (npcNameText != null) npcNameText.text = npcName;
-        if (questTitleText != null) questTitleText.text = quest.title;
+        if (npcNameText != null) { npcNameText.text = npcName; npcNameText.color = new Color(1f, 0.9f, 0.6f); }
+        if (questTitleText != null) { questTitleText.text = $"\u25b8 {quest.title}"; questTitleText.color = new Color(1f, 0.95f, 0.5f); }
         if (questDescText != null) questDescText.text = quest.description ?? "";
-        if (statusText != null) statusText.text = status ?? "";
-
-        if (requirementsText != null && quest.requirements != null)
+        if (statusText != null)
         {
-            var lines = new List<string>();
-            foreach (var req in quest.requirements)
-                lines.Add($"  {req.itemId} x{req.count}");
-            requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "None";
+            statusText.text = status ?? "";
+            statusText.color = status == "completable" ? new Color(0.4f, 1f, 0.4f)
+                : status == "active" ? new Color(0.6f, 0.8f, 1f)
+                : Color.white;
+        }
+
+        if (requirementsText != null)
+        {
+            if (quest.requirements != null && quest.requirements.Length > 0)
+            {
+                var lines = new List<string>();
+                foreach (var req in quest.requirements)
+                    lines.Add($"  \u25b9 {req.itemId} \u00d7{req.count}");
+                requirementsText.text = string.Join("\n", lines);
+            }
+            else requirementsText.text = "None";
         }
 
         if (rewardsText != null && quest.rewards != null)
         {
             var lines = new List<string>();
-            if (quest.rewards.gold > 0) lines.Add($"Gold: {quest.rewards.gold}");
-            if (quest.rewards.xp > 0) lines.Add($"XP: {quest.rewards.xp}");
+            if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>Gold: {quest.rewards.gold}</color>");
+            if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>XP: {quest.rewards.xp}</color>");
             if (quest.rewards.items != null)
             {
                 foreach (var item in quest.rewards.items)
-                    lines.Add($"{item.itemId} x{item.count}");
+                    lines.Add($"\u25b8 {item.itemId} \u00d7{item.count}");
             }
             rewardsText.text = string.Join("\n", lines);
         }

@@ -158,7 +158,7 @@ public class InventoryUI : MonoBehaviour
         Refresh(gm.Inventory, gm.PlayerState.Equipment, gm.Data.Items, stats);
 
         if (levelGoldText != null)
-            levelGoldText.text = $"Lv.{gm.PlayerState.Level}  Gold: {gm.PlayerState.Gold:N0}";
+            levelGoldText.text = $"<color=#99ff99>Lv.{gm.PlayerState.Level}</color>  <color=#ffd900>{gm.PlayerState.Gold:N0}G</color>";
     }
 
     public void Refresh(InventorySystem inventory, Dictionary<string, ItemInstance> equipment,
@@ -437,12 +437,12 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshStats(Stats stats)
     {
-        if (atkText != null) atkText.text = $"ATK {stats.atk}";
-        if (defText != null) defText.text = $"DEF {stats.def}";
-        if (spdText != null) spdText.text = $"SPD {stats.spd}";
-        if (critText != null) critText.text = $"CRIT {stats.crit}%";
-        if (hpStatText != null) hpStatText.text = $"HP {stats.hp}/{stats.maxHp}";
-        if (mpStatText != null) mpStatText.text = $"MP {stats.mp}/{stats.maxMp}";
+        if (atkText != null) { atkText.text = $"ATK {stats.atk}"; atkText.color = new Color(1f, 0.6f, 0.2f); }
+        if (defText != null) { defText.text = $"DEF {stats.def}"; defText.color = new Color(0.4f, 0.7f, 1f); }
+        if (spdText != null) { spdText.text = $"SPD {stats.spd}"; spdText.color = new Color(0.4f, 1f, 0.6f); }
+        if (critText != null) { critText.text = $"CRIT {stats.crit}%"; critText.color = new Color(1f, 0.85f, 0.2f); }
+        if (hpStatText != null) { hpStatText.text = $"HP {stats.hp}/{stats.maxHp}"; hpStatText.color = new Color(1f, 0.4f, 0.4f); }
+        if (mpStatText != null) { mpStatText.text = $"MP {stats.mp}/{stats.maxMp}"; mpStatText.color = new Color(0.4f, 0.6f, 1f); }
 
         RefreshStatAllocation();
     }
@@ -464,10 +464,10 @@ public class InventoryUI : MonoBehaviour
         int wisVal = bonus != null && bonus.TryGetValue("wis", out int w) ? w : 0;
         int lucVal = bonus != null && bonus.TryGetValue("luc", out int l) ? l : 0;
 
-        if (strText != null) strText.text = $"STR {strVal}  ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}";
-        if (dexText != null) dexText.text = $"DEX {dexVal}  SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}";
-        if (wisText != null) wisText.text = $"WIS {wisVal}  MP+{wisVal * GameConfig.WisMpBonus:F0}";
-        if (lucText != null) lucText.text = $"LUC {lucVal}  CRIT+{lucVal * GameConfig.LucCritBonus:F0}";
+        if (strText != null) strText.text = $"<color=#ff9955>STR {strVal}</color>  ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}";
+        if (dexText != null) dexText.text = $"<color=#55ddff>DEX {dexVal}</color>  SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}";
+        if (wisText != null) wisText.text = $"<color=#aa77ff>WIS {wisVal}</color>  MP+{wisVal * GameConfig.WisMpBonus:F0}";
+        if (lucText != null) lucText.text = $"<color=#ffdd44>LUC {lucVal}</color>  CRIT+{lucVal * GameConfig.LucCritBonus:F0}";
 
         if (strAddButton != null) strAddButton.gameObject.SetActive(hasPoints);
         if (dexAddButton != null) dexAddButton.gameObject.SetActive(hasPoints);

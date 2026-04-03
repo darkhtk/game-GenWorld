@@ -42,22 +42,23 @@ public class GameStatsUI : MonoBehaviour
         int secs = Mathf.FloorToInt(_playTimeSeconds % 60f);
 
         var sb = new System.Text.StringBuilder();
-        sb.AppendLine("<b>Game Statistics</b>");
+        sb.AppendLine("<b><color=#ffd900>Game Statistics</color></b>");
         sb.AppendLine();
-        sb.AppendLine($"Play Time: {hours:D2}:{mins:D2}:{secs:D2}");
-        sb.AppendLine($"Level: {gm.PlayerState.Level}");
-        sb.AppendLine($"Gold: {gm.PlayerState.Gold:N0}");
-        sb.AppendLine($"Game Hour: {gm.TimeSystem.GameHour:F1} ({gm.TimeSystem.Period})");
+        sb.AppendLine($"Play Time: <color=#aaffaa>{hours:D2}:{mins:D2}:{secs:D2}</color>");
+        sb.AppendLine($"Level: <color=#99ff99>{gm.PlayerState.Level}</color>");
+        sb.AppendLine($"Gold: <color=#ffd900>{gm.PlayerState.Gold:N0}G</color>");
+        sb.AppendLine($"Game Hour: <color=#88ccff>{gm.TimeSystem.GameHour:F1}</color> ({gm.TimeSystem.Period})");
         sb.AppendLine();
 
         var achievements = gm.Achievements.GetAll();
         int completed = 0;
         foreach (var a in achievements)
             if (gm.Achievements.IsCompleted(a.id)) completed++;
-        sb.AppendLine($"Achievements: {completed}/{achievements.Length}");
+        string achColor = completed == achievements.Length ? "#ffd900" : "#ffffff";
+        sb.AppendLine($"Achievements: <color={achColor}>{completed}/{achievements.Length}</color>");
 
         if (gm.WorldEvents.IsEventActive)
-            sb.AppendLine($"Active Event: {gm.WorldEvents.ActiveEvent?.name}");
+            sb.AppendLine($"<color=#ff9966>Active Event: {gm.WorldEvents.ActiveEvent?.name}</color>");
 
         statsText.text = sb.ToString();
     }
