@@ -17,7 +17,7 @@
 | 8 | S-045 | 🔧 | QuestSystem 진행률 저장 — 게임 종료/크래시 시 퀘스트 중간 진행 상태 보존 확인 | P2 | 👀 |
 | 9 | S-046 | 🔧 | MonsterSpawner 리전 전환 클린업 — 리전 전환 시 이전 리전 몬스터 오브젝트 정리 확인 | P2 | 👀 |
 | 10 | S-047 | 🔧 | DialogueSystem 동시 대화 방지 — 다중 NPC 동시 대화 시작 잠금 확인 | P2 | ⬜ |
-| 11 | S-048 | 🔧 | SkillSystem 데이터 무결성 — skills.json 필드 누락/잘못된 타입 시 방어 로딩 | P2 | ⬜ |
+| 11 | S-048 | 🔧 | SkillSystem 데이터 무결성 — skills.json 필드 누락/잘못된 타입 시 방어 로딩 | P2 | 👀 |
 | 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 풀 무한 성장 방지 (maxSize 상한 도입 검토) | P3 | ⬜ |
 | 13 | S-050 | 🔧 | InputSystem UI/게임 입력 분리 — UI 패널 열린 상태에서 게임 입력 차단 확인 | P2 | ⬜ |
 | 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — 씬 전환 후 이전 씬 리소스 해제 확인 | P2 | ⬜ |

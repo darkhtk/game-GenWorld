@@ -56,7 +56,14 @@ public class DataManager
         if (data == null) return;
         SkillList = data.skills ?? System.Array.Empty<SkillDef>();
         foreach (var skill in SkillList)
+        {
+            if (string.IsNullOrEmpty(skill.id))
+            {
+                Debug.LogWarning("[DataManager] Skipping skill with null/empty id");
+                continue;
+            }
             Skills[skill.id] = skill;
+        }
     }
 
     void LoadMonsters()
@@ -137,11 +144,23 @@ public class DataManager
             if (patched) monsterIssues++;
         }
 
+        int skillIssues = 0;
+        foreach (var s in Skills.Values)
+        {
+            bool patched = false;
+            if (string.IsNullOrEmpty(s.name)) { s.name = s.id; patched = true; }
+            if (s.cooldown <= 0) { s.cooldown = 1000f; patched = true; }
+            if (s.damage <= 0) { s.damage = 1f; patched = true; }
+            if (patched) skillIssues++;
+        }
+
         if (itemIssues > 0)
             Debug.LogWarning($"[DataManager] Validation: {itemIssues} items had missing fields (patched with defaults)");
         if (monsterIssues > 0)
             Debug.LogWarning($"[DataManager] Validation: {monsterIssues} monsters had missing fields (patched with defaults)");
-        if (issues == 0 && itemIssues == 0 && monsterIssues == 0)
+        if (skillIssues > 0)
+            Debug.LogWarning($"[DataManager] Validation: {skillIssues} skills had missing fields (patched with defaults)");
+        if (issues == 0 && itemIssues == 0 && monsterIssues == 0 && skillIssues == 0)
             Debug.Log("[DataManager] Validation: all data OK");
     }
 
