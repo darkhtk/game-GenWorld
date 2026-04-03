@@ -126,7 +126,7 @@
 | 114 | S-061 QuestSystem killProgress 고아 항목 | P2 | ✅ | REVIEW-S061-v1 ✅ APPROVE |
 | 115 | S-064 DialogueUI 코루틴 중복 실행 | P2 | ✅ | REVIEW-S064-v1 ✅ APPROVE |
 | 116 | S-065 EffectHolder DoT 중복 적용 | P2 | ✅ | REVIEW-S065-v1 ✅ APPROVE |
-| 117 | S-040 CombatManager 타겟팅 범위 | P3 | 👀 | 화면 밖 몬스터 자동 타겟팅 방지 |
+| 117 | S-040 CombatManager 타겟팅 범위 | P3 | ✅ | REVIEW-S040-v1 ✅ APPROVE |
 
 ---
 
@@ -149,12 +149,13 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-040 CombatManager 타겟팅 범위 | 2026-04-03 | ⏳ | 화면 밖 몬스터 자동 타겟팅 방지 — viewport 필터 추가 |
+| (없음) | | | |
 
 ## ✅ Done
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-040 CombatManager 타겟팅 범위 | 2026-04-03 | REVIEW-S040-v1 ✅ APPROVE |
 | S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | REVIEW-S051-v2 ✅ APPROVE |
 | S-061 QuestSystem killProgress 고아 항목 | 2026-04-03 | REVIEW-S061-v1 ✅ APPROVE |
 | S-064 DialogueUI 코루틴 중복 실행 | 2026-04-03 | REVIEW-S064-v1 ✅ APPROVE |
