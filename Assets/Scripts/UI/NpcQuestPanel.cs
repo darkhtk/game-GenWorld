@@ -88,18 +88,21 @@ public class NpcQuestPanel : MonoBehaviour
             requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }
 
-        if (rewardsText != null && quest.rewards != null)
+        if (rewardsText != null)
         {
             rewardsText.color = Color.white;
             var lines = new List<string>();
-            if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 {quest.rewards.gold:N0}G</color>");
-            if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>\u25c6 {quest.rewards.xp} XP</color>");
-            if (quest.rewards.items != null)
+            if (quest.rewards != null)
             {
-                foreach (var item in quest.rewards.items)
-                    lines.Add($"<color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
+                if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 {quest.rewards.gold:N0}G</color>");
+                if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>\u25b8 {quest.rewards.xp} XP</color>");
+                if (quest.rewards.items != null)
+                {
+                    foreach (var item in quest.rewards.items)
+                        lines.Add($"<color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
+                }
             }
-            rewardsText.text = string.Join("\n", lines);
+            rewardsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }
 
         bool isAcceptable = status == "available" || status == null;

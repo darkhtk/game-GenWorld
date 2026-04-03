@@ -306,7 +306,7 @@ public class DialogueUI : MonoBehaviour
                 foreach (var item in scaledRewards.items)
                     lines.Add($"  <color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
             }
-            questProposalRewards.text = string.Join("\n", lines);
+            questProposalRewards.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }
 
         string questId = quest.id;
