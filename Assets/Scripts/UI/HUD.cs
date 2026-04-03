@@ -452,7 +452,7 @@ public class HUD : MonoBehaviour
         if (durationMs > 0)
         {
             float seconds = durationMs / 1000f;
-            skillBuffTexts[slotIndex].text = $"{seconds:F0}s";
+            skillBuffTexts[slotIndex].text = $"<color=#ffdd44>{seconds:F0}s</color>";
             skillBuffTexts[slotIndex].gameObject.SetActive(true);
         }
         else
@@ -569,7 +569,7 @@ public class HUD : MonoBehaviour
                 _questTrackerEntries[i].gameObject.SetActive(true);
                 var q = quests[i];
                 _questSb.Clear();
-                _questSb.AppendLine($"<b>{q.title}</b>");
+                _questSb.AppendLine($"<b><color=#ffee88>{q.title}</color></b>");
 
                 if (q.requirements != null)
                 {
@@ -677,8 +677,23 @@ public class HUD : MonoBehaviour
 
         skillTooltipPanel.SetActive(true);
 
-        if (skillTooltipName != null) skillTooltipName.text = def.name;
-        if (skillTooltipDesc != null) skillTooltipDesc.text = def.description ?? "";
+        if (skillTooltipName != null)
+        {
+            Color treeColor = def.tree switch
+            {
+                "ranged" => new Color(0.3f, 0.9f, 0.3f),
+                "magic"  => new Color(0.4f, 0.6f, 1f),
+                _        => new Color(0.95f, 0.45f, 0.45f)
+            };
+            skillTooltipName.text = def.name;
+            skillTooltipName.color = treeColor;
+            skillTooltipName.fontStyle = TMPro.FontStyles.Bold;
+        }
+        if (skillTooltipDesc != null)
+        {
+            skillTooltipDesc.text = def.description ?? "";
+            skillTooltipDesc.color = new Color(0.75f, 0.75f, 0.75f);
+        }
 
         if (skillTooltipStats != null)
         {
@@ -691,7 +706,7 @@ public class HUD : MonoBehaviour
             if (def.mpCost > 0) lines.Add($"<color=#6688ff>MP Cost: {def.mpCost}</color>");
             if (def.cooldown > 0) lines.Add($"<color=#cccccc>Cooldown: {def.cooldown / 1000f:F1}s</color>");
             if (def.aoe > 0) lines.Add($"<color=#ffcc44>AoE: {def.aoe:F0}</color>");
-            skillTooltipStats.text = string.Join("\n", lines);
+            skillTooltipStats.text = string.Join("  ", lines);
         }
 
         if (slotIndex < skillIcons.Length && skillIcons[slotIndex] != null)
