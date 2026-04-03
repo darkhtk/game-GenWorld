@@ -46,6 +46,7 @@ public class TooltipUI : MonoBehaviour
 
         if (_instance.statsText != null)
         {
+            _instance.statsText.color = Color.white;
             var lines = new List<string>();
             var s = item.stats;
             if (s != null)
@@ -99,6 +100,7 @@ public class TooltipUI : MonoBehaviour
 
         if (_instance.statsText != null)
         {
+            _instance.statsText.color = Color.white;
             var lines = new List<string>();
             lines.Add($"Level: <color=#aaffaa>{level}/{GameConfig.SkillMaxLevel}</color>");
             if (skill.damage > 0) lines.Add($"<color=#ffaa55>Damage: {skill.damage}</color>");

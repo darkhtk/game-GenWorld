@@ -40,6 +40,7 @@ public class NpcProfilePanel : MonoBehaviour
 
         if (relationshipText != null)
         {
+            relationshipText.color = Color.white;
             int hearts = Mathf.Clamp(Mathf.RoundToInt((relationship + 100f) / 200f * MaxHearts), 0, MaxHearts);
             var sb = new System.Text.StringBuilder();
             for (int i = 0; i < MaxHearts; i++)
@@ -49,6 +50,7 @@ public class NpcProfilePanel : MonoBehaviour
 
         if (moodText != null)
         {
+            moodText.color = Color.white;
             var (emoji, col) = mood switch
             {
                 "Happy"    => (":)", "#88ff88"),
@@ -57,7 +59,7 @@ public class NpcProfilePanel : MonoBehaviour
                 "Grateful" => (":D", "#66ffee"),
                 _          => (":|", "#aaaaaa")
             };
-            moodText.text = $"Mood: <color={col}>{emoji} {mood}</color>";
+            moodText.text = $"<color=#888888>Mood:</color> <color={col}>{emoji} {mood}</color>";
         }
 
         RefreshMemories(memories);

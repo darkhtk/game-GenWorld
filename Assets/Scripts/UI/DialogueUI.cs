@@ -245,6 +245,7 @@ public class DialogueUI : MonoBehaviour
             string phrase = ThinkingPhrases[index % ThinkingPhrases.Length];
             if (loadingText != null)
             {
+                loadingText.color = Color.white;
                 loadingText.text = totalElapsed > 10f
                     ? $"{phrase} <color=#ff9944>({(int)totalElapsed}s)</color>"
                     : phrase;
@@ -278,6 +279,7 @@ public class DialogueUI : MonoBehaviour
 
         if (questProposalRequirements != null)
         {
+            questProposalRequirements.color = Color.white;
             var lines = new List<string>();
             if (quest.requirements != null)
             {
@@ -295,6 +297,7 @@ public class DialogueUI : MonoBehaviour
 
         if (questProposalRewards != null)
         {
+            questProposalRewards.color = Color.white;
             var lines = new List<string>();
             if (scaledRewards.gold > 0) lines.Add($"  <color=#ffd900>\u25b8 Gold: {scaledRewards.gold}</color>");
             if (scaledRewards.xp > 0) lines.Add($"  <color=#aaffaa>\u25b8 XP: {scaledRewards.xp}</color>");

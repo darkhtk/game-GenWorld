@@ -91,8 +91,8 @@ public class AchievementUI : MonoBehaviour
     void OnUnlocked(AchievementUnlockedEvent e)
     {
         if (popupPanel == null) return;
-        if (popupName != null) popupName.text = $"<color=#ffd900>\u2605</color> {e.name}";
-        if (popupReward != null) popupReward.text = !string.IsNullOrEmpty(e.rewardDesc) ? $"<color=#aaffaa>Reward: {e.rewardDesc}</color>" : "";
+        if (popupName != null) { popupName.color = Color.white; popupName.text = $"<color=#ffd900>\u2605</color> <b>{e.name}</b>"; }
+        if (popupReward != null) { popupReward.color = Color.white; popupReward.text = !string.IsNullOrEmpty(e.rewardDesc) ? $"<color=#aaffaa>Reward: {e.rewardDesc}</color>" : ""; }
         StartCoroutine(ShowPopup());
     }
 

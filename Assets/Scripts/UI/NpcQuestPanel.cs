@@ -73,6 +73,7 @@ public class NpcQuestPanel : MonoBehaviour
 
         if (requirementsText != null)
         {
+            requirementsText.color = Color.white;
             var lines = new List<string>();
             if (quest.requirements != null)
             {
@@ -89,6 +90,7 @@ public class NpcQuestPanel : MonoBehaviour
 
         if (rewardsText != null && quest.rewards != null)
         {
+            rewardsText.color = Color.white;
             var lines = new List<string>();
             if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 {quest.rewards.gold:N0}G</color>");
             if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>\u25c6 {quest.rewards.xp} XP</color>");
