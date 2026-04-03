@@ -382,16 +382,20 @@ public class SettingsUI : MonoBehaviour
         _ => action
     };
 
-    static string FormatKeyName(KeyCode key) => key switch
+    static string FormatKeyName(KeyCode key)
     {
-        KeyCode.Space => "Space",
-        KeyCode.Tab => "Tab",
-        KeyCode.LeftShift => "LShift",
-        KeyCode.RightShift => "RShift",
-        KeyCode.LeftControl => "LCtrl",
-        KeyCode.None => "---",
-        _ => key.ToString()
-    };
+        if (key == KeyCode.None) return "<color=#888888>---</color>";
+        string name = key switch
+        {
+            KeyCode.Space => "Space",
+            KeyCode.Tab => "Tab",
+            KeyCode.LeftShift => "LShift",
+            KeyCode.RightShift => "RShift",
+            KeyCode.LeftControl => "LCtrl",
+            _ => key.ToString()
+        };
+        return $"<color=#aaddff>{name}</color>";
+    }
 
     class KeyBindRow
     {

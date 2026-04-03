@@ -98,10 +98,12 @@ public class CraftingUI : MonoBehaviour
                 int have = _inventory.GetCount(mat.itemId);
                 string matName = _itemDefs != null && _itemDefs.TryGetValue(mat.itemId, out var matDef)
                     ? matDef.name : mat.itemId;
-                string color = have >= mat.count ? "#66ff66" : "#ff4444";
-                matLines.Add($"<color={color}>{matName} ({have}/{mat.count})</color>");
+                bool met = have >= mat.count;
+                string countColor = met ? "#66ff66" : have > 0 ? "#ffaa44" : "#ff6666";
+                string check = met ? "<color=#66ff66>\u2713</color> " : "";
+                matLines.Add($"{check}<color=#cccccc>{matName}</color> <color={countColor}>({have}/{mat.count})</color>");
             }
-            texts[1].text = string.Join(", ", matLines);
+            texts[1].text = string.Join("  ", matLines);
         }
 
         var btn = go.GetComponent<Button>();

@@ -17,9 +17,8 @@ public class MainMenuController : MonoBehaviour
 
         if (titleText != null)
         {
-            titleText.text = "GenWorld";
-            titleText.color = new Color(1f, 0.92f, 0.55f);
-            titleText.fontStyle = TMPro.FontStyles.Bold;
+            titleText.text = "<b><color=#ffd900>Gen</color><color=#ffaa33>World</color></b>";
+            titleText.color = Color.white;
         }
 
         if (newGameButton != null)

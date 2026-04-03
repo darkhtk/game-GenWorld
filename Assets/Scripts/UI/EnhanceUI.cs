@@ -141,7 +141,19 @@ public class EnhanceUI : MonoBehaviour
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
 
         if (texts.Length > 0)
-            texts[0].text = label;
+        {
+            string slotColor = slotName switch
+            {
+                "weapon"    => "#ff7744",
+                "helmet"    => "#aabbdd",
+                "armor"     => "#6699ff",
+                "boots"     => "#66dd88",
+                "accessory" => "#cc88ff",
+                _           => "#aaaaaa"
+            };
+            texts[0].text = $"<color={slotColor}>{label}</color>";
+            texts[0].color = Color.white;
+        }
 
         if (texts.Length > 1)
         {

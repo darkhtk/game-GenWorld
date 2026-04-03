@@ -471,12 +471,12 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshStats(Stats stats)
     {
-        if (atkText != null) { atkText.text = $"ATK {stats.atk}"; atkText.color = new Color(1f, 0.6f, 0.2f); }
-        if (defText != null) { defText.text = $"DEF {stats.def}"; defText.color = new Color(0.4f, 0.7f, 1f); }
-        if (spdText != null) { spdText.text = $"SPD {stats.spd}"; spdText.color = new Color(0.4f, 1f, 0.6f); }
-        if (critText != null) { critText.text = $"CRIT {stats.crit}%"; critText.color = new Color(1f, 0.85f, 0.2f); }
-        if (hpStatText != null) { hpStatText.text = $"HP {stats.hp}/{stats.maxHp}"; hpStatText.color = new Color(1f, 0.4f, 0.4f); }
-        if (mpStatText != null) { mpStatText.text = $"MP {stats.mp}/{stats.maxMp}"; mpStatText.color = new Color(0.4f, 0.6f, 1f); }
+        if (atkText != null) { atkText.color = Color.white; atkText.text = $"<color=#884422>ATK</color> <color=#ffaa66><b>{stats.atk}</b></color>"; }
+        if (defText != null) { defText.color = Color.white; defText.text = $"<color=#224466>DEF</color> <color=#66aaff><b>{stats.def}</b></color>"; }
+        if (spdText != null) { spdText.color = Color.white; spdText.text = $"<color=#226633>SPD</color> <color=#44dd77><b>{stats.spd}</b></color>"; }
+        if (critText != null) { critText.color = Color.white; critText.text = $"<color=#886611>CRIT</color> <color=#ffcc33><b>{stats.crit}%</b></color>"; }
+        if (hpStatText != null) { hpStatText.color = Color.white; hpStatText.text = $"<color=#882222>HP</color> <color=#ff7777><b>{stats.hp}</b></color><color=#888888>/{stats.maxHp}</color>"; }
+        if (mpStatText != null) { mpStatText.color = Color.white; mpStatText.text = $"<color=#222266>MP</color> <color=#6688ff><b>{stats.mp}</b></color><color=#888888>/{stats.maxMp}</color>"; }
 
         RefreshStatAllocation();
     }
