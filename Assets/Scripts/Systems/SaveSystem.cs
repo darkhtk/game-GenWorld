@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -8,35 +10,75 @@ using UnityEngine;
 public static class SaveSystem
 {
     const int CurrentVersion = 1;
+    const int MaxBackups = 3;
     static string SavePath => Path.Combine(Application.persistentDataPath, "rpg_save.json");
-    static string BackupPath => SavePath + ".bak";
+
+    static string BackupPath(int index) =>
+        Path.Combine(Application.persistentDataPath, $"rpg_save.bak{index}.json");
 
     public static void Save(SaveData data)
     {
-        data.timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        var envelope = new JObject
+        try
         {
-            ["version"] = CurrentVersion,
-            ["data"] = JObject.FromObject(data)
-        };
-        string json = envelope.ToString(Formatting.Indented);
-        File.WriteAllText(SavePath, json);
-        Debug.Log($"[SaveSystem] Saved v{CurrentVersion} to {SavePath}");
+            data.timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-        if (SteamCloudStorage.IsAvailable)
+            var dataObj = JObject.FromObject(data);
+            string dataJson = dataObj.ToString(Formatting.None);
+            string checksum = ComputeChecksum(dataJson);
+
+            var envelope = new JObject
+            {
+                ["version"] = CurrentVersion,
+                ["checksum"] = checksum,
+                ["data"] = dataObj
+            };
+            string json = envelope.ToString(Formatting.Indented);
+
+            RotateBackups();
+
+            File.WriteAllText(SavePath, json);
+            Debug.Log($"[SaveSystem] Saved v{CurrentVersion} (checksum={checksum[..8]}…) to {SavePath}");
+
+            if (SteamCloudStorage.IsAvailable)
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(json);
+                SteamCloudStorage.SaveToCloud("rpg_save.json", bytes);
+                Debug.Log("[SaveSystem] Cloud save synced");
+            }
+        }
+        catch (Exception e)
         {
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
-            SteamCloudStorage.SaveToCloud("rpg_save.json", bytes);
-            Debug.Log("[SaveSystem] Cloud save synced");
+            Debug.LogError($"[SaveSystem] Failed to save: {e.Message}");
         }
     }
 
     public static SaveData Load()
     {
-        if (!File.Exists(SavePath)) return null;
+        var result = TryLoadFrom(SavePath);
+        if (result != null) return result;
+
+        Debug.LogWarning("[SaveSystem] Primary save failed, attempting backup recovery...");
+        for (int i = 1; i <= MaxBackups; i++)
+        {
+            string path = BackupPath(i);
+            result = TryLoadFrom(path);
+            if (result != null)
+            {
+                Debug.LogWarning($"[SaveSystem] Recovered from backup {i}: {path}");
+                return result;
+            }
+        }
+
+        Debug.LogError("[SaveSystem] All save files corrupted or missing. No recovery possible.");
+        return null;
+    }
+
+    static SaveData TryLoadFrom(string path)
+    {
+        if (!File.Exists(path)) return null;
         try
         {
-            string json = File.ReadAllText(SavePath);
+            string json = File.ReadAllText(path);
             var root = JObject.Parse(json);
 
             int version = root["version"]?.Value<int>() ?? 0;
@@ -44,7 +86,6 @@ public static class SaveSystem
 
             if (version == 0)
             {
-                // Legacy save: entire JSON is the SaveData (no envelope)
                 data = root;
             }
             else
@@ -52,48 +93,78 @@ public static class SaveSystem
                 data = (JObject)root["data"];
                 if (data == null)
                 {
-                    Debug.LogError("[SaveSystem] Save envelope has no data field");
+                    Debug.LogError($"[SaveSystem] {path}: envelope has no data field");
                     return null;
+                }
+
+                string storedChecksum = root["checksum"]?.Value<string>();
+                if (storedChecksum != null)
+                {
+                    string dataJson = data.ToString(Formatting.None);
+                    string computed = ComputeChecksum(dataJson);
+                    if (storedChecksum != computed)
+                    {
+                        Debug.LogError($"[SaveSystem] {path}: checksum mismatch (stored={storedChecksum[..8]}… computed={computed[..8]}…)");
+                        return null;
+                    }
                 }
             }
 
             if (version < CurrentVersion)
             {
                 Debug.Log($"[SaveSystem] Migrating save from v{version} to v{CurrentVersion}");
-                CreateBackup(json);
                 data = SaveMigrations.Apply(version, CurrentVersion, data);
             }
 
             var result = data.ToObject<SaveData>();
             if (result == null)
             {
-                Debug.LogError("[SaveSystem] Save data deserialized to null");
+                Debug.LogError($"[SaveSystem] {path}: deserialized to null");
                 return null;
             }
             return result;
         }
         catch (Exception e)
         {
-            Debug.LogError($"[SaveSystem] Failed to load save: {e.Message}");
-            CreateBackup(null);
+            Debug.LogError($"[SaveSystem] {path}: load failed — {e.Message}");
             return null;
         }
     }
 
-    static void CreateBackup(string json)
+    static void RotateBackups()
     {
         try
         {
-            if (json != null)
-                File.WriteAllText(BackupPath, json);
-            else if (File.Exists(SavePath))
-                File.Copy(SavePath, BackupPath, true);
-            Debug.Log($"[SaveSystem] Backup created at {BackupPath}");
+            string oldest = BackupPath(MaxBackups);
+            if (File.Exists(oldest)) File.Delete(oldest);
+
+            for (int i = MaxBackups - 1; i >= 1; i--)
+            {
+                string src = BackupPath(i);
+                string dst = BackupPath(i + 1);
+                if (File.Exists(src)) File.Move(src, dst);
+            }
+
+            if (File.Exists(SavePath))
+            {
+                File.Copy(SavePath, BackupPath(1), true);
+                Debug.Log($"[SaveSystem] Backup rotated (max {MaxBackups})");
+            }
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"[SaveSystem] Failed to create backup: {e.Message}");
+            Debug.LogWarning($"[SaveSystem] Backup rotation failed: {e.Message}");
         }
+    }
+
+    static string ComputeChecksum(string content)
+    {
+        using var sha = SHA256.Create();
+        byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes(content));
+        var sb = new StringBuilder(hash.Length * 2);
+        foreach (byte b in hash)
+            sb.Append(b.ToString("x2"));
+        return sb.ToString();
     }
 
     public static bool HasSave() => File.Exists(SavePath);
@@ -101,6 +172,11 @@ public static class SaveSystem
     public static void DeleteSave()
     {
         if (File.Exists(SavePath)) File.Delete(SavePath);
+        for (int i = 1; i <= MaxBackups; i++)
+        {
+            string path = BackupPath(i);
+            if (File.Exists(path)) File.Delete(path);
+        }
     }
 }
 
