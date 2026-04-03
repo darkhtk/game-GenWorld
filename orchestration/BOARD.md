@@ -123,7 +123,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-026 NPC 이동 재개 v2 | 2026-04-03 | 대기 | SetDialogueOpen+_dialogueNpc 추가 |
+| S-026 NPC 이동 재개 v2 | 2026-04-03 | ✅ APPROVE | REVIEW-S026-v2 |
 
 ## ✅ Done
 
@@ -221,6 +221,11 @@
 | S-025 DialogueCameraZoom 복원 보장 | 2026-04-03 | REVIEW-S025-v1 ✅ |
 | S-033 LootTable 빈 드롭 | 2026-04-03 | null 체크 이미 존재 ✅ |
 | S-036 AchievementSystem 중복 방지 | 2026-04-03 | _completed.Contains 이미 존재 ✅ |
+| S-029 인벤토리 오버플로우 알림 | 2026-04-03 | REVIEW-S029-v1 ✅ |
+| S-030 UIManager null 방어 | 2026-04-03 | 모든 참조 null 체크 이미 존재 ✅ |
+| S-032 TimeSystem 일시정지 | 2026-04-03 | Time.deltaTime 기반 자동 정지 ✅ |
+| S-034 DialogueSystem 선택지 | 2026-04-03 | foreach 기반, 인덱스 접근 없음 ✅ |
+| S-037 BuffSystem 만료 | 2026-04-03 | EffectHolder.Tick 만료 제거 정상 ✅ |
 
 ## 📋 Backlog
 
@@ -229,7 +234,7 @@
 | ~~S-004~~ | P1 | ✅ Done |
 | ~~S-008~~ | P2 | ✅ Done |
 | ~~S-022~~ | P2 | ✅ Done (APPROVE) |
-| S-026 NPC 이동 재개 실패 | P2 | ❌ NEEDS_WORK → Rejected |
+| S-026 NPC 이동 재개 실패 | P2 | 👀 v2 In Review |
 | ~~S-014~~ | P2 | ✅ Done |
 | ~~S-015~~ | P2 | ✅ Done |
 | ~~S-023~~ | P2 | ✅ Done (APPROVE) |
