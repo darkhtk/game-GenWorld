@@ -1,37 +1,34 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #22)
-> **모드:** 코드 품질 감사 (Step 2-2) + RESERVE 보충 (Step 2.5)
+> **최종 실행:** 2026-04-03 (루프 #23)
+> **모드:** 🎨 에셋 점검 (S-031, S-035) + 코드 품질 감사 (Step 2-2)
 
 ## 이번 루프 수행 내용
 
-### 🔧 코드 품질 감사 (4건)
+### 🎨 에셋 점검 2건
 
-#### S-013 DamageText 풀링 누수 방어 ✅ (버그 발견+수정)
-- **발견:** 씬 전환/비활성화 시 Coroutine 중단되어 풀 반환 누락 → 오브젝트 영구 손실
-- **수정:** `OnDisable()` + `_inUse` bool 가드로 이중반환 방지, `ReturnSelf()` 메서드 통합
+#### S-031 미니맵 아이콘 에셋 ✅ (누락 없음)
+- 5종 전체 존재 확인: minimap_player/monster/npc/quest/portal.png (16x16 RGBA)
+- .meta 파일 모두 포함. 누락 0건.
 
-#### ObjectPool 이중반환 방지 ✅ (개선)
-- `Return()` 에 `!activeSelf` 조기반환 추가
-- DamageText 외 모든 풀 사용자에 동일 보호 적용
+#### S-035 장비 아이콘 누락 확인 ✅ (누락 없음)
+- items.json 참조 25종 대비 에셋 100% 일치
+- Spritesheet (Assets/Art/Items/items.png) + 개별 파일 (Resources/Sprites/Items/) 이중 확인
+- 누락 0건, 고아 파일 0건.
 
-#### S-015 WorldMapGenerator null 방어 ✅ (버그 수정)
-- `Generate(null)` 또는 빈 배열 호출 시 NPE 방지 가드 추가
+### 🔧 코드 품질 감사 (5파일 심층 리뷰)
+- CombatSystem.cs (56줄) — 버그 0건
+- InventorySystem.cs (171줄) — 버그 0건
+- PlayerController.cs (133줄) — 버그 0건 (ScreenFlash.Dodge() → Flash() 내부 null 체크 확인)
+- QuestSystem.cs (171줄) — 버그 0건
+- GameManager.cs (929줄) — 버그 0건 (monsterSpawner [SerializeField], _killCounts Start() 시점 안전)
 
-#### S-016 SkillSystem 쿨다운 동기화 ✅ (검증 완료)
-- CombatManager: `nowMs = Time.time * 1000f` (ms)
-- skills.json: `cooldown: 3000` (ms)
-- 단위 일관성 확인 → 문제 없음
+### RESERVE 동기화
+- S-031, S-035 완료 이동
+- S-057(스킬 아이콘), S-058(몬스터 스프라이트) 🎨 태스크 추가
+- 미완료 23건 유지 (20건+ 충족)
 
-### BOARD 동기화
-- S-011, S-022 → In Review에서 Done으로 이동 (APPROVE)
-- S-013, S-015, S-016, ObjectPool → Done 반영
-
-### RESERVE 보충 (Step 2.5)
-- 미완료 7건 → 21건으로 보충 (S-027 ~ S-041 신규 15건)
-- 🎨 3건 포함 (S-031 미니맵 아이콘, S-035 장비 아이콘, S-039 UI 사운드)
-
-## 누적 현황 (루프 #1~#22)
+## 누적 현황 (루프 #1~#23)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -52,24 +49,22 @@
 | #20 | 🎨 에셋 4건 + 코드 감사 3건 | S-009 버그수정, S-002/003 완료확인, 에셋 4종 |
 | #21 | 코드 품질 감사 3건 | S-005 LINQ제거, S-007 stale ref(버그!), S-010 null방어 |
 | #22 | 코드 품질 감사 4건 + RESERVE 보충 | S-013 풀 누수(버그!), S-015 null방어, S-016 검증, ObjectPool 가드 |
+| #23 | 🎨 에셋 점검 2건 + 코드 감사 5건 | S-031/S-035 누락 없음, 5파일 버그 0건, RESERVE +2 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 16건 (+2 S-013 풀 누수, S-015 Generate NPE)
+- **치명 버그 수정**: 16건
 - **성능 최적화**: 7건
-- **방어 코드 강화**: 3건 (+1 ObjectPool 이중반환)
+- **방어 코드 강화**: 3건
 - **UX SFX 추가**: 6건
 - **에셋 생성**: 46종
-- **RESERVE 태스크 보충**: 40건 (누적)
-- **감사 시스템**: 33개 클래스 + 7개 재감사
+- **에셋 점검 완료**: 2건 (S-031 미니맵 5종, S-035 장비 25종)
+- **RESERVE 태스크 보충**: 42건 (누적)
+- **감사 시스템**: 38개 클래스 + 7개 재감사
 
 ## 수정 파일 (이번 루프)
-- `Assets/Scripts/Effects/DamageText.cs`
-- `Assets/Scripts/Map/WorldMapGenerator.cs`
-- `Assets/Scripts/Core/ObjectPool.cs`
-- `orchestration/BOARD.md`
 - `orchestration/BACKLOG_RESERVE.md`
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
-- Step 2-3 성능 최적화 또는 Step 2-4 UX 개선
-- S-027~S-041 중 즉시 실행 가능한 항목 착수
+- S-039 🎨 UI 사운드 누락 점검
+- Step 2-3 성능 최적화 또는 Step 2-2 코드 감사 계속
