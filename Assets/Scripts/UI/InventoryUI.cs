@@ -288,9 +288,14 @@ public class InventoryUI : MonoBehaviour
         {
             tooltipName.text = def.name;
             tooltipName.color = GameConfig.GetGradeColor(def.GradeEnum);
+            tooltipName.fontStyle = TMPro.FontStyles.Bold;
         }
         if (tooltipDesc != null)
+        {
             tooltipDesc.text = def.description ?? "";
+            tooltipDesc.color = new Color(0.75f, 0.75f, 0.75f);
+            tooltipDesc.fontStyle = TMPro.FontStyles.Italic;
+        }
 
         if (tooltipStats != null)
         {
@@ -306,7 +311,7 @@ public class InventoryUI : MonoBehaviour
             if (inst.enhanceLevel > 0) lines.Add($"<color=#ffd900>Enhanced +{inst.enhanceLevel}</color>");
             if (def.healHp > 0) lines.Add($"<color=#66ff88>Heal HP {def.healHp}</color>");
             if (def.healMp > 0) lines.Add($"<color=#88aaff>Heal MP {def.healMp}</color>");
-            tooltipStats.text = string.Join("\n", lines);
+            tooltipStats.text = string.Join("  ", lines);
         }
 
         var rt = tooltipPanel.GetComponent<RectTransform>();

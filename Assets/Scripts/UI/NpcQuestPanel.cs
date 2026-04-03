@@ -58,7 +58,7 @@ public class NpcQuestPanel : MonoBehaviour
 
         if (npcNameText != null) { npcNameText.text = npcName; npcNameText.color = new Color(1f, 0.9f, 0.6f); }
         if (questTitleText != null) { questTitleText.text = $"\u25b8 {quest.title}"; questTitleText.color = new Color(1f, 0.95f, 0.5f); }
-        if (questDescText != null) questDescText.text = quest.description ?? "";
+        if (questDescText != null) { questDescText.text = quest.description ?? ""; questDescText.color = new Color(0.78f, 0.78f, 0.78f); }
         if (statusText != null)
         {
             statusText.text = status ?? "";
@@ -73,7 +73,7 @@ public class NpcQuestPanel : MonoBehaviour
             {
                 var lines = new List<string>();
                 foreach (var req in quest.requirements)
-                    lines.Add($"  \u25b9 {req.itemId} \u00d7{req.count}");
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
                 requirementsText.text = string.Join("\n", lines);
             }
             else requirementsText.text = "None";
@@ -82,12 +82,12 @@ public class NpcQuestPanel : MonoBehaviour
         if (rewardsText != null && quest.rewards != null)
         {
             var lines = new List<string>();
-            if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>Gold: {quest.rewards.gold}</color>");
-            if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>XP: {quest.rewards.xp}</color>");
+            if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 {quest.rewards.gold:N0}G</color>");
+            if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>\u25c6 {quest.rewards.xp} XP</color>");
             if (quest.rewards.items != null)
             {
                 foreach (var item in quest.rewards.items)
-                    lines.Add($"\u25b8 {item.itemId} \u00d7{item.count}");
+                    lines.Add($"<color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
             }
             rewardsText.text = string.Join("\n", lines);
         }

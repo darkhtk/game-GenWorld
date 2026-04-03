@@ -141,7 +141,10 @@ public class QuestUI : MonoBehaviour
         titleText.color = new Color(1f, 0.9f, 0.5f);
 
         if (texts.Length > 1)
+        {
             texts[1].text = quest.description ?? "";
+            texts[1].color = new Color(0.78f, 0.78f, 0.78f);
+        }
 
         if (texts.Length > 2 && quest.requirements != null)
         {
@@ -150,10 +153,11 @@ public class QuestUI : MonoBehaviour
             {
                 int have = _inventory != null ? _inventory.GetCount(req.itemId) : 0;
                 bool met = have >= req.count;
-                string check = met ? "<color=#66ff66>v</color>" : "<color=#ff4444>x</color>";
+                string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
                 string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
                     ? def.name : req.itemId;
-                lines.Add($"  {check} {itemName} ({have}/{req.count})");
+                string countColor = met ? "#66ff66" : "#ffaa44";
+                lines.Add($"  {check} {itemName} <color={countColor}>({have}/{req.count})</color>");
             }
             texts[2].text = string.Join("\n", lines);
         }
@@ -161,19 +165,19 @@ public class QuestUI : MonoBehaviour
         if (texts.Length > 3 && quest.rewards != null)
         {
             var rewardLines = new List<string>();
-            if (quest.rewards.gold > 0) rewardLines.Add($"Gold: {quest.rewards.gold}");
-            if (quest.rewards.xp > 0) rewardLines.Add($"XP: {quest.rewards.xp}");
+            if (quest.rewards.gold > 0) rewardLines.Add($"<color=#ffd900>\u25b8 {quest.rewards.gold:N0}G</color>");
+            if (quest.rewards.xp > 0) rewardLines.Add($"<color=#aaffaa>\u25b8 {quest.rewards.xp} XP</color>");
             if (quest.rewards.items != null)
             {
                 foreach (var item in quest.rewards.items)
                 {
                     string itemName = _itemDefs != null && _itemDefs.TryGetValue(item.itemId, out var def)
                         ? def.name : item.itemId;
-                    rewardLines.Add($"{itemName} x{item.count}");
+                    rewardLines.Add($"<color=#ccddff>\u25b9 {itemName} \u00d7{item.count}</color>");
                 }
             }
             texts[3].text = rewardLines.Count > 0
-                ? "Rewards: " + string.Join(", ", rewardLines) : "";
+                ? string.Join("  ", rewardLines) : "";
         }
 
         _entries.Add(go);
@@ -189,8 +193,8 @@ public class QuestUI : MonoBehaviour
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
         if (texts.Length > 0)
         {
-            texts[0].text = $"\u2713 {questId}";
-            texts[0].color = new Color(0.5f, 0.8f, 0.5f);
+            texts[0].text = $"<color=#66ff66>\u2713</color> <color=#aaaaaa>{questId}</color>";
+            texts[0].color = Color.white;
         }
         for (int i = 1; i < texts.Length; i++)
             texts[i].text = "";

@@ -15,6 +15,13 @@ public class MainMenuController : MonoBehaviour
     {
         SetupBackground();
 
+        if (titleText != null)
+        {
+            titleText.text = "GenWorld";
+            titleText.color = new Color(1f, 0.92f, 0.55f);
+            titleText.fontStyle = TMPro.FontStyles.Bold;
+        }
+
         if (newGameButton != null)
             newGameButton.onClick.AddListener(OnNewGame);
 
@@ -45,7 +52,7 @@ public class MainMenuController : MonoBehaviour
         img.sprite = bgSprite;
         img.preserveAspect = false;
         img.raycastTarget = false;
-        img.color = new Color(0.8f, 0.8f, 0.8f);
+        img.color = Color.white;
 
         var rt = bgGo.GetComponent<RectTransform>();
         rt.anchorMin = Vector2.zero;

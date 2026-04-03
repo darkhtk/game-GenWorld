@@ -275,10 +275,10 @@ public class DialogueUI : MonoBehaviour
             if (quest.requirements != null)
             {
                 foreach (var req in quest.requirements)
-                    lines.Add($"  \u25b9 {req.itemId} \u00d7{req.count}");
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
             }
             questProposalRequirements.text = lines.Count > 0
-                ? string.Join("\n", lines) : "None";
+                ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }
 
         if (questProposalRewards != null)

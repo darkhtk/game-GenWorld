@@ -74,7 +74,7 @@ public class ShopUI : MonoBehaviour
         if (_itemDefs == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) goldText.text = $"Gold: {gold:N0}";
+        if (goldText != null) goldText.text = $"<color=#ffd900>\u25c6 {gold:N0} G</color>";
 
         foreach (var kv in _itemDefs)
         {
@@ -108,7 +108,10 @@ public class ShopUI : MonoBehaviour
         }
 
         if (texts.Length > 2)
+        {
             texts[2].text = def.description ?? "";
+            texts[2].color = new Color(0.72f, 0.72f, 0.72f);
+        }
 
         var btn = go.GetComponent<Button>();
         if (btn == null) btn = go.AddComponent<Button>();

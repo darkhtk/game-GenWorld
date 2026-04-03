@@ -34,10 +34,15 @@ public class TooltipUI : MonoBehaviour
         {
             _instance.titleText.text = item.name ?? "unknown";
             _instance.titleText.color = GameConfig.GetGradeColor(item.GradeEnum);
+            _instance.titleText.fontStyle = TMPro.FontStyles.Bold;
         }
 
         if (_instance.descText != null)
+        {
             _instance.descText.text = item.description ?? "";
+            _instance.descText.color = new Color(0.75f, 0.75f, 0.75f);
+            _instance.descText.fontStyle = TMPro.FontStyles.Italic;
+        }
 
         if (_instance.statsText != null)
         {
@@ -56,8 +61,8 @@ public class TooltipUI : MonoBehaviour
             if (item.healMp > 0) lines.Add($"<color=#9999ff>Heal MP {item.healMp}</color>");
             if (item.shopPrice > 0) lines.Add($"<color=#ffd900>Value: {item.shopPrice}G</color>");
             lines.Add($"Grade: <color=#{ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum))}>{item.grade ?? "common"}</color>");
-            if (item.stackable) lines.Add($"Stack: max {item.maxStack}");
-            _instance.statsText.text = string.Join("\n", lines);
+            if (item.stackable) lines.Add($"<color=#888888>Stack: {item.maxStack}</color>");
+            _instance.statsText.text = string.Join("  ", lines);
         }
 
         if (_instance.gradeBar != null)
@@ -73,10 +78,24 @@ public class TooltipUI : MonoBehaviour
         _instance.panel.SetActive(true);
 
         if (_instance.titleText != null)
+        {
+            Color treeColor = skill.tree switch
+            {
+                "ranged" => new Color(0.3f, 0.9f, 0.3f),
+                "magic"  => new Color(0.3f, 0.5f, 1f),
+                _        => new Color(0.9f, 0.4f, 0.4f)
+            };
             _instance.titleText.text = skill.name ?? skill.id;
+            _instance.titleText.color = treeColor;
+            _instance.titleText.fontStyle = TMPro.FontStyles.Bold;
+        }
 
         if (_instance.descText != null)
+        {
             _instance.descText.text = skill.description ?? "";
+            _instance.descText.color = new Color(0.75f, 0.75f, 0.75f);
+            _instance.descText.fontStyle = TMPro.FontStyles.Italic;
+        }
 
         if (_instance.statsText != null)
         {
@@ -84,10 +103,9 @@ public class TooltipUI : MonoBehaviour
             lines.Add($"Level: <color=#aaffaa>{level}/{GameConfig.SkillMaxLevel}</color>");
             if (skill.damage > 0) lines.Add($"<color=#ffaa55>Damage: {skill.damage}</color>");
             if (skill.mpCost > 0) lines.Add($"<color=#6688ff>MP Cost: {skill.mpCost}</color>");
-            if (skill.cooldown > 0) lines.Add($"Cooldown: {skill.cooldown / 1000f:F1}s");
-            if (skill.range > 0) lines.Add($"Range: {skill.range:F0}");
-            if (skill.aoe > 0) lines.Add($"AoE: {skill.aoe:F0}");
-            if (!string.IsNullOrEmpty(skill.tree)) lines.Add($"Tree: {skill.tree}");
+            if (skill.cooldown > 0) lines.Add($"<color=#cccccc>CD: {skill.cooldown / 1000f:F1}s</color>");
+            if (skill.range > 0) lines.Add($"<color=#aaddff>Range: {skill.range:F0}</color>");
+            if (skill.aoe > 0) lines.Add($"<color=#ffcc44>AoE: {skill.aoe:F0}</color>");
             _instance.statsText.text = string.Join("\n", lines);
         }
 
