@@ -60,23 +60,37 @@ public class SkillRowUI : MonoBehaviour
     {
         if (levelText != null)
         {
-            levelText.text = isMaxed ? "MAX" : $"Lv.{level}/{GameConfig.SkillMaxLevel}";
-            levelText.color = isMaxed ? new Color(1f, 0.84f, 0f) : Color.white;
+            if (isMaxed)
+            {
+                levelText.text = "<color=#ffd900>MAX</color>";
+                levelText.color = Color.white;
+            }
+            else if (level > 0)
+            {
+                levelText.text = $"<color=#aaffaa>Lv.{level}</color>/{GameConfig.SkillMaxLevel}";
+                levelText.color = Color.white;
+            }
+            else
+            {
+                levelText.text = $"Lv.0/{GameConfig.SkillMaxLevel}";
+                levelText.color = new Color(0.6f, 0.6f, 0.6f);
+            }
         }
 
         if (costText != null)
         {
             if (isMaxed) costText.text = "";
-            else if (canLearn) { costText.text = $"{requiredPoints}pt"; costText.color = Color.yellow; }
+            else if (canLearn) { costText.text = $"<color=#ffd900>{requiredPoints}pt</color>"; costText.color = Color.white; }
             else if (playerLevel > 0 && playerLevel < requiredLevel)
             {
-                costText.text = $"Req Lv.{requiredLevel}";
-                costText.color = new Color(1f, 0.4f, 0.4f);
+                costText.text = $"<color=#ff6666>Lv.{requiredLevel}+</color>";
+                costText.color = Color.white;
             }
             else
             {
-                costText.text = $"Need {requiredPoints}pt";
-                costText.color = new Color(1f, 0.4f, 0.4f);
+                int deficit = requiredPoints - playerSkillPoints;
+                costText.text = $"<color=#ff6666>-{deficit}pt</color>";
+                costText.color = Color.white;
             }
         }
 
