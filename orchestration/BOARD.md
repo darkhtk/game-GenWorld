@@ -120,8 +120,8 @@
 | 108 | S-048 SkillSystem 데이터 무결성 | P2 | 👀 | v2 재제출 — SkillList 필터링 + 검증 추가 |
 | 109 | S-050 InputSystem UI/게임 입력 분리 | P2 | ✅ | REVIEW-S050-v1 |
 | 110 | S-051 SceneTransition 메모리 누수 | P2 | 👀 | v2 재제출 — ClearPool 호출 + EventVFX 재구독 + UnloadAssets 타이밍 |
-| 111 | S-054 AutoSave 전투 중 저장 방지 | P2 | 👀 | In Review |
-| 112 | S-056 GameManager 초기화 순서 | P2 | 👀 | In Review |
+| 111 | S-054 AutoSave 전투 중 저장 방지 | P2 | ✅ | REVIEW-S054-v1 APPROVE |
+| 112 | S-056 GameManager 초기화 순서 | P2 | ✅ | REVIEW-S056-v1 APPROVE |
 
 ---
 
@@ -143,8 +143,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-054 AutoSave 전투 중 저장 방지 | 2026-04-03 | ✅ APPROVE | REVIEW-S054-v1 |
-| S-056 GameManager 초기화 순서 | 2026-04-03 | ✅ APPROVE | REVIEW-S056-v1 [깊은 리뷰] |
 | S-048 SkillSystem 데이터 무결성 v2 | 2026-04-03 | ⏳ | SkillList 필터링 + mpCost/reqLevel/reqPoints 검증 + 테스트 |
 | S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | ⏳ | ClearPool + EventVFX sceneLoaded 재구독 + UnloadAssets 타이밍 |
 
@@ -261,6 +259,8 @@
 | S-047 DialogueSystem 동시 대화 방지 | 2026-04-03 | REVIEW-S047-v1 ✅ APPROVE |
 | S-050 InputSystem UI/게임 입력 분리 | 2026-04-03 | REVIEW-S050-v1 ✅ APPROVE |
 | S-045 QuestSystem 진행률 저장 v2 | 2026-04-03 | REVIEW-S045-v2 ✅ APPROVE |
+| S-054 AutoSave 전투 중 저장 방지 | 2026-04-03 | REVIEW-S054-v1 ✅ APPROVE |
+| S-056 GameManager 초기화 순서 | 2026-04-03 | REVIEW-S056-v1 ✅ APPROVE |
 
 ## 📋 Backlog
 
