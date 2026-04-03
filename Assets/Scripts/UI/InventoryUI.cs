@@ -415,7 +415,20 @@ public class InventoryUI : MonoBehaviour
     {
         _currentFilter = idx < FilterNames.Length ? FilterNames[idx] : "all";
         AudioManager.Instance?.PlaySFX("sfx_tab_switch");
+        UpdateFilterButtonHighlight(idx);
         Refresh();
+    }
+
+    void UpdateFilterButtonHighlight(int activeIdx)
+    {
+        if (filterButtons == null) return;
+        for (int i = 0; i < filterButtons.Length; i++)
+        {
+            if (filterButtons[i] == null) continue;
+            var img = filterButtons[i].GetComponent<Image>();
+            if (img != null)
+                img.color = i == activeIdx ? new Color(0.3f, 0.5f, 0.8f) : new Color(0.15f, 0.15f, 0.15f);
+        }
     }
 
     void CycleSortMode()
