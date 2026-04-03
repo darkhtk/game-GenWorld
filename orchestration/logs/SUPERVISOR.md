@@ -1,31 +1,25 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #29)
-> **모드:** 🎨 에셋 2건 + 코드 품질 감사 2건
+> **최종 실행:** 2026-04-03 (루프 #30)
+> **모드:** 성능 최적화 2건 + 코루틴 버그 확인 1건
 
 ## 이번 루프 수행 내용
 
-### 🎨 S-070: InventoryUI 아이템 아이콘 폴백
-- **문제:** 누락된 아이콘이 있을 때 빈 공간만 표시 (iconImage.enabled = false)
-- **수정:** `item_placeholder.png` (32x32) 생성 + InventorySlotUI.SetItem()에서 icon 누락 시 placeholder 폴백
-- **파일:** `Assets/Resources/Sprites/Items/item_placeholder.png`, `Assets/Scripts/UI/InventoryUI.cs`
+### S-071: ShopUI ClearEntries GC 스파이크 수정
+- **문제:** ClearEntries()에서 매 Refresh()마다 모든 항목을 Destroy() → GC 스파이크
+- **수정:** Destroy → SetActive(false) 풀링 교체. GetOrCreateEntry()로 재사용, btn.onClick.RemoveAllListeners()로 리스너 정리, OnDestroy()에서 풀 정리
+- **파일:** `Assets/Scripts/UI/ShopUI.cs`
 
-### 🎨 S-072: 상태이상 아이콘 7종 추가
-- **생성:** status_freeze, status_rage, status_speedup, status_defdown, status_heal, status_dot, status_knockback (32x32)
-- **기존:** burn, bleed, poison, slow, stun, stealth, mana_shield (7종) → 총 14종 완비
-- **파일:** `Assets/Art/Sprites/Icons/status_*.png` x7
+### S-073: TimeSystem 기간 전환 로그 스팸 수정
+- **문제:** prevPeriod를 매 프레임 재계산 → 경계 근처에서 중복 로그 가능, _lastPeriod 미사용
+- **수정:** _lastPeriod 필드 활용, Period 변경 시만 로그 출력 + _lastPeriod 갱신
+- **파일:** `Assets/Scripts/Systems/TimeSystem.cs`
 
-### 코드 품질: S-059 AudioManager _clipCache 누수 수정
-- **문제:** _clipCache 딕셔너리 무한 성장, 씬 전환 시 미정리
-- **수정:** SceneManager.activeSceneChanged 이벤트에 OnSceneChanged 등록, 현재 재생 중인 BGM/Ambient 클립만 유지하고 나머지 캐시 정리
-- **파일:** `Assets/Scripts/Systems/AudioManager.cs`
+### S-064: DialogueUI 코루틴 중복 확인
+- **결과:** 이미 수정됨 (ShowLoading에서 기존 코루틴 StopCoroutine 후 재시작)
+- **파일:** `Assets/Scripts/UI/DialogueUI.cs` — 추가 수정 불필요
 
-### 코드 품질: S-060 MinimapUI 텍스처 재생성 누수 수정
-- **문제:** Init() 재호출 시 이전 Texture2D 미파괴 → GPU 메모리 누수
-- **수정:** Init()에서 `_mapTexture` 기존 인스턴스 Destroy() 후 재생성 + OnDestroy() 추가
-- **파일:** `Assets/Scripts/UI/MinimapUI.cs`
-
-## 누적 현황 (루프 #1~#29)
+## 누적 현황 (루프 #1~#30)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -53,28 +47,26 @@
 | #27 | 성능 최적화 7건 | MinimapUI 캐싱, HUD 배열 제거, Camera.main 캐싱, Animator 캐싱, 델리게이트 캐싱 |
 | #28 | UX 개선 3건 + RESERVE 보충 | QuestUI placeholder, SkillTree 사유표시, LINQ 제거, +15 태스크 |
 | #29 | 🎨 에셋 2건 + 코드 감사 2건 | S-070 아이콘 폴백, S-072 상태아이콘 7종, S-059/S-060 메모리 누수 수정 |
+| #30 | 성능 최적화 2건 | S-071 ShopUI 풀링, S-073 TimeSystem 로그 중복 제거 |
 
 ## 총 기여 요약
 - **치명 버그 수정**: 18건
-- **메모리 누수 수정**: 2건 (+2: AudioManager 캐시, MinimapUI 텍스처)
-- **성능 최적화**: 14건
+- **메모리 누수 수정**: 2건
+- **성능 최적화**: 16건 (+2: ShopUI 풀링, TimeSystem 로그 중복)
 - **방어 코드 강화**: 4건
 - **UX 개선**: 6건
 - **UX SFX 추가**: 28건
-- **에셋 생성/수정**: 55종 (+8: placeholder 1종, 상태아이콘 7종)
+- **에셋 생성/수정**: 55종
 - **에셋 점검 완료**: 4건
 - **RESERVE 태스크 보충**: 57건 (누적)
-- **감사 시스템**: 54개 클래스 (+2: AudioManager, MinimapUI)
+- **감사 시스템**: 54개 클래스
 
 ## 수정 파일 (이번 루프)
-- `Assets/Scripts/UI/InventoryUI.cs` (아이콘 폴백 로직)
-- `Assets/Scripts/Systems/AudioManager.cs` (씬 전환 시 캐시 정리)
-- `Assets/Scripts/UI/MinimapUI.cs` (Texture2D 재생성 누수 수정)
-- `Assets/Resources/Sprites/Items/item_placeholder.png` (신규)
-- `Assets/Art/Sprites/Icons/status_*.png` x7 (신규)
-- `orchestration/BACKLOG_RESERVE.md` (S-059/060/070/072 완료)
+- `Assets/Scripts/UI/ShopUI.cs` (Destroy→풀링 교체)
+- `Assets/Scripts/Systems/TimeSystem.cs` (_lastPeriod 추적)
+- `orchestration/BACKLOG_RESERVE.md` (S-071/S-073 완료)
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
-- Step 2-3: 성능 최적화 (ShopUI ClearEntries GC 스파이크 등)
+- Step 2-4: UX 개선 (ShopUI 구매 실패 피드백, EnhanceUI 확인 팝업 등)
 - RESERVE P2 항목 순차 진행

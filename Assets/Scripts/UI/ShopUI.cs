@@ -23,6 +23,7 @@ public class ShopUI : MonoBehaviour
     static readonly Color UnaffordableColor = new(0.4f, 0.4f, 0.4f);
 
     readonly List<GameObject> _itemEntries = new();
+    readonly List<GameObject> _pool = new();
 
     InventorySystem _inventory;
     Dictionary<string, ItemDef> _itemDefs;
@@ -83,7 +84,7 @@ public class ShopUI : MonoBehaviour
     {
         if (itemListContent == null || shopItemPrefab == null) return;
 
-        var go = Instantiate(shopItemPrefab, itemListContent);
+        var go = GetOrCreateEntry();
         go.SetActive(true);
 
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
@@ -104,6 +105,7 @@ public class ShopUI : MonoBehaviour
 
         var btn = go.GetComponent<Button>();
         if (btn == null) btn = go.AddComponent<Button>();
+        btn.onClick.RemoveAllListeners();
         btn.interactable = canAfford;
         string itemId = def.id;
         int price = def.shopPrice;
@@ -126,10 +128,33 @@ public class ShopUI : MonoBehaviour
         }
     }
 
+    GameObject GetOrCreateEntry()
+    {
+        if (_pool.Count > 0)
+        {
+            var go = _pool[_pool.Count - 1];
+            _pool.RemoveAt(_pool.Count - 1);
+            go.SetActive(true);
+            return go;
+        }
+        return Instantiate(shopItemPrefab, itemListContent);
+    }
+
     void ClearEntries()
     {
         foreach (var go in _itemEntries)
-            Destroy(go);
+        {
+            go.SetActive(false);
+            _pool.Add(go);
+        }
+        _itemEntries.Clear();
+    }
+
+    void OnDestroy()
+    {
+        foreach (var go in _pool) Destroy(go);
+        _pool.Clear();
+        foreach (var go in _itemEntries) Destroy(go);
         _itemEntries.Clear();
     }
 }

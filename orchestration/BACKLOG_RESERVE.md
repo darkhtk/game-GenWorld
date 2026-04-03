@@ -38,9 +38,9 @@
 | 29 | S-068 | 🔧 | QuestUI 빈 목록 안내 — 퀘스트 없을 때 빈 화면 → placeholder 텍스트 표시 | P3 | ✅ |
 | 30 | S-069 | 🔧 | Projectile 풀 반환 시 null 콜백 방어 — OnHit 콜백에서 풀 반환된 투사체 참조 방지 | P3 | ⬜ |
 | 31 | S-070 | 🎨 | ShopUI/InventoryUI 아이템 아이콘 폴백 — 누락 아이콘 시 기본 placeholder 스프라이트 표시 | P3 | ✅ |
-| 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ⬜ |
+| 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ✅ |
 | 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ✅ |
-| 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ⬜ |
+| 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ✅ |
 | 35 | S-074 | 🔧 | MonsterSpawner _nightPoolBuffer stale 데이터 — 야간 전환 시 이전 풀 데이터 잔존 정리 (Client 리뷰 발견) | P3 | ⬜ |
 
 ## 완료 태스크
@@ -91,3 +91,5 @@
 | S-067 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 분리 표시 (빨간색) | 2026-04-03 |
 | S-068 | QuestUI 빈 목록 안내 — "No active/completed quests" placeholder 추가 | 2026-04-03 |
 | S-046 | MonsterSpawner 리전 전환 클린업 — REVIEW-S046-v1 APPROVE | 2026-04-03 |
+| S-071 | ShopUI Destroy GC 스파이크 → SetActive(false) 풀링 교체 | 2026-04-03 |
+| S-073 | TimeSystem 기간 전환 로그 스팸 → _lastPeriod 추적으로 중복 제거 | 2026-04-03 |

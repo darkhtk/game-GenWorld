@@ -20,13 +20,17 @@ public class TimeSystem
 
     public bool Update(float deltaTime)
     {
-        string prevPeriod = Period;
         GameHour += deltaTime / RealSecondsPerGameHour;
         if (GameHour >= 24f) GameHour -= 24f;
 
-        bool periodChanged = prevPeriod != Period;
+        string current = Period;
+        if (_lastPeriod == null) { _lastPeriod = current; return false; }
+        bool periodChanged = _lastPeriod != current;
         if (periodChanged)
-            Debug.Log($"[TimeSystem] Period changed: {prevPeriod} → {Period} (hour {GameHour:F1})");
+        {
+            Debug.Log($"[TimeSystem] Period changed: {_lastPeriod} → {current} (hour {GameHour:F1})");
+            _lastPeriod = current;
+        }
         return periodChanged;
     }
 }
