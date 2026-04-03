@@ -328,8 +328,10 @@ public class DialogueUI : MonoBehaviour
 
     public void SetQuestTitle(string title)
     {
-        if (questTitleText != null)
-            questTitleText.text = title ?? "";
+        if (questTitleText == null) return;
+        questTitleText.color = Color.white;
+        questTitleText.text = !string.IsNullOrEmpty(title)
+            ? $"<b><color=#ffe888>\u25b8 {title}</color></b>" : "";
     }
 
     public void ClearLog()
