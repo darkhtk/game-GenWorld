@@ -181,6 +181,8 @@ public class GameManager : MonoBehaviour
         {
             nearest.ResumeMoving();
             player.Frozen = false;
+            uiManager.SetDialogueOpen(false);
+            _dialogueNpc = null;
             return;
         }
 

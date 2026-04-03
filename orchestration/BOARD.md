@@ -97,7 +97,7 @@
 | 85 | S-015 WorldMapGenerator null 방어 | P2 | ✅ | Generate null/empty regions 가드 추가 |
 | 86 | S-016 SkillSystem 쿨다운 동기화 | P2 | ✅ | ms 단위 일관성 확인 (JSON+코드) |
 | 87 | S-024 ComboSystem 타이머 정밀도 | P3 | ✅ | float 정밀도 충분 (24h에도 1ms 유지) |
-| 88 | S-025 DialogueCameraZoom 복원 보장 | P3 | 👀 | OnDisable 강제 원복 추가 |
+| 88 | S-025 DialogueCameraZoom 복원 보장 | P3 | ✅ | REVIEW-S025-v1 |
 | 89 | S-029 인벤토리 오버플로우 알림 | P2 | 👀 | 루트 드롭 overflow 경고+색상 |
 | 90 | S-033 LootTable 빈 드롭 | P2 | ✅ | null 체크 이미 존재 |
 | 91 | S-036 AchievementSystem 중복 방지 | P2 | ✅ | _completed.Contains 이미 존재 |
@@ -108,7 +108,7 @@
 
 | 태스크 | 사유 | REVIEW | 비고 |
 |--------|------|--------|------|
-| S-026 NPC 이동 재개 실패 | SetDialogueOpen/dialogueNpc 미복구 | REVIEW-S026-v1 | P2 — 수정 필요 |
+| ~~S-026~~ | v2 수정 완료 → In Review | REVIEW-S026-v1 | 두 누락 항목 추가 |
 
 ## 🔧 In Progress
 
@@ -119,7 +119,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-025 DialogueCameraZoom 복원 보장 | 2026-04-03 | 대기 | OnDisable 강제 원복 |
+| S-026 NPC 이동 재개 v2 | 2026-04-03 | 대기 | SetDialogueOpen+_dialogueNpc 추가 |
 | S-029 인벤토리 오버플로우 알림 | 2026-04-03 | 대기 | overflow 경고+색상 |
 
 ## ✅ Done
@@ -214,6 +214,10 @@
 | S-015 WorldMapGenerator null 방어 | 2026-04-03 | null/empty regions 가드 ✅ |
 | S-016 SkillSystem 쿨다운 동기화 | 2026-04-03 | ms 단위 일관성 확인 ✅ |
 | S-024 ComboSystem 타이머 정밀도 | 2026-04-03 | float 정밀도 충분 확인 ✅ |
+| S-023 RegionTracker 경계 조건 | 2026-04-03 | REVIEW-S023-v1 ✅ |
+| S-025 DialogueCameraZoom 복원 보장 | 2026-04-03 | REVIEW-S025-v1 ✅ |
+| S-033 LootTable 빈 드롭 | 2026-04-03 | null 체크 이미 존재 ✅ |
+| S-036 AchievementSystem 중복 방지 | 2026-04-03 | _completed.Contains 이미 존재 ✅ |
 
 ## 📋 Backlog
 
