@@ -470,7 +470,7 @@ public class HUD : MonoBehaviour
         {
             float seconds = durationMs / 1000f;
             skillBuffTexts[slotIndex].color = Color.white;
-            skillBuffTexts[slotIndex].text = $"<color=#ffdd44>{seconds:F0}s</color>";
+            skillBuffTexts[slotIndex].text = $"<color=#ffdd44><b>{seconds:F0}s</b></color>";
             skillBuffTexts[slotIndex].gameObject.SetActive(true);
         }
         else
@@ -682,7 +682,7 @@ public class HUD : MonoBehaviour
                 {
                     string timerColor = remaining <= 2f ? "#ff6666" : remaining <= 5f ? "#ffdd44" : "#aaddff";
                     _effectTimerTexts[i].color = Color.white;
-                    _effectTimerTexts[i].text = $"<color={timerColor}>{remaining:F0}s</color>";
+                    _effectTimerTexts[i].text = $"<color={timerColor}><b>{remaining:F0}s</b></color>";
                 }
                 if (_effectFillImages[i] != null && info.totalDuration > 0)
                     _effectFillImages[i].fillAmount = Mathf.Clamp01((info.expires - nowMs) / info.totalDuration);

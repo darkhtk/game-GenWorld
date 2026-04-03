@@ -171,7 +171,7 @@ public class SkillTreeUI : MonoBehaviour
                     _                => MeleeColor
                 };
                 int lvl = skillSystem.GetSkillLevel(skillId);
-                string lvlStr = lvl > 0 ? $" <color=#555555>Lv.{lvl}</color>" : "";
+                string lvlStr = lvl > 0 ? $" <color=#555555>Lv.<b>{lvl}</b></color>" : "";
                 equipSlotLabels[i].text = $"<b><color=#{ColorUtility.ToHtmlStringRGB(treeColor)}>{def.name}</color></b>{lvlStr}";
                 equipSlotLabels[i].color = Color.white;
             }
