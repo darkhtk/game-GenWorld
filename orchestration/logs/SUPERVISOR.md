@@ -1,29 +1,37 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #32)
-> **모드:** 코드 품질 감사 + S-075 버그 수정
+> **최종 실행:** 2026-04-03 (루프 #33)
+> **모드:** 코드 품질 감사 — 5개 핵심 파일 병렬 감사 + 버그 3건 수정
 
 ## 이번 루프 수행 내용
 
-### 코드 품질 감사 (전체 시스템 스캔)
-- **범위:** Systems 5개, Entities 4개, Managers 4개 — 총 13개 파일 병렬 감사
+### 코드 품질 감사 (5개 핵심 파일)
+- **감사 대상:** EventBus, CombatManager, PlayerController, MonsterSpawner, EffectSystem
 - **감사 결과:**
-  - 보고된 "Critical" 이슈 13건 → 코드 직접 확인 → **실제 버그 0건** (모두 false positive)
-  - GameManager OnDestroy sceneLoaded: 의도적 one-shot 패턴
-  - float division by zero: C# float → Infinity, crash 없음
-  - CombatManager ranged null: 호출 전 null 체크 존재
-  - Projectile zero vector: Unity normalized → (0,0) 반환, NaN 아님
-- **결론:** 기존 방어 코드가 충분히 견고함
+  - EventBus: null 핸들러 등록 가능 (NRE 위험) → **수정 완료**
+  - CombatManager: _getStats null 미체크, _cachedMonsters 외부 참조 공유 → 감시 항목
+  - PlayerController: 영벡터 normalize → Unity에서 Vector2.zero 반환 (false positive)
+  - MonsterSpawner: **_nightPoolBuffer stale data (실제 버그!)** + m.Def null 접근 → **수정 완료**
+  - EffectSystem: 파일명 변경 확인 (EffectHolder.cs → EffectSystem.cs)
 
-### S-075: MonsterController 사망 상태 피격 방지
-- **문제:** TakeDamage()에 IsDead 체크 없음 → 사망 몬스터에 데미지 적용, HP바 갱신, FlashWhite 실행
-- **수정:** `if (IsDead || DeathProcessed) return false;` 조기 반환 추가
-- **파일:** `Assets/Scripts/Entities/MonsterController.cs`
+### 버그 수정 3건
 
-### BACKLOG 동기화
-- S-075: ⬜ → ✅ (Supervisor 직접 수정)
+1. **MonsterSpawner _nightPoolBuffer stale data (CRITICAL)**
+   - **문제:** `_nightPoolBuffer.Clear()`가 `if (isNight)` 블록 안에서만 호출 → 야간 스폰 후 낮에 재스폰 시 야간 몬스터가 낮에 출현
+   - **수정:** `_nightPoolBuffer.Clear()`를 night 조건 밖으로 이동 (SpawnForRegion 시작 시 항상 초기화)
+   - **파일:** `Assets/Scripts/Entities/MonsterSpawner.cs:47`
 
-## 누적 현황 (루프 #1~#32)
+2. **MonsterSpawner m.Def null 접근 방어 (MEDIUM)**
+   - **문제:** ClearAllMonsters/DespawnRoutine에서 `m.Def.id` 접근 시 Def가 null이면 NRE
+   - **수정:** `m.Def.id` → `m.Def?.id` (null-conditional)
+   - **파일:** `Assets/Scripts/Entities/MonsterSpawner.cs:28,120`
+
+3. **EventBus null 핸들러 등록 방어 (LOW)**
+   - **문제:** `On<T>(null)` 호출 시 null delegate가 리스트에 추가, Emit 시 NRE
+   - **수정:** `if (handler == null) return;` 조기 반환
+   - **파일:** `Assets/Scripts/Core/EventBus.cs:8`
+
+## 누적 현황 (루프 #1~#33)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -54,24 +62,26 @@
 | #30 | 성능 최적화 2건 | S-071 ShopUI 풀링, S-073 TimeSystem 로그 중복 제거 |
 | #31 | UX 개선 2건 | S-062 구매 실패 피드백, S-063 강화 확인 팝업 |
 | #32 | 코드 품질 감사 13파일 | S-075 사망 피격 방지, false positive 13건 식별 |
+| #33 | 코드 품질 감사 5파일 | nightPool stale(CRITICAL), Def null 방어, EventBus null 방어 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 19건 (+1: S-075)
+- **치명 버그 수정**: 20건 (+1: nightPoolBuffer stale)
 - **메모리 누수 수정**: 2건
 - **성능 최적화**: 16건
-- **방어 코드 강화**: 5건 (+1: S-075)
+- **방어 코드 강화**: 7건 (+2: Def null, EventBus null)
 - **UX 개선**: 8건
 - **UX SFX 추가**: 28건
 - **에셋 생성/수정**: 55종
 - **에셋 점검 완료**: 4건
 - **RESERVE 태스크 보충**: 57건 (누적)
-- **감사 시스템**: 67개 클래스 (+13)
+- **감사 시스템**: 72개 클래스 (+5)
 
 ## 수정 파일 (이번 루프)
-- `Assets/Scripts/Entities/MonsterController.cs` (S-075: 사망 상태 TakeDamage 조기 반환)
-- `orchestration/BACKLOG_RESERVE.md` (S-075 완료)
+- `Assets/Scripts/Entities/MonsterSpawner.cs` (nightPoolBuffer stale fix + Def null 방어)
+- `Assets/Scripts/Core/EventBus.cs` (null handler 방어)
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
 - Step 2-3: 성능 최적화 (캐싱, 불필요 할당 제거)
+- S-074 완료 처리 (nightPoolBuffer stale → 이번 루프에서 실질적으로 해결)
 - RESERVE P2 항목: S-077 SaveSystem 무결성, S-078 DialogueSystem 타임아웃, S-082 UIManager 중복 방지

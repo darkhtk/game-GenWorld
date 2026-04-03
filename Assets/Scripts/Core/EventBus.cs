@@ -7,6 +7,7 @@ public static class EventBus
 
     public static void On<T>(Action<T> handler)
     {
+        if (handler == null) return;
         var type = typeof(T);
         if (!_listeners.ContainsKey(type)) _listeners[type] = new List<Delegate>();
         _listeners[type].Add(handler);

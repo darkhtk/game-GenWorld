@@ -25,7 +25,7 @@ public class MonsterSpawner : MonoBehaviour
             var m = _monsters[i];
             if (m != null)
             {
-                EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def.id });
+                EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def?.id });
                 Destroy(m.gameObject);
             }
         }
@@ -45,9 +45,9 @@ public class MonsterSpawner : MonoBehaviour
         int count = Mathf.RoundToInt(area / 100f * region.monsterDensity * densityMult);
 
         string[] monsterPool = region.monsterIds;
+        _nightPoolBuffer.Clear();
         if (isNight && region.nightMonsterIds != null && region.nightMonsterIds.Length > 0)
         {
-            _nightPoolBuffer.Clear();
             _nightPoolBuffer.AddRange(region.monsterIds);
             _nightPoolBuffer.AddRange(region.nightMonsterIds);
         }
@@ -117,7 +117,7 @@ public class MonsterSpawner : MonoBehaviour
                 float distSq = (playerPos - m.Position).sqrMagnitude;
                 if (distSq > DespawnDistance * DespawnDistance)
                 {
-                    EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def.id });
+                    EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def?.id });
                     _monsters.RemoveAt(i);
                     Destroy(m.gameObject);
                 }
