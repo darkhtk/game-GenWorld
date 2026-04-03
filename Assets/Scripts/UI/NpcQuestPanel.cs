@@ -69,14 +69,18 @@ public class NpcQuestPanel : MonoBehaviour
 
         if (requirementsText != null)
         {
-            if (quest.requirements != null && quest.requirements.Length > 0)
+            var lines = new List<string>();
+            if (quest.requirements != null)
             {
-                var lines = new List<string>();
                 foreach (var req in quest.requirements)
                     lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
-                requirementsText.text = string.Join("\n", lines);
             }
-            else requirementsText.text = "<color=#666666>None</color>";
+            if (quest.killRequirements != null)
+            {
+                foreach (var kr in quest.killRequirements)
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ffbb77>{kr.monsterId}</color> <color=#888888>\u00d7{kr.count}</color>");
+            }
+            requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }
 
         if (rewardsText != null && quest.rewards != null)
