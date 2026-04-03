@@ -26,8 +26,8 @@
 | 17 | S-054 | 🔧 | AutoSave 전투 중 저장 방지 — 전투 상태에서 자동 저장 스킵 (데이터 일관성) | P2 | 👀 |
 | 18 | S-055 | 🔧 | UI 해상도 대응 — 다양한 해상도에서 UI 앵커/레이아웃 정상 동작 검증 | P3 | ⬜ |
 | 19 | S-056 | 🔧 | GameManager 초기화 순서 — Awake/Start 의존성 순서 보장 및 경합 확인 | P2 | 👀 |
-| 20 | S-059 | 🔧 | AudioManager 클립 캐시 메모리 누수 — _clipCache 무한 성장 방지, LRU 또는 씬 전환 시 정리 | P2 | ⬜ |
-| 21 | S-060 | 🔧 | MinimapUI 텍스처 재생성 누수 — Init() 호출 시 이전 Texture2D 미파괴 확인 | P2 | ⬜ |
+| 20 | S-059 | 🔧 | AudioManager 클립 캐시 메모리 누수 — _clipCache 무한 성장 방지, LRU 또는 씬 전환 시 정리 | P2 | ✅ |
+| 21 | S-060 | 🔧 | MinimapUI 텍스처 재생성 누수 — Init() 호출 시 이전 Texture2D 미파괴 확인 | P2 | ✅ |
 | 22 | S-061 | 🔧 | QuestSystem killProgress 고아 항목 — 완료/포기된 퀘스트의 진행 데이터 잔류 정리 | P2 | ⬜ |
 | 23 | S-062 | 🔧 | ShopUI 구매 실패 피드백 — 골드 부족/인벤 풀 시 플레이어에게 사유 표시 | P3 | ⬜ |
 | 24 | S-063 | 🔧 | EnhanceUI 강화 전 확인 팝업 — 파괴 확률 경고 없이 바로 실행되는 문제 | P3 | ⬜ |
@@ -39,7 +39,7 @@
 | 30 | S-069 | 🔧 | Projectile 풀 반환 시 null 콜백 방어 — OnHit 콜백에서 풀 반환된 투사체 참조 방지 | P3 | ⬜ |
 | 31 | S-070 | 🎨 | ShopUI/InventoryUI 아이템 아이콘 폴백 — 누락 아이콘 시 기본 placeholder 스프라이트 표시 | P3 | ✅ |
 | 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ⬜ |
-| 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ⬜ |
+| 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ✅ |
 | 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ⬜ |
 | 35 | S-074 | 🔧 | MonsterSpawner _nightPoolBuffer stale 데이터 — 야간 전환 시 이전 풀 데이터 잔존 정리 (Client 리뷰 발견) | P3 | ⬜ |
 

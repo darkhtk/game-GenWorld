@@ -39,6 +39,7 @@ public class MinimapUI : MonoBehaviour
             return;
         }
 
+        if (_mapTexture != null) Destroy(_mapTexture);
         _mapTexture = GenerateMapTexture(walkability, width, height);
         mapImage.texture = _mapTexture;
         mapImage.enabled = true;
@@ -173,6 +174,11 @@ public class MinimapUI : MonoBehaviour
             _npcIcons.Add(go.GetComponent<RectTransform>());
         }
         return _npcIcons[index];
+    }
+
+    void OnDestroy()
+    {
+        if (_mapTexture != null) Destroy(_mapTexture);
     }
 
     static GameObject CreateDefaultIcon(Transform parent, Color color)

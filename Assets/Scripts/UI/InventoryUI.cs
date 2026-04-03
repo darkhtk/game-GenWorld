@@ -560,6 +560,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
             Sprite sprite = null;
             if (!string.IsNullOrEmpty(icon))
                 sprite = Resources.Load<Sprite>($"Sprites/Items/{icon}");
+            if (sprite == null)
+                sprite = Resources.Load<Sprite>("Sprites/Items/item_placeholder");
             if (sprite != null) { iconImage.sprite = sprite; iconImage.color = Color.white; iconImage.enabled = true; }
             else { iconImage.sprite = null; iconImage.enabled = false; }
         }

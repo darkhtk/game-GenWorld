@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -29,6 +30,29 @@ public class AudioManager : MonoBehaviour
         if (ambientSource == null) ambientSource = CreateSource("Ambient", true);
 
         LoadVolumeSettings();
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+
+    void OnSceneChanged(Scene prev, Scene next)
+    {
+        var keep = new HashSet<string>();
+        if (bgmSource.clip != null)
+            foreach (var kv in _clipCache)
+                if (kv.Value == bgmSource.clip) { keep.Add(kv.Key); break; }
+        if (ambientSource.clip != null)
+            foreach (var kv in _clipCache)
+                if (kv.Value == ambientSource.clip) { keep.Add(kv.Key); break; }
+
+        var toRemove = new List<string>();
+        foreach (var kv in _clipCache)
+            if (!keep.Contains(kv.Key)) toRemove.Add(kv.Key);
+        foreach (var key in toRemove)
+            _clipCache.Remove(key);
     }
 
     AudioSource CreateSource(string name, bool loop)
