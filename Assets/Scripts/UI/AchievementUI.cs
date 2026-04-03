@@ -65,10 +65,12 @@ public class AchievementUI : MonoBehaviour
                 var def = all[i];
                 var (current, required) = gm.Achievements.GetProgress(def.id);
                 bool done = gm.Achievements.IsCompleted(def.id);
-                string nameColor = done ? "#66ff66" : "#dddddd";
                 string prog = done
                     ? $"<color=#66ff66>\u2713 </color>"
                     : $"<color=#888888>\u25a1 </color>";
+                string namePart = done
+                    ? $"<b><color=#66ff66>{def.name}</color></b>"
+                    : $"<color=#dddddd>{def.name}</color>";
                 string progText = done
                     ? $"<color=#888888>({current}/{required})</color>"
                     : (current > 0
@@ -77,7 +79,7 @@ public class AchievementUI : MonoBehaviour
                 string descLine = !string.IsNullOrEmpty(def.description)
                     ? $"\n  <color=#555566><size=10>{def.description}</size></color>"
                     : "";
-                _listEntries[i].text = $"{prog}<color={nameColor}>{def.name}</color>  {progText}{descLine}";
+                _listEntries[i].text = $"{prog}{namePart}  {progText}{descLine}";
                 _listEntries[i].color = Color.white;
                 _listEntries[i].gameObject.SetActive(true);
             }
