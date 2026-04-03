@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Supervisor #31 — S-062/S-063 UX 구현, S-061/S-064/S-065 완료 동기화)
+> **최종 갱신:** 2026-04-03 (Coordinator — S-051 완료 동기화, S-075~S-087 보충 13건)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -20,7 +20,7 @@
 | ~~11~~ | ~~S-048~~ | ~~🔧~~ | ~~SkillSystem 데이터 무결성 — REVIEW-S048-v2 APPROVE~~ | ~~P2~~ | ✅ |
 | 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 풀 무한 성장 방지 (maxSize 상한 도입 검토) | P3 | ⬜ |
 | ~~13~~ | ~~S-050~~ | ~~🔧~~ | ~~InputSystem UI/게임 입력 분리 — APPROVE~~ | ~~P2~~ | ✅ |
-| 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — NEEDS_WORK (Clear 미호출 + DDOL 구독 소멸) | P2 | ⬜ |
+| 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — v2 APPROVE | P2 | ✅ |
 | 15 | S-052 | 🔧 | EventBus 이벤트 순서 안정성 — 동일 이벤트 다중 핸들러 실행 순서 보장 검증 | P3 | ⬜ |
 | 16 | S-053 | 🔧 | PlayerController 벽 끼임 방지 — 콜라이더 경계에서 플레이어 위치 보정 확인 | P3 | ⬜ |
 | 17 | S-054 | 🔧 | AutoSave 전투 중 저장 방지 — 전투 상태에서 자동 저장 스킵 (데이터 일관성) | P2 | ✅ |
@@ -42,6 +42,19 @@
 | 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ✅ |
 | 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ✅ |
 | 35 | S-074 | 🔧 | MonsterSpawner _nightPoolBuffer stale 데이터 — 야간 전환 시 이전 풀 데이터 잔존 정리 (Client 리뷰 발견) | P3 | ⬜ |
+| 36 | S-075 | 🔧 | MonsterController 사망 상태 피격 방지 — isDead 상태에서 TakeDamage 조기 반환 확인 | P2 | ⬜ |
+| 37 | S-076 | 🔧 | CombatManager 동시 공격 순차 처리 — 동일 프레임 다중 공격 요청 시 큐잉/순차 처리 보장 | P3 | ⬜ |
+| 38 | S-077 | 🔧 | SaveSystem 슬롯 데이터 무결성 검증 — 로드 시 필수 필드 누락 체크 + 기본값 폴백 | P2 | ⬜ |
+| 39 | S-078 | 🔧 | DialogueSystem AI 응답 타임아웃 — Ollama 무응답 시 폴백 텍스트 표시 (30초 상한) | P2 | ⬜ |
+| 40 | S-079 | 🔧 | EffectHolder 버프 스택 상한 — 동일 버프 무한 중첩 방지 (maxStack 도입 검토) | P3 | ⬜ |
+| 41 | S-080 | 🔧 | PlayerController CCD 확인 — 빠른 이동 시 Rigidbody2D 콜라이더 관통 방지 설정 검증 | P3 | ⬜ |
+| 42 | S-081 | 🔧 | InventorySystem 중복 아이템 ID 병합 — 동일 ID 아이템 추가 시 기존 스택에 올바르게 합산 확인 | P3 | ⬜ |
+| 43 | S-082 | 🔧 | UIManager 패널 중복 열기 방지 — 동일 패널 다중 인스턴스 생성 방어 | P2 | ⬜ |
+| 44 | S-083 | 🔧 | AudioManager BGM 동시 변경 안정성 — 연속 BGM 전환 요청 시 마지막 요청만 수행 검증 | P3 | ⬜ |
+| 45 | S-084 | 🔧 | WorldEventSystem 종료 잔존 오브젝트 정리 — 이벤트 완료 후 스폰된 오브젝트 확실히 제거 확인 | P3 | ⬜ |
+| 46 | S-085 | 🔧 | NPC 대화 종료 직후 재진입 방지 — Close 후 쿨다운 타이머로 즉시 재대화 차단 | P3 | ⬜ |
+| 47 | S-086 | 🔧 | SkillBar 쿨다운 시각 동기화 — 스킬 사용 후 쿨다운 필 업데이트 정밀도 확인 | P3 | ⬜ |
+| 48 | S-087 | 🔧 | RegionManager 씬 전환 중 입력 차단 — 로딩 중 PlayerController 입력 비활성 확인 | P2 | ⬜ |
 
 ## 완료 태스크
 
@@ -99,3 +112,4 @@
 | S-063 | EnhanceUI 강화 전 확인 팝업 — 파괴 확률 경고 표시 | 2026-04-03 |
 | S-064 | DialogueUI 코루틴 재진입 방지 (Developer commit) | 2026-04-03 |
 | S-065 | EffectHolder DoT 재적용 로직 수정 (Developer commit) | 2026-04-03 |
+| S-051 | SceneTransition 메모리 누수 v2 — REVIEW-S051-v2 APPROVE | 2026-04-03 |
