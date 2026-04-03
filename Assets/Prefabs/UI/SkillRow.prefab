@@ -756,6 +756,9 @@ MonoBehaviour:
   selectButton: {fileID: 958704548009203303}
   backgroundImage: {fileID: 4012538030808154477}
   iconImage: {fileID: 0}
+  nodeAvailable: {fileID: 21300000, guid: c66dae193a3aad046a69ae405c68eecc, type: 3}
+  nodeLearned: {fileID: 21300000, guid: 23abb47bb4ede4b42a0c8621dc703113, type: 3}
+  nodeLocked: {fileID: 21300000, guid: 3b913345ea471dd4b8620f89e6ae5af2, type: 3}
 --- !u!1 &5337623810890012463
 GameObject:
   m_ObjectHideFlags: 0

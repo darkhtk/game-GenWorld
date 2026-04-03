@@ -14,10 +14,15 @@ public class SkillRowUI : MonoBehaviour
     [SerializeField] Image backgroundImage;
     [SerializeField] Image iconImage;
 
-    static readonly Color MaxedBg = new(0.1f, 0.3f, 0.1f);
-    static readonly Color LearnedBg = new(0.1f, 0.15f, 0.3f);
-    static readonly Color LearnableBg = new(0.25f, 0.2f, 0.15f);
-    static readonly Color LockedBg = new(0.15f, 0.15f, 0.15f);
+    [Header("Node State Sprites")]
+    [SerializeField] Sprite nodeAvailable;
+    [SerializeField] Sprite nodeLearned;
+    [SerializeField] Sprite nodeLocked;
+
+    static readonly Color MaxedBg    = new(0.6f, 1f, 0.6f);
+    static readonly Color LearnedBg  = new(0.6f, 0.8f, 1f);
+    static readonly Color LearnableBg = new(1f, 0.9f, 0.5f);
+    static readonly Color LockedBg   = new(0.5f, 0.5f, 0.5f);
 
     public Action<string> OnLearnClicked;
     public Action<string> OnSelected;
@@ -87,6 +92,13 @@ public class SkillRowUI : MonoBehaviour
                 : isLearned ? LearnedBg
                 : canLearn ? LearnableBg
                 : LockedBg;
+
+            if (nodeLearned != null)
+            {
+                backgroundImage.sprite = isMaxed || isLearned ? nodeLearned
+                    : canLearn ? nodeAvailable
+                    : nodeLocked;
+            }
         }
     }
 
