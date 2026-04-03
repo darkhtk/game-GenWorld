@@ -85,7 +85,9 @@ public class CraftingUI : MonoBehaviour
         {
             string prefix = canCraft ? "\u25b8" : "\u25b9";
             texts[0].text = $"{prefix} {resultName}";
-            texts[0].color = canCraft ? CraftableColor : UncraftableColor;
+            texts[0].color = canCraft && resultDef != null
+                ? GameConfig.GetGradeColor(resultDef.GradeEnum)
+                : UncraftableColor;
         }
 
         if (texts.Length > 1 && recipe.materials != null)
