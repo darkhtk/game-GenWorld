@@ -137,8 +137,8 @@ public class QuestUI : MonoBehaviour
         if (texts.Length == 0) return;
 
         var titleText = texts[0];
-        titleText.text = $">> {quest.title}";
-        titleText.color = Color.white;
+        titleText.text = $"\u25b8 {quest.title}";
+        titleText.color = new Color(1f, 0.9f, 0.5f);
 
         if (texts.Length > 1)
             texts[1].text = quest.description ?? "";
@@ -189,8 +189,8 @@ public class QuestUI : MonoBehaviour
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
         if (texts.Length > 0)
         {
-            texts[0].text = $"v {questId}";
-            texts[0].color = Color.gray;
+            texts[0].text = $"\u2713 {questId}";
+            texts[0].color = new Color(0.5f, 0.8f, 0.5f);
         }
         for (int i = 1; i < texts.Length; i++)
             texts[i].text = "";

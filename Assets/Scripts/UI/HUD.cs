@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
+public struct StatusIconEntry
+{
+    public string type;
+    public Sprite icon;
+}
+
 public class HUD : MonoBehaviour
 {
     [Header("Health/Mana")]
@@ -61,6 +68,7 @@ public class HUD : MonoBehaviour
     [Header("Status Effects")]
     [SerializeField] Transform effectIconContainer;
     [SerializeField] GameObject effectIconPrefab;
+    [SerializeField] StatusIconEntry[] statusIcons;
 
     [Header("Quest Tracker")]
     [SerializeField] GameObject questTrackerRoot;
@@ -87,6 +95,8 @@ public class HUD : MonoBehaviour
     readonly List<GameObject> _effectIcons = new();
     readonly List<TextMeshProUGUI> _effectTimerTexts = new();
     readonly List<Image> _effectFillImages = new();
+    readonly List<Image> _effectIconImages = new();
+    Dictionary<string, Sprite> _statusIconMap;
     bool _historyVisible = true;
     PlayerController _cachedPlayer;
     int _hoveredSkillSlot = -1;
@@ -595,11 +605,21 @@ public class HUD : MonoBehaviour
             questTrackerRoot.SetActive(count > 0 && _questTrackerVisible);
     }
 
+    void BuildStatusIconMap()
+    {
+        _statusIconMap = new Dictionary<string, Sprite>();
+        if (statusIcons == null) return;
+        foreach (var entry in statusIcons)
+            if (entry.icon != null) _statusIconMap[entry.type] = entry.icon;
+    }
+
     void UpdateEffectIcons()
     {
         if (effectIconContainer == null || effectIconPrefab == null) return;
         var gm = GameManager.Instance;
         if (gm == null || gm.PlayerEffects == null) return;
+
+        if (_statusIconMap == null) BuildStatusIconMap();
 
         float nowMs = Time.time * 1000f;
         var active = gm.PlayerEffects.GetActive(nowMs);
@@ -609,6 +629,7 @@ public class HUD : MonoBehaviour
         {
             var icon = Instantiate(effectIconPrefab, effectIconContainer);
             _effectIcons.Add(icon);
+            _effectIconImages.Add(icon.GetComponent<Image>());
             _effectTimerTexts.Add(icon.GetComponentInChildren<TextMeshProUGUI>());
             _effectFillImages.Add(icon.transform.childCount > 1
                 ? icon.transform.GetChild(1).GetComponent<Image>() : null);
@@ -620,6 +641,12 @@ public class HUD : MonoBehaviour
             {
                 _effectIcons[i].SetActive(true);
                 var info = active[i];
+                if (_effectIconImages.Count > i && _effectIconImages[i] != null
+                    && _statusIconMap.TryGetValue(info.type, out var spr))
+                {
+                    _effectIconImages[i].sprite = spr;
+                    _effectIconImages[i].color = Color.white;
+                }
                 float remaining = (info.expires - nowMs) / 1000f;
                 if (_effectTimerTexts[i] != null) _effectTimerTexts[i].text = $"{remaining:F0}s";
                 if (_effectFillImages[i] != null && info.totalDuration > 0)

@@ -83,7 +83,7 @@ public class CraftingUI : MonoBehaviour
 
         if (texts.Length > 0)
         {
-            string prefix = canCraft ? ">>" : "  ";
+            string prefix = canCraft ? "\u25b8" : "\u25b9";
             texts[0].text = $"{prefix} {resultName}";
             texts[0].color = canCraft ? CraftableColor : UncraftableColor;
         }

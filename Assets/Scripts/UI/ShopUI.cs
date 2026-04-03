@@ -96,13 +96,16 @@ public class ShopUI : MonoBehaviour
 
         if (texts.Length > 0)
         {
-            string prefix = canAfford ? ">>" : "  ";
+            string prefix = canAfford ? "\u25b8" : "\u25b9";
             texts[0].text = $"{prefix} {def.name}";
             texts[0].color = canAfford ? AffordableColor : UnaffordableColor;
         }
 
         if (texts.Length > 1)
+        {
             texts[1].text = $"{def.shopPrice}G";
+            texts[1].color = canAfford ? new Color(1f, 0.85f, 0.2f) : new Color(0.6f, 0.5f, 0.2f);
+        }
 
         if (texts.Length > 2)
             texts[2].text = def.description ?? "";

@@ -147,7 +147,7 @@ public class EnhanceUI : MonoBehaviour
         {
             if (hasEquip)
             {
-                string prefix = canAfford ? ">>" : "  ";
+                string prefix = canAfford ? "\u25b8" : "\u25b9";
                 texts[1].text = $"{prefix} {itemName} +{enhLevel}";
                 texts[1].color = canAfford ? AffordableColor : Color.white;
             }

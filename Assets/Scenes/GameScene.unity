@@ -9073,6 +9073,35 @@ MonoBehaviour:
   skillTooltipStats: {fileID: 712730655}
   effectIconContainer: {fileID: 0}
   effectIconPrefab: {fileID: 0}
+  statusIcons:
+  - type: dot
+    icon: {fileID: 21300000, guid: 2477e1f9ab65bfc43b39da1834e76591, type: 3}
+  - type: heal
+    icon: {fileID: 21300000, guid: ce412b6b81972ee44b7c1898c5a83cbf, type: 3}
+  - type: knockback
+    icon: {fileID: 21300000, guid: d6fd2737080d02a4da270cb73fcf459d, type: 3}
+  - type: mana_shield
+    icon: {fileID: 21300000, guid: f9109b75f1534186b2eda1e88db5f126, type: 3}
+  - type: rage
+    icon: {fileID: 21300000, guid: c82eb9e3606a31844afdf821e50db1fb, type: 3}
+  - type: slow
+    icon: {fileID: 21300000, guid: 1edfdc966ba34241ba055e89437eb446, type: 3}
+  - type: stealth
+    icon: {fileID: 21300000, guid: 5df240989527f8a4782492c68116754d, type: 3}
+  - type: stun
+    icon: {fileID: 21300000, guid: 2d19273d70d3475b840c0a31c60ac2d6, type: 3}
+  - type: def_down
+    icon: {fileID: 21300000, guid: 0d62731683ae08c43b54133bf2e6cf19, type: 3}
+  - type: speed_up
+    icon: {fileID: 21300000, guid: 9a3d3bc006aca5a41958424bbb8496e3, type: 3}
+  - type: freeze
+    icon: {fileID: 21300000, guid: 628a79a3d8844b44a8e7319186e55e5f, type: 3}
+  - type: bleed
+    icon: {fileID: 21300000, guid: 49f07e50ab5646e7a859b77d601027d6, type: 3}
+  - type: burn
+    icon: {fileID: 21300000, guid: 636e11c055de4e77bc7455d68afac417, type: 3}
+  - type: poison
+    icon: {fileID: 21300000, guid: b465f4e8b3d54e6c879d667443971e38, type: 3}
   questTrackerRoot: {fileID: 0}
   questTrackerContent: {fileID: 0}
   questTrackerEntryPrefab: {fileID: 0}
