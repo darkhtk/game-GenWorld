@@ -185,7 +185,7 @@ public class EnhanceUI : MonoBehaviour
                 string costPart = $"<color=#ffd900>\u25c6 <b>{cost:N0}</b>G</color>";
                 string succPart = $"<color={succColor}>{succ * 100:F0}%</color>";
                 string destPart = info.destroy > 0
-                    ? $" | <color=#ff5555>{info.destroy * 100:F0}% lose</color>" : "";
+                    ? $" | <color=#ff5555><b>{info.destroy * 100:F0}%</b> lose</color>" : "";
                 texts[2].text = $"{costPart} | {succPart}{destPart}";
             }
         }

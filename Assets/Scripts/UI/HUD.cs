@@ -440,15 +440,15 @@ public class HUD : MonoBehaviour
         {
             hpPotionCount.color = Color.white;
             hpPotionCount.text = hpCount <= 0 ? "" : hpCount <= 2
-                ? $"<color=#ff4444>{hpCount}</color>"
-                : $"<color=#ff8888>{hpCount}</color>";
+                ? $"<color=#ff4444><b>{hpCount}</b></color>"
+                : $"<color=#ff8888><b>{hpCount}</b></color>";
         }
         if (mpPotionCount != null)
         {
             mpPotionCount.color = Color.white;
             mpPotionCount.text = mpCount <= 0 ? "" : mpCount <= 2
-                ? $"<color=#6666ff>{mpCount}</color>"
-                : $"<color=#8899ff>{mpCount}</color>";
+                ? $"<color=#6666ff><b>{mpCount}</b></color>"
+                : $"<color=#8899ff><b>{mpCount}</b></color>";
         }
     }
 
