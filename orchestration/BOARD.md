@@ -87,11 +87,17 @@
 | 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
 | 76 | S-010 QuestSystem null 방어 | P2 | ✅ | CompleteQuest rewards null 기본값 |
 | 77 | S-008 PlayerController 카메라 null 방어 | P2 | ✅ | REVIEW-S005-S007-S008-S010-v1 |
-| 78 | S-011 DataManager 로드 실패 폴백 | P2 | 👀 | 배열 프로퍼티 Empty 초기화 |
+| 78 | S-011 DataManager 로드 실패 폴백 | P2 | ✅ | REVIEW-S011-v1 ✅ APPROVE |
 | 79 | S-012 AudioManager null 방어 | P2 | ✅ | 이미 ?./!=null 체크 완비 확인 |
-| 80 | S-022 EffectHolder.Tick 안전성 | P2 | 👀 | static→instance 버퍼 변환 |
+| 80 | S-022 EffectHolder.Tick 안전성 | P2 | ✅ | REVIEW-S022-v1 ✅ APPROVE |
 | 81 | S-023 RegionTracker 경계 조건 | P2 | 👀 | null/empty 배열 방어 |
 | 82 | S-026 NPC 이동 재개 실패 | P2 | 👀 | TryInteractNPC dlg null 시 복구 |
+| 83 | S-013 DamageText 풀링 검증 | P2 | ✅ | OnDisable 풀 반환 + _inUse 이중반환 방지 |
+| 84 | S-014 Projectile 풀링 검증 | P2 | ✅ | 버그 없음 — null 체크+반환 확인 |
+| 85 | S-015 WorldMapGenerator null 방어 | P2 | ✅ | Generate null/empty regions 가드 추가 |
+| 86 | S-016 SkillSystem 쿨다운 동기화 | P2 | ✅ | ms 단위 일관성 확인 (JSON+코드) |
+| 87 | S-024 ComboSystem 타이머 정밀도 | P3 | ✅ | float 정밀도 충분 (24h에도 1ms 유지) |
+| 88 | S-025 DialogueCameraZoom 복원 보장 | P3 | 👀 | OnDisable 강제 원복 추가 |
 
 ---
 
@@ -109,11 +115,9 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-011 DataManager 로드 실패 폴백 | 2026-04-03 | ✅ APPROVE | REVIEW-S011-v1 |
-| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | ✅ APPROVE | REVIEW-S022-v1 |
 | S-023 RegionTracker 경계 조건 | 2026-04-03 | 대기 | null/empty 배열 방어 |
 | S-026 NPC 이동 재개 실패 | 2026-04-03 | 대기 | dlg null 시 NPC 복구 |
-| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | ✅ APPROVE | REVIEW-S022-v1 |
+| S-025 DialogueCameraZoom 복원 보장 | 2026-04-03 | 대기 | OnDisable 강제 원복 |
 
 ## ✅ Done
 
@@ -207,7 +211,7 @@
 |--------|---------|------|
 | ~~S-004~~ | P1 | ✅ Done |
 | ~~S-008~~ | P2 | ✅ Done |
-| S-022 EffectHolder.Tick 스레드 안전성 | P2 | ⬜ RESERVE에서 승격 |
+| ~~S-022~~ | P2 | ✅ Done (APPROVE) |
 | S-026 NPC 이동 재개 실패 | P2 | ⬜ RESERVE에서 승격 |
-| S-014 Projectile 풀링 검증 | P2 | ⬜ RESERVE에서 승격 |
-| S-015 WorldMapGenerator null 방어 | P2 | ⬜ RESERVE에서 승격 |
+| ~~S-014~~ | P2 | ✅ Done |
+| ~~S-015~~ | P2 | ✅ Done |

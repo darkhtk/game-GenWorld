@@ -1,7 +1,7 @@
 # DEVELOPER Loop Log
 
 **Last run:** 2026-04-03
-**Status:** S-023, S-026 In Review 대기
+**Status:** S-023, S-025, S-026 In Review 대기 — RESERVE 소진 임박
 
 ## Loop Result
 - Build errors: 0
@@ -9,16 +9,22 @@
 - Discussions: N/A
 - NEEDS_WORK (active): 0
 
-## 이번 루프 추가 구현
+## 이번 루프 추가 작업
 
+### 코드 변경
 | 태스크 | 파일 | 내용 |
 |--------|------|------|
-| S-023 | RegionTracker.cs | _regions null/empty 배열 체크 |
-| S-026 | GameManager.cs | TryInteractNPC에서 dlg null 시 NPC.ResumeMoving + player.Frozen=false |
+| S-025 | DialogueCameraZoom.cs | OnDisable에서 줌 강제 원복 |
 
-### specs 참조: N
+### 검증 완료 (코드 변경 불필요)
+| 태스크 | 결과 |
+|--------|------|
+| S-013 DamageText 풀링 | 정상 — 풀링+반환 올바름 |
+| S-014 Projectile 풀링 | 정상 — null 체크+반환 올바름 |
+| S-015 WorldMapGenerator | 이미 null+bounds 체크 존재 |
+| S-016 SkillSystem 쿨다운 | ms 단위 일관 (JSON=ms, nowMs=ms) |
+| S-024 ComboSystem 타이머 | float 정밀도 충분 |
 
-## RESERVE 남은 P2 태스크
-- S-006 GameManager 분할 (리팩토링 — stabilize 방향에서 보류)
-- S-013, S-014, S-015, S-016 (풀링/null/동기화 검증)
-- S-024, S-025 (P3)
+## RESERVE 잔여
+- S-006 GameManager 리팩토링 (보류 — stabilize 방향)
+- S-021 테스트 커버리지 확장 (P3)

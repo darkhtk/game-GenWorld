@@ -35,6 +35,15 @@ public class DialogueCameraZoom : MonoBehaviour
         _zooming = true;
     }
 
+    void OnDisable()
+    {
+        if (_cam != null && _zooming)
+        {
+            _cam.orthographicSize = _originalSize;
+            _zooming = false;
+        }
+    }
+
     void Update()
     {
         if (!_zooming || _cam == null) return;
