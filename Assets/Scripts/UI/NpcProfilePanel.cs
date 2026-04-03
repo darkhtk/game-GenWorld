@@ -76,7 +76,7 @@ public class NpcProfilePanel : MonoBehaviour
         foreach (string mem in memories)
         {
             var entry = Instantiate(memoryEntryPrefab, memoriesContent);
-            entry.text = $"\u2022 {mem}";
+            entry.text = $"<color=#6677aa>\u2022</color> {mem}";
             entry.color = new Color(0.75f, 0.75f, 0.85f);
             entry.gameObject.SetActive(true);
             _memoryEntries.Add(entry.gameObject);

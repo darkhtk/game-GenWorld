@@ -648,7 +648,11 @@ public class HUD : MonoBehaviour
                     _effectIconImages[i].color = Color.white;
                 }
                 float remaining = (info.expires - nowMs) / 1000f;
-                if (_effectTimerTexts[i] != null) _effectTimerTexts[i].text = $"{remaining:F0}s";
+                if (_effectTimerTexts[i] != null)
+                {
+                    string timerColor = remaining <= 2f ? "#ff6666" : remaining <= 5f ? "#ffdd44" : "#aaddff";
+                    _effectTimerTexts[i].text = $"<color={timerColor}>{remaining:F0}s</color>";
+                }
                 if (_effectFillImages[i] != null && info.totalDuration > 0)
                     _effectFillImages[i].fillAmount = Mathf.Clamp01((info.expires - nowMs) / info.totalDuration);
             }

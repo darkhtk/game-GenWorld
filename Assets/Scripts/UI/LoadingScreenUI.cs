@@ -24,7 +24,7 @@ public class LoadingScreenUI : MonoBehaviour
     public void SetProgress(float progress, string status = null)
     {
         if (progressBar != null) progressBar.fillAmount = Mathf.Clamp01(progress);
-        if (percentText != null) percentText.text = $"{Mathf.RoundToInt(progress * 100)}%";
+        if (percentText != null) percentText.text = $"<color=#aaddff>{Mathf.RoundToInt(progress * 100)}%</color>";
         if (statusText != null && !string.IsNullOrEmpty(status)) statusText.text = status;
     }
 
