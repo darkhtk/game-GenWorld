@@ -225,10 +225,10 @@ public class EnhanceUI : MonoBehaviour
         if (confirmText != null)
         {
             confirmText.color = Color.white;
-            confirmText.text = $"Enhance <b>{itemName}</b> <color=#aaffaa>+{level}</color> \u2192 <color=#ffd900>+{level + 1}</color>?\n" +
-                $"<color=#66ff88>Success: {info.success * 100:F0}%</color>\n" +
-                $"<color=#ff4444>Destroy: {info.destroy * 100:F0}%</color>\n" +
-                $"Cost: <color=#ffd900>\u25c6 {info.gold:N0}G</color>";
+            confirmText.text = $"<color=#aaaaaa>Enhance</color> <b>{itemName}</b>  <color=#aaffaa>+{level}</color> \u2192 <color=#ffd900>+{level + 1}</color>\n" +
+                $"<color=#888888>Success</color> <color=#66ff88><b>{info.success * 100:F0}%</b></color>\n" +
+                $"<color=#888888>Destroy</color> <color=#ff4444><b>{info.destroy * 100:F0}%</b></color>\n" +
+                $"<color=#888888>Cost</color> <color=#ffd900><b>\u25c6 {info.gold:N0}G</b></color>";
         }
     }
 
