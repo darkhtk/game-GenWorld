@@ -223,6 +223,7 @@ public class EnhanceUI : MonoBehaviour
         if (confirmPopup != null) confirmPopup.SetActive(true);
         if (confirmText != null)
         {
+            confirmText.color = Color.white;
             confirmText.text = $"Enhance <b>{itemName}</b> <color=#aaffaa>+{level}</color> \u2192 <color=#ffd900>+{level + 1}</color>?\n" +
                 $"<color=#66ff88>Success: {info.success * 100:F0}%</color>\n" +
                 $"<color=#ff4444>Destroy: {info.destroy * 100:F0}%</color>\n" +
