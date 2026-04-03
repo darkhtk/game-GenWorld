@@ -180,7 +180,7 @@ public class QuestUI : MonoBehaviour
         if (texts.Length > 3 && quest.rewards != null)
         {
             var rewardLines = new List<string>();
-            if (quest.rewards.gold > 0) rewardLines.Add($"<color=#ffd900>\u25c6 {quest.rewards.gold:N0}G</color>");
+            if (quest.rewards.gold > 0) rewardLines.Add($"<color=#ffd900>\u25c6 <b>{quest.rewards.gold:N0}</b>G</color>");
             if (quest.rewards.xp > 0) rewardLines.Add($"<color=#aaffaa>\u25b8 {quest.rewards.xp} XP</color>");
             if (quest.rewards.items != null)
             {

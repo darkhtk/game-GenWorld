@@ -375,7 +375,7 @@ public class HUD : MonoBehaviour
         if (goldText != null)
         {
             goldText.color = Color.white;
-            goldText.text = $"<color=#ffd900>\u25c6 {amount:N0}G</color>";
+            goldText.text = $"<color=#ffd900>\u25c6 <b>{amount:N0}</b>G</color>";
         }
     }
 

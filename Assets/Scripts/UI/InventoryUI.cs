@@ -166,7 +166,7 @@ public class InventoryUI : MonoBehaviour
         if (levelGoldText != null)
         {
             levelGoldText.color = Color.white;
-            levelGoldText.text = $"<color=#99ff99>Lv.<b>{gm.PlayerState.Level}</b></color>  <color=#ffd900>\u25c6 {gm.PlayerState.Gold:N0}G</color>";
+            levelGoldText.text = $"<color=#99ff99>Lv.<b>{gm.PlayerState.Level}</b></color>  <color=#ffd900>\u25c6 <b>{gm.PlayerState.Gold:N0}</b>G</color>";
         }
     }
 

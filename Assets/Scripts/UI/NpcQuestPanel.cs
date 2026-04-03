@@ -94,7 +94,7 @@ public class NpcQuestPanel : MonoBehaviour
             var lines = new List<string>();
             if (quest.rewards != null)
             {
-                if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 {quest.rewards.gold:N0}G</color>");
+                if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 <b>{quest.rewards.gold:N0}</b>G</color>");
                 if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>\u25b8 {quest.rewards.xp} XP</color>");
                 if (quest.rewards.items != null)
                 {

@@ -105,7 +105,7 @@ public class EnhanceUI : MonoBehaviour
         if (_equipment == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>"; }
+        if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 <b>{gold:N0}</b>G</color>"; }
 
         for (int i = 0; i < GameConfig.EquipSlots.Length; i++)
         {
@@ -182,7 +182,7 @@ public class EnhanceUI : MonoBehaviour
             {
                 float succ = info.success;
                 string succColor = succ >= 0.7f ? "#66ff88" : succ >= 0.4f ? "#ffdd44" : "#ff6666";
-                string costPart = $"<color=#ffd900>\u25c6 {cost:N0}G</color>";
+                string costPart = $"<color=#ffd900>\u25c6 <b>{cost:N0}</b>G</color>";
                 string succPart = $"<color={succColor}>{succ * 100:F0}%</color>";
                 string destPart = info.destroy > 0
                     ? $" | <color=#ff5555>{info.destroy * 100:F0}% lose</color>" : "";

@@ -75,7 +75,7 @@ public class ShopUI : MonoBehaviour
         if (_itemDefs == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>"; }
+        if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 <b>{gold:N0}</b>G</color>"; }
 
         foreach (var kv in _itemDefs)
         {
@@ -109,7 +109,7 @@ public class ShopUI : MonoBehaviour
         if (texts.Length > 1)
         {
             string priceColor = canAfford ? "#ffd900" : "#885500";
-            texts[1].text = $"<color={priceColor}>\u25c6 {def.shopPrice:N0}G</color>";
+            texts[1].text = $"<color={priceColor}>\u25c6 <b>{def.shopPrice:N0}</b>G</color>";
             texts[1].color = Color.white;
         }
 
