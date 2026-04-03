@@ -118,6 +118,7 @@
 | 106 | S-046 MonsterSpawner 리전 전환 클린업 | P2 | 👀 | In Review |
 | 107 | S-047 DialogueSystem 동시 대화 방지 | P2 | 👀 | In Review |
 | 108 | S-048 SkillSystem 데이터 무결성 | P2 | 👀 | In Review |
+| 109 | S-050 InputSystem UI/게임 입력 분리 | P2 | 👀 | In Review |
 
 ---
 
@@ -140,6 +141,7 @@
 | S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | ⏳ | ClearAllMonsters + SpawnForRegion 진입부 호출 |
 | S-047 DialogueSystem 동시 대화 방지 | 2026-04-03 | ⏳ | _inDialogue 가드 추가 |
 | S-048 SkillSystem 데이터 무결성 | 2026-04-03 | ⏳ | ValidateSkills + LoadSkills null id 스킵 |
+| S-050 InputSystem UI/게임 입력 분리 | 2026-04-03 | ⏳ | IsInputBlocked + GameManager 가드 |
 
 ## ✅ Done
 

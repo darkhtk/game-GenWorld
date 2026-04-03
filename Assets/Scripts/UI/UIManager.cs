@@ -83,4 +83,6 @@ public class UIManager : MonoBehaviour
             || (skillTree != null && skillTree.IsOpen)
             || (quest != null && quest.IsOpen);
     }
+
+    public bool IsInputBlocked() => _dialogueOpen || IsAnyPanelOpen();
 }

@@ -138,10 +138,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        combatManager.PerformAutoAttack(monsters);
-        combatManager.HandleMonsterAttacks(monsters, nowMs);
-        HandleSkillInput();
+        bool inputBlocked = uiManager != null && uiManager.IsInputBlocked();
 
+        if (!inputBlocked)
+        {
+            combatManager.PerformAutoAttack(monsters);
+            HandleSkillInput();
+            if (Input.GetKeyDown(KeyCode.F))
+                _dialogue.TryInteract();
+        }
+
+        combatManager.HandleMonsterAttacks(monsters, nowMs);
         PlayerEffects.Tick(nowMs);
         RegenHp();
         RefreshHud();
@@ -149,9 +156,6 @@ public class GameManager : MonoBehaviour
 
         RegionTracker.UpdatePlayerRegion(playerPos.x, playerPos.y);
         HandleRegionTransition();
-
-        if (Input.GetKeyDown(KeyCode.F))
-            _dialogue.TryInteract();
     }
 
     const float MinZoom = 4f;
