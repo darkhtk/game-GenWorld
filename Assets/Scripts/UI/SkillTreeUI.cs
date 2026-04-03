@@ -206,9 +206,14 @@ public class SkillRowUI : MonoBehaviour
     public void Setup(SkillDef def, Color treeColor, Sprite icon = null)
     {
         _skillId = def.id;
+
+        // Fallback: find components if SerializeFields not wired
+        if (nameText == null) nameText = GetComponentInChildren<TextMeshProUGUI>();
+        if (iconImage == null) iconImage = GetComponentInChildren<Image>();
+
         if (nameText != null) { nameText.text = def.name; nameText.color = treeColor; }
         if (descText != null) descText.text = def.description ?? "";
-        if (iconImage != null && icon != null) iconImage.sprite = icon;
+        if (iconImage != null && icon != null) { iconImage.sprite = icon; iconImage.color = Color.white; }
 
         if (learnButton != null)
             learnButton.onClick.AddListener(() => OnLearnClicked?.Invoke(_skillId));

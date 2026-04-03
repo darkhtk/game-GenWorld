@@ -550,10 +550,13 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (enhanceText != null)
             enhanceText.text = enhanceLevel > 0 ? $"+{enhanceLevel}" : "";
         if (borderImage != null) borderImage.color = gradeColor;
-        if (iconImage != null && !string.IsNullOrEmpty(icon))
+        if (iconImage != null)
         {
-            var sprite = Resources.Load<Sprite>($"Sprites/Items/{icon}");
-            if (sprite != null) { iconImage.sprite = sprite; iconImage.enabled = true; }
+            Sprite sprite = null;
+            if (!string.IsNullOrEmpty(icon))
+                sprite = Resources.Load<Sprite>($"Sprites/Items/{icon}");
+            if (sprite != null) { iconImage.sprite = sprite; iconImage.color = Color.white; iconImage.enabled = true; }
+            else { iconImage.sprite = null; iconImage.enabled = false; }
         }
         if (gradeFrameImage != null && !string.IsNullOrEmpty(grade))
         {
