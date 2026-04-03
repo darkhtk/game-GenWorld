@@ -24,8 +24,14 @@ public class LoadingScreenUI : MonoBehaviour
     public void SetProgress(float progress, string status = null)
     {
         if (progressBar != null) progressBar.fillAmount = Mathf.Clamp01(progress);
-        if (percentText != null) percentText.text = $"<color=#aaddff>{Mathf.RoundToInt(progress * 100)}%</color>";
-        if (statusText != null && !string.IsNullOrEmpty(status)) statusText.text = status;
+        if (percentText != null)
+        {
+            percentText.color = Color.white;
+            int pct = Mathf.RoundToInt(progress * 100);
+            string pctColor = pct >= 100 ? "#66ff66" : pct >= 50 ? "#aaddff" : "#6699aa";
+            percentText.text = $"<color={pctColor}>{pct}%</color>";
+        }
+        if (statusText != null && !string.IsNullOrEmpty(status)) { statusText.color = Color.white; statusText.text = status; }
     }
 
     public IEnumerator SimulateLoading(string[] steps)
