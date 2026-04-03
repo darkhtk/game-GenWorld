@@ -20,7 +20,10 @@ public class DialogueController
     readonly List<DialogueEntry> _dialogueHistory = new();
     VillageNPC _dialogueNpc;
     bool _dialogueGenerating;
+    bool _inDialogue;
     Dictionary<string, string> _loreCache;
+
+    public bool InDialogue => _inDialogue;
 
     public DialogueController(MonoBehaviour host, PlayerController player, UIManager uiManager,
         AIManager ai, QuestSystem quests, InventorySystem inventory, DataManager data,
@@ -74,6 +77,7 @@ public class DialogueController
 
     public void TryInteract()
     {
+        if (_inDialogue) return;
         Vector2 pp = _player.Position;
         VillageNPC nearest = null;
         float bestDist = float.MaxValue;
@@ -89,6 +93,7 @@ public class DialogueController
         }
         if (nearest == null) return;
 
+        _inDialogue = true;
         nearest.StopMoving();
         _player.Frozen = true;
         _uiManager.SetDialogueOpen(true);
@@ -103,6 +108,7 @@ public class DialogueController
             _player.Frozen = false;
             _uiManager.SetDialogueOpen(false);
             _dialogueNpc = null;
+            _inDialogue = false;
             return;
         }
 
@@ -135,6 +141,7 @@ public class DialogueController
             EventBus.Emit(new DialogueEndEvent { npcId = capturedNpc.Def.id, turns = turns });
             _dialogueNpc = null;
             _dialogueGenerating = false;
+            _inDialogue = false;
         };
 
         if (conditional == null)

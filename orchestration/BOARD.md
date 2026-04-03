@@ -116,6 +116,7 @@
 | 104 | S-044 장비 교체 시 스탯 복원 | P2 | ✅ | Supervisor 감사 — 버그 없음 확인 |
 | 105 | S-045 QuestSystem 진행률 저장 | P2 | 👀 | In Review |
 | 106 | S-046 MonsterSpawner 리전 전환 클린업 | P2 | 👀 | In Review |
+| 107 | S-047 DialogueSystem 동시 대화 방지 | P2 | 👀 | In Review |
 
 ---
 
@@ -136,6 +137,7 @@
 |--------|--------|------|------|
 | S-045 QuestSystem 진행률 저장 | 2026-04-03 | ⏳ | killProgress 직렬화/복원 추가 |
 | S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | ⏳ | ClearAllMonsters + SpawnForRegion 진입부 호출 |
+| S-047 DialogueSystem 동시 대화 방지 | 2026-04-03 | ⏳ | _inDialogue 가드 추가 |
 
 ## ✅ Done
 
