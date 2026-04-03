@@ -76,8 +76,8 @@ public class NpcProfilePanel : MonoBehaviour
         foreach (string mem in memories)
         {
             var entry = Instantiate(memoryEntryPrefab, memoriesContent);
-            entry.text = $"<color=#6677aa>\u2022</color> {mem}";
-            entry.color = new Color(0.75f, 0.75f, 0.85f);
+            entry.text = $"<color=#6677aa>\u2022</color> <color=#bbbbcc>{mem}</color>";
+            entry.color = Color.white;
             var fitter = entry.GetComponent<UnityEngine.UI.ContentSizeFitter>();
             if (fitter == null) fitter = entry.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
             fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
