@@ -356,15 +356,17 @@ public class InventoryUI : MonoBehaviour
 
         if (compareNewName != null)
         {
-            compareNewName.text = newDef.name;
-            compareNewName.color = GameConfig.GetGradeColor(newDef.GradeEnum);
+            string hex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(newDef.GradeEnum));
+            compareNewName.text = $"<b><color={hex}>{newDef.name}</color></b>";
+            compareNewName.color = Color.white;
         }
         if (compareCurrentName != null)
         {
             if (currentDef != null)
             {
-                compareCurrentName.text = currentDef.name;
-                compareCurrentName.color = GameConfig.GetGradeColor(currentDef.GradeEnum);
+                string hex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(currentDef.GradeEnum));
+                compareCurrentName.text = $"<b><color={hex}>{currentDef.name}</color></b>";
+                compareCurrentName.color = Color.white;
             }
             else
             {
@@ -376,9 +378,9 @@ public class InventoryUI : MonoBehaviour
         var newS = newDef.stats ?? new ItemStats();
         var curS = currentDef?.stats ?? new ItemStats();
 
-        if (compareNewStats != null) compareNewStats.text = FormatStats(newS);
-        if (compareCurrentStats != null) compareCurrentStats.text = FormatStats(curS);
-        if (compareDiffStats != null) compareDiffStats.text = FormatDiff(newS, curS);
+        if (compareNewStats != null) { compareNewStats.color = Color.white; compareNewStats.text = FormatStats(newS); }
+        if (compareCurrentStats != null) { compareCurrentStats.color = Color.white; compareCurrentStats.text = FormatStats(curS); }
+        if (compareDiffStats != null) { compareDiffStats.color = Color.white; compareDiffStats.text = FormatDiff(newS, curS); }
     }
 
     void ConfirmEquip()
@@ -502,17 +504,20 @@ public class InventoryUI : MonoBehaviour
         bool hasPoints = points > 0;
 
         if (statPointsText != null)
+        {
+            statPointsText.color = Color.white;
             statPointsText.text = hasPoints ? $"<color=#ffdd44>SP: {points}</color>" : "";
+        }
 
         int strVal = bonus != null && bonus.TryGetValue("str", out int s) ? s : 0;
         int dexVal = bonus != null && bonus.TryGetValue("dex", out int d) ? d : 0;
         int wisVal = bonus != null && bonus.TryGetValue("wis", out int w) ? w : 0;
         int lucVal = bonus != null && bonus.TryGetValue("luc", out int l) ? l : 0;
 
-        if (strText != null) strText.text = $"<color=#ff9955>STR {strVal}</color>  <color=#888888>ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}</color>";
-        if (dexText != null) dexText.text = $"<color=#55ddff>DEX {dexVal}</color>  <color=#888888>SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}</color>";
-        if (wisText != null) wisText.text = $"<color=#aa77ff>WIS {wisVal}</color>  <color=#888888>MP+{wisVal * GameConfig.WisMpBonus:F0}</color>";
-        if (lucText != null) lucText.text = $"<color=#ffdd44>LUC {lucVal}</color>  <color=#888888>CRIT+{lucVal * GameConfig.LucCritBonus:F0}</color>";
+        if (strText != null) { strText.color = Color.white; strText.text = $"<color=#ff9955>STR {strVal}</color>  <color=#888888>ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}</color>"; }
+        if (dexText != null) { dexText.color = Color.white; dexText.text = $"<color=#55ddff>DEX {dexVal}</color>  <color=#888888>SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}</color>"; }
+        if (wisText != null) { wisText.color = Color.white; wisText.text = $"<color=#aa77ff>WIS {wisVal}</color>  <color=#888888>MP+{wisVal * GameConfig.WisMpBonus:F0}</color>"; }
+        if (lucText != null) { lucText.color = Color.white; lucText.text = $"<color=#ffdd44>LUC {lucVal}</color>  <color=#888888>CRIT+{lucVal * GameConfig.LucCritBonus:F0}</color>"; }
 
         if (strAddButton != null) strAddButton.gameObject.SetActive(hasPoints);
         if (dexAddButton != null) dexAddButton.gameObject.SetActive(hasPoints);

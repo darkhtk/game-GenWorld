@@ -108,8 +108,9 @@ public class ShopUI : MonoBehaviour
 
         if (texts.Length > 1)
         {
-            texts[1].text = $"{def.shopPrice:N0}G";
-            texts[1].color = canAfford ? new Color(1f, 0.85f, 0.2f) : new Color(0.6f, 0.5f, 0.2f);
+            string priceColor = canAfford ? "#ffd900" : "#885500";
+            texts[1].text = $"<color={priceColor}>\u25c6 {def.shopPrice:N0}G</color>";
+            texts[1].color = Color.white;
         }
 
         var btn = go.GetComponent<Button>();

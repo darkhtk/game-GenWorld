@@ -323,8 +323,8 @@ public class HUD : MonoBehaviour
             }
         }
 
-        if (hpText != null) hpText.text = $"<color=#ff6666>{hp}</color><color=#aaaaaa>/{maxHp}</color>";
-        if (mpText != null) mpText.text = $"<color=#6699ff>{mp}</color><color=#aaaaaa>/{maxMp}</color>";
+        if (hpText != null) { hpText.color = Color.white; hpText.text = $"<color=#ff6666>{hp}</color><color=#aaaaaa>/{maxHp}</color>"; }
+        if (mpText != null) { mpText.color = Color.white; mpText.text = $"<color=#6699ff>{mp}</color><color=#aaaaaa>/{maxMp}</color>"; }
     }
 
     public void UpdateXpBar(int currentXp, int totalXp)
@@ -373,13 +373,19 @@ public class HUD : MonoBehaviour
     public void UpdateGold(int amount)
     {
         if (goldText != null)
-            goldText.text = $"<color=#ffd900>{amount:N0}G</color>";
+        {
+            goldText.color = Color.white;
+            goldText.text = $"<color=#ffd900>\u25c6 {amount:N0}G</color>";
+        }
     }
 
     public void UpdateRegion(string regionName)
     {
         if (regionText != null)
-            regionText.text = regionName;
+        {
+            regionText.color = Color.white;
+            regionText.text = $"<color=#aaddff>{regionName}</color>";
+        }
         ShowRegionAnnounce(regionName);
     }
 
@@ -412,12 +418,12 @@ public class HUD : MonoBehaviour
 
     public void UpdateLevel(int level, int skillPoints, int statPoints)
     {
-        if (levelText != null)
-            levelText.text = $"<color=#99ff99>Lv.{level}</color>";
+        if (levelText != null) { levelText.color = Color.white; levelText.text = $"<color=#99ff99>Lv.{level}</color>"; }
         if (statPointsText != null)
         {
             string sp = skillPoints > 0 ? $"<color=#88aaff>SK:{skillPoints}</color>" : "";
             string st = statPoints > 0 ? $"<color=#ffdd44>SP:{statPoints}</color>" : "";
+            statPointsText.color = Color.white;
             statPointsText.text = $"{sp} {st}".Trim();
         }
     }
@@ -463,6 +469,7 @@ public class HUD : MonoBehaviour
         if (durationMs > 0)
         {
             float seconds = durationMs / 1000f;
+            skillBuffTexts[slotIndex].color = Color.white;
             skillBuffTexts[slotIndex].text = $"<color=#ffdd44>{seconds:F0}s</color>";
             skillBuffTexts[slotIndex].gameObject.SetActive(true);
         }
@@ -476,8 +483,8 @@ public class HUD : MonoBehaviour
     {
         if (bossBarRoot == null) return;
         bossBarRoot.SetActive(true);
-        if (bossNameText != null) bossNameText.text = $"<color=#ff4444>{bossName}</color>";
-        if (bossHpText != null) bossHpText.text = $"<color=#ff6666>{health}</color><color=#888888>/{maxHealth}</color>";
+        if (bossNameText != null) { bossNameText.color = Color.white; bossNameText.text = $"<b><color=#ff4444>{bossName}</color></b>"; }
+        if (bossHpText != null) { bossHpText.color = Color.white; bossHpText.text = $"<color=#ff6666>{health}</color><color=#888888>/{maxHealth}</color>"; }
         if (bossFill != null)
             bossFill.fillAmount = maxHealth > 0 ? (float)health / maxHealth : 0f;
     }
@@ -672,6 +679,7 @@ public class HUD : MonoBehaviour
                 if (_effectTimerTexts[i] != null)
                 {
                     string timerColor = remaining <= 2f ? "#ff6666" : remaining <= 5f ? "#ffdd44" : "#aaddff";
+                    _effectTimerTexts[i].color = Color.white;
                     _effectTimerTexts[i].text = $"<color={timerColor}>{remaining:F0}s</color>";
                 }
                 if (_effectFillImages[i] != null && info.totalDuration > 0)
