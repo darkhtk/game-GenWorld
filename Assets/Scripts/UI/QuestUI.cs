@@ -216,7 +216,7 @@ public class QuestUI : MonoBehaviour
                 foreach (var d in defs)
                     if (d.id == questId) { title = d.title; break; }
             }
-            texts[0].text = $"<color=#66ff66>\u2713 {title}</color>";
+            texts[0].text = $"<color=#66ff66><b>\u2713</b></color> <color=#99ff99><b>{title}</b></color>";
             texts[0].color = Color.white;
         }
         for (int i = 1; i < texts.Length; i++)
