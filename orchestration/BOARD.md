@@ -91,7 +91,7 @@
 | 79 | S-012 AudioManager null 방어 | P2 | ✅ | 이미 ?./!=null 체크 완비 확인 |
 | 80 | S-022 EffectHolder.Tick 안전성 | P2 | ✅ | REVIEW-S022-v1 ✅ APPROVE |
 | 81 | S-023 RegionTracker 경계 조건 | P2 | ✅ | REVIEW-S023-v1 |
-| 82 | S-026 NPC 이동 재개 실패 | P2 | 👀 | v2 재제출 — REVIEW-S026-v1 수정 |
+| 82 | S-026 NPC 이동 재개 실패 | P2 | ✅ | REVIEW-S026-v2 |
 | 83 | S-013 DamageText 풀링 검증 | P2 | ✅ | OnDisable 풀 반환 + _inUse 이중반환 방지 |
 | 84 | S-014 Projectile 풀링 검증 | P2 | ✅ | 버그 없음 — null 체크+반환 확인 |
 | 85 | S-015 WorldMapGenerator null 방어 | P2 | ✅ | Generate null/empty regions 가드 추가 |
@@ -105,6 +105,8 @@
 | 93 | S-032 TimeSystem 일시정지 | P2 | ✅ | Time.deltaTime 기반 자동 정지 |
 | 94 | S-034 DialogueSystem 선택지 | P2 | ✅ | foreach 기반, 인덱스 접근 없음 |
 | 95 | S-037 BuffSystem 만료 | P2 | ✅ | EffectHolder.Tick 만료 제거 정상 |
+| 96 | S-027 중복 스폰 | P2 | ✅ | cosmetic only |
+| 97 | S-028 자동 백업 | P2 | ✅ | S-001에서 구현됨 |
 
 ---
 
@@ -123,7 +125,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-026 NPC 이동 재개 v2 | 2026-04-03 | ✅ APPROVE | REVIEW-S026-v2 |
 
 ## ✅ Done
 
@@ -226,6 +227,7 @@
 | S-032 TimeSystem 일시정지 | 2026-04-03 | Time.deltaTime 기반 자동 정지 ✅ |
 | S-034 DialogueSystem 선택지 | 2026-04-03 | foreach 기반, 인덱스 접근 없음 ✅ |
 | S-037 BuffSystem 만료 | 2026-04-03 | EffectHolder.Tick 만료 제거 정상 ✅ |
+| S-026 NPC 이동 재개 v2 | 2026-04-03 | REVIEW-S026-v2 ✅ |
 
 ## 📋 Backlog
 
@@ -234,7 +236,7 @@
 | ~~S-004~~ | P1 | ✅ Done |
 | ~~S-008~~ | P2 | ✅ Done |
 | ~~S-022~~ | P2 | ✅ Done (APPROVE) |
-| S-026 NPC 이동 재개 실패 | P2 | 👀 v2 In Review |
+| ~~S-026~~ | P2 | ✅ Done (v2 APPROVE) |
 | ~~S-014~~ | P2 | ✅ Done |
 | ~~S-015~~ | P2 | ✅ Done |
 | ~~S-023~~ | P2 | ✅ Done (APPROVE) |
