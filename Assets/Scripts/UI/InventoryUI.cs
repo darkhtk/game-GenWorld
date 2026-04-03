@@ -117,7 +117,7 @@ public class InventoryUI : MonoBehaviour
         if (sortModeText != null)
         {
             sortModeText.color = Color.white;
-            sortModeText.text = $"<color=#666666>\u21c5</color> <color=#aaddff>{SortModeNames[_currentSortMode]}</color>";
+            sortModeText.text = $"<color=#666666>\u21c5</color> <color=#aaddff><b>{SortModeNames[_currentSortMode]}</b></color>";
         }
 
         if (strAddButton != null) strAddButton.onClick.AddListener(() => AllocateStat("str"));
@@ -458,7 +458,7 @@ public class InventoryUI : MonoBehaviour
     void CycleSortMode()
     {
         _currentSortMode = (_currentSortMode + 1) % SortModeNames.Length;
-        if (sortModeText != null) { sortModeText.color = Color.white; sortModeText.text = $"<color=#666666>\u21c5</color> <color=#aaddff>{SortModeNames[_currentSortMode]}</color>"; }
+        if (sortModeText != null) { sortModeText.color = Color.white; sortModeText.text = $"<color=#666666>\u21c5</color> <color=#aaddff><b>{SortModeNames[_currentSortMode]}</b></color>"; }
         AudioManager.Instance?.PlaySFX("sfx_click");
         Refresh();
     }
