@@ -106,7 +106,7 @@ public class TooltipUI : MonoBehaviour
             if (skill.cooldown > 0) lines.Add($"<color=#cccccc>CD: {skill.cooldown / 1000f:F1}s</color>");
             if (skill.range > 0) lines.Add($"<color=#aaddff>Range: {skill.range:F0}</color>");
             if (skill.aoe > 0) lines.Add($"<color=#ffcc44>AoE: {skill.aoe:F0}</color>");
-            _instance.statsText.text = string.Join("\n", lines);
+            _instance.statsText.text = string.Join("  ", lines);
         }
 
         if (_instance.gradeBar != null)
