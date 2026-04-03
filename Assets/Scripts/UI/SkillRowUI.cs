@@ -98,6 +98,7 @@ public class SkillRowUI : MonoBehaviour
                 backgroundImage.sprite = isMaxed || isLearned ? nodeLearned
                     : canLearn ? nodeAvailable
                     : nodeLocked;
+                backgroundImage.type = UnityEngine.UI.Image.Type.Sliced;
             }
         }
     }

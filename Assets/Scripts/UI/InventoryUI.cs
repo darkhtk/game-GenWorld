@@ -297,15 +297,15 @@ public class InventoryUI : MonoBehaviour
             var lines = new List<string>();
             var s = def.stats;
             int enh = inst.enhanceLevel * GameConfig.EnhanceBonusPerLevel;
-            if (s.atk > 0) lines.Add($"ATK +{s.atk + enh}");
-            if (s.def > 0) lines.Add($"DEF +{s.def + enh}");
-            if (s.maxHp > 0) lines.Add($"HP +{s.maxHp + enh}");
-            if (s.maxMp > 0) lines.Add($"MP +{s.maxMp + enh}");
-            if (s.spd > 0) lines.Add($"SPD +{s.spd}");
-            if (s.crit > 0) lines.Add($"CRIT +{s.crit}");
-            if (inst.enhanceLevel > 0) lines.Add($"Enhanced +{inst.enhanceLevel}");
-            if (def.healHp > 0) lines.Add($"Heal HP {def.healHp}");
-            if (def.healMp > 0) lines.Add($"Heal MP {def.healMp}");
+            if (s.atk > 0) lines.Add($"<color=#ff9933>ATK +{s.atk + enh}</color>");
+            if (s.def > 0) lines.Add($"<color=#4499ff>DEF +{s.def + enh}</color>");
+            if (s.maxHp > 0) lines.Add($"<color=#ff5555>HP +{s.maxHp + enh}</color>");
+            if (s.maxMp > 0) lines.Add($"<color=#6677ff>MP +{s.maxMp + enh}</color>");
+            if (s.spd > 0) lines.Add($"<color=#44dd77>SPD +{s.spd}</color>");
+            if (s.crit > 0) lines.Add($"<color=#ffd900>CRIT +{s.crit}%</color>");
+            if (inst.enhanceLevel > 0) lines.Add($"<color=#ffd900>Enhanced +{inst.enhanceLevel}</color>");
+            if (def.healHp > 0) lines.Add($"<color=#66ff88>Heal HP {def.healHp}</color>");
+            if (def.healMp > 0) lines.Add($"<color=#88aaff>Heal MP {def.healMp}</color>");
             tooltipStats.text = string.Join("\n", lines);
         }
 
@@ -368,12 +368,12 @@ public class InventoryUI : MonoBehaviour
     static string FormatStats(ItemStats s)
     {
         var lines = new System.Text.StringBuilder();
-        if (s.atk > 0) lines.AppendLine($"ATK: {s.atk}");
-        if (s.def > 0) lines.AppendLine($"DEF: {s.def}");
-        if (s.maxHp > 0) lines.AppendLine($"HP: {s.maxHp}");
-        if (s.maxMp > 0) lines.AppendLine($"MP: {s.maxMp}");
-        if (s.spd > 0) lines.AppendLine($"SPD: {s.spd}");
-        if (s.crit > 0) lines.AppendLine($"CRIT: {s.crit}%");
+        if (s.atk > 0) lines.AppendLine($"<color=#ff9933>ATK: {s.atk}</color>");
+        if (s.def > 0) lines.AppendLine($"<color=#4499ff>DEF: {s.def}</color>");
+        if (s.maxHp > 0) lines.AppendLine($"<color=#ff5555>HP: {s.maxHp}</color>");
+        if (s.maxMp > 0) lines.AppendLine($"<color=#6677ff>MP: {s.maxMp}</color>");
+        if (s.spd > 0) lines.AppendLine($"<color=#44dd77>SPD: {s.spd}</color>");
+        if (s.crit > 0) lines.AppendLine($"<color=#ffd900>CRIT: {s.crit}%</color>");
         return lines.ToString().TrimEnd();
     }
 
@@ -522,8 +522,8 @@ public class EquipSlotUI : MonoBehaviour
 
     public void Clear()
     {
-        if (nameText != null) { nameText.text = ""; nameText.color = Color.gray; }
-        if (borderImage != null) borderImage.color = Color.gray;
+        if (nameText != null) { nameText.text = "<color=#666666>(empty)</color>"; nameText.color = Color.white; }
+        if (borderImage != null) borderImage.color = new Color(0.3f, 0.3f, 0.3f, 0.6f);
         if (unequipButton != null) unequipButton.gameObject.SetActive(false);
     }
 }
