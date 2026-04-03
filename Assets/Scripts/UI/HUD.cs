@@ -249,11 +249,10 @@ public class HUD : MonoBehaviour
         if (gm == null || gm.Skills == null || gm.PlayerEffects == null || gm.Data == null) return;
 
         float nowMs = Time.time * 1000f;
-        string[] equipped = gm.Skills.GetEquippedSkills();
 
         for (int i = 0; i < GameConfig.SkillSlotCount; i++)
         {
-            string skillId = i < equipped.Length ? equipped[i] : null;
+            string skillId = gm.Skills.GetEquippedSkill(i);
             if (string.IsNullOrEmpty(skillId) || !gm.Data.Skills.TryGetValue(skillId, out var def)
                 || string.IsNullOrEmpty(def.buffType))
             {

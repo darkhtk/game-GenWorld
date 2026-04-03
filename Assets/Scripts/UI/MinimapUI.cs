@@ -19,6 +19,12 @@ public class MinimapUI : MonoBehaviour
     readonly List<RectTransform> _monsterIcons = new();
     readonly List<RectTransform> _npcIcons = new();
 
+    PlayerController _cachedPlayer;
+    MonsterSpawner _cachedSpawner;
+    VillageNPC[] _cachedNpcs;
+    float _npcCacheTime;
+    const float NpcCacheInterval = 1f;
+
     int _mapWidth, _mapHeight;
 
     public void Init(bool[,] walkability, int width, int height)
@@ -72,11 +78,11 @@ public class MinimapUI : MonoBehaviour
         var gm = GameManager.Instance;
         if (gm == null) return;
 
-        var player = FindFirstObjectByType<PlayerController>();
-        if (player == null) return;
+        if (_cachedPlayer == null) _cachedPlayer = FindFirstObjectByType<PlayerController>();
+        if (_cachedPlayer == null) return;
 
-        float tileX = player.Position.x / GameConfig.TileSize;
-        float tileY = -player.Position.y / GameConfig.TileSize;
+        float tileX = _cachedPlayer.Position.x / GameConfig.TileSize;
+        float tileY = -_cachedPlayer.Position.y / GameConfig.TileSize;
 
         float uvW = _viewRadius * 2f / _mapWidth;
         float uvH = _viewRadius * 2f / _mapHeight;
@@ -94,11 +100,12 @@ public class MinimapUI : MonoBehaviour
         var gm = GameManager.Instance;
         if (gm == null || iconContainer == null) return;
 
-        var player = FindFirstObjectByType<PlayerController>();
-        if (player == null) return;
-        Vector2 playerPos = player.Position;
+        if (_cachedPlayer == null) _cachedPlayer = FindFirstObjectByType<PlayerController>();
+        if (_cachedPlayer == null) return;
+        Vector2 playerPos = _cachedPlayer.Position;
 
-        var monsters = gm.GetComponentInChildren<MonsterSpawner>()?.ActiveMonsters;
+        if (_cachedSpawner == null) _cachedSpawner = gm.GetComponentInChildren<MonsterSpawner>();
+        var monsters = _cachedSpawner?.ActiveMonsters;
         int mCount = 0;
         if (monsters != null)
         {
@@ -117,9 +124,13 @@ public class MinimapUI : MonoBehaviour
         for (int i = mCount; i < _monsterIcons.Count; i++)
             _monsterIcons[i].gameObject.SetActive(false);
 
-        var npcs = FindObjectsByType<VillageNPC>(FindObjectsSortMode.None);
+        if (_cachedNpcs == null || Time.time - _npcCacheTime > NpcCacheInterval)
+        {
+            _cachedNpcs = FindObjectsByType<VillageNPC>(FindObjectsSortMode.None);
+            _npcCacheTime = Time.time;
+        }
         int nCount = 0;
-        foreach (var npc in npcs)
+        foreach (var npc in _cachedNpcs)
         {
             float dist = Vector2.Distance(playerPos, npc.Position);
             if (dist > _viewRadius * GameConfig.TileSize) continue;

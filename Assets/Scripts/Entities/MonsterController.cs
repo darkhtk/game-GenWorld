@@ -83,9 +83,8 @@ public class MonsterController : MonoBehaviour
         if (Def.animationDef == null) return;
         var entry = Def.animationDef.GetEntry(stateName);
         if (entry == null || entry.clip == null) return;
-        // Future: trigger actual Animator state when Animator is attached
-        var animator = GetComponent<Animator>();
-        if (animator != null) animator.Play(stateName, 0, 0f);
+        if (!_animatorChecked) { _cachedAnimator = GetComponent<Animator>(); _animatorChecked = true; }
+        if (_cachedAnimator != null) _cachedAnimator.Play(stateName, 0, 0f);
     }
 
     public void UpdateAI(Vector2 playerPos, float now)
@@ -213,6 +212,8 @@ public class MonsterController : MonoBehaviour
     }
 
     SpriteRenderer _sr;
+    Animator _cachedAnimator;
+    bool _animatorChecked;
     Coroutine _flashCoroutine;
     static readonly Color HitTint = new(1f, 0.4f, 0.4f, 1f);
     static readonly WaitForSeconds FlashWait = new(0.1f);

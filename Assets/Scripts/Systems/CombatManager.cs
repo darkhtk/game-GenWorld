@@ -18,6 +18,15 @@ public class CombatManager : MonoBehaviour
     List<MonsterController> _cachedMonsters;
     List<MonsterController> _pendingKills;
 
+    // Cached delegates to avoid per-skill-use allocation
+    System.Func<MonsterController, float, bool, int, bool> _dealDmgDel;
+    System.Action<float, float, int, bool, Color?> _showDmgDel;
+    System.Action<float, float> _showEffectDel;
+    System.Action<MonsterController> _onKillDel;
+    static readonly System.Action<Stats> NoopRecalc = _ => { };
+    System.Action<float, float> _shakeCamDel;
+    System.Action<string, float, float> _applyEffectDel;
+
     // Set by Director after Init
     public SkillSystem Skills { get; set; }
     public PlayerStats PlayerState { get; set; }
@@ -34,6 +43,13 @@ public class CombatManager : MonoBehaviour
         _skillExecutor = new SkillExecutor();
         _actionRunner = new ActionRunner();
         _comboSystem = new ComboSystem();
+        _pendingKills ??= new List<MonsterController>();
+        _dealDmgDel = DealDamageToMonster;
+        _showDmgDel = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c);
+        _showEffectDel = (x, y) => SkillVFX.ShowAtPosition(this, x, y);
+        _onKillDel = m => _pendingKills?.Add(m);
+        _shakeCamDel = (d, i) => CameraShake.Shake(this, d, i);
+        _applyEffectDel = (type, expires, val) => _playerEffects.Apply(type, expires, val);
     }
 
     public void PerformAutoAttack(List<MonsterController> monsters)
@@ -264,13 +280,13 @@ public class CombatManager : MonoBehaviour
             angle = angle,
             targetX = tx,
             targetY = ty,
-            dealDamage = DealDamageToMonster,
-            showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
-            showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
-            onKill = m => _pendingKills?.Add(m),
-            recalcStats = s => { },
-            shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
-            applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
+            dealDamage = _dealDmgDel,
+            showDmg = _showDmgDel,
+            showEffect = _showEffectDel,
+            onKill = _onKillDel,
+            recalcStats = NoopRecalc,
+            shakeCamera = _shakeCamDel,
+            applyPlayerEffect = _applyEffectDel,
             healPlayer = amount =>
             {
                 if (PlayerState != null)
@@ -302,13 +318,13 @@ public class CombatManager : MonoBehaviour
             angle = angle,
             targetX = tx,
             targetY = ty,
-            dealDamage = DealDamageToMonster,
-            showDmg = (x, y, amt, crit, c) => ShowDamageNumber(new Vector2(x, y), amt, crit, c),
-            showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
-            onKill = m => _pendingKills?.Add(m),
-            recalcStats = s => { },
-            shakeCamera = (d, i) => CameraShake.Shake(this, d, i),
-            applyPlayerEffect = (type, expires, val) => _playerEffects.Apply(type, expires, val),
+            dealDamage = _dealDmgDel,
+            showDmg = _showDmgDel,
+            showEffect = _showEffectDel,
+            onKill = _onKillDel,
+            recalcStats = NoopRecalc,
+            shakeCamera = _shakeCamDel,
+            applyPlayerEffect = _applyEffectDel,
             healPlayer = amount =>
             {
                 if (PlayerState != null)

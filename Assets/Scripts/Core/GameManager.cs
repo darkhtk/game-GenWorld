@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     DialogueController _dialogue;
     SaveController _save;
     CombatRewardHandler _combatRewards;
+    Camera _cachedCam;
 
     void Awake()
     {
@@ -159,7 +160,8 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
-        var cam = Camera.main;
+        if (_cachedCam == null) _cachedCam = Camera.main;
+        var cam = _cachedCam;
         if (cam == null) return;
 
         if (player != null)
