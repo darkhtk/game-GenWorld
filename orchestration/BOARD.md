@@ -130,6 +130,17 @@
 | 118 | S-041 NPC 호감도 데이터 저장 | P3 | ✅ | 검증 완료 — 버그 없음, Restore clamp 방어 추가 |
 | 119 | S-049 ObjectPool 최대 크기 제한 | P3 | ✅ | 검증 완료 — maxSize 적정, null 처리 완비, Return 중복 방지 |
 | 120 | S-052 EventBus 이벤트 순서 안정성 | P3 | ✅ | 검증 완료 — LIFO 순서, 핸들러 독립 확인, using Linq 제거 |
+| 121 | S-059 AudioManager 클립 캐시 메모리 누수 | P2 | ✅ | Supervisor 감사 — LRU/씬 전환 정리 |
+| 122 | S-062 ShopUI 구매 실패 피드백 | P3 | ✅ | Supervisor — 골드 부족/인벤 풀 사유 표시 |
+| 123 | S-063 EnhanceUI 강화 전 확인 팝업 | P3 | ✅ | Supervisor — 파괴 확률 경고 표시 |
+| 124 | S-066 CraftingSystem LINQ 잔여 제거 | P3 | ✅ | Supervisor — 수동 루프 교체, using Linq 제거 |
+| 125 | S-067 SkillTreeUI 잠긴 스킬 사유 표시 | P3 | ✅ | Supervisor — 레벨/포인트 부족 분리 표시 |
+| 126 | S-068 QuestUI 빈 목록 안내 | P3 | ✅ | Supervisor — placeholder 텍스트 표시 |
+| 127 | S-070 ShopUI/InventoryUI 아이콘 폴백 | P3 | ✅ | Supervisor — 기본 placeholder 스프라이트 |
+| 128 | S-071 ShopUI Destroy GC 스파이크 | P3 | ✅ | Supervisor — SetActive(false) 풀링 교체 |
+| 129 | S-072 상태이상 아이콘 추가 | P3 | ✅ | Supervisor — 7종 아이콘 생성 |
+| 130 | S-073 TimeSystem 기간 전환 로그 스팸 | P3 | ✅ | Supervisor — _lastPeriod 추적 중복 제거 |
+| 131 | S-075 MonsterController 사망 상태 피격 방지 | P2 | ✅ | Supervisor — TakeDamage 조기 반환 |
 
 ---
 
@@ -158,6 +169,17 @@
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-075 MonsterController 사망 상태 피격 방지 | 2026-04-03 | Supervisor — TakeDamage 조기 반환 ✅ |
+| S-073 TimeSystem 기간 전환 로그 스팸 | 2026-04-03 | Supervisor — _lastPeriod 추적 중복 제거 ✅ |
+| S-072 상태이상 아이콘 추가 | 2026-04-03 | Supervisor — 7종 아이콘 생성 ✅ |
+| S-071 ShopUI Destroy GC 스파이크 | 2026-04-03 | Supervisor — SetActive(false) 풀링 ✅ |
+| S-070 ShopUI/InventoryUI 아이콘 폴백 | 2026-04-03 | Supervisor — placeholder 스프라이트 ✅ |
+| S-068 QuestUI 빈 목록 안내 | 2026-04-03 | Supervisor — placeholder 텍스트 ✅ |
+| S-067 SkillTreeUI 잠긴 스킬 사유 표시 | 2026-04-03 | Supervisor — 레벨/포인트 분리 표시 ✅ |
+| S-066 CraftingSystem LINQ 잔여 제거 | 2026-04-03 | Supervisor — 수동 루프 교체 ✅ |
+| S-063 EnhanceUI 강화 전 확인 팝업 | 2026-04-03 | Supervisor — 파괴 확률 경고 ✅ |
+| S-062 ShopUI 구매 실패 피드백 | 2026-04-03 | Supervisor — 골드 부족/인벤 풀 사유 ✅ |
+| S-059 AudioManager 클립 캐시 메모리 누수 | 2026-04-03 | Supervisor 감사 — LRU/씬 전환 정리 ✅ |
 | S-052 EventBus 이벤트 순서 안정성 | 2026-04-03 | 검증 완료 — 자가진행 (🔧 검증) |
 | S-049 ObjectPool 최대 크기 제한 | 2026-04-03 | 검증 완료 — 자가진행 (🔧 검증) |
 | S-041 NPC 호감도 데이터 저장 | 2026-04-03 | 검증 완료 — 자가진행 (🔧 검증) |
