@@ -40,7 +40,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
                     : enhanceLevel >= 7 ? "#66aaff"
                     : enhanceLevel >= 4 ? "#66ff66"
                     : "#aaaaaa";
-                enhanceText.text = $"<color={eColor}>+{enhanceLevel}</color>";
+                enhanceText.text = $"<color={eColor}><b>+{enhanceLevel}</b></color>";
             }
             else enhanceText.text = "";
         }

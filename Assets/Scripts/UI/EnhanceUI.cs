@@ -161,7 +161,7 @@ public class EnhanceUI : MonoBehaviour
             {
                 string prefix = canAfford ? "\u25b8" : "\u25b9";
                 string eColor = enhLevel >= 10 ? "#ff9900" : enhLevel >= 7 ? "#66aaff" : enhLevel >= 4 ? "#66ff66" : "#aaaaaa";
-                string enhTag = enhLevel > 0 ? $" <color={eColor}>+{enhLevel}</color>" : "";
+                string enhTag = enhLevel > 0 ? $" <color={eColor}><b>+{enhLevel}</b></color>" : "";
                 string nameColor = canAfford ? "#66ff66" : "#888888";
                 texts[1].text = $"{prefix} <color={nameColor}>{itemName}</color>{enhTag}";
                 texts[1].color = Color.white;
