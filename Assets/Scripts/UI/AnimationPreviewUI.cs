@@ -44,7 +44,7 @@ public class AnimationPreviewUI : MonoBehaviour
         {
             var info = _targetAnimator.GetCurrentAnimatorStateInfo(0);
             if (currentStateLabel != null)
-                currentStateLabel.text = $"State: {info.shortNameHash} | Time: {info.normalizedTime:F2}";
+                currentStateLabel.text = $"<color=#888888>State:</color> <color=#aaddff>{info.shortNameHash}</color>  <color=#888888>t:</color> <color=#ffdd44>{info.normalizedTime:F2}</color>";
         }
     }
 
@@ -135,7 +135,7 @@ public class AnimationPreviewUI : MonoBehaviour
     void OnSpeedChanged(float value)
     {
         if (_targetAnimator != null) _targetAnimator.speed = value;
-        if (speedText != null) speedText.text = $"{value:F1}x";
+        if (speedText != null) speedText.text = $"<color=#aaddff>{value:F1}x</color>";
     }
 }
 #endif

@@ -47,7 +47,12 @@ public class GameStatsUI : MonoBehaviour
         sb.AppendLine($"Play Time: <color=#aaffaa>{hours:D2}:{mins:D2}:{secs:D2}</color>");
         sb.AppendLine($"Level: <color=#99ff99>{gm.PlayerState.Level}</color>");
         sb.AppendLine($"Gold: <color=#ffd900>{gm.PlayerState.Gold:N0}G</color>");
-        sb.AppendLine($"Game Hour: <color=#88ccff>{gm.TimeSystem.GameHour:F1}</color> ({gm.TimeSystem.Period})");
+        string period = gm.TimeSystem.Period ?? "";
+        string periodColor = period switch
+        {
+            "Dawn" => "#ffcc66", "Day" => "#ffffaa", "Dusk" => "#ff9966", "Night" => "#8899ff", _ => "#aaaaaa"
+        };
+        sb.AppendLine($"Game Hour: <color=#88ccff>{gm.TimeSystem.GameHour:F1}</color>  <color={periodColor}>{period}</color>");
         sb.AppendLine();
 
         var achievements = gm.Achievements.GetAll();

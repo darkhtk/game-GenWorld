@@ -15,6 +15,11 @@ public class BootSceneController : MonoBehaviour
     {
         if (fadeGroup != null) fadeGroup.alpha = 0f;
         SetupLogo();
+        if (splashText != null)
+        {
+            splashText.text = "<b><color=#ffd900>GenWorld</color></b>";
+            splashText.alignment = TMPro.TextAlignmentOptions.Center;
+        }
         StartCoroutine(BootSequence());
     }
 
