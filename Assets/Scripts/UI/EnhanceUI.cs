@@ -263,18 +263,18 @@ public class EnhanceUI : MonoBehaviour
             inst.enhanceLevel++;
             _onEnhance?.Invoke(slotName);
             AudioManager.Instance?.PlaySFX("sfx_enchant_success");
-            ShowResult($"<color=#66ff66>Success! +{inst.enhanceLevel}</color>");
+            ShowResult($"<b><color=#66ff66>Success! +{inst.enhanceLevel}</color></b>");
         }
         else if (roll < info.success + info.destroy)
         {
             _equipment.Remove(slotName);
             AudioManager.Instance?.PlaySFX("sfx_enchant_critfail");
-            ShowResult("<color=#ff4444>Equipment Destroyed!</color>");
+            ShowResult("<b><color=#ff4444>Equipment Destroyed!</color></b>");
         }
         else
         {
             AudioManager.Instance?.PlaySFX("sfx_enchant_fail");
-            ShowResult("<color=#ffaa44>Enhancement Failed...</color>");
+            ShowResult("<b><color=#ffaa44>Enhancement Failed...</color></b>");
         }
         Refresh();
     }
