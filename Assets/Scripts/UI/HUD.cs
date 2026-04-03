@@ -609,7 +609,7 @@ public class HUD : MonoBehaviour
                             ? iDef.name : r.itemId;
                         string color = done ? "#88ff88" : have > 0 ? "#ffcc44" : "#aaaaaa";
                         string check = done ? " <color=#66ff66>\u2713</color>" : "";
-                        _questSb.AppendLine($"  <color={color}>{itemName}: {Mathf.Min(have, r.count)}/{r.count}{check}</color>");
+                        _questSb.AppendLine($"  <color={color}>{itemName}: <b>{Mathf.Min(have, r.count)}</b>/{r.count}{check}</color>");
                     }
                 }
                 if (q.killRequirements != null)
@@ -620,7 +620,7 @@ public class HUD : MonoBehaviour
                         bool done = kills >= kr.count;
                         string color = done ? "#88ff88" : kills > 0 ? "#ffcc44" : "#aaaaaa";
                         string check = done ? " <color=#66ff66>\u2713</color>" : "";
-                        _questSb.AppendLine($"  <color={color}><color=#ffbb77>{kr.monsterId}</color>: {Mathf.Min(kills, kr.count)}/{kr.count}{check}</color>");
+                        _questSb.AppendLine($"  <color={color}><color=#ffbb77>{kr.monsterId}</color>: <b>{Mathf.Min(kills, kr.count)}</b>/{kr.count}{check}</color>");
                     }
                 }
                 _questTrackerEntries[i].text = _questSb.ToString().TrimEnd();

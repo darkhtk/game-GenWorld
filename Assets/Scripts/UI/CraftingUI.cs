@@ -104,7 +104,7 @@ public class CraftingUI : MonoBehaviour
                 bool met = have >= mat.count;
                 string countColor = met ? "#66ff66" : have > 0 ? "#ffaa44" : "#ff6666";
                 string check = met ? "<color=#66ff66>\u2713</color> " : "";
-                matLines.Add($"{check}<color=#cccccc>{matName}</color> <color={countColor}>({have}/{mat.count})</color>");
+                matLines.Add($"{check}<color=#cccccc>{matName}</color> <color={countColor}>(<b>{have}</b>/{mat.count})</color>");
             }
             texts[1].text = string.Join("  ", matLines);
         }

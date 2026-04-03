@@ -159,7 +159,7 @@ public class QuestUI : MonoBehaviour
                     string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
                         ? def.name : req.itemId;
                     string countColor = met ? "#66ff66" : "#ffaa44";
-                    lines.Add($"  {check} {itemName} <color={countColor}>({have}/{req.count})</color>");
+                    lines.Add($"  {check} {itemName} <color={countColor}>(<b>{have}</b>/{req.count})</color>");
                 }
             }
             if (quest.killRequirements != null)
@@ -170,7 +170,7 @@ public class QuestUI : MonoBehaviour
                     bool met = kills >= kr.count;
                     string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
                     string countColor = met ? "#66ff66" : "#ffaa44";
-                    lines.Add($"  {check} <color=#ffbb77>{kr.monsterId}</color> <color={countColor}>({kills}/{kr.count})</color>");
+                    lines.Add($"  {check} <color=#ffbb77>{kr.monsterId}</color> <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
                 }
             }
             texts[2].color = Color.white;
