@@ -259,7 +259,10 @@ public class SettingsUI : MonoBehaviour
         while (remaining > 0)
         {
             if (confirmText != null)
-                confirmText.text = $"Keep this resolution? Reverting in <color=#ff9944>{remaining}s</color>...";
+            {
+                confirmText.color = Color.white;
+                confirmText.text = $"<color=#cccccc>Keep this resolution? Reverting in</color> <color=#ff9944>{remaining}s</color><color=#cccccc>...</color>";
+            }
             yield return new WaitForSecondsRealtime(1f);
             remaining--;
         }
