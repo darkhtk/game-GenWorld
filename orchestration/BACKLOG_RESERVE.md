@@ -14,13 +14,13 @@
 | 5 | S-042 | 🔧 | SaveSystem 동시 저장 경합 방지 — 자동 저장 중 수동 저장 요청 시 잠금/대기 처리 | P2 | ✅ |
 | 6 | S-043 | 🔧 | CombatManager 동시 사망 보상 — 동시에 여러 몬스터 사망 시 XP/골드 누적 정확성 검증 | P2 | ✅ |
 | 7 | S-044 | 🔧 | 장비 교체 시 스탯 복원 — 장비 해제/교체 시 이전 스탯 보너스 정확히 제거 확인 | P2 | ✅ |
-| 8 | S-045 | 🔧 | QuestSystem 진행률 저장 — 단위 테스트 추가 필요 (NEEDS_WORK) | P2 | ⬜ |
+| 8 | S-045 | 🔧 | QuestSystem 진행률 저장 — v2 APPROVE | P2 | ✅ |
 | ~~9~~ | ~~S-046~~ | ~~🔧~~ | ~~MonsterSpawner 리전 전환 클린업 — APPROVE~~ | ~~P2~~ | ✅ |
-| 10 | S-047 | 🔧 | DialogueSystem 동시 대화 방지 — 다중 NPC 동시 대화 시작 잠금 확인 | P2 | 👀 |
-| 11 | S-048 | 🔧 | SkillSystem 데이터 무결성 — skills.json 필드 누락/잘못된 타입 시 방어 로딩 | P2 | 👀 |
+| ~~10~~ | ~~S-047~~ | ~~🔧~~ | ~~DialogueSystem 동시 대화 방지 — APPROVE~~ | ~~P2~~ | ✅ |
+| 11 | S-048 | 🔧 | SkillSystem 데이터 무결성 — NEEDS_WORK (SkillList null-id 잔존) | P2 | ⬜ |
 | 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 풀 무한 성장 방지 (maxSize 상한 도입 검토) | P3 | ⬜ |
-| 13 | S-050 | 🔧 | InputSystem UI/게임 입력 분리 — UI 패널 열린 상태에서 게임 입력 차단 확인 | P2 | 👀 |
-| 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — 씬 전환 후 이전 씬 리소스 해제 확인 | P2 | 👀 |
+| ~~13~~ | ~~S-050~~ | ~~🔧~~ | ~~InputSystem UI/게임 입력 분리 — APPROVE~~ | ~~P2~~ | ✅ |
+| 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — NEEDS_WORK (Clear 미호출 + DDOL 구독 소멸) | P2 | ⬜ |
 | 15 | S-052 | 🔧 | EventBus 이벤트 순서 안정성 — 동일 이벤트 다중 핸들러 실행 순서 보장 검증 | P3 | ⬜ |
 | 16 | S-053 | 🔧 | PlayerController 벽 끼임 방지 — 콜라이더 경계에서 플레이어 위치 보정 확인 | P3 | ⬜ |
 | 17 | S-054 | 🔧 | AutoSave 전투 중 저장 방지 — 전투 상태에서 자동 저장 스킵 (데이터 일관성) | P2 | 👀 |
@@ -37,7 +37,7 @@
 | 28 | S-067 | 🔧 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 구분 없이 회색 표시되는 문제 | P3 | ✅ |
 | 29 | S-068 | 🔧 | QuestUI 빈 목록 안내 — 퀘스트 없을 때 빈 화면 → placeholder 텍스트 표시 | P3 | ✅ |
 | 30 | S-069 | 🔧 | Projectile 풀 반환 시 null 콜백 방어 — OnHit 콜백에서 풀 반환된 투사체 참조 방지 | P3 | ⬜ |
-| 31 | S-070 | 🎨 | ShopUI/InventoryUI 아이템 아이콘 폴백 — 누락 아이콘 시 기본 placeholder 스프라이트 표시 | P3 | ⬜ |
+| 31 | S-070 | 🎨 | ShopUI/InventoryUI 아이템 아이콘 폴백 — 누락 아이콘 시 기본 placeholder 스프라이트 표시 | P3 | ✅ |
 | 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ⬜ |
 | 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ⬜ |
 | 34 | S-073 | 🔧 | TimeSystem 기간 전환 로그 스팸 — 기간(dawn/day/dusk/night) 변경 시 중복 로그 방지 | P3 | ⬜ |
