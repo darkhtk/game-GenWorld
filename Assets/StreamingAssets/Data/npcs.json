@@ -277,6 +277,8 @@
     "open_shop": { "label": "상점 열기", "description": "아이템 구매/판매", "keywords": ["사고", "팔고", "구매", "판매", "거래", "물건", "상점"] },
     "open_crafting": { "label": "제작대 사용", "description": "장비/포션 제작", "keywords": ["제작", "만들", "크래프팅", "재료", "조합"] },
     "open_enhance": { "label": "장비 강화", "description": "장비 업그레이드", "keywords": ["강화", "업그레이드", "개량"] },
-    "heal_player": { "label": "체력 회복", "description": "HP/MP 전체 회복", "keywords": ["쉬고", "회복", "치료", "힐", "체력"] }
+    "heal_player": { "label": "체력 회복", "description": "HP/MP 전체 회복", "keywords": ["쉬고", "회복", "치료", "힐", "체력"] },
+    "reset_skills": { "label": "스킬 초기화", "description": "모든 스킬 포인트 환불", "keywords": ["스킬", "초기화", "리셋"] },
+    "reset_stats": { "label": "스탯 초기화", "description": "모든 스탯 포인트 환불", "keywords": ["스탯", "능력치", "초기화", "리셋"] }
   }
 }

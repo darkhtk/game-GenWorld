@@ -217,7 +217,14 @@ public class SkillRowUI : MonoBehaviour
         if (nameText == null) nameText = GetComponentInChildren<TextMeshProUGUI>();
         if (iconImage == null) iconImage = GetComponentInChildren<Image>();
 
-        if (nameText != null) { nameText.text = def.name; nameText.color = treeColor; }
+        if (nameText != null)
+        {
+            nameText.text = def.name;
+            nameText.color = treeColor;
+            nameText.alignment = TMPro.TextAlignmentOptions.Left;
+            nameText.overflowMode = TMPro.TextOverflowModes.Overflow;
+            nameText.enableWordWrapping = false;
+        }
         if (descText != null) descText.text = def.description ?? "";
         if (iconImage != null && icon != null) { iconImage.sprite = icon; iconImage.color = Color.white; }
 

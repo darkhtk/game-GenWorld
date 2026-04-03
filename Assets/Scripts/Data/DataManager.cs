@@ -15,6 +15,7 @@ public class DataManager
     public Dictionary<string, SetBonusDef> SetBonuses { get; private set; } = new();
     public RecipeDef[] Recipes { get; private set; } = Array.Empty<RecipeDef>();
     public Dictionary<string, string> NpcProfiles { get; private set; } = new();
+    public Dictionary<string, ActionDef> ActionDefs { get; private set; } = new();
     public ItemDef[] ItemList { get; private set; } = Array.Empty<ItemDef>();
     public SkillDef[] SkillList { get; private set; } = Array.Empty<SkillDef>();
     public MonsterDef[] MonsterList { get; private set; } = Array.Empty<MonsterDef>();
@@ -85,6 +86,7 @@ public class DataManager
         NpcList = data.npcs ?? System.Array.Empty<NpcDef>();
         foreach (var npc in NpcList)
             Npcs[npc.id] = npc;
+        ActionDefs = data.actionDefs ?? new();
     }
 
     void LoadQuests()

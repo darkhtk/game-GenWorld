@@ -153,6 +153,11 @@ public class DialogueUI : MonoBehaviour
         else
             entry.color = sender == "You" ? new Color(0.8f, 0.9f, 1f) : Color.white;
 
+        entry.overflowMode = TMPro.TextOverflowModes.Overflow;
+        entry.enableWordWrapping = true;
+        var fitter = entry.gameObject.GetComponent<UnityEngine.UI.ContentSizeFitter>();
+        if (fitter == null) fitter = entry.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
+        fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
         entry.gameObject.SetActive(true);
         _logEntries.Add(entry.gameObject);
 
@@ -189,7 +194,7 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    public void SetActionButtons(string[] actions)
+    public void SetActionButtons(string[] actions, System.Collections.Generic.Dictionary<string, ActionDef> actionDefs = null)
     {
         ClearActionButtons();
         if (actionButtonsContainer == null || actionButtonPrefab == null) return;
@@ -198,7 +203,11 @@ public class DialogueUI : MonoBehaviour
         {
             var btn = Instantiate(actionButtonPrefab, actionButtonsContainer);
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
-            if (label != null) label.text = action;
+            if (label != null)
+            {
+                label.text = (actionDefs != null && actionDefs.TryGetValue(action, out var def))
+                    ? def.label : action;
+            }
 
             string captured = action;
             btn.onClick.AddListener(() => OnAction?.Invoke(captured));

@@ -117,7 +117,7 @@ public class DialogueController
         EventBus.Emit(new DialogueStartEvent { npcId = nearest.Def.id });
 
         if (nearest.Def.actions != null && nearest.Def.actions.Length > 0)
-            dlg.SetActionButtons(nearest.Def.actions);
+            dlg.SetActionButtons(nearest.Def.actions, _data.ActionDefs);
 
         var capturedNpc = nearest;
         dlg.OnPlayerResponse = playerText =>

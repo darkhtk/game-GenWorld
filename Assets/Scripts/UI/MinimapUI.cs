@@ -27,6 +27,12 @@ public class MinimapUI : MonoBehaviour
 
     int _mapWidth, _mapHeight;
 
+    void Awake()
+    {
+        if (mapImage == null) mapImage = GetComponentInChildren<RawImage>(true);
+        if (mapImage != null) mapImage.enabled = false;
+    }
+
     public void Init(bool[,] walkability, int width, int height)
     {
         _mapWidth = width;

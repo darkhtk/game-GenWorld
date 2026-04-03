@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class NpcDef
@@ -22,4 +23,5 @@ public class NpcDef
 [Serializable] public class NpcTrigger { public string target, memory, talkReason; [Newtonsoft.Json.JsonProperty("event")] public string eventType; public int threshold, relationship; public bool wantToTalk; }
 [Serializable] public class ConditionalDialogue { public string id, condition, greeting; public string[] options; public int priority; }
 [Serializable] public class NpcSchedule { public string period, activity; public int cx, cy, radius; }
-[Serializable] public class NpcsData { public NpcDef[] npcs; }
+[Serializable] public class ActionDef { public string label, description; public string[] keywords; }
+[Serializable] public class NpcsData { public NpcDef[] npcs; public Dictionary<string, ActionDef> actionDefs; }
