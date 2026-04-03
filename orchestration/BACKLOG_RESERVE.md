@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Supervisor — S-053/S-080 검증 완료, EffectHolder totalDuration 버그 수정)
+> **최종 갱신:** 2026-04-03 (Coordinator — S-069 APPROVE 동기화, S-088~S-099 보충 12건)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -36,7 +36,7 @@
 | 27 | S-066 | 🔧 | CraftingSystem LINQ 잔여 제거 — using System.Linq 제거, 수동 루프 교체 | P3 | ✅ |
 | 28 | S-067 | 🔧 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 구분 없이 회색 표시되는 문제 | P3 | ✅ |
 | 29 | S-068 | 🔧 | QuestUI 빈 목록 안내 — 퀘스트 없을 때 빈 화면 → placeholder 텍스트 표시 | P3 | ✅ |
-| 30 | S-069 | 🔧 | Projectile 풀 반환 시 null 콜백 방어 — OnHit 콜백에서 풀 반환된 투사체 참조 방지 | P3 | ⬜ |
+| 30 | S-069 | 🔧 | Projectile 풀 반환 null 콜백 방어 — REVIEW-S069-v1 ✅ APPROVE | P3 | ✅ |
 | 31 | S-070 | 🎨 | ShopUI/InventoryUI 아이템 아이콘 폴백 — 누락 아이콘 시 기본 placeholder 스프라이트 표시 | P3 | ✅ |
 | 32 | S-071 | 🔧 | ShopUI Destroy 대량 호출 GC 스파이크 — ClearEntries()에서 풀링 또는 SetActive(false) 교체 | P3 | ✅ |
 | 33 | S-072 | 🎨 | 상태이상 아이콘 추가 — burn/freeze/bleed 등 누락 상태 아이콘 생성 | P3 | ✅ |
@@ -55,6 +55,18 @@
 | 46 | S-085 | 🔧 | NPC 대화 종료 직후 재진입 방지 — Close 후 쿨다운 타이머로 즉시 재대화 차단 | P3 | ⬜ |
 | 47 | S-086 | 🔧 | SkillBar 쿨다운 시각 동기화 — 스킬 사용 후 쿨다운 필 업데이트 정밀도 확인 | P3 | ⬜ |
 | 48 | S-087 | 🔧 | RegionManager 씬 전환 중 입력 차단 — 로딩 중 PlayerController 입력 비활성 확인 | P2 | ⬜ |
+| 49 | S-088 | 🔧 | CombatManager 빈 스킬 슬롯 사용 방어 — 빈 슬롯 클릭/키 입력 시 NPE 방지 가드 확인 | P2 | ⬜ |
+| 50 | S-089 | 🔧 | InventorySystem RemoveItem 음수 수량 방어 — count <= 0 입력 시 가드 추가 검증 | P2 | ⬜ |
+| 51 | S-090 | 🔧 | QuestSystem 중복 수락 방지 — AcceptQuest에서 이미 진행 중인 퀘스트 재수락 차단 확인 | P2 | ⬜ |
+| 52 | S-091 | 🔧 | UIManager 씬 전환 시 열린 패널 일괄 닫기 — 씬 전환 후 잔존 UI 패널 정리 확인 | P2 | ⬜ |
+| 53 | S-092 | 🔧 | DialogueUI 긴 텍스트 오버플로 처리 — AI 응답이 텍스트 영역 초과 시 스크롤/잘림 확인 | P3 | ⬜ |
+| 54 | S-093 | 🔧 | PlayerController 사망 후 입력 차단 — 사망 애니메이션 중 이동/공격 입력 무시 확인 | P2 | ⬜ |
+| 55 | S-094 | 🔧 | CraftingUI 재료 부족 항목별 표시 — 어떤 재료가 부족한지 개별 색상/텍스트로 표시 확인 | P3 | ⬜ |
+| 56 | S-095 | 🔧 | EquipmentSystem 빈 슬롯 장착 해제 방어 — 빈 슬롯 Unequip 호출 시 NPE 방지 | P2 | ⬜ |
+| 57 | S-096 | 🔧 | MonsterController 공격 범위 외 데미지 차단 — 거리 체크 없는 피해 적용 경로 확인 | P3 | ⬜ |
+| 58 | S-097 | 🔧 | SaveSystem 슬롯 삭제 확인 팝업 — 세이브 삭제 시 확인 없이 즉시 삭제되는 문제 확인 | P3 | ⬜ |
+| 59 | S-098 | 🔧 | AchievementUI 알림 큐 중복 방지 — 동시 달성 시 알림 겹침/누락 확인 | P3 | ⬜ |
+| 60 | S-099 | 🔧 | HUD 상태바 음수 값 표시 방지 — HP/MP/XP 바가 음수 비율로 표시되지 않도록 clamp 확인 | P2 | ⬜ |
 
 ## 완료 태스크
 

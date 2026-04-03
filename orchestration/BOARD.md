@@ -144,7 +144,7 @@
 | 132 | S-074 MonsterSpawner nightPoolBuffer stale 데이터 | P3 | ✅ | Supervisor — Clear 위치 이동 + Def null 방어 |
 | 133 | S-053 PlayerController 벽 끼임 방지 | P3 | ✅ | REVIEW-S053-v1 |
 | 134 | S-055 UI 해상도 대응 | P3 | ✅ | REVIEW-S055-v1 |
-| 135 | S-069 Projectile 풀 반환 null 콜백 방어 | P3 | 👀 | capture-then-clear |
+| 135 | S-069 Projectile 풀 반환 null 콜백 방어 | P3 | ✅ | REVIEW-S069-v1 |
 | 136 | S-076 CombatManager 동시 공격 순차 처리 | P3 | 👀 | player death guard + pendingKills 통일 |
 | 137 | S-077 SaveSystem 슬롯 데이터 무결성 검증 | P2 | 👀 | SaveData.Validate() + TryLoadFrom 호출 |
 | 138 | S-078 DialogueSystem AI 응답 타임아웃 | P2 | 👀 | CTS 30초 상한 + 폴백 텍스트 |
@@ -170,15 +170,15 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-069 Projectile 풀 반환 null 콜백 방어 | 2026-04-03 | ⏳ | capture-then-clear + _arrived 선행 |
-| S-076 CombatManager 동시 공격 순차 처리 | 2026-04-03 | ⏳ | player death guard + pendingKills 통일 |
-| S-077 SaveSystem 슬롯 데이터 무결성 검증 | 2026-04-03 | ⏳ | SaveData.Validate() + TryLoadFrom 폴백 |
+| S-076 CombatManager 동시 공격 순차 처리 | 2026-04-03 | ✅ APPROVE | REVIEW-S076-v1 |
+| S-077 SaveSystem 슬롯 데이터 무결성 검증 | 2026-04-03 | ✅ APPROVE | REVIEW-S077-v1 [깊은 리뷰] |
 | S-078 DialogueSystem AI 응답 타임아웃 | 2026-04-03 | ⏳ | CTS 30초 상한 + 폴백 텍스트 + 경과 시간 UI |
 
 ## ✅ Done
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-069 Projectile 풀 반환 null 콜백 방어 | 2026-04-03 | REVIEW-S069-v1 ✅ APPROVE |
 | S-053 PlayerController 벽 끼임 방지 | 2026-04-03 | REVIEW-S053-v1 ✅ APPROVE |
 | S-055 UI 해상도 대응 | 2026-04-03 | REVIEW-S055-v1 ✅ APPROVE |
 | S-074 MonsterSpawner nightPoolBuffer stale 데이터 | 2026-04-03 | Supervisor — Clear 위치 이동 + Def null 방어 ✅ |
