@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Supervisor #28 — UX 개선 3건 + RESERVE 15건 보충)
+> **최종 갱신:** 2026-04-03 (Coordinator — S-045 NEEDS_WORK 복귀, S-046 APPROVE→✅, S-047 👀 동기화)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -89,3 +89,4 @@
 | S-066 | CraftingSystem LINQ 잔여 제거 — Where/FirstOrDefault/All → 수동 루프 + using Linq 제거 | 2026-04-03 |
 | S-067 | SkillTreeUI 잠긴 스킬 사유 표시 — 레벨/포인트 부족 분리 표시 (빨간색) | 2026-04-03 |
 | S-068 | QuestUI 빈 목록 안내 — "No active/completed quests" placeholder 추가 | 2026-04-03 |
+| S-046 | MonsterSpawner 리전 전환 클린업 — REVIEW-S046-v1 APPROVE | 2026-04-03 |
