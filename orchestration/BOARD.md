@@ -87,6 +87,7 @@
 | 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
 | 76 | S-010 QuestSystem null 방어 | P2 | ✅ | CompleteQuest rewards null 기본값 |
 | 77 | S-008 PlayerController 카메라 null 방어 | P2 | 👀 | _cachedCamera 재획득 |
+| 78 | S-011 DataManager 로드 실패 폴백 | P2 | 👀 | 배열 프로퍼티 Empty 초기화 |
 
 ---
 
@@ -106,6 +107,7 @@
 |--------|--------|------|------|
 | S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | ✅ APPROVE | REVIEW-S004-v1 |
 | S-008 PlayerController 카메라 null 방어 | 2026-04-03 | 대기 | _cachedCamera 재획득 로직 |
+| S-011 DataManager 로드 실패 폴백 | 2026-04-03 | 대기 | Array.Empty 기본값 초기화 |
 
 ## ✅ Done
 
@@ -187,12 +189,13 @@
 | S-018 누락 SFX placeholder | 2026-04-03 | sfx_combo.wav 생성 ✅ |
 | S-019 퀘스트 아이콘 에셋 | 2026-04-03 | icon_quest_marker/complete 생성 ✅ |
 | S-020 상태이상 아이콘 | 2026-04-03 | status_stealth 생성 ✅ |
+| S-005 LINQ 할당 제거 | 2026-04-03 | Where/ToList→수동 루프 ✅ |
+| S-007 CombatManager stale ref 방어 | 2026-04-03 | _pendingKills 지연 처리 ✅ |
+| S-010 QuestSystem null 방어 | 2026-04-03 | CompleteQuest rewards null 기본값 ✅ |
 
 ## 📋 Backlog
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
 | ~~S-004~~ | P1 | 👀 In Review 제출 |
-| ~~S-005~~ | P2 | 👀 In Review 제출 |
-| ~~S-007~~ | P2 | 👀 In Review 제출 |
-| ~~S-010~~ | P2 | 👀 In Review 제출 |
+| S-008 PlayerController 카메라 null 방어 | P2 | 👀 In Review |

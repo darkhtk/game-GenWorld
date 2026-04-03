@@ -13,14 +13,14 @@ public class DataManager
     public Dictionary<string, QuestDef> Quests { get; private set; } = new();
     public Dictionary<string, RegionDef> Regions { get; private set; } = new();
     public Dictionary<string, SetBonusDef> SetBonuses { get; private set; } = new();
-    public RecipeDef[] Recipes { get; private set; }
+    public RecipeDef[] Recipes { get; private set; } = Array.Empty<RecipeDef>();
     public Dictionary<string, string> NpcProfiles { get; private set; } = new();
-    public ItemDef[] ItemList { get; private set; }
-    public SkillDef[] SkillList { get; private set; }
-    public MonsterDef[] MonsterList { get; private set; }
-    public NpcDef[] NpcList { get; private set; }
-    public QuestDef[] QuestList { get; private set; }
-    public RegionDef[] RegionList { get; private set; }
+    public ItemDef[] ItemList { get; private set; } = Array.Empty<ItemDef>();
+    public SkillDef[] SkillList { get; private set; } = Array.Empty<SkillDef>();
+    public MonsterDef[] MonsterList { get; private set; } = Array.Empty<MonsterDef>();
+    public NpcDef[] NpcList { get; private set; } = Array.Empty<NpcDef>();
+    public QuestDef[] QuestList { get; private set; } = Array.Empty<QuestDef>();
+    public RegionDef[] RegionList { get; private set; } = Array.Empty<RegionDef>();
 
     static string DataPath => Path.Combine(Application.streamingAssetsPath, "Data");
 

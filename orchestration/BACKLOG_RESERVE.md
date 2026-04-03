@@ -10,7 +10,7 @@
 | 1 | S-004 | 🔧 | MonsterController DoT 사망 시 킬 보상/제거 미처리 — MonsterSpawner.RemoveMonster 연결 필요 | P1 | 👀 |
 | 2 | S-006 | 🔧 | GameManager 분할 리팩토링 — 884줄 → 300줄 이하 (DialogueManager, SaveController 등 분리) | P2 | ⬜ |
 | 3 | S-008 | 🔧 | PlayerController _cachedCamera null 체크 — 씬 전환 시 Camera.main 무효화 대비 | P2 | 👀 |
-| 4 | S-011 | 🔧 | DataManager 로드 실패 시 기본값 폴백 — JSON 파싱 에러에서 빈 Dictionary 반환 | P2 | ⬜ |
+| 4 | S-011 | 🔧 | DataManager 로드 실패 시 기본값 폴백 — JSON 파싱 에러에서 빈 Dictionary 반환 | P2 | 👀 |
 | 5 | S-012 | 🔧 | AudioManager null 참조 일괄 방어 — Instance 패턴에 초기화 전 호출 방어 | P2 | ⬜ |
 | 6 | S-013 | 🔧 | DamageText 풀링 검증 — 대량 몬스터 전투 시 텍스트 오브젝트 누수 확인 | P2 | ⬜ |
 | 7 | S-014 | 🔧 | Projectile 풀링 검증 — Get() null 반환 시 호출부 방어 | P2 | ⬜ |
