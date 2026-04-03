@@ -550,8 +550,9 @@ public class EquipSlotUI : MonoBehaviour
         {
             string ec = enhanceLevel >= 10 ? "#ff9900" : enhanceLevel >= 7 ? "#66aaff" : enhanceLevel >= 4 ? "#66ff66" : "#aaaaaa";
             string enh = enhanceLevel > 0 ? $" <color={ec}>+{enhanceLevel}</color>" : "";
-            nameText.text = $"{itemName}{enh}";
-            nameText.color = gradeColor;
+            string gradeHex = ColorUtility.ToHtmlStringRGB(gradeColor);
+            nameText.text = $"<color=#{gradeHex}>{itemName}</color>{enh}";
+            nameText.color = Color.white;
         }
         if (borderImage != null) borderImage.color = gradeColor;
         if (unequipButton != null) unequipButton.gameObject.SetActive(true);
