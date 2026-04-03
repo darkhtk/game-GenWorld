@@ -5,7 +5,16 @@ public class InventorySystem
 {
     public ItemInstance[] Slots { get; private set; }
     public int MaxSlots { get; }
-    public int OccupiedSlots => Slots.Count(s => s != null);
+    public int OccupiedSlots
+    {
+        get
+        {
+            int count = 0;
+            for (int i = 0; i < Slots.Length; i++)
+                if (Slots[i] != null) count++;
+            return count;
+        }
+    }
 
     public InventorySystem(int maxSlots = 20)
     {
