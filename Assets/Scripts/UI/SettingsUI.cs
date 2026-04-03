@@ -414,7 +414,7 @@ public class SettingsUI : MonoBehaviour
             KeyCode.LeftControl => "LCtrl",
             _ => key.ToString()
         };
-        return $"<color=#aaddff>{name}</color>";
+        return $"<color=#aaddff><b>{name}</b></color>";
     }
 
     class KeyBindRow
