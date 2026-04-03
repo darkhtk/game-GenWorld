@@ -129,10 +129,12 @@ public class SkillTreeUI : MonoBehaviour
         if (skillSystem == null || skillDefs == null) return;
         if (skillPointsText != null)
         {
-            skillPointsText.text = $"Skill Points: <color=#ffd900>{skillPoints}</color>";
-            skillPointsText.color = skillPoints > 0 ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+            skillPointsText.text = skillPoints > 0
+                ? $"SP: <color=#ffd900><b>{skillPoints}</b></color>"
+                : $"SP: <color=#555555>0</color>";
+            skillPointsText.color = Color.white;
         }
-        if (playerLevelText != null) { playerLevelText.text = $"Lv.{playerLevel}"; playerLevelText.color = new Color(0.6f, 1f, 0.6f); }
+        if (playerLevelText != null) { playerLevelText.text = $"<color=#99ff99>Lv.{playerLevel}</color>"; playerLevelText.color = Color.white; }
 
         foreach (var def in skillDefs)
         {
@@ -172,8 +174,8 @@ public class SkillTreeUI : MonoBehaviour
             }
             else
             {
-                equipSlotLabels[i].text = $"{i + 1}";
-                equipSlotLabels[i].color = Color.gray;
+                equipSlotLabels[i].text = $"<color=#444444>[{i + 1}]</color>";
+                equipSlotLabels[i].color = Color.white;
             }
         }
     }

@@ -421,7 +421,7 @@ public class InventoryUI : MonoBehaviour
     void CycleSortMode()
     {
         _currentSortMode = (_currentSortMode + 1) % SortModeNames.Length;
-        if (sortModeText != null) sortModeText.text = SortModeNames[_currentSortMode];
+        if (sortModeText != null) sortModeText.text = $"<color=#aaddff>{SortModeNames[_currentSortMode]}</color>";
         AudioManager.Instance?.PlaySFX("sfx_click");
         Refresh();
     }
