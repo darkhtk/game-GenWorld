@@ -206,7 +206,7 @@ public class DialogueController
                     else if (questInfo.Value.status == "completable")
                     {
                         dlg.OnCompleteQuest?.Invoke(questInfo.Value.quest.id);
-                        dlg.AppendLog("System", "Quest completed!", "#00ff00");
+                        dlg.AppendLog("System", "<b>\u2713 Quest completed!</b>", "#66ff66");
                     }
                 }
             }
