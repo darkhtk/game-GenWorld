@@ -413,8 +413,21 @@ public class GameManager : MonoBehaviour
     void InitMinimap()
     {
         var minimap = uiManager.Hud?.GetComponentInChildren<MinimapUI>(true);
-        if (minimap != null && worldMap.Walkable != null)
-            minimap.Init(worldMap.Walkable, GameConfig.MapWidthTiles, GameConfig.MapHeightTiles);
+        if (minimap == null)
+            minimap = FindFirstObjectByType<MinimapUI>(FindObjectsInactive.Include);
+
+        if (minimap == null)
+        {
+            Debug.LogWarning("[GameManager] MinimapUI not found in scene");
+            return;
+        }
+        if (worldMap.Walkable == null)
+        {
+            Debug.LogWarning("[GameManager] worldMap.Walkable is null — minimap skipped");
+            return;
+        }
+        minimap.Init(worldMap.Walkable, GameConfig.MapWidthTiles, GameConfig.MapHeightTiles);
+        Debug.Log($"[GameManager] Minimap initialized ({GameConfig.MapWidthTiles}x{GameConfig.MapHeightTiles})");
     }
 
     void SpawnInitialRegion()
