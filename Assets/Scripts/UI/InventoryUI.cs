@@ -289,19 +289,21 @@ public class InventoryUI : MonoBehaviour
 
         if (tooltipName != null)
         {
-            tooltipName.text = def.name;
-            tooltipName.color = GameConfig.GetGradeColor(def.GradeEnum);
-            tooltipName.fontStyle = TMPro.FontStyles.Bold;
+            string gradeHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(def.GradeEnum));
+            tooltipName.text = $"<b><color={gradeHex}>{def.name}</color></b>";
+            tooltipName.color = Color.white;
+            tooltipName.fontStyle = TMPro.FontStyles.Normal;
         }
         if (tooltipDesc != null)
         {
-            tooltipDesc.text = def.description ?? "";
-            tooltipDesc.color = new Color(0.75f, 0.75f, 0.75f);
+            tooltipDesc.text = $"<color=#bbbbbb>{def.description ?? ""}</color>";
+            tooltipDesc.color = Color.white;
             tooltipDesc.fontStyle = TMPro.FontStyles.Italic;
         }
 
         if (tooltipStats != null)
         {
+            tooltipStats.color = Color.white;
             var lines = new List<string>();
             var s = def.stats;
             int enh = inst.enhanceLevel * GameConfig.EnhanceBonusPerLevel;
@@ -432,9 +434,16 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < filterButtons.Length; i++)
         {
             if (filterButtons[i] == null) continue;
+            bool active = i == activeIdx;
             var img = filterButtons[i].GetComponent<Image>();
             if (img != null)
-                img.color = i == activeIdx ? new Color(0.3f, 0.5f, 0.8f) : new Color(0.15f, 0.15f, 0.15f);
+                img.color = active ? new Color(0.3f, 0.5f, 0.8f) : new Color(0.15f, 0.15f, 0.15f);
+            var label = filterButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null)
+            {
+                label.fontStyle = active ? TMPro.FontStyles.Bold : TMPro.FontStyles.Normal;
+                label.color = active ? new Color(1f, 1f, 0.8f) : new Color(0.55f, 0.55f, 0.55f);
+            }
         }
     }
 

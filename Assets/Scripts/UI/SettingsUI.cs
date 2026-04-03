@@ -357,8 +357,9 @@ public class SettingsUI : MonoBehaviour
             _listeningRow.CurrentKey = key;
             if (_listeningRow.KeyText != null)
             {
-                _listeningRow.KeyText.text = FormatKeyName(key);
-                _listeningRow.KeyText.color = dup ? Color.cyan : Color.white;
+                string keyText = FormatKeyName(key);
+                _listeningRow.KeyText.text = dup ? keyText.Replace("#aaddff", "#44ffff") : keyText;
+                _listeningRow.KeyText.color = Color.white;
             }
             _listeningRow = null;
             return;

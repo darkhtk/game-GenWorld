@@ -50,6 +50,7 @@ public class ShopUI : MonoBehaviour
         _getGold = getGold;
         _spendGold = spendGold;
         if (panel != null) panel.SetActive(true);
+        if (titleText != null) titleText.text = "<b><color=#ffd900>Shop</color></b>";
         AudioManager.Instance?.PlaySFX("sfx_menu_open");
         if (_inventory == null || _itemDefs == null) return;
         Refresh();
@@ -74,7 +75,7 @@ public class ShopUI : MonoBehaviour
         if (_itemDefs == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) goldText.text = $"<color=#ffd900>\u25c6 {gold:N0} G</color>";
+        if (goldText != null) goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>";
 
         foreach (var kv in _itemDefs)
         {
@@ -97,8 +98,12 @@ public class ShopUI : MonoBehaviour
         if (texts.Length > 0)
         {
             string prefix = canAfford ? "\u25b8" : "\u25b9";
-            texts[0].text = $"{prefix} {def.name}";
-            texts[0].color = canAfford ? GameConfig.GetGradeColor(def.GradeEnum) : UnaffordableColor;
+            string prefixColor = canAfford ? "#88ff88" : "#555555";
+            string nameHex = canAfford
+                ? "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(def.GradeEnum))
+                : "#555555";
+            texts[0].text = $"<color={prefixColor}>{prefix}</color> <color={nameHex}>{def.name}</color>";
+            texts[0].color = Color.white;
         }
 
         if (texts.Length > 1)

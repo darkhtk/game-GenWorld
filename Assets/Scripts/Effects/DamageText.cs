@@ -68,7 +68,7 @@ public class DamageText : MonoBehaviour
         transform.localScale = Vector3.one;
 
         if (_tmp == null) _tmp = GetComponent<TextMeshPro>();
-        _tmp.text = text;
+        _tmp.text = isCrit ? $"<b>{text}!</b>" : text;
         _tmp.color = color;
         _tmp.fontSize = isCrit ? CritFontSize : NormalFontSize;
 

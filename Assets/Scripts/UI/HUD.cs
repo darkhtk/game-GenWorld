@@ -386,7 +386,8 @@ public class HUD : MonoBehaviour
     void ShowRegionAnnounce(string regionName)
     {
         if (regionAnnounceText == null || regionAnnounceGroup == null) return;
-        regionAnnounceText.text = $"<color=#ffd900>\u2014</color> {regionName} <color=#ffd900>\u2014</color>";
+        regionAnnounceText.color = Color.white;
+        regionAnnounceText.text = $"<color=#ffd900>\u2014</color> <b>{regionName}</b> <color=#ffd900>\u2014</color>";
         StopCoroutine(nameof(RegionAnnounceCoroutine));
         StartCoroutine(RegionAnnounceCoroutine());
     }
@@ -430,9 +431,19 @@ public class HUD : MonoBehaviour
     public void UpdatePotionCounts(int hpCount, int mpCount)
     {
         if (hpPotionCount != null)
-            hpPotionCount.text = hpCount > 0 ? hpCount.ToString() : "";
+        {
+            hpPotionCount.color = Color.white;
+            hpPotionCount.text = hpCount <= 0 ? "" : hpCount <= 2
+                ? $"<color=#ff4444>{hpCount}</color>"
+                : $"<color=#ff8888>{hpCount}</color>";
+        }
         if (mpPotionCount != null)
-            mpPotionCount.text = mpCount > 0 ? mpCount.ToString() : "";
+        {
+            mpPotionCount.color = Color.white;
+            mpPotionCount.text = mpCount <= 0 ? "" : mpCount <= 2
+                ? $"<color=#6666ff>{mpCount}</color>"
+                : $"<color=#8899ff>{mpCount}</color>";
+        }
     }
 
     public void SetSkillCooldown(int slotIndex, float remainingMs, float cooldownMs)
