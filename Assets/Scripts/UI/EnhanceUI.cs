@@ -105,7 +105,7 @@ public class EnhanceUI : MonoBehaviour
         if (_equipment == null || _getGold == null) return;
 
         int gold = _getGold();
-        if (goldText != null) goldText.text = $"<color=#ffd900>{gold:N0}G</color>";
+        if (goldText != null) goldText.text = $"<color=#ffd900>\u25c6 {gold:N0}G</color>";
 
         for (int i = 0; i < GameConfig.EquipSlots.Length; i++)
         {
@@ -225,7 +225,7 @@ public class EnhanceUI : MonoBehaviour
             confirmText.text = $"Enhance <b>{itemName}</b> <color=#aaffaa>+{level}</color> \u2192 <color=#ffd900>+{level + 1}</color>?\n" +
                 $"<color=#66ff88>Success: {info.success * 100:F0}%</color>\n" +
                 $"<color=#ff4444>Destroy: {info.destroy * 100:F0}%</color>\n" +
-                $"Cost: <color=#ffd900>{info.gold}G</color>";
+                $"Cost: <color=#ffd900>{info.gold:N0}G</color>";
         }
     }
 
