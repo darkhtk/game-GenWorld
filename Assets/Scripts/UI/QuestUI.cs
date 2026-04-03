@@ -146,18 +146,32 @@ public class QuestUI : MonoBehaviour
             texts[1].color = new Color(0.78f, 0.78f, 0.78f);
         }
 
-        if (texts.Length > 2 && quest.requirements != null)
+        if (texts.Length > 2)
         {
             var lines = new List<string>();
-            foreach (var req in quest.requirements)
+            if (quest.requirements != null)
             {
-                int have = _inventory != null ? _inventory.GetCount(req.itemId) : 0;
-                bool met = have >= req.count;
-                string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
-                string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
-                    ? def.name : req.itemId;
-                string countColor = met ? "#66ff66" : "#ffaa44";
-                lines.Add($"  {check} {itemName} <color={countColor}>({have}/{req.count})</color>");
+                foreach (var req in quest.requirements)
+                {
+                    int have = _inventory != null ? _inventory.GetCount(req.itemId) : 0;
+                    bool met = have >= req.count;
+                    string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
+                    string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
+                        ? def.name : req.itemId;
+                    string countColor = met ? "#66ff66" : "#ffaa44";
+                    lines.Add($"  {check} {itemName} <color={countColor}>({have}/{req.count})</color>");
+                }
+            }
+            if (quest.killRequirements != null)
+            {
+                foreach (var kr in quest.killRequirements)
+                {
+                    int kills = _questSystem != null ? _questSystem.GetKillProgress(quest.id, kr.monsterId) : 0;
+                    bool met = kills >= kr.count;
+                    string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
+                    string countColor = met ? "#66ff66" : "#ffaa44";
+                    lines.Add($"  {check} <color=#ffbb77>{kr.monsterId}</color> <color={countColor}>({kills}/{kr.count})</color>");
+                }
             }
             texts[2].text = string.Join("\n", lines);
         }
