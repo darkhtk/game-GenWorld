@@ -33,6 +33,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
             countText.text = count > 1 ? count.ToString() : "";
         if (enhanceText != null)
         {
+            enhanceText.color = Color.white;
             if (enhanceLevel > 0)
             {
                 string eColor = enhanceLevel >= 10 ? "#ff9900"

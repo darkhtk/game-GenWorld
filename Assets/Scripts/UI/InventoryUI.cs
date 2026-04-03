@@ -115,7 +115,10 @@ public class InventoryUI : MonoBehaviour
         if (sortModeButton != null)
             sortModeButton.onClick.AddListener(CycleSortMode);
         if (sortModeText != null)
+        {
+            sortModeText.color = Color.white;
             sortModeText.text = $"<color=#aaddff>{SortModeNames[_currentSortMode]}</color>";
+        }
 
         if (strAddButton != null) strAddButton.onClick.AddListener(() => AllocateStat("str"));
         if (dexAddButton != null) dexAddButton.onClick.AddListener(() => AllocateStat("dex"));
@@ -161,7 +164,10 @@ public class InventoryUI : MonoBehaviour
         Refresh(gm.Inventory, gm.PlayerState.Equipment, gm.Data.Items, stats);
 
         if (levelGoldText != null)
+        {
+            levelGoldText.color = Color.white;
             levelGoldText.text = $"<color=#99ff99>Lv.{gm.PlayerState.Level}</color>  <color=#ffd900>\u25c6 {gm.PlayerState.Gold:N0}G</color>";
+        }
     }
 
     public void Refresh(InventorySystem inventory, Dictionary<string, ItemInstance> equipment,
