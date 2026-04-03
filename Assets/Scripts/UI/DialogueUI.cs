@@ -247,7 +247,7 @@ public class DialogueUI : MonoBehaviour
             {
                 loadingText.color = Color.white;
                 loadingText.text = totalElapsed > 10f
-                    ? $"{phrase} <color=#ff9944>({(int)totalElapsed}s)</color>"
+                    ? $"{phrase} <color=#ff9944><b>({(int)totalElapsed}s)</b></color>"
                     : phrase;
             }
             index++;
