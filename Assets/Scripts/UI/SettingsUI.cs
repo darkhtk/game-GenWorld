@@ -369,22 +369,26 @@ public class SettingsUI : MonoBehaviour
         }
     }
 
-    static string FormatActionName(string action) => action switch
+    static string FormatActionName(string action)
     {
-        "move_up" => "Move Up",
-        "move_down" => "Move Down",
-        "move_left" => "Move Left",
-        "move_right" => "Move Right",
-        "dodge" => "Dodge",
-        "interact" => "Interact",
-        "inventory" => "Inventory",
-        "skills" => "Skill Tree",
-        "quests" => "Quests",
-        "hp_potion" => "HP Potion",
-        "mp_potion" => "MP Potion",
-        "minimap" => "Minimap",
-        _ => action
-    };
+        string label = action switch
+        {
+            "move_up" => "Move Up",
+            "move_down" => "Move Down",
+            "move_left" => "Move Left",
+            "move_right" => "Move Right",
+            "dodge" => "Dodge",
+            "interact" => "Interact",
+            "inventory" => "Inventory",
+            "skills" => "Skill Tree",
+            "quests" => "Quests",
+            "hp_potion" => "HP Potion",
+            "mp_potion" => "MP Potion",
+            "minimap" => "Minimap",
+            _ => action
+        };
+        return $"<color=#aaaaaa>{label}</color>";
+    }
 
     static string FormatKeyName(KeyCode key)
     {
