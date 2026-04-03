@@ -117,9 +117,9 @@
 | 105 | S-045 QuestSystem 진행률 저장 | P2 | ✅ | REVIEW-S045-v2 ✅ APPROVE |
 | 106 | S-046 MonsterSpawner 리전 전환 클린업 | P2 | ✅ | REVIEW-S046-v1 |
 | 107 | S-047 DialogueSystem 동시 대화 방지 | P2 | ✅ | REVIEW-S047-v1 |
-| 108 | S-048 SkillSystem 데이터 무결성 | P2 | ❌ | NEEDS_WORK — SkillList null-id 잔존 |
+| 108 | S-048 SkillSystem 데이터 무결성 | P2 | 👀 | v2 재제출 — SkillList 필터링 + 검증 추가 |
 | 109 | S-050 InputSystem UI/게임 입력 분리 | P2 | ✅ | REVIEW-S050-v1 |
-| 110 | S-051 SceneTransition 메모리 누수 | P2 | ❌ | NEEDS_WORK — Clear 미호출 + DDOL 구독 소멸 |
+| 110 | S-051 SceneTransition 메모리 누수 | P2 | 👀 | v2 재제출 — ClearPool 호출 + EventVFX 재구독 + UnloadAssets 타이밍 |
 | 111 | S-054 AutoSave 전투 중 저장 방지 | P2 | 👀 | In Review |
 | 112 | S-056 GameManager 초기화 순서 | P2 | 👀 | In Review |
 
@@ -131,8 +131,8 @@
 |--------|------|--------|------|
 | ~~S-026~~ | v2 수정 완료 → In Review | REVIEW-S026-v1 | 두 누락 항목 추가 |
 | ~~S-045~~ | ~~단위 테스트 누락~~ | ~~REVIEW-S045-v1~~ | v2 테스트 추가 → In Review |
-| S-048 | SkillList null-id 잔존 | REVIEW-S048-v1 | 재작업 필요 |
-| S-051 | Clear 미호출 + DDOL 구독 소멸 | REVIEW-S051-v1 | 재작업 필요 |
+| ~~S-048~~ | ~~SkillList null-id 잔존~~ | ~~REVIEW-S048-v1~~ | v2 수정 완료 → In Review |
+| ~~S-051~~ | ~~Clear 미호출 + DDOL 구독 소멸~~ | ~~REVIEW-S051-v1~~ | v2 수정 완료 → In Review |
 
 ## 🔧 In Progress
 
@@ -143,8 +143,10 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-054 AutoSave 전투 중 저장 방지 | 2026-04-03 | ⏳ | IsInCombat + _pendingSave 지연 저장 |
-| S-056 GameManager 초기화 순서 | 2026-04-03 | ⏳ | 감사 완료 + _initialized 가드 |
+| S-054 AutoSave 전투 중 저장 방지 | 2026-04-03 | ✅ APPROVE | REVIEW-S054-v1 |
+| S-056 GameManager 초기화 순서 | 2026-04-03 | ✅ APPROVE | REVIEW-S056-v1 [깊은 리뷰] |
+| S-048 SkillSystem 데이터 무결성 v2 | 2026-04-03 | ⏳ | SkillList 필터링 + mpCost/reqLevel/reqPoints 검증 + 테스트 |
+| S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | ⏳ | ClearPool + EventVFX sceneLoaded 재구독 + UnloadAssets 타이밍 |
 
 ## ✅ Done
 

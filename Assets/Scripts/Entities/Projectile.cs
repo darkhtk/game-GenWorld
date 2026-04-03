@@ -44,6 +44,14 @@ public class Projectile : MonoBehaviour
         }, _poolParent, 20, 50);
     }
 
+    public static void ClearPool()
+    {
+        _pool?.Clear();
+        _pool = null;
+        if (_poolParent != null) Object.Destroy(_poolParent.gameObject);
+        _poolParent = null;
+    }
+
     public static Projectile Get()
     {
         EnsurePool();

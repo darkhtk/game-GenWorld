@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventVFX : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class EventVFX : MonoBehaviour
         if (_instance != null) { Destroy(gameObject); return; }
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void OnEnable()
@@ -22,6 +29,16 @@ public class EventVFX : MonoBehaviour
     {
         EventBus.Off<LevelUpEvent>(OnLevelUp);
         EventBus.Off<ItemCollectEvent>(OnItemCollect);
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Re-subscribe in case EventBus was cleared during scene transition
+        EventBus.Off<LevelUpEvent>(OnLevelUp);
+        EventBus.Off<ItemCollectEvent>(OnItemCollect);
+        EventBus.On<LevelUpEvent>(OnLevelUp);
+        EventBus.On<ItemCollectEvent>(OnItemCollect);
+        _cachedPlayer = null;
     }
 
     PlayerController GetPlayer()

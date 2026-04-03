@@ -54,8 +54,9 @@ public class DataManager
     {
         var data = LoadJson<SkillsData>("skills.json");
         if (data == null) return;
-        SkillList = data.skills ?? System.Array.Empty<SkillDef>();
-        foreach (var skill in SkillList)
+        var raw = data.skills ?? System.Array.Empty<SkillDef>();
+        var valid = new List<SkillDef>(raw.Length);
+        foreach (var skill in raw)
         {
             if (string.IsNullOrEmpty(skill.id))
             {
@@ -63,7 +64,9 @@ public class DataManager
                 continue;
             }
             Skills[skill.id] = skill;
+            valid.Add(skill);
         }
+        SkillList = valid.ToArray();
     }
 
     void LoadMonsters()
@@ -151,6 +154,9 @@ public class DataManager
             if (string.IsNullOrEmpty(s.name)) { s.name = s.id; patched = true; }
             if (s.cooldown <= 0) { s.cooldown = 1000f; patched = true; }
             if (s.damage <= 0) { s.damage = 1f; patched = true; }
+            if (s.requiredLevel <= 0) { s.requiredLevel = 1; patched = true; }
+            if (s.requiredPoints <= 0) { s.requiredPoints = 1; patched = true; }
+            if (s.mpCost < 0) { s.mpCost = 0; patched = true; }
             if (patched) skillIssues++;
         }
 

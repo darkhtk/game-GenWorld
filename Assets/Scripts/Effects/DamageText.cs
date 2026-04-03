@@ -33,6 +33,14 @@ public class DamageText : MonoBehaviour
         }, _poolParent, 30, 80);
     }
 
+    public static void ClearPool()
+    {
+        _pool?.Clear();
+        _pool = null;
+        if (_poolParent != null) Object.Destroy(_poolParent.gameObject);
+        _poolParent = null;
+    }
+
     public static void Spawn(MonoBehaviour context, Vector2 pos, int amount, bool isCrit, Color? color = null)
     {
         if (context == null) return;

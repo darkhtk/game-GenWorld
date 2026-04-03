@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,7 +46,15 @@ public class GameManager : MonoBehaviour
 
     void OnDestroy()
     {
+        Projectile.ClearPool();
+        DamageText.ClearPool();
         EventBus.Clear();
+        SceneManager.sceneLoaded += OnSceneLoadedCleanup;
+    }
+
+    static void OnSceneLoadedCleanup(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneLoadedCleanup;
         Resources.UnloadUnusedAssets();
     }
 
