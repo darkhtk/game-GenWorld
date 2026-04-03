@@ -65,7 +65,7 @@ public class GameStatsUI : MonoBehaviour
         sb.AppendLine($"<color=#888888>Achievements</color>  <color={achColor}><b>{completed}/{achievements.Length}</b></color>{achSuffix}");
 
         if (gm.WorldEvents.IsEventActive)
-            sb.AppendLine($"\n<color=#ff9966>\u25cf Active Event: {gm.WorldEvents.ActiveEvent?.name}</color>");
+            sb.AppendLine($"\n<color=#ff9966>\u25cf Active Event: <b>{gm.WorldEvents.ActiveEvent?.name}</b></color>");
 
         statsText.text = sb.ToString();
     }

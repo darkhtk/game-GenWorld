@@ -59,7 +59,7 @@ public class NpcProfilePanel : MonoBehaviour
                 "Grateful" => (":D", "#66ffee"),
                 _          => (":|", "#aaaaaa")
             };
-            moodText.text = $"<color=#888888>Mood:</color> <color={col}>{emoji} {mood}</color>";
+            moodText.text = $"<color=#888888>Mood:</color> <color={col}><b>{emoji} {mood}</b></color>";
         }
 
         RefreshMemories(memories);

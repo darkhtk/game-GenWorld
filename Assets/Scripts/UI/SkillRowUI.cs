@@ -89,13 +89,13 @@ public class SkillRowUI : MonoBehaviour
             else if (canLearn) { costText.text = $"<b><color=#ffd900>{requiredPoints}pt</color></b>"; costText.color = Color.white; }
             else if (playerLevel > 0 && playerLevel < requiredLevel)
             {
-                costText.text = $"<color=#ff6666>Lv.{requiredLevel}+</color>";
+                costText.text = $"<color=#ff6666>Lv.<b>{requiredLevel}</b>+</color>";
                 costText.color = Color.white;
             }
             else
             {
                 int deficit = requiredPoints - playerSkillPoints;
-                costText.text = $"<color=#ff6666>-{deficit}pt</color>";
+                costText.text = $"<color=#ff6666><b>-{deficit}pt</b></color>";
                 costText.color = Color.white;
             }
         }
