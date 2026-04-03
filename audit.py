@@ -100,6 +100,13 @@ def is_active(fid):
         return gos[go_fid]['active']
     return True
 
+# Overlay elements that are allowed to overlap (drag ghosts, tooltips, etc.)
+OVERLAY_NAMES = {'DragIcon', 'Tooltip', 'DragSlot', 'DragGhost', 'DragItem'}
+
+def is_overlay(fid):
+    name = rt_name(fid)
+    return name in OVERLAY_NAMES
+
 def bounds(fid):
     d = rts.get(fid)
     if not d or not d['pos'] or not d['size']:
@@ -130,6 +137,8 @@ def check_panel(panel_name, expected_w, expected_h):
     for c in children:
         if not is_active(c):
             continue
+        if is_overlay(c):
+            continue  # skip drag ghosts / invisible overlays
         cb = bounds(c)
         if not cb:
             continue
