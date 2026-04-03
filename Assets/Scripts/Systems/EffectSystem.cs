@@ -8,6 +8,8 @@ public class ActiveEffect
     public float interval;
     public float lastTick;
     public float totalDuration;
+    public int stackCount;
+    public int maxStack;
 }
 
 public struct ActiveEffectInfo
@@ -16,6 +18,7 @@ public struct ActiveEffectInfo
     public float expires;
     public float totalDuration;
     public float value;
+    public int stackCount;
 }
 
 public class EffectHolder
@@ -23,19 +26,35 @@ public class EffectHolder
     public const float MaxStunMs = 10000f;
     public const float MinSlow = 0.1f;
 
+    static readonly Dictionary<string, int> DefaultMaxStack = new()
+    {
+        { "stun", 1 },
+        { "slow", 1 },
+        { "dot", 1 },
+        { "rage", 3 },
+        { "stealth", 1 },
+        { "mana_shield", 1 },
+    };
+
     readonly Dictionary<string, ActiveEffect> _effects = new();
 
-    public void Apply(string type, float expiresAt, float value)
+    public void Apply(string type, float expiresAt, float value, int maxStack = 0)
     {
+        if (maxStack == 0)
+            DefaultMaxStack.TryGetValue(type, out maxStack);
+
+        float now = Time.time * 1000f;
+
         if (type == "stun")
         {
-            float now = Time.time * 1000f;
             float maxExpiry = now + MaxStunMs;
             expiresAt = Mathf.Min(expiresAt, maxExpiry);
             if (_effects.TryGetValue("stun", out var existing))
             {
                 existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
                 existing.totalDuration = existing.expiresAt - now;
+                if (existing.maxStack <= 0 || existing.stackCount < existing.maxStack)
+                    existing.stackCount++;
                 return;
             }
         }
@@ -44,15 +63,35 @@ public class EffectHolder
             value = Mathf.Clamp(value, MinSlow, 1f);
             if (_effects.TryGetValue("slow", out var existing))
             {
-                float now = Time.time * 1000f;
                 existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
                 existing.value = Mathf.Min(existing.value, value);
                 existing.totalDuration = existing.expiresAt - now;
+                if (existing.maxStack <= 0 || existing.stackCount < existing.maxStack)
+                    existing.stackCount++;
                 return;
             }
         }
-        float nowMs = Time.time * 1000f;
-        _effects[type] = new ActiveEffect { expiresAt = expiresAt, value = value, totalDuration = expiresAt - nowMs };
+        else if (_effects.TryGetValue(type, out var existing))
+        {
+            if (existing.maxStack > 0 && existing.stackCount >= existing.maxStack)
+            {
+                existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
+                existing.totalDuration = existing.expiresAt - now;
+                return;
+            }
+            existing.stackCount++;
+            existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
+            existing.totalDuration = existing.expiresAt - now;
+            return;
+        }
+
+        _effects[type] = new ActiveEffect
+        {
+            expiresAt = expiresAt, value = value,
+            totalDuration = expiresAt - now,
+            stackCount = 1,
+            maxStack = maxStack
+        };
     }
 
     public void ApplyDot(float expiresAt, float damage, float interval = 1000f)
@@ -66,11 +105,15 @@ public class EffectHolder
                 existing.value = damage;
             return;
         }
+        int ms = 0;
+        DefaultMaxStack.TryGetValue("dot", out ms);
         _effects["dot"] = new ActiveEffect
         {
             expiresAt = expiresAt, value = damage,
             interval = interval, lastTick = 0f,
-            totalDuration = expiresAt - now
+            totalDuration = expiresAt - now,
+            stackCount = 1,
+            maxStack = ms
         };
     }
 
@@ -81,6 +124,9 @@ public class EffectHolder
 
     public float GetExpiresAt(string type) =>
         _effects.TryGetValue(type, out var e) ? e.expiresAt : 0f;
+
+    public int GetStackCount(string type) =>
+        _effects.TryGetValue(type, out var e) ? e.stackCount : 0;
 
     public void Remove(string type) => _effects.Remove(type);
 
@@ -124,7 +170,8 @@ public class EffectHolder
                     type = kv.Key,
                     expires = kv.Value.expiresAt,
                     totalDuration = kv.Value.totalDuration,
-                    value = kv.Value.value
+                    value = kv.Value.value,
+                    stackCount = kv.Value.stackCount
                 });
             }
         }

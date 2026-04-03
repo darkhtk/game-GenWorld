@@ -1,14 +1,26 @@
 # Project Configuration
 
-> 자동 생성됨 (auto-setup.sh, 2026-04-02 20:34)
+> 자동 생성됨 (auto-setup.sh, 2026-04-03 10:53)
 > Claude 프로젝트 메모리 + 파일 구조에서 감지한 설정입니다.
 > 필요 시 수동으로 수정하세요.
 
 ## 기본 정보
-- **프로젝트명:** GenWorld
+- **프로젝트명:** GENWorld
 - **엔진/프레임워크:** Unity 6000.3.9f1
 - **언어:** C#
 - **플랫폼:** Windows
+
+## Git
+- **Remote:** https://github.com/darkhtk/game-GenWorld.git
+- **Branch:** master
+
+## Runtime
+- Loop interval: 2m
+
+## Orchestration
+- Agent mode: full
+- Review level: strict
+- Dev direction: stabilize
 
 ## 디렉토리 매핑
 
@@ -16,8 +28,8 @@
 |------|------|
 | 소스코드 | Assets/Scripts |
 | 에셋 (이미지) | Assets/Art/Sprites |
-| 에셋 (오디오) | (미감지) |
-| 에셋 (리소스) | (미감지) |
+| 에셋 (오디오) | Assets/Audio |
+| 에셋 (리소스) | Assets/Resources |
 | 테스트 | Assets/Tests/EditMode |
 | 씬/레벨 | Assets/Scenes |
 | 도구 | (미감지) |
@@ -27,8 +39,8 @@
 ### Supervisor (감독관) 수정 가능
 - Assets/Scripts (버그 수정/품질 개선)
 - Assets/Art/Sprites
-- (미감지)
-- (미감지)
+- Assets/Audio
+- Assets/Resources
 - orchestration/logs/SUPERVISOR.md
 - orchestration/BACKLOG_RESERVE.md
 - orchestration/BOARD.md
@@ -69,9 +81,14 @@
 - BGM: (프로젝트에 맞게 설정)
 - SFX: (프로젝트에 맞게 설정)
 
-## 커밋 컨벤션
-- conventional commits (feat:/fix:/refactor:/test:/asset:/docs:)
-- 한 태스크 = 한 커밋 원칙
+## 커밋/푸시 정책
+- **컨벤션:** conventional commits (feat:/fix:/refactor:/test:/asset:/docs:)
+- **커밋 단위:** 한 태스크 = 한 커밋 원칙
+- **Push 정책:** batch
+  - task: 태스크 완료 시마다 commit+push
+  - review: In Review 제출 시에만 push (중간 작업은 commit만)
+  - batch: 30분마다 변경사항 일괄 push
+  - manual: 자동 push 안 함 (에이전트는 commit만, push는 사용자가 수동)
 
 ## 코드 아키텍처 규칙
 - (프로젝트에 맞게 설정)
@@ -154,6 +171,45 @@
 - **시나리오 목록:**
   - (프로젝트에 맞게 설정)
 
+## 기존 문서 (에이전트 필독)
+
+> 오케스트레이션 시작 전 기존 작업물. 모든 에이전트는 첫 루프에서 아래 문서를 읽고 프로젝트 맥락을 파악해야 한다.
+
+- `docs/orchestration/assignments/asset-qa.md` — Current Assignment: Asset/QA
+- `docs/orchestration/assignments/dev-backend.md` — Current Assignment: Dev-Backend
+- `docs/orchestration/assignments/dev-frontend.md` — Current Assignment: Dev-Frontend
+- `docs/orchestration/questions/asset-qa-asmdef-errors.md` — Question from Asset/QA
+- `docs/orchestration/questions/backend-gamemanager-bugs.md` — Report from Dev-Backend
+- `docs/orchestration/questions/frontend-damage-text-wiring.md` — Question from Dev-Frontend
+- `docs/orchestration/questions/frontend-death-marker-wiring.md` — Question from Dev-Frontend
+- `docs/orchestration/reference/architecture.md` — System Architecture
+- `docs/orchestration/reference/coding-standards.md` — Coding Standards
+- `docs/orchestration/reference/data-schema.md` — Data Schema Reference
+- `docs/orchestration/reference/interface-contracts.md` — Interface Contracts
+- `docs/orchestration/reference/phaser-unity-mapping.md` — Phaser to Unity Mapping Reference
+- `docs/orchestration/roles/asset-qa.md` — Role: Asset/QA
+- `docs/orchestration/roles/dev-backend.md` — Role: Dev-Backend
+- `docs/orchestration/roles/dev-frontend.md` — Role: Dev-Frontend
+- `docs/orchestration/roles/director.md` — Role: Director
+- `docs/orchestration/status/asset-qa.md` — Status: Asset/QA
+- `docs/orchestration/status/compile-status.md` — Compile Status
+- `docs/orchestration/status/dev-backend.md` — Status: Dev-Backend
+- `docs/orchestration/status/dev-frontend.md` — Status: Dev-Frontend
+- `docs/orchestration/status/director.md` — Status: Director
+- `CLAUDE.md` — Claude 프로젝트 설정
+
 ## 개발 방향/우선순위
-- 안정성 > 게임플레이 > 콘텐츠
-- 기존 기능 개선 > 신규 기능
+- **방향:** stabilize
+- 안정성 > 기존 기능 개선 > 신규 기능. 버그 수정과 방어 코드 최우선. 신규 기능 추가 금지.
+
+## 에이전트 구성
+- **모드:** full
+  - full: 4개 전부 (Supervisor + Developer + Client + Coordinator)
+  - lean: 2개 (Developer + Supervisor만)
+  - solo: 1개 (Developer만, 모든 역할 통합)
+
+## 리뷰 강도
+- **레벨:** strict
+  - strict: 모든 태스크 리뷰 필수
+  - standard: 새 시스템만 리뷰, QA/수치조정은 자가진행
+  - minimal: 리뷰 없음, 전부 자가진행

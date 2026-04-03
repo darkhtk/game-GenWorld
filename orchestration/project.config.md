@@ -1,18 +1,26 @@
 # Project Configuration
 
-> 자동 생성됨 (auto-setup.sh, 2026-04-03 06:43)
+> 자동 생성됨 (auto-setup.sh, 2026-04-03 15:20)
 > Claude 프로젝트 메모리 + 파일 구조에서 감지한 설정입니다.
 > 필요 시 수동으로 수정하세요.
 
 ## 기본 정보
-- **프로젝트명:** GenWorld
+- **프로젝트명:** GENWorld
 - **엔진/프레임워크:** Unity 6000.3.9f1
 - **언어:** C#
 - **플랫폼:** Windows
 
 ## Git
-- **Remote:** git@github.com:darkhtk/game-GenWorld.git
+- **Remote:** https://github.com/darkhtk/game-GenWorld.git
 - **Branch:** master
+
+## Runtime
+- Loop interval: 2m
+
+## Orchestration
+- Agent mode: full
+- Review level: strict
+- Dev direction: stabilize
 
 ## 디렉토리 매핑
 
@@ -74,7 +82,7 @@
 - SFX: (프로젝트에 맞게 설정)
 
 ## 커밋/푸시 정책
-- **컨벤션:** 접두사: feat: / fix: / refactor: / test: / asset: / docs:
+- **컨벤션:** conventional commits (feat:/fix:/refactor:/test:/asset:/docs:)
 - **커밋 단위:** 한 태스크 = 한 커밋 원칙
 - **Push 정책:** batch
   - task: 태스크 완료 시마다 commit+push
@@ -96,8 +104,7 @@
 - **메일 체크 주기:** 5분
 
 ## Claude 메모리에서 가져온 피드백 규칙
-
-- User requires supervisor to always directly read and verify .unity scene YAML, image .meta, and UI prefab .meta files — never assume they're correct
+- (감지된 피드백 없음)
 
 ## 리뷰 페르소나
 
@@ -168,6 +175,10 @@
 
 > 오케스트레이션 시작 전 기존 작업물. 모든 에이전트는 첫 루프에서 아래 문서를 읽고 프로젝트 맥락을 파악해야 한다.
 
+- `docs/PRE-FLIGHT-CHECKLIST.md` — Pre-Flight Checklist
+- `docs/architecture.md` — Architecture
+- `docs/current-state.md` — Current State
+- `docs/dev-priorities.md` — Development Priorities
 - `docs/orchestration/assignments/asset-qa.md` — Current Assignment: Asset/QA
 - `docs/orchestration/assignments/dev-backend.md` — Current Assignment: Dev-Backend
 - `docs/orchestration/assignments/dev-frontend.md` — Current Assignment: Dev-Frontend
@@ -189,6 +200,8 @@
 - `docs/orchestration/status/dev-backend.md` — Status: Dev-Backend
 - `docs/orchestration/status/dev-frontend.md` — Status: Dev-Frontend
 - `docs/orchestration/status/director.md` — Status: Director
+- `docs/testing.md` — Testing Guide
+- `README.md` — Project Overview
 - `CLAUDE.md` — Claude 프로젝트 설정
 
 ## 개발 방향/우선순위

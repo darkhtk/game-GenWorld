@@ -46,7 +46,7 @@
 | 37 | S-076 | 🔧 | CombatManager 동시 공격 순차 처리 — player death guard + pendingKills 통합 (bd123e4) | P3 | ✅ |
 | 38 | S-077 | 🔧 | SaveSystem 슬롯 데이터 무결성 검증 — SaveData.Validate() 로드 시 필드 검증 + 폴백 (fb8f223) | P2 | ✅ |
 | 39 | S-078 | 🔧 | DialogueSystem AI 응답 타임아웃 — CancellationToken 30s + fallback + elapsed UI (3185a32) | P2 | ✅ |
-| 40 | S-079 | 🔧 | EffectHolder 버프 스택 상한 — 동일 버프 무한 중첩 방지 (maxStack 도입 검토) | P3 | ⬜ |
+| 40 | S-079 | 🔧 | EffectHolder 버프 스택 상한 — maxStack + DefaultMaxStack + GetStackCount 추가 | P3 | 👀 |
 | 41 | S-080 | 🔧 | PlayerController CCD 확인 — CollisionDetectionMode2D.Continuous 설정 검증 완료 | P3 | ✅ |
 | 42 | S-081 | 🔧 | InventorySystem 중복 아이템 ID 병합 — 검증 완료: 스택 로직 정상 동작 | P3 | ✅ |
 | 43 | S-082 | 🔧 | UIManager 패널 중복 열기 방지 — 8개 UI에 IsOpen 가드 추가 완료 | P2 | ✅ |

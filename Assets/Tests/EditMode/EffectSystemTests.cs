@@ -168,4 +168,85 @@ public class EffectSystemTests
         float dmg = holder.TickDot(2000f); // only 500ms since lastTick=1500
         Assert.AreEqual(0f, dmg); // should NOT tick again yet
     }
+
+    // S-079 Stack cap tests
+
+    [Test]
+    public void Stun_Reapply_StackCountStaysOne()
+    {
+        holder.Apply("stun", 3000f, 0);
+        Assert.AreEqual(1, holder.GetStackCount("stun"));
+        holder.Apply("stun", 5000f, 0);
+        Assert.AreEqual(1, holder.GetStackCount("stun"));
+        Assert.AreEqual(5000f, holder.GetExpiresAt("stun"));
+    }
+
+    [Test]
+    public void Rage_StacksUpToThree()
+    {
+        holder.Apply("rage", 5000f, 1.5f);
+        Assert.AreEqual(1, holder.GetStackCount("rage"));
+        holder.Apply("rage", 6000f, 1.5f);
+        Assert.AreEqual(2, holder.GetStackCount("rage"));
+        holder.Apply("rage", 7000f, 1.5f);
+        Assert.AreEqual(3, holder.GetStackCount("rage"));
+        holder.Apply("rage", 8000f, 1.5f);
+        Assert.AreEqual(3, holder.GetStackCount("rage"));
+        Assert.AreEqual(8000f, holder.GetExpiresAt("rage"));
+    }
+
+    [Test]
+    public void Stealth_StackCapOne()
+    {
+        holder.Apply("stealth", 5000f, 1f);
+        Assert.AreEqual(1, holder.GetStackCount("stealth"));
+        holder.Apply("stealth", 8000f, 1f);
+        Assert.AreEqual(1, holder.GetStackCount("stealth"));
+        Assert.AreEqual(8000f, holder.GetExpiresAt("stealth"));
+    }
+
+    [Test]
+    public void Heal_UnlimitedStacks()
+    {
+        for (int i = 0; i < 10; i++)
+            holder.Apply("heal", 5000f + i * 1000f, 10f);
+        Assert.AreEqual(10, holder.GetStackCount("heal"));
+    }
+
+    [Test]
+    public void GetStackCount_ReturnsZero_WhenNotPresent()
+    {
+        Assert.AreEqual(0, holder.GetStackCount("rage"));
+    }
+
+    [Test]
+    public void Tick_Expire_ThenReapply_StackCountResetsToOne()
+    {
+        holder.Apply("rage", 100f, 1.5f);
+        holder.Apply("rage", 100f, 1.5f);
+        Assert.AreEqual(2, holder.GetStackCount("rage"));
+        holder.Tick(200f);
+        Assert.IsFalse(holder.Has("rage"));
+        holder.Apply("rage", 5000f, 1.5f);
+        Assert.AreEqual(1, holder.GetStackCount("rage"));
+    }
+
+    [Test]
+    public void GetActive_IncludesStackCount()
+    {
+        holder.Apply("rage", 5000f, 1.5f);
+        holder.Apply("rage", 6000f, 1.5f);
+        var active = holder.GetActive(0f);
+        Assert.AreEqual(1, active.Count);
+        Assert.AreEqual(2, active[0].stackCount);
+    }
+
+    [Test]
+    public void ExplicitMaxStack_OverridesDefault()
+    {
+        holder.Apply("rage", 5000f, 1.5f, 1);
+        Assert.AreEqual(1, holder.GetStackCount("rage"));
+        holder.Apply("rage", 6000f, 1.5f, 1);
+        Assert.AreEqual(1, holder.GetStackCount("rage"));
+    }
 }
