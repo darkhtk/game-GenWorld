@@ -178,13 +178,13 @@ public class EnhanceUI : MonoBehaviour
         {
             texts[2].color = Color.white;
             if (!hasEquip) texts[2].text = "";
-            else if (maxed) { texts[2].text = "<color=#ffd900>MAX</color>"; }
+            else if (maxed) { texts[2].text = "<b><color=#ffd900>MAX</color></b>"; }
             else
             {
                 float succ = info.success;
                 string succColor = succ >= 0.7f ? "#66ff88" : succ >= 0.4f ? "#ffdd44" : "#ff6666";
                 string costPart = $"<color=#ffd900>\u25c6 <b>{cost:N0}</b>G</color>";
-                string succPart = $"<color={succColor}>{succ * 100:F0}%</color>";
+                string succPart = $"<color={succColor}><b>{succ * 100:F0}%</b></color>";
                 string destPart = info.destroy > 0
                     ? $" | <color=#ff5555><b>{info.destroy * 100:F0}%</b> lose</color>" : "";
                 texts[2].text = $"{costPart} | {succPart}{destPart}";
