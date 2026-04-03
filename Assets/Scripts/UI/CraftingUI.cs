@@ -76,8 +76,8 @@ public class CraftingUI : MonoBehaviour
         go.SetActive(true);
 
         bool canCraft = _craftingSystem.CanCraft(recipe.resultId, _inventory);
-        string resultName = _itemDefs != null && _itemDefs.TryGetValue(recipe.resultId, out var resultDef)
-            ? resultDef.name : recipe.resultId;
+        _itemDefs?.TryGetValue(recipe.resultId, out ItemDef resultDef);
+        string resultName = resultDef != null ? resultDef.name : recipe.resultId;
 
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
 
