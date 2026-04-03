@@ -49,6 +49,11 @@ public class AchievementUI : MonoBehaviour
         while (_listEntries.Count < all.Length)
         {
             var entry = Instantiate(listEntryPrefab, listContent);
+            var fitter = entry.GetComponent<UnityEngine.UI.ContentSizeFitter>();
+            if (fitter == null) fitter = entry.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
+            fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+            entry.enableWordWrapping = true;
+            entry.overflowMode = TMPro.TextOverflowModes.Overflow;
             entry.gameObject.SetActive(true);
             _listEntries.Add(entry);
         }
@@ -69,7 +74,10 @@ public class AchievementUI : MonoBehaviour
                     : (current > 0
                         ? $"<color=#ffdd44>{current}<color=#888888>/{required}</color></color>"
                         : $"<color=#888888>0/{required}</color>");
-                _listEntries[i].text = $"{prog}<color={nameColor}>{def.name}</color>  {progText}";
+                string descLine = !string.IsNullOrEmpty(def.description)
+                    ? $"\n  <color=#555566><size=10>{def.description}</size></color>"
+                    : "";
+                _listEntries[i].text = $"{prog}<color={nameColor}>{def.name}</color>  {progText}{descLine}";
                 _listEntries[i].color = Color.white;
                 _listEntries[i].gameObject.SetActive(true);
             }
