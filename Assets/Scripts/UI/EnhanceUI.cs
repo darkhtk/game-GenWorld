@@ -151,7 +151,7 @@ public class EnhanceUI : MonoBehaviour
                 "accessory" => "#cc88ff",
                 _           => "#aaaaaa"
             };
-            texts[0].text = $"<color={slotColor}>{label}</color>";
+            texts[0].text = $"<b><color={slotColor}>{label}</color></b>";
             texts[0].color = Color.white;
         }
 
