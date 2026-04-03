@@ -1,7 +1,7 @@
 # DEVELOPER Loop Log
 
 **Last run:** 2026-04-03
-**Status:** S-021 In Review (test coverage expansion)
+**Status:** S-038 In Review (WorldEvent 동시 실행 방지)
 
 ## Loop Result
 - Build errors: 0
@@ -11,26 +11,22 @@
 
 ## 이번 루프 작업
 
-### S-006 → Done (APPROVE)
-GameManager 분할 리팩토링 리뷰 승인 완료. Done으로 이동.
+### S-038 WorldEvent 동시 실행 방지
 
-### S-021 테스트 커버리지 확장
+**문제:** `StartEvent`에 중복 실행 가드 없음. `Restore` 경로에서 기존 이벤트가 활성 중일 때 `StartEvent` 호출 시 `EndEvent` 없이 덮어쓰기 → 승수(multiplier) 미복원 위험.
 
-| 파일 | 기존 | 추가 | 합계 | 주요 커버리지 |
-|------|------|------|------|--------------|
-| CombatSystemTests.cs | 7 | 10 | 17 | 경계값, List 오버로드, 빈/죽은 타겟 |
-| InventorySystemTests.cs | 9 | 13 | 22 | SortItems, GetFiltered, 잘못된 인덱스, 빈 슬롯 |
-| SaveSystemTests.cs | 7 | 9 | 16 | 마이그레이션, 백업 복구, 체크섬 검증, 복합 데이터 |
+**수정:** `StartEvent` 진입 시 `_activeEvent != null`이면 `EndEvent()` 호출 후 진행.
+- 파일: `Assets/Scripts/Systems/WorldEventSystem.cs` (line 68-69)
+- 영향 범위: `StartEvent` 내부만 변경, 외부 API 변경 없음
 
-**변경 원칙:**
-- 순수 단위 테스트 (MonoBehaviour 의존 없음)
-- EditModeTests.asmdef에 Newtonsoft.Json.dll 참조 추가 (SaveMigrations 테스트용)
-- 기존 테스트 동작 유지, 새 테스트만 추가
+**검증:**
+- `Update()`: 이미 `_activeEvent != null` 시 early return → 정상 흐름에서 중복 불가 (기존 보호)
+- `Restore()` → `StartEvent()`: 이제 가드에 의해 안전
+- Build errors: 0
 
-### specs 참조: N (SPEC-S021 없음)
+### specs 참조: N (SPEC-S038 없음)
 
 ## RESERVE 잔여 (non-🎨, not in BOARD Done)
-- S-038 WorldEvent 동시 실행 방지 (P3)
 - S-040 CombatManager 타겟팅 범위 (P3)
 - S-041 NPC 호감도 데이터 저장 (P3)
 - S-042 SaveSystem 동시 저장 경합 방지 (P2)

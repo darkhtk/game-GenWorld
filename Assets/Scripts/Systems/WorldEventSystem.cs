@@ -65,6 +65,9 @@ public class WorldEventSystem
 
     void StartEvent(WorldEventDef def, float gameHour)
     {
+        if (_activeEvent != null)
+            EndEvent();
+
         _activeEvent = def;
         _eventStartHour = gameHour;
         _lastOccurrence[def.id] = gameHour;

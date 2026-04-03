@@ -110,6 +110,7 @@
 | 98 | S-039 UI SFX 누락 수정 | P3 | ✅ | 8개 UI에 PlaySFX 추가 |
 | 99 | S-006 GameManager 분할 리팩토링 | P2 | ✅ | REVIEW-S006-v1 APPROVE |
 | 100 | S-021 테스트 커버리지 확장 | P3 | ✅ | REVIEW-S021-v1 APPROVE |
+| 101 | S-038 WorldEvent 동시 실행 방지 | P3 | 👀 | In Review |
 
 ---
 
@@ -128,6 +129,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
+| S-038 WorldEvent 동시 실행 방지 | 2026-04-03 | | StartEvent에 EndEvent 가드 추가 |
 
 ## ✅ Done
 
