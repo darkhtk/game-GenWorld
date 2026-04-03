@@ -46,7 +46,7 @@ public class AnimationPreviewUI : MonoBehaviour
             if (currentStateLabel != null)
             {
                 currentStateLabel.color = Color.white;
-                currentStateLabel.text = $"<color=#888888>State:</color> <color=#aaddff>{info.shortNameHash}</color>  <color=#888888>t:</color> <color=#ffdd44>{info.normalizedTime:F2}</color>";
+                currentStateLabel.text = $"<color=#888888>State:</color> <color=#aaddff><b>{info.shortNameHash}</b></color>  <color=#888888>t:</color> <color=#ffdd44><b>{info.normalizedTime:F2}</b></color>";
             }
         }
     }
@@ -87,7 +87,7 @@ public class AnimationPreviewUI : MonoBehaviour
         var npc = target.GetComponent<VillageNPC>();
         if (npc != null && npc.Def != null) _targetDef = npc.Def.animationDef;
 
-        if (entityNameLabel != null) { entityNameLabel.text = $"<color=#ffcc88>{target.name}</color>"; entityNameLabel.color = Color.white; }
+        if (entityNameLabel != null) { entityNameLabel.text = $"<b><color=#ffcc88>{target.name}</color></b>"; entityNameLabel.color = Color.white; }
         panel.SetActive(true);
         BuildList();
     }
@@ -144,7 +144,7 @@ public class AnimationPreviewUI : MonoBehaviour
     void OnSpeedChanged(float value)
     {
         if (_targetAnimator != null) _targetAnimator.speed = value;
-        if (speedText != null) { speedText.color = Color.white; speedText.text = $"<color=#aaddff>{value:F1}x</color>"; }
+        if (speedText != null) { speedText.color = Color.white; speedText.text = $"<color=#aaddff><b>{value:F1}x</b></color>"; }
     }
 }
 #endif
