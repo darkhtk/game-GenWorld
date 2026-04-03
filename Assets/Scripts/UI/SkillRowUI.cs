@@ -39,8 +39,9 @@ public class SkillRowUI : MonoBehaviour
 
         if (nameText != null)
         {
-            nameText.text = def.name;
-            nameText.color = treeColor;
+            string treeHex = "#" + ColorUtility.ToHtmlStringRGB(treeColor);
+            nameText.color = Color.white;
+            nameText.text = $"<b><color={treeHex}>{def.name}</color></b>";
             nameText.alignment = TextAlignmentOptions.Left;
             nameText.overflowMode = TextOverflowModes.Overflow;
             nameText.enableWordWrapping = false;

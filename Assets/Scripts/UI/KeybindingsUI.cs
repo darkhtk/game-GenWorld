@@ -28,6 +28,7 @@ public class KeybindingsUI : MonoBehaviour
     void RefreshText()
     {
         if (keybindingsText == null) return;
+        keybindingsText.color = Color.white;
         const string H = "<color=#ffd900><b>";
         const string HE = "</b></color>";
         const string K = "<color=#aaddff>";

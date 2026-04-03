@@ -182,7 +182,7 @@ public class EnhanceUI : MonoBehaviour
             {
                 float succ = info.success;
                 string succColor = succ >= 0.7f ? "#66ff88" : succ >= 0.4f ? "#ffdd44" : "#ff6666";
-                string costPart = $"<color=#ffd900>{cost}G</color>";
+                string costPart = $"<color=#ffd900>\u25c6 {cost:N0}G</color>";
                 string succPart = $"<color={succColor}>{succ * 100:F0}%</color>";
                 string destPart = info.destroy > 0
                     ? $" | <color=#ff5555>{info.destroy * 100:F0}% lose</color>" : "";
@@ -228,7 +228,7 @@ public class EnhanceUI : MonoBehaviour
             confirmText.text = $"Enhance <b>{itemName}</b> <color=#aaffaa>+{level}</color> \u2192 <color=#ffd900>+{level + 1}</color>?\n" +
                 $"<color=#66ff88>Success: {info.success * 100:F0}%</color>\n" +
                 $"<color=#ff4444>Destroy: {info.destroy * 100:F0}%</color>\n" +
-                $"Cost: <color=#ffd900>{info.gold:N0}G</color>";
+                $"Cost: <color=#ffd900>\u25c6 {info.gold:N0}G</color>";
         }
     }
 

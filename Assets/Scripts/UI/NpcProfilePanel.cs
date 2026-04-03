@@ -33,9 +33,9 @@ public class NpcProfilePanel : MonoBehaviour
 
         if (npcNameText != null)
         {
-            npcNameText.text = npcName;
-            if (!string.IsNullOrEmpty(color) && ColorUtility.TryParseHtmlString(color, out var c))
-                npcNameText.color = c;
+            string nameHex = !string.IsNullOrEmpty(color) ? color : "#ffe8aa";
+            npcNameText.color = Color.white;
+            npcNameText.text = $"<b><color={nameHex}>{npcName}</color></b>";
         }
 
         if (relationshipText != null)

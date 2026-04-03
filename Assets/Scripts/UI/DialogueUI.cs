@@ -97,9 +97,9 @@ public class DialogueUI : MonoBehaviour
 
         if (npcNameText != null)
         {
-            npcNameText.text = npcDef.name;
-            if (ColorUtility.TryParseHtmlString(npcDef.color, out var npcColor))
-                npcNameText.color = npcColor;
+            string nameHex = !string.IsNullOrEmpty(npcDef.color) ? npcDef.color : "#ffe8aa";
+            npcNameText.color = Color.white;
+            npcNameText.text = $"<b><color={nameHex}>{npcDef.name}</color></b>";
         }
         if (questTitleText != null) questTitleText.text = "";
 
