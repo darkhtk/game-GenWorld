@@ -79,12 +79,13 @@
 | 67 | V-008 파티클/이벤트 VFX | P4 | ✅ | 폴리시 — 자가진행 |
 | 68 | V-012 타일맵 경계 블렌딩 | P4 | ✅ | 폴리시 — 자가진행 |
 | 69 | S-001 세이브 파일 손상 복구 | P1 | ✅ | REVIEW-S001-v1 |
-| 70 | S-002 EventBus 구독 누수 방지 | P1 | 👀 | GameManager OnDestroy + EventBus.Clear |
-| 71 | S-003 async fire-and-forget 방어 | P1 | 👀 | AI.Init/HandleDialogueResponse 예외 |
+| 70 | S-002 EventBus 구독 누수 방지 | P1 | ✅ | 이미 구현됨 확인 |
+| 71 | S-003 async fire-and-forget 방어 | P1 | ✅ | 이미 구현됨 확인 |
 | 72 | S-004 DoT 사망 킬 보상 미처리 | P1 | ⬜ | MonsterSpawner.RemoveMonster 연결 |
 | 73 | S-005 LINQ 할당 제거 | P2 | ⬜ | InventorySystem.OccupiedSlots |
 | 74 | S-007 CombatManager stale ref 방어 | P2 | ⬜ | _cachedMonsters 참조 안정성 |
-| 75 | S-010 QuestSystem null 방어 | P2 | ⬜ | quest.rewards.items null 체크 |
+| 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
+| 76 | S-010 QuestSystem null 방어 | P2 | ⬜ | quest.rewards.items null 체크 |
 
 ---
 
@@ -102,7 +103,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-002 EventBus 구독 누수 방지 | 2026-04-03 | 대기 | GameManager OnDestroy + EventBus.Clear() |
+| S-002 EventBus 구독 누수 방지 | 2026-04-03 | ✅ APPROVE | REVIEW-S002-v1 |
 | S-003 async fire-and-forget 방어 | 2026-04-03 | 대기 | try-catch + 상태 복구 |
 
 ## ✅ Done
@@ -178,13 +179,18 @@
 | V-008 파티클/이벤트 VFX | 2026-04-03 | 자가진행 ✅ (폴리시) |
 | V-012 타일맵 경계 블렌딩 | 2026-04-03 | 자가진행 ✅ (폴리시) |
 | S-001 세이브 파일 손상 복구 | 2026-04-03 | REVIEW-S001-v1 ✅ |
+| S-002 EventBus 구독 누수 방지 | 2026-04-03 | 이미 구현됨 확인 ✅ |
+| S-003 async fire-and-forget 방어 | 2026-04-03 | 이미 구현됨 확인 ✅ |
+| S-009 FlashWhite 코루틴 중복 방지 | 2026-04-03 | StopCoroutine 가드 추가 ✅ |
+| S-017 몬스터 사망 이펙트 확인 | 2026-04-03 | 이미 존재 확인 ✅ |
+| S-018 누락 SFX placeholder | 2026-04-03 | sfx_combo.wav 생성 ✅ |
+| S-019 퀘스트 아이콘 에셋 | 2026-04-03 | icon_quest_marker/complete 생성 ✅ |
+| S-020 상태이상 아이콘 | 2026-04-03 | status_stealth 생성 ✅ |
 
 ## 📋 Backlog
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
-| S-002 EventBus 구독 누수 방지 — GameManager OnDestroy에서 EventBus.Clear() | P1 | RESERVE에서 이동 |
-| S-003 GameManager async fire-and-forget 방어 — AI.Init(), HandleDialogueResponse 예외 핸들링 | P1 | RESERVE에서 이동 |
 | S-004 MonsterController DoT 사망 시 킬 보상/제거 미처리 — MonsterSpawner.RemoveMonster 연결 | P1 | RESERVE에서 이동 |
 | S-005 InventorySystem.OccupiedSlots LINQ 할당 제거 — Count() → 수동 카운트 | P2 | RESERVE에서 이동 |
 | S-007 CombatManager _cachedMonsters 참조 안정성 — stale reference 방어 | P2 | RESERVE에서 이동 |

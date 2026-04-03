@@ -211,13 +211,16 @@ public class MonsterController : MonoBehaviour
     }
 
     SpriteRenderer _sr;
+    Coroutine _flashCoroutine;
     static readonly Color HitTint = new(1f, 0.4f, 0.4f, 1f);
     static readonly WaitForSeconds FlashWait = new(0.1f);
 
     void FlashWhite()
     {
         if (_sr == null) _sr = GetComponent<SpriteRenderer>();
-        if (_sr != null) StartCoroutine(DoFlash());
+        if (_sr == null) return;
+        if (_flashCoroutine != null) StopCoroutine(_flashCoroutine);
+        _flashCoroutine = StartCoroutine(DoFlash());
     }
 
     System.Collections.IEnumerator DoFlash()
@@ -225,6 +228,7 @@ public class MonsterController : MonoBehaviour
         _sr.color = HitTint;
         yield return FlashWait;
         _sr.color = Color.white;
+        _flashCoroutine = null;
     }
 
     public bool CanAttack(float now)

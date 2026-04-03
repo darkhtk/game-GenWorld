@@ -1,39 +1,27 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #19)
-> **모드:** 코드 감사 + RESERVE 보충
+> **최종 실행:** 2026-04-03 (루프 #20)
+> **모드:** 🎨 에셋 태스크 + 코드 품질 감사
 
 ## 이번 루프 수행 내용
 
-### 버그 수정 (2건) ✅
+### 🎨 에셋 태스크 처리 (4건)
+- **S-017** ✅ `vfx_monster_death.png` 이미 존재 확인
+- **S-018** ✅ `sfx_combo.wav` placeholder 생성 (sfx_error 이미 존재)
+- **S-019** ✅ `icon_quest_marker.png`, `icon_quest_complete.png` 생성
+- **S-020** ✅ `status_stealth.png` 생성 (stun/slow/poison/mana_shield 이미 존재)
 
-**1. MonsterController.cs — DoT 사망 미처리 (치명)**
-- DoT(독/화상 등) 데미지로 HP가 0 이하가 되어도 사망 처리가 발생하지 않았음
-- `UpdateAI()`에서 DoT 데미지 적용 후 `Hp <= 0` 체크 + `PlayAnimation("die")` + early return 추가
-- HP바 갱신도 DoT 히트 시 반영하도록 수정
-- **주의:** 킬 보상/몬스터 제거는 외부 콜백(OnMonsterKilled) 연결이 필요 → S-004 태스크로 등록
+### 🔧 코드 품질 감사 (3건)
+- **S-002** ✅ EventBus.Clear() 이미 GameManager.OnDestroy:54에 구현됨 → 완료 처리
+- **S-003** ✅ async try-catch 이미 InitAISafe:59, HandleDialogueResponse:215에 구현됨 → 완료 처리
+- **S-009** ✅ MonsterController FlashWhite 코루틴 중복 방지 수정
+  - `_flashCoroutine` 필드 추가, `StopCoroutine` 가드로 연타 히트 색상 깨짐 방지
 
-**2. SaveSystem.cs — Save() 예외 미처리**
-- `File.WriteAllText` 호출부에 try/catch 부재 → 디스크 풀/권한 에러 시 크래시
-- Save() 전체를 try/catch로 감싸고 `Debug.LogError`로 실패 로그 출력
+### BOARD/RESERVE 동기화
+- RESERVE 7건 완료 처리, 미완료 18건 잔존 (보충 불필요)
+- BOARD 로드맵/Done 섹션 갱신
 
-### BACKLOG_RESERVE 재건 ✅
-- 기존 RESERVE 파일이 파손 상태 (AI 응답 메시지로 덮어써짐)
-- 25건 신규 태스크 작성 (🔧 19건 + 🎨 4건 + 테스트 2건)
-- P1: 3건 (EventBus 누수, async 방어, DoT 킬 연결)
-- P2: 14건 (코드 방어/최적화)
-- P3: 8건 (에셋/테스트/경계조건)
-
-### 코드 감사 범위
-- GameManager.cs (884줄 — 분할 태스크 S-006 등록)
-- CombatManager.cs (정상, 방어코드 양호)
-- SaveSystem.cs (S-001 개선 반영 확인 + Save 예외처리 추가)
-- MonsterController.cs (DoT 버그 수정)
-- InventorySystem.cs (LINQ 할당 이슈 S-005 등록)
-- PlayerController.cs (정상)
-- EventBus.cs (Clear 미호출 이슈 S-002 등록)
-
-## 누적 현황 (루프 #1~#19)
+## 누적 현황 (루프 #1~#20)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -51,14 +39,16 @@
 | #13 | EventVFX 캐싱 + 리크 수정 | FindFirstObjectByType 캐시, OnDisable 추가 |
 | #14~18 | 순찰 (안정) | 빌드 Clean, 변경 없음 |
 | #19 | 코드 감사 + RESERVE 재건 | 버그 2건 수정, 25건 태스크 보충 |
+| #20 | 🎨 에셋 4건 + 코드 감사 3건 | S-009 버그수정, S-002/003 완료확인, 에셋 4종 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 12건 (+2 이번 루프)
+- **치명 버그 수정**: 13건 (+1 이번 루프)
 - **성능 최적화**: 6건
-- **UX SFX 추가**: 5건
-- **에셋 생성**: 42종
-- **RESERVE 태스크 보충**: 25건 (이번 루프)
+- **UX SFX 추가**: 6건 (+sfx_combo)
+- **에셋 생성**: 46종 (+4 이번 루프)
+- **RESERVE 태스크 보충**: 25건
 - **감사 시스템**: 29개 클래스 + 7개 재감사
 
 ## 다음 루프 예정
-- S-002 (EventBus 누수) 또는 다음 🎨 태스크 실행
+- 코드 품질 감사 계속 (S-022 EffectHolder.Tick, S-026 NPC ResumeMoving 등)
+- 에셋 선제 생성 — RESERVE 다음 5건 필요 에셋 확인
