@@ -45,15 +45,15 @@ public class GameStatsUI : MonoBehaviour
         var sb = new System.Text.StringBuilder();
         sb.AppendLine("<b><color=#ffd900>Game Statistics</color></b>");
         sb.AppendLine();
-        sb.AppendLine($"<color=#888888>Play Time</color>  <color=#aaffaa>{hours:D2}:{mins:D2}:{secs:D2}</color>");
+        sb.AppendLine($"<color=#888888>Play Time</color>  <color=#aaffaa><b>{hours:D2}:{mins:D2}:{secs:D2}</b></color>");
         sb.AppendLine($"<color=#888888>Level</color>  <color=#99ff99><b>{gm.PlayerState.Level}</b></color>");
-        sb.AppendLine($"<color=#888888>Gold</color>  <color=#ffd900>\u25c6 {gm.PlayerState.Gold:N0}G</color>");
+        sb.AppendLine($"<color=#888888>Gold</color>  <color=#ffd900><b>\u25c6 {gm.PlayerState.Gold:N0}G</b></color>");
         string period = gm.TimeSystem.Period ?? "";
         string periodColor = period switch
         {
             "Dawn" => "#ffcc66", "Day" => "#ffffaa", "Dusk" => "#ff9966", "Night" => "#8899ff", _ => "#aaaaaa"
         };
-        sb.AppendLine($"<color=#888888>Game Hour</color>  <color=#88ccff>{gm.TimeSystem.GameHour:F1}</color>  <color={periodColor}>{period}</color>");
+        sb.AppendLine($"<color=#888888>Game Hour</color>  <color=#88ccff><b>{gm.TimeSystem.GameHour:F1}</b></color>  <color={periodColor}>{period}</color>");
         sb.AppendLine();
 
         var achievements = gm.Achievements.GetAll();
@@ -62,7 +62,7 @@ public class GameStatsUI : MonoBehaviour
             if (gm.Achievements.IsCompleted(a.id)) completed++;
         string achColor = completed == achievements.Length ? "#ffd900" : completed > 0 ? "#aaffaa" : "#888888";
         string achSuffix = completed == achievements.Length ? " <color=#ffd900>\u2605</color>" : "";
-        sb.AppendLine($"<color=#888888>Achievements</color>  <color={achColor}>{completed}/{achievements.Length}</color>{achSuffix}");
+        sb.AppendLine($"<color=#888888>Achievements</color>  <color={achColor}><b>{completed}/{achievements.Length}</b></color>{achSuffix}");
 
         if (gm.WorldEvents.IsEventActive)
             sb.AppendLine($"\n<color=#ff9966>\u25cf Active Event: {gm.WorldEvents.ActiveEvent?.name}</color>");
