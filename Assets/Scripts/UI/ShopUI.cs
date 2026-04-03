@@ -102,7 +102,8 @@ public class ShopUI : MonoBehaviour
             string nameHex = canAfford
                 ? "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(def.GradeEnum))
                 : "#555555";
-            texts[0].text = $"<color={prefixColor}>{prefix}</color> <color={nameHex}>{def.name}</color>";
+            string nameStr = canAfford ? $"<b><color={nameHex}>{def.name}</color></b>" : $"<color={nameHex}>{def.name}</color>";
+            texts[0].text = $"<color={prefixColor}>{prefix}</color> {nameStr}";
             texts[0].color = Color.white;
         }
 

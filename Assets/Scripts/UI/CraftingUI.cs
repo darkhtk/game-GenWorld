@@ -88,7 +88,8 @@ public class CraftingUI : MonoBehaviour
             string gradeHex = canCraft && resultDef != null
                 ? "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(resultDef.GradeEnum))
                 : "#555555";
-            texts[0].text = $"<color={prefixColor}>{prefix}</color> <color={gradeHex}>{resultName}</color>";
+            string nameStr = canCraft ? $"<b><color={gradeHex}>{resultName}</color></b>" : $"<color={gradeHex}>{resultName}</color>";
+            texts[0].text = $"<color={prefixColor}>{prefix}</color> {nameStr}";
             texts[0].color = Color.white;
         }
 
