@@ -136,6 +136,14 @@ public static class SaveSystem
                 Debug.LogError($"[SaveSystem] {path}: deserialized to null");
                 return null;
             }
+
+            var fixes = result.Validate();
+            if (fixes.Count > 0)
+            {
+                Debug.LogWarning($"[SaveSystem] {path}: applied {fixes.Count} validation fix(es):\n  " +
+                                 string.Join("\n  ", fixes));
+            }
+
             return result;
         }
         catch (Exception e)

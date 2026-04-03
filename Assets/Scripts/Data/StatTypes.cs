@@ -142,6 +142,44 @@ public class SaveData
     public string[] firedTriggers;
     public Dictionary<string, int> bonusStats;
     public long timestamp;
+
+    public List<string> Validate()
+    {
+        var fixes = new List<string>();
+
+        if (level < 1) { fixes.Add($"level {level} -> 1"); level = 1; }
+        if (hp <= 0) { fixes.Add($"hp {hp} -> 50"); hp = 50; }
+        if (mp < 0) { fixes.Add($"mp {mp} -> 0"); mp = 0; }
+        if (xp < 0) { fixes.Add($"xp {xp} -> 0"); xp = 0; }
+        if (gold < 0) { fixes.Add($"gold {gold} -> 0"); gold = 0; }
+        if (skillPoints < 0) { fixes.Add($"skillPoints {skillPoints} -> 0"); skillPoints = 0; }
+        if (statPoints < 0) { fixes.Add($"statPoints {statPoints} -> 0"); statPoints = 0; }
+        if (totalKills < 0) { fixes.Add($"totalKills {totalKills} -> 0"); totalKills = 0; }
+
+        if (inventory == null) { fixes.Add("inventory null -> empty"); inventory = new ItemInstance[0]; }
+        if (equipment == null)
+        {
+            fixes.Add("equipment null -> default slots");
+            equipment = new Dictionary<string, ItemInstance>
+            {
+                ["weapon"] = null, ["helmet"] = null,
+                ["armor"] = null, ["boots"] = null, ["accessory"] = null
+            };
+        }
+        if (learnedSkills == null) { fixes.Add("learnedSkills null -> empty"); learnedSkills = new Dictionary<string, int>(); }
+        if (equippedSkills == null) { fixes.Add("equippedSkills null -> empty"); equippedSkills = new string[0]; }
+        if (killCounts == null) { fixes.Add("killCounts null -> empty"); killCounts = new Dictionary<string, int>(); }
+        if (bonusStats == null)
+        {
+            fixes.Add("bonusStats null -> default");
+            bonusStats = new Dictionary<string, int>
+            {
+                ["str"] = 0, ["dex"] = 0, ["wis"] = 0, ["luc"] = 0
+            };
+        }
+
+        return fixes;
+    }
 }
 
 [Serializable]
