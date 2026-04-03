@@ -89,7 +89,8 @@ public class CombatManager : MonoBehaviour
         float swingAngle = Mathf.Atan2(aimDir.y, aimDir.x);
 
         bool stealthActive = _playerEffects.Has("stealth");
-        List<MonsterController> killed = null;
+        _pendingKills ??= new List<MonsterController>();
+        _pendingKills.Clear();
 
         for (int i = monsters.Count - 1; i >= 0; i--)
         {
@@ -114,11 +115,12 @@ public class CombatManager : MonoBehaviour
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
             SkillVFX.ShowAtPosition(this, "vfx_melee_hit", m.Position.x, m.Position.y);
             AudioManager.Instance?.PlaySFX(isCrit ? "sfx_critical_hit" : "sfx_attack", 0.1f);
-            if (dead) { killed ??= new(); killed.Add(m); }
+            if (dead) _pendingKills.Add(m);
         }
 
-        if (killed != null)
-            foreach (var m in killed) _onMonsterDeath?.Invoke(m);
+        for (int i = 0; i < _pendingKills.Count; i++)
+            _onMonsterDeath?.Invoke(_pendingKills[i]);
+        _pendingKills.Clear();
 
         if (stealthActive)
             _playerEffects.Remove("stealth");
@@ -134,6 +136,7 @@ public class CombatManager : MonoBehaviour
         {
             var m = monsters[i];
             if (m == null || m.IsDead) continue;
+            if (PlayerState != null && PlayerState.Hp <= 0) break;
             if (!m.CanAttack(now)) continue;
 
             float atkRange = m.Def.attackRange * 1.3f;
@@ -181,7 +184,7 @@ public class CombatManager : MonoBehaviour
 
     void ApplyDamageToPlayer(int dmg)
     {
-        if (PlayerState == null) return;
+        if (PlayerState == null || PlayerState.Hp <= 0) return;
 
         if (_playerEffects.Has("mana_shield") && PlayerState.Mp > 0)
         {

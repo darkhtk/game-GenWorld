@@ -145,6 +145,7 @@
 | 133 | S-053 PlayerController 벽 끼임 방지 | P3 | 👀 | CCD Continuous 추가 |
 | 134 | S-055 UI 해상도 대응 | P3 | 👀 | 툴팁 오프셋 해상도 스케일링 |
 | 135 | S-069 Projectile 풀 반환 null 콜백 방어 | P3 | 👀 | capture-then-clear |
+| 136 | S-076 CombatManager 동시 공격 순차 처리 | P3 | 👀 | player death guard + pendingKills 통일 |
 
 ---
 
@@ -168,9 +169,10 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-053 PlayerController 벽 끼임 방지 | 2026-04-03 | ⏳ | CCD Continuous ��가, FixedUpdate 불필요 판단 |
+| S-053 PlayerController 벽 끼임 방지 | 2026-04-03 | ✅ APPROVE | REVIEW-S053-v1 |
 | S-055 UI 해상도 대응 | 2026-04-03 | ⏳ | 툴팁/HUD 오프셋 해상도 스케일링 적용 |
 | S-069 Projectile 풀 반환 null 콜백 방어 | 2026-04-03 | ⏳ | capture-then-clear + _arrived 선행 |
+| S-076 CombatManager 동시 공격 순차 처리 | 2026-04-03 | ⏳ | player death guard + pendingKills 통일 |
 
 ## ✅ Done
 
