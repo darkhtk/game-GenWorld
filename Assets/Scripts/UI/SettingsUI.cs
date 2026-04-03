@@ -327,7 +327,7 @@ public class SettingsUI : MonoBehaviour
         _listeningRow = row;
         if (row.KeyText != null)
         {
-            row.KeyText.text = "<color=#ffff44>[PRESS KEY]</color>";
+            row.KeyText.text = "<color=#ffff44><b>[PRESS KEY]</b></color>";
             row.KeyText.color = Color.white;
         }
     }
@@ -349,7 +349,7 @@ public class SettingsUI : MonoBehaviour
                 if (r != _listeningRow && r.CurrentKey == key)
                 {
                     r.CurrentKey = KeyCode.None;
-                    if (r.KeyText != null) { r.KeyText.text = "---"; r.KeyText.color = Color.red; }
+                    if (r.KeyText != null) { r.KeyText.text = "<color=#888888>---</color>"; r.KeyText.color = Color.white; }
                     dup = true;
                 }
             }
