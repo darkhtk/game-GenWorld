@@ -202,6 +202,7 @@ public class MonsterController : MonoBehaviour
 
     public bool TakeDamage(int dmg)
     {
+        if (IsDead || DeathProcessed) return false;
         if (IsReturning) dmg = Mathf.Max(1, dmg / (int)ReturnDamageReduction);
         Hp -= dmg;
         if (_hpBar != null) _hpBar.UpdateHP(Hp, Def.hp);

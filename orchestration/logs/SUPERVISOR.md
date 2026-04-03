@@ -1,26 +1,29 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #31)
-> **모드:** UX 개선 2건 + RESERVE 동기화 3건
+> **최종 실행:** 2026-04-03 (루프 #32)
+> **모드:** 코드 품질 감사 + S-075 버그 수정
 
 ## 이번 루프 수행 내용
 
-### S-062: ShopUI 구매 실패 피드백 추가
-- **문제:** 골드 부족/인벤토리 풀 시 BuyItem이 조용히 실패 → 플레이어 혼란
-- **수정:** statusText 필드 추가, 골드 부족 시 빨간색 "Not enough gold!" + sfx_error, 인벤 풀 시 노란색 "Inventory full!" + sfx_error, 성공 시 초록색 "Purchased!"
-- **파일:** `Assets/Scripts/UI/ShopUI.cs`
+### 코드 품질 감사 (전체 시스템 스캔)
+- **범위:** Systems 5개, Entities 4개, Managers 4개 — 총 13개 파일 병렬 감사
+- **감사 결과:**
+  - 보고된 "Critical" 이슈 13건 → 코드 직접 확인 → **실제 버그 0건** (모두 false positive)
+  - GameManager OnDestroy sceneLoaded: 의도적 one-shot 패턴
+  - float division by zero: C# float → Infinity, crash 없음
+  - CombatManager ranged null: 호출 전 null 체크 존재
+  - Projectile zero vector: Unity normalized → (0,0) 반환, NaN 아님
+- **결론:** 기존 방어 코드가 충분히 견고함
 
-### S-063: EnhanceUI 강화 전 확인 팝업 추가
-- **문제:** +4 이상 강화 시 파괴 확률 있는데 경고 없이 바로 실행
-- **수정:** confirmPopup/confirmText/confirmOkButton/confirmCancelButton 추가. RequestEnhance()에서 destroy>0이면 팝업 표시 (아이템명, 레벨, 성공률, 파괴률 빨간색). Safe 레벨(+0~+3)은 바로 진행. Close()에서 팝업 정리.
-- **파일:** `Assets/Scripts/UI/EnhanceUI.cs`
+### S-075: MonsterController 사망 상태 피격 방지
+- **문제:** TakeDamage()에 IsDead 체크 없음 → 사망 몬스터에 데미지 적용, HP바 갱신, FlashWhite 실행
+- **수정:** `if (IsDead || DeathProcessed) return false;` 조기 반환 추가
+- **파일:** `Assets/Scripts/Entities/MonsterController.cs`
 
-### RESERVE 동기화 (Developer 커밋 반영)
-- S-061: QuestSystem killProgress 고아 항목 정리 → ✅
-- S-064: DialogueUI 코루틴 재진입 방지 → ✅
-- S-065: EffectHolder DoT 재적용 로직 수정 → ✅
+### BACKLOG 동기화
+- S-075: ⬜ → ✅ (Supervisor 직접 수정)
 
-## 누적 현황 (루프 #1~#31)
+## 누적 현황 (루프 #1~#32)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -50,25 +53,25 @@
 | #29 | 🎨 에셋 2건 + 코드 감사 2건 | S-070 아이콘 폴백, S-072 상태아이콘 7종, S-059/S-060 메모리 누수 수정 |
 | #30 | 성능 최적화 2건 | S-071 ShopUI 풀링, S-073 TimeSystem 로그 중복 제거 |
 | #31 | UX 개선 2건 | S-062 구매 실패 피드백, S-063 강화 확인 팝업 |
+| #32 | 코드 품질 감사 13파일 | S-075 사망 피격 방지, false positive 13건 식별 |
 
 ## 총 기여 요약
-- **치명 버그 수정**: 18건
+- **치명 버그 수정**: 19건 (+1: S-075)
 - **메모리 누수 수정**: 2건
 - **성능 최적화**: 16건
-- **방어 코드 강화**: 4건
-- **UX 개선**: 8건 (+2: ShopUI 피드백, EnhanceUI 확인 팝업)
+- **방어 코드 강화**: 5건 (+1: S-075)
+- **UX 개선**: 8건
 - **UX SFX 추가**: 28건
 - **에셋 생성/수정**: 55종
 - **에셋 점검 완료**: 4건
 - **RESERVE 태스크 보충**: 57건 (누적)
-- **감사 시스템**: 54개 클래스
+- **감사 시스템**: 67개 클래스 (+13)
 
 ## 수정 파일 (이번 루프)
-- `Assets/Scripts/UI/ShopUI.cs` (구매 실패 피드백 추가)
-- `Assets/Scripts/UI/EnhanceUI.cs` (강화 확인 팝업 추가)
-- `orchestration/BACKLOG_RESERVE.md` (S-062/063 완료, S-061/064/065 동기화)
+- `Assets/Scripts/Entities/MonsterController.cs` (S-075: 사망 상태 TakeDamage 조기 반환)
+- `orchestration/BACKLOG_RESERVE.md` (S-075 완료)
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
-- Step 2-5: 에러 점검 (빌드/런타임 스캔)
-- RESERVE 미완료 P2 항목 순차 진행 (S-051 SceneTransition, S-052 EventBus 등)
+- Step 2-3: 성능 최적화 (캐싱, 불필요 할당 제거)
+- RESERVE P2 항목: S-077 SaveSystem 무결성, S-078 DialogueSystem 타임아웃, S-082 UIManager 중복 방지
