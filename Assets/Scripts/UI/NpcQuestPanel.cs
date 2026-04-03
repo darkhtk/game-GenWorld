@@ -76,7 +76,7 @@ public class NpcQuestPanel : MonoBehaviour
                     lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
                 requirementsText.text = string.Join("\n", lines);
             }
-            else requirementsText.text = "None";
+            else requirementsText.text = "<color=#666666>None</color>";
         }
 
         if (rewardsText != null && quest.rewards != null)

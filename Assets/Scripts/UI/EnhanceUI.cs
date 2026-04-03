@@ -148,13 +148,14 @@ public class EnhanceUI : MonoBehaviour
             if (hasEquip)
             {
                 string prefix = canAfford ? "\u25b8" : "\u25b9";
-                texts[1].text = $"{prefix} {itemName} +{enhLevel}";
+                string enhTag = enhLevel > 0 ? $" <color=#ffd900>+{enhLevel}</color>" : "";
+                texts[1].text = $"{prefix} {itemName}{enhTag}";
                 texts[1].color = canAfford ? AffordableColor : Color.white;
             }
             else
             {
-                texts[1].text = "(empty)";
-                texts[1].color = UnaffordableColor;
+                texts[1].text = "<color=#444444>(empty)</color>";
+                texts[1].color = Color.white;
             }
         }
 
