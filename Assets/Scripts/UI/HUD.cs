@@ -418,7 +418,7 @@ public class HUD : MonoBehaviour
 
     public void UpdateLevel(int level, int skillPoints, int statPoints)
     {
-        if (levelText != null) { levelText.color = Color.white; levelText.text = $"<color=#99ff99>Lv.{level}</color>"; }
+        if (levelText != null) { levelText.color = Color.white; levelText.text = $"<color=#99ff99>Lv.<b>{level}</b></color>"; }
         if (statPointsText != null)
         {
             string sp = skillPoints > 0 ? $"<b><color=#88aaff>SK:{skillPoints}</color></b>" : "";

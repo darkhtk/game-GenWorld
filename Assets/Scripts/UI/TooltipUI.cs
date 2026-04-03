@@ -59,8 +59,8 @@ public class TooltipUI : MonoBehaviour
                 if (s.spd > 0) lines.Add($"<color=#226644>SPD</color> <color=#66ff88><b>+{s.spd}</b></color>");
                 if (s.crit > 0) lines.Add($"<color=#886600>CRIT</color> <color=#ffdd44><b>+{s.crit}</b></color>");
             }
-            if (item.healHp > 0) lines.Add($"<color=#ff9999>Heal HP {item.healHp}</color>");
-            if (item.healMp > 0) lines.Add($"<color=#9999ff>Heal MP {item.healMp}</color>");
+            if (item.healHp > 0) lines.Add($"<color=#884444>HealHP</color> <color=#ff9999><b>{item.healHp}</b></color>");
+            if (item.healMp > 0) lines.Add($"<color=#444488>HealMP</color> <color=#9999ff><b>{item.healMp}</b></color>");
             if (item.shopPrice > 0) lines.Add($"<color=#888888>Value</color> <color=#ffd900>\u25c6 {item.shopPrice:N0}G</color>");
             string gradeHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum));
             lines.Add($"<color=#888888>Grade</color> <color={gradeHex}>{item.grade ?? "common"}</color>");

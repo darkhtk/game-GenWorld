@@ -166,7 +166,7 @@ public class InventoryUI : MonoBehaviour
         if (levelGoldText != null)
         {
             levelGoldText.color = Color.white;
-            levelGoldText.text = $"<color=#99ff99>Lv.{gm.PlayerState.Level}</color>  <color=#ffd900>\u25c6 {gm.PlayerState.Gold:N0}G</color>";
+            levelGoldText.text = $"<color=#99ff99>Lv.<b>{gm.PlayerState.Level}</b></color>  <color=#ffd900>\u25c6 {gm.PlayerState.Gold:N0}G</color>";
         }
     }
 
@@ -512,7 +512,7 @@ public class InventoryUI : MonoBehaviour
         if (statPointsText != null)
         {
             statPointsText.color = Color.white;
-            statPointsText.text = hasPoints ? $"<color=#ffdd44>SP: {points}</color>" : "";
+            statPointsText.text = hasPoints ? $"<color=#ffdd44>SP: <b>{points}</b></color>" : "";
         }
 
         int strVal = bonus != null && bonus.TryGetValue("str", out int s) ? s : 0;
