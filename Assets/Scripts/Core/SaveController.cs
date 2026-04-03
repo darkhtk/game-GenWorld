@@ -7,7 +7,7 @@ public class SaveController
         SkillSystem skills, AIManager ai, QuestSystem quests,
         Dictionary<string, int> killCounts, int totalKills)
     {
-        var (active, completed) = quests.Serialize();
+        var (active, completed, killProgress) = quests.Serialize();
         SaveSystem.Save(new SaveData
         {
             playerX = player.Position.x, playerY = player.Position.y,
@@ -20,7 +20,7 @@ public class SaveController
             learnedSkills = skills.GetLearnedSkills(),
             equippedSkills = skills.GetEquippedSkills(),
             npcBrains = ai.SerializeAllBrains(),
-            questState = new QuestSaveData { active = active, completed = completed },
+            questState = new QuestSaveData { active = active, completed = completed, killProgress = killProgress },
             killCounts = killCounts, totalKills = totalKills,
             bonusStats = state.BonusStats,
             timestamp = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
@@ -54,7 +54,7 @@ public class SaveController
         if (save.learnedSkills != null) skills.RestoreLearnedSkills(save.learnedSkills);
         if (save.equippedSkills != null) skills.RestoreEquipped(save.equippedSkills);
         if (save.npcBrains != null) ai.RestoreAllBrains(save.npcBrains);
-        if (save.questState != null) quests.Restore((save.questState.active, save.questState.completed));
+        if (save.questState != null) quests.Restore((save.questState.active, save.questState.completed, save.questState.killProgress));
         if (save.killCounts != null)
         {
             foreach (var kv in save.killCounts) killCounts[kv.Key] = kv.Value;

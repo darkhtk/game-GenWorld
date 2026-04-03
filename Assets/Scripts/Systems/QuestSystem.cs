@@ -150,10 +150,10 @@ public class QuestSystem
         };
     }
 
-    public (string[] active, string[] completed) Serialize() =>
-        (_active.Keys.ToArray(), _completed.ToArray());
+    public (string[] active, string[] completed, Dictionary<string, Dictionary<string, int>> killProgress) Serialize() =>
+        (_active.Keys.ToArray(), _completed.ToArray(), new Dictionary<string, Dictionary<string, int>>(_killProgress));
 
-    public void Restore((string[] active, string[] completed) data)
+    public void Restore((string[] active, string[] completed, Dictionary<string, Dictionary<string, int>> killProgress) data)
     {
         _active.Clear();
         _completed.Clear();
@@ -166,5 +166,8 @@ public class QuestSystem
                 var def = _defs.FirstOrDefault(q => q.id == id);
                 if (def != null) _active[id] = def;
             }
+        if (data.killProgress != null)
+            foreach (var kvp in data.killProgress)
+                _killProgress[kvp.Key] = new Dictionary<string, int>(kvp.Value);
     }
 }

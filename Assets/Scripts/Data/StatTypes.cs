@@ -149,4 +149,5 @@ public class QuestSaveData
 {
     public string[] active;
     public string[] completed;
+    public Dictionary<string, Dictionary<string, int>> killProgress;
 }

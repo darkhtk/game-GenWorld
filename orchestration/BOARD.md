@@ -114,6 +114,7 @@
 | 102 | S-042 SaveSystem 동시 저장 경합 방지 | P2 | ✅ | Supervisor 감사 — _isSaving 잠금 + 원자적 쓰기 |
 | 103 | S-043 CombatRewardHandler 중복 보상 방어 | P2 | ✅ | Supervisor 감사 — DeathProcessed 조기 반환 |
 | 104 | S-044 장비 교체 시 스탯 복원 | P2 | ✅ | Supervisor 감사 — 버그 없음 확인 |
+| 105 | S-045 QuestSystem 진행률 저장 | P2 | 👀 | In Review |
 
 ---
 
@@ -132,7 +133,7 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| ~~S-038 WorldEvent 동시 실행 방지~~ | 2026-04-03 | ✅ APPROVE | Done으로 이동 |
+| S-045 QuestSystem 진행률 저장 | 2026-04-03 | ⏳ | killProgress 직렬화/복원 추가 |
 
 ## ✅ Done
 
