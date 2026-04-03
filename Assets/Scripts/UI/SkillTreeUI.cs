@@ -164,13 +164,16 @@ public class SkillTreeUI : MonoBehaviour
             string skillId = i < equipped.Length ? equipped[i] : null;
             if (!string.IsNullOrEmpty(skillId) && defMap.TryGetValue(skillId, out var def))
             {
-                equipSlotLabels[i].text = def.name;
-                equipSlotLabels[i].color = def.TreeEnum switch
+                Color treeColor = def.TreeEnum switch
                 {
                     SkillTree.Ranged => RangedColor,
-                    SkillTree.Magic => MagicColor,
-                    _ => MeleeColor
+                    SkillTree.Magic  => MagicColor,
+                    _                => MeleeColor
                 };
+                int lvl = skillSystem.GetSkillLevel(skillId);
+                string lvlStr = lvl > 0 ? $" <color=#555555>Lv.{lvl}</color>" : "";
+                equipSlotLabels[i].text = $"<color=#{ColorUtility.ToHtmlStringRGB(treeColor)}>{def.name}</color>{lvlStr}";
+                equipSlotLabels[i].color = Color.white;
             }
             else
             {
