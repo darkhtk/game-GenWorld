@@ -18,9 +18,24 @@ public class MonsterSpawner : MonoBehaviour
 
     public List<MonsterController> ActiveMonsters => _monsters;
 
+    public void ClearAllMonsters()
+    {
+        for (int i = _monsters.Count - 1; i >= 0; i--)
+        {
+            var m = _monsters[i];
+            if (m != null)
+            {
+                EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def.id });
+                Destroy(m.gameObject);
+            }
+        }
+        _monsters.Clear();
+    }
+
     public void SpawnForRegion(RegionDef region, Dictionary<string, MonsterDef> monsterDefs,
         WorldMapGenerator worldMap)
     {
+        ClearAllMonsters();
         if (region == null || monsterDefs == null || worldMap == null) return;
         if (region.monsterIds == null || region.monsterIds.Length == 0) return;
 

@@ -115,6 +115,7 @@
 | 103 | S-043 CombatRewardHandler 중복 보상 방어 | P2 | ✅ | Supervisor 감사 — DeathProcessed 조기 반환 |
 | 104 | S-044 장비 교체 시 스탯 복원 | P2 | ✅ | Supervisor 감사 — 버그 없음 확인 |
 | 105 | S-045 QuestSystem 진행률 저장 | P2 | 👀 | In Review |
+| 106 | S-046 MonsterSpawner 리전 전환 클린업 | P2 | 👀 | In Review |
 
 ---
 
@@ -134,6 +135,7 @@
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
 | S-045 QuestSystem 진행률 저장 | 2026-04-03 | ⏳ | killProgress 직렬화/복원 추가 |
+| S-046 MonsterSpawner 리전 전환 클린업 | 2026-04-03 | ⏳ | ClearAllMonsters + SpawnForRegion 진입부 호출 |
 
 ## ✅ Done
 
