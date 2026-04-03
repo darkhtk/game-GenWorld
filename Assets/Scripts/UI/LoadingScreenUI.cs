@@ -36,7 +36,7 @@ public class LoadingScreenUI : MonoBehaviour
             SetProgress((float)i / steps.Length, steps[i]);
             yield return new WaitForSeconds(0.15f);
         }
-        SetProgress(1f, "Complete!");
+        SetProgress(1f, "<color=#66ff66>Complete!</color>");
         yield return new WaitForSeconds(0.3f);
         Hide();
     }

@@ -259,7 +259,7 @@ public class SettingsUI : MonoBehaviour
         while (remaining > 0)
         {
             if (confirmText != null)
-                confirmText.text = $"Keep this resolution? Reverting in {remaining}s...";
+                confirmText.text = $"Keep this resolution? Reverting in <color=#ff9944>{remaining}s</color>...";
             yield return new WaitForSecondsRealtime(1f);
             remaining--;
         }
@@ -327,8 +327,8 @@ public class SettingsUI : MonoBehaviour
         _listeningRow = row;
         if (row.KeyText != null)
         {
-            row.KeyText.text = "...";
-            row.KeyText.color = Color.yellow;
+            row.KeyText.text = "<color=#ffff44>[PRESS KEY]</color>";
+            row.KeyText.color = Color.white;
         }
     }
 

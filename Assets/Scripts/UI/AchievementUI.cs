@@ -60,9 +60,17 @@ public class AchievementUI : MonoBehaviour
                 var def = all[i];
                 var (current, required) = gm.Achievements.GetProgress(def.id);
                 bool done = gm.Achievements.IsCompleted(def.id);
-                string icon = done ? "\u2705" : "\ud83d\udd32";
-                _listEntries[i].text = $"{icon} {def.name} — {current}/{required}";
-                _listEntries[i].color = done ? new Color(0.6f, 1f, 0.6f) : Color.white;
+                string nameColor = done ? "#66ff66" : "#dddddd";
+                string prog = done
+                    ? $"<color=#66ff66>\u2713 </color>"
+                    : $"<color=#888888>\u25a1 </color>";
+                string progText = done
+                    ? $"<color=#888888>({current}/{required})</color>"
+                    : (current > 0
+                        ? $"<color=#ffdd44>{current}<color=#888888>/{required}</color></color>"
+                        : $"<color=#888888>0/{required}</color>");
+                _listEntries[i].text = $"{prog}<color={nameColor}>{def.name}</color>  {progText}";
+                _listEntries[i].color = Color.white;
                 _listEntries[i].gameObject.SetActive(true);
             }
             else
@@ -75,8 +83,8 @@ public class AchievementUI : MonoBehaviour
     void OnUnlocked(AchievementUnlockedEvent e)
     {
         if (popupPanel == null) return;
-        if (popupName != null) popupName.text = e.name;
-        if (popupReward != null) popupReward.text = !string.IsNullOrEmpty(e.rewardDesc) ? $"Reward: {e.rewardDesc}" : "";
+        if (popupName != null) popupName.text = $"<color=#ffd900>\u2605</color> {e.name}";
+        if (popupReward != null) popupReward.text = !string.IsNullOrEmpty(e.rewardDesc) ? $"<color=#aaffaa>Reward: {e.rewardDesc}</color>" : "";
         StartCoroutine(ShowPopup());
     }
 

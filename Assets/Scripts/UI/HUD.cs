@@ -323,8 +323,8 @@ public class HUD : MonoBehaviour
             }
         }
 
-        if (hpText != null) hpText.text = $"{hp}/{maxHp}";
-        if (mpText != null) mpText.text = $"{mp}/{maxMp}";
+        if (hpText != null) hpText.text = $"<color=#ff6666>{hp}</color><color=#aaaaaa>/{maxHp}</color>";
+        if (mpText != null) mpText.text = $"<color=#6699ff>{mp}</color><color=#aaaaaa>/{maxMp}</color>";
     }
 
     public void UpdateXpBar(int currentXp, int totalXp)
@@ -373,7 +373,7 @@ public class HUD : MonoBehaviour
     public void UpdateGold(int amount)
     {
         if (goldText != null)
-            goldText.text = amount.ToString("N0");
+            goldText.text = $"<color=#ffd900>{amount:N0}G</color>";
     }
 
     public void UpdateRegion(string regionName)
@@ -386,7 +386,7 @@ public class HUD : MonoBehaviour
     void ShowRegionAnnounce(string regionName)
     {
         if (regionAnnounceText == null || regionAnnounceGroup == null) return;
-        regionAnnounceText.text = regionName;
+        regionAnnounceText.text = $"<color=#ffd900>\u2014</color> {regionName} <color=#ffd900>\u2014</color>";
         StopCoroutine(nameof(RegionAnnounceCoroutine));
         StartCoroutine(RegionAnnounceCoroutine());
     }
@@ -412,11 +412,11 @@ public class HUD : MonoBehaviour
     public void UpdateLevel(int level, int skillPoints, int statPoints)
     {
         if (levelText != null)
-            levelText.text = $"Lv.{level}";
+            levelText.text = $"<color=#99ff99>Lv.{level}</color>";
         if (statPointsText != null)
         {
-            string sp = skillPoints > 0 ? $"SK:{skillPoints}" : "";
-            string st = statPoints > 0 ? $"SP:{statPoints}" : "";
+            string sp = skillPoints > 0 ? $"<color=#88aaff>SK:{skillPoints}</color>" : "";
+            string st = statPoints > 0 ? $"<color=#ffdd44>SP:{statPoints}</color>" : "";
             statPointsText.text = $"{sp} {st}".Trim();
         }
     }
@@ -465,8 +465,8 @@ public class HUD : MonoBehaviour
     {
         if (bossBarRoot == null) return;
         bossBarRoot.SetActive(true);
-        if (bossNameText != null) bossNameText.text = bossName;
-        if (bossHpText != null) bossHpText.text = $"{health}/{maxHealth}";
+        if (bossNameText != null) bossNameText.text = $"<color=#ff4444>{bossName}</color>";
+        if (bossHpText != null) bossHpText.text = $"<color=#ff6666>{health}</color><color=#888888>/{maxHealth}</color>";
         if (bossFill != null)
             bossFill.fillAmount = maxHealth > 0 ? (float)health / maxHealth : 0f;
     }
@@ -578,7 +578,7 @@ public class HUD : MonoBehaviour
                         int have = gm.Inventory.GetCount(r.itemId);
                         bool done = have >= r.count;
                         string color = done ? "#88ff88" : "#ffffff";
-                        string check = done ? " \u2705" : "";
+                        string check = done ? " <color=#66ff66>\u2713</color>" : "";
                         _questSb.AppendLine($"  <color={color}>{r.itemId}: {Mathf.Min(have, r.count)}/{r.count}{check}</color>");
                     }
                 }
@@ -589,7 +589,7 @@ public class HUD : MonoBehaviour
                         int kills = gm.Quests.GetKillProgress(q.id, kr.monsterId);
                         bool done = kills >= kr.count;
                         string color = done ? "#88ff88" : "#ffffff";
-                        string check = done ? " \u2705" : "";
+                        string check = done ? " <color=#66ff66>\u2713</color>" : "";
                         _questSb.AppendLine($"  <color={color}>{kr.monsterId}: {Mathf.Min(kills, kr.count)}/{kr.count}{check}</color>");
                     }
                 }
@@ -685,12 +685,12 @@ public class HUD : MonoBehaviour
             var lines = new List<string>();
             int level = gm.Skills.GetSkillLevel(skillId);
             float dmgMult = gm.Skills.GetDamageMultiplier(skillId);
-            lines.Add($"Level: {level}/{GameConfig.SkillMaxLevel}");
-            if (def.damage > 0) lines.Add($"Damage: {def.damage * dmgMult:F0}");
-            if (def.range > 0) lines.Add($"Range: {def.range:F0}");
-            if (def.mpCost > 0) lines.Add($"MP Cost: {def.mpCost}");
-            if (def.cooldown > 0) lines.Add($"Cooldown: {def.cooldown / 1000f:F1}s");
-            if (def.aoe > 0) lines.Add($"AoE: {def.aoe:F0}");
+            lines.Add($"<color=#aaffaa>Level: {level}/{GameConfig.SkillMaxLevel}</color>");
+            if (def.damage > 0) lines.Add($"<color=#ffaa55>Damage: {def.damage * dmgMult:F0}</color>");
+            if (def.range > 0) lines.Add($"<color=#aaddff>Range: {def.range:F0}</color>");
+            if (def.mpCost > 0) lines.Add($"<color=#6688ff>MP Cost: {def.mpCost}</color>");
+            if (def.cooldown > 0) lines.Add($"<color=#cccccc>Cooldown: {def.cooldown / 1000f:F1}s</color>");
+            if (def.aoe > 0) lines.Add($"<color=#ffcc44>AoE: {def.aoe:F0}</color>");
             skillTooltipStats.text = string.Join("\n", lines);
         }
 
