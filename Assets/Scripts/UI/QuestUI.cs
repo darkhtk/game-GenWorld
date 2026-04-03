@@ -173,6 +173,7 @@ public class QuestUI : MonoBehaviour
                     lines.Add($"  {check} <color=#ffbb77>{kr.monsterId}</color> <color={countColor}>({kills}/{kr.count})</color>");
                 }
             }
+            texts[2].color = Color.white;
             texts[2].text = string.Join("\n", lines);
         }
 
@@ -190,6 +191,7 @@ public class QuestUI : MonoBehaviour
                     rewardLines.Add($"<color=#ccddff>\u25b9 {itemName} \u00d7{item.count}</color>");
                 }
             }
+            texts[3].color = Color.white;
             texts[3].text = rewardLines.Count > 0
                 ? string.Join("  ", rewardLines) : "";
         }

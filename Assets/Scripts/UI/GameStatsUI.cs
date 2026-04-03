@@ -36,6 +36,7 @@ public class GameStatsUI : MonoBehaviour
         if (statsText == null) return;
         var gm = GameManager.Instance;
         if (gm == null) return;
+        statsText.color = Color.white;
 
         int hours = Mathf.FloorToInt(_playTimeSeconds / 3600f);
         int mins = Mathf.FloorToInt((_playTimeSeconds % 3600f) / 60f);

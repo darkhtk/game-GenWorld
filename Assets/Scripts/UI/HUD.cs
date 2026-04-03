@@ -730,6 +730,7 @@ public class HUD : MonoBehaviour
 
         if (skillTooltipStats != null)
         {
+            skillTooltipStats.color = Color.white;
             var lines = new List<string>();
             int level = gm.Skills.GetSkillLevel(skillId);
             float dmgMult = gm.Skills.GetDamageMultiplier(skillId);
