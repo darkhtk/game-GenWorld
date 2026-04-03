@@ -98,12 +98,12 @@ public class ShopUI : MonoBehaviour
         {
             string prefix = canAfford ? "\u25b8" : "\u25b9";
             texts[0].text = $"{prefix} {def.name}";
-            texts[0].color = canAfford ? AffordableColor : UnaffordableColor;
+            texts[0].color = canAfford ? GameConfig.GetGradeColor(def.GradeEnum) : UnaffordableColor;
         }
 
         if (texts.Length > 1)
         {
-            texts[1].text = $"{def.shopPrice}G";
+            texts[1].text = $"{def.shopPrice:N0}G";
             texts[1].color = canAfford ? new Color(1f, 0.85f, 0.2f) : new Color(0.6f, 0.5f, 0.2f);
         }
 

@@ -309,7 +309,11 @@ public class InventoryUI : MonoBehaviour
             if (s.maxMp > 0) lines.Add($"<color=#6677ff>MP +{s.maxMp + enh}</color>");
             if (s.spd > 0) lines.Add($"<color=#44dd77>SPD +{s.spd}</color>");
             if (s.crit > 0) lines.Add($"<color=#ffd900>CRIT +{s.crit}%</color>");
-            if (inst.enhanceLevel > 0) lines.Add($"<color=#ffd900>Enhanced +{inst.enhanceLevel}</color>");
+            if (inst.enhanceLevel > 0)
+            {
+                string ec = inst.enhanceLevel >= 10 ? "#ff9900" : inst.enhanceLevel >= 7 ? "#66aaff" : inst.enhanceLevel >= 4 ? "#66ff66" : "#aaaaaa";
+                lines.Add($"<color={ec}>Enhanced +{inst.enhanceLevel}</color>");
+            }
             if (def.healHp > 0) lines.Add($"<color=#66ff88>Heal HP {def.healHp}</color>");
             if (def.healMp > 0) lines.Add($"<color=#88aaff>Heal MP {def.healMp}</color>");
             tooltipStats.text = string.Join("  ", lines);
@@ -542,7 +546,8 @@ public class EquipSlotUI : MonoBehaviour
     {
         if (nameText != null)
         {
-            string enh = enhanceLevel > 0 ? $" <color=#ffd900>+{enhanceLevel}</color>" : "";
+            string ec = enhanceLevel >= 10 ? "#ff9900" : enhanceLevel >= 7 ? "#66aaff" : enhanceLevel >= 4 ? "#66ff66" : "#aaaaaa";
+            string enh = enhanceLevel > 0 ? $" <color={ec}>+{enhanceLevel}</color>" : "";
             nameText.text = $"{itemName}{enh}";
             nameText.color = gradeColor;
         }
