@@ -4,6 +4,17 @@ using UnityEngine;
 
 public static class CombatSystem
 {
+    static Camera _cachedCam;
+
+    public static bool IsOnScreen(Vector2 worldPos, float margin = 0.05f)
+    {
+        if (_cachedCam == null) _cachedCam = Camera.main;
+        if (_cachedCam == null) return true;
+        Vector3 vp = _cachedCam.WorldToViewportPoint(worldPos);
+        return vp.x >= -margin && vp.x <= 1f + margin
+            && vp.y >= -margin && vp.y <= 1f + margin;
+    }
+
     public static int CalcDamage(int atk, int def, bool isCrit)
     {
         int baseDmg = Mathf.Max(1, atk - def);

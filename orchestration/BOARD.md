@@ -123,9 +123,10 @@
 | 111 | S-054 AutoSave 전투 중 저장 방지 | P2 | ✅ | REVIEW-S054-v1 APPROVE |
 | 112 | S-056 GameManager 초기화 순서 | P2 | ✅ | REVIEW-S056-v1 APPROVE |
 | 113 | S-060 MinimapUI 텍스처 재생성 누수 | P2 | ✅ | 이미 구현됨 확인 (Init Destroy + OnDestroy) |
-| 114 | S-061 QuestSystem killProgress 고아 항목 | P2 | 👀 | AbandonQuest + Restore/Serialize 필터 |
-| 115 | S-064 DialogueUI 코루틴 중복 실행 | P2 | 👀 | ShowLoading 가드 + Show 재진입 정리 |
-| 116 | S-065 EffectHolder DoT 중복 적용 | P2 | 👀 | 재적용 시 duration 연장 + 강한 값 유지 |
+| 114 | S-061 QuestSystem killProgress 고아 항목 | P2 | ✅ | REVIEW-S061-v1 ✅ APPROVE |
+| 115 | S-064 DialogueUI 코루틴 중복 실행 | P2 | ✅ | REVIEW-S064-v1 ✅ APPROVE |
+| 116 | S-065 EffectHolder DoT 중복 적용 | P2 | ✅ | REVIEW-S065-v1 ✅ APPROVE |
+| 117 | S-040 CombatManager 타겟팅 범위 | P3 | 👀 | 화면 밖 몬스터 자동 타겟팅 방지 |
 
 ---
 
@@ -142,20 +143,22 @@
 
 | 태스크 | 담당 | 시작일 | 비고 |
 |--------|------|--------|------|
+| ~~S-040~~ | ~~Developer~~ | ~~2026-04-03~~ | → In Review |
 
 ## 👀 In Review
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | ✅ APPROVE | REVIEW-S051-v2 [깊은 리뷰] |
-| S-061 QuestSystem killProgress 고아 항목 | 2026-04-03 | ⏳ | AbandonQuest + Restore/Serialize 필터 + 테스트 4건 |
-| S-064 DialogueUI 코루틴 중복 실행 | 2026-04-03 | ⏳ | ShowLoading StopCoroutine 가드 + Show() Hide 재진입 |
-| S-065 EffectHolder DoT 중복 적용 | 2026-04-03 | ⏳ | duration 연장 + 강한 damage 유지 + lastTick 보존 + 테스트 4건 |
+| S-040 CombatManager 타겟팅 범위 | 2026-04-03 | ⏳ | 화면 밖 몬스터 자동 타겟팅 방지 — viewport 필터 추가 |
 
 ## ✅ Done
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | REVIEW-S051-v2 ✅ APPROVE |
+| S-061 QuestSystem killProgress 고아 항목 | 2026-04-03 | REVIEW-S061-v1 ✅ APPROVE |
+| S-064 DialogueUI 코루틴 중복 실행 | 2026-04-03 | REVIEW-S064-v1 ✅ APPROVE |
+| S-065 EffectHolder DoT 중복 적용 | 2026-04-03 | REVIEW-S065-v1 ✅ APPROVE |
 | R-001 몬스터 디스폰/컬링 시스템 | 2026-04-02 | REVIEW-R001-v1 ✅ |
 | R-002 오브젝트 풀링 | 2026-04-02 | REVIEW-R002-v2 ✅ |
 | R-003 세이브 버전 마이그레이션 | 2026-04-02 | REVIEW-R003-v1 ✅ |

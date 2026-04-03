@@ -95,7 +95,7 @@ public class SkillExecutor
         var target = CombatSystem.FindClosest(
             new Vector2(ctx.player.position.x, ctx.player.position.y),
             ctx.monsters, ctx.range,
-            m => m.Position, m => !m.IsDead);
+            m => m.Position, m => !m.IsDead && CombatSystem.IsOnScreen(m.Position));
 
         if (target == null) return;
         int baseDmg = Mathf.RoundToInt(ctx.stats.atk * ctx.dmgMult);

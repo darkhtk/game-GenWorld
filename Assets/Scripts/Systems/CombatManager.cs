@@ -95,6 +95,7 @@ public class CombatManager : MonoBehaviour
         {
             var m = monsters[i];
             if (m == null || m.IsDead) continue;
+            if (!CombatSystem.IsOnScreen(m.Position)) continue;
             float distSq = (playerPos - m.Position).sqrMagnitude;
             if (distSq > swingRange * swingRange) continue;
 
