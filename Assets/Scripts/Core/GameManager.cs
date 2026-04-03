@@ -836,13 +836,16 @@ public class GameManager : MonoBehaviour
         {
             bool stackable = Data.Items.TryGetValue(drop.itemId, out var itemDef) && itemDef.stackable;
             int maxStack = itemDef?.maxStack ?? 1;
-            Inventory.AddItem(drop.itemId, drop.count, stackable, maxStack);
+            int overflow = Inventory.AddItem(drop.itemId, drop.count, stackable, maxStack);
 
             string itemName = itemDef?.name ?? drop.itemId;
+            if (overflow > 0)
+                Debug.LogWarning($"[GameManager] Inventory full: {overflow}x {itemName} lost");
             if (combatManager != null)
                 combatManager.ShowFloatingText(
                     monster.Position + Vector2.up * itemOffset,
-                    $"+{itemName} x{drop.count}", new Color(0.4f, 1f, 0.4f));
+                    overflow > 0 ? $"+{itemName} x{drop.count - overflow} (FULL)" : $"+{itemName} x{drop.count}",
+                    overflow > 0 ? new Color(1f, 0.6f, 0.2f) : new Color(0.4f, 1f, 0.4f));
             itemOffset += 0.4f;
         }
 
