@@ -35,6 +35,7 @@ public class EffectHolder
             if (_effects.TryGetValue("stun", out var existing))
             {
                 existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
+                existing.totalDuration = existing.expiresAt - now;
                 return;
             }
         }
@@ -43,8 +44,10 @@ public class EffectHolder
             value = Mathf.Clamp(value, MinSlow, 1f);
             if (_effects.TryGetValue("slow", out var existing))
             {
+                float now = Time.time * 1000f;
                 existing.expiresAt = Mathf.Max(existing.expiresAt, expiresAt);
                 existing.value = Mathf.Min(existing.value, value);
+                existing.totalDuration = existing.expiresAt - now;
                 return;
             }
         }

@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-03 (Coordinator — S-051 완료 동기화, S-075~S-087 보충 13건)
+> **최종 갱신:** 2026-04-03 (Supervisor — S-053/S-080 검증 완료, EffectHolder totalDuration 버그 수정)
 > **방향:** stabilize — 안정성 > 개선 > 신규 기능
 
 ## 미완료 태스크
@@ -22,9 +22,9 @@
 | ~~13~~ | ~~S-050~~ | ~~🔧~~ | ~~InputSystem UI/게임 입력 분리 — APPROVE~~ | ~~P2~~ | ✅ |
 | 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — v2 APPROVE | P2 | ✅ |
 | 15 | S-052 | 🔧 | EventBus 이벤트 순서 안정성 — 검증 완료: LIFO 순서, 전 핸들러 독립, using Linq 제거 | P3 | ✅ |
-| 16 | S-053 | 🔧 | PlayerController 벽 끼임 방지 — 콜라이더 경계에서 플레이어 위치 보정 확인 | P3 | ⬜ |
+| 16 | S-053 | 🔧 | PlayerController 벽 끼임 방지 — CCD Continuous 설정 완료 (f80733e) | P3 | ✅ |
 | 17 | S-054 | 🔧 | AutoSave 전투 중 저장 방지 — 전투 상태에서 자동 저장 스킵 (데이터 일관성) | P2 | ✅ |
-| 18 | S-055 | 🔧 | UI 해상도 대응 — 다양한 해상도에서 UI 앵커/레이아웃 정상 동작 검증 | P3 | ⬜ |
+| 18 | S-055 | 🔧 | UI 해상도 대응 — REVIEW-S055-v1 ✅ APPROVE (tooltip 오프셋 스케일링) | P3 | ✅ |
 | 19 | S-056 | 🔧 | GameManager 초기화 순서 — Awake/Start 의존성 순서 보장 및 경합 확인 | P2 | ✅ |
 | 20 | S-059 | 🔧 | AudioManager 클립 캐시 메모리 누수 — _clipCache 무한 성장 방지, LRU 또는 씬 전환 시 정리 | P2 | ✅ |
 | 21 | S-060 | 🔧 | MinimapUI 텍스처 재생성 누수 — Init() 호출 시 이전 Texture2D 미파괴 확인 | P2 | ✅ |
@@ -47,7 +47,7 @@
 | 38 | S-077 | 🔧 | SaveSystem 슬롯 데이터 무결성 검증 — 로드 시 필수 필드 누락 체크 + 기본값 폴백 | P2 | ⬜ |
 | 39 | S-078 | 🔧 | DialogueSystem AI 응답 타임아웃 — Ollama 무응답 시 폴백 텍스트 표시 (30초 상한) | P2 | ⬜ |
 | 40 | S-079 | 🔧 | EffectHolder 버프 스택 상한 — 동일 버프 무한 중첩 방지 (maxStack 도입 검토) | P3 | ⬜ |
-| 41 | S-080 | 🔧 | PlayerController CCD 확인 — 빠른 이동 시 Rigidbody2D 콜라이더 관통 방지 설정 검증 | P3 | ⬜ |
+| 41 | S-080 | 🔧 | PlayerController CCD 확인 — CollisionDetectionMode2D.Continuous 설정 검증 완료 | P3 | ✅ |
 | 42 | S-081 | 🔧 | InventorySystem 중복 아이템 ID 병합 — 동일 ID 아이템 추가 시 기존 스택에 올바르게 합산 확인 | P3 | ⬜ |
 | 43 | S-082 | 🔧 | UIManager 패널 중복 열기 방지 — 8개 UI에 IsOpen 가드 추가 완료 | P2 | ✅ |
 | 44 | S-083 | 🔧 | AudioManager BGM 동시 변경 안정성 — 연속 BGM 전환 요청 시 마지막 요청만 수행 검증 | P3 | ⬜ |
