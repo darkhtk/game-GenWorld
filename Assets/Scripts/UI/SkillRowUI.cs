@@ -68,25 +68,25 @@ public class SkillRowUI : MonoBehaviour
         {
             if (isMaxed)
             {
-                levelText.text = "<color=#ffd900>MAX</color>";
+                levelText.text = "<b><color=#ffd900>MAX</color></b>";
                 levelText.color = Color.white;
             }
             else if (level > 0)
             {
-                levelText.text = $"<color=#aaffaa>Lv.{level}</color>/{GameConfig.SkillMaxLevel}";
+                levelText.text = $"<color=#aaffaa><b>Lv.{level}</b></color><color=#888888>/{GameConfig.SkillMaxLevel}</color>";
                 levelText.color = Color.white;
             }
             else
             {
-                levelText.text = $"Lv.0/{GameConfig.SkillMaxLevel}";
-                levelText.color = new Color(0.6f, 0.6f, 0.6f);
+                levelText.text = $"<color=#555555>Lv.0/{GameConfig.SkillMaxLevel}</color>";
+                levelText.color = Color.white;
             }
         }
 
         if (costText != null)
         {
             if (isMaxed) costText.text = "";
-            else if (canLearn) { costText.text = $"<color=#ffd900>{requiredPoints}pt</color>"; costText.color = Color.white; }
+            else if (canLearn) { costText.text = $"<b><color=#ffd900>{requiredPoints}pt</color></b>"; costText.color = Color.white; }
             else if (playerLevel > 0 && playerLevel < requiredLevel)
             {
                 costText.text = $"<color=#ff6666>Lv.{requiredLevel}+</color>";
