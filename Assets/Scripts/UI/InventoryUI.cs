@@ -351,7 +351,18 @@ public class InventoryUI : MonoBehaviour
             compareNewName.color = GameConfig.GetGradeColor(newDef.GradeEnum);
         }
         if (compareCurrentName != null)
-            compareCurrentName.text = currentDef != null ? currentDef.name : "(empty)";
+        {
+            if (currentDef != null)
+            {
+                compareCurrentName.text = currentDef.name;
+                compareCurrentName.color = GameConfig.GetGradeColor(currentDef.GradeEnum);
+            }
+            else
+            {
+                compareCurrentName.text = "<color=#555555>(empty)</color>";
+                compareCurrentName.color = Color.white;
+            }
+        }
 
         var newS = newDef.stats ?? new ItemStats();
         var curS = currentDef?.stats ?? new ItemStats();
