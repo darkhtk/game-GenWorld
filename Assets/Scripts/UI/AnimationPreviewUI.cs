@@ -84,7 +84,7 @@ public class AnimationPreviewUI : MonoBehaviour
         var npc = target.GetComponent<VillageNPC>();
         if (npc != null && npc.Def != null) _targetDef = npc.Def.animationDef;
 
-        if (entityNameLabel != null) entityNameLabel.text = target.name;
+        if (entityNameLabel != null) { entityNameLabel.text = $"<color=#ffcc88>{target.name}</color>"; entityNameLabel.color = Color.white; }
         panel.SetActive(true);
         BuildList();
     }
@@ -113,10 +113,16 @@ public class AnimationPreviewUI : MonoBehaviour
 
             if (label != null)
             {
-                label.text = missing
-                    ? $"\u26a0 {entry.stateName}    clip missing!"
-                    : $"\u25b6 {entry.stateName}    {loopTag}  {durStr}";
-                label.color = missing ? new Color(1f, 0.7f, 0.3f) : Color.white;
+                label.color = Color.white;
+                if (missing)
+                {
+                    label.text = $"<color=#ff9944>\u26a0 {entry.stateName}</color>  <color=#ff5555>clip missing!</color>";
+                }
+                else
+                {
+                    string loopColor = entry.isLooping ? "#88ccff" : "#888888";
+                    label.text = $"\u25b6 <color=#ffffff>{entry.stateName}</color>  <color={loopColor}>{loopTag}</color>  <color=#ffdd44>{durStr}</color>";
+                }
             }
 
             string state = entry.stateName;

@@ -561,6 +561,11 @@ public class HUD : MonoBehaviour
         while (_questTrackerEntries.Count < count)
         {
             var entry = Instantiate(questTrackerEntryPrefab, questTrackerContent);
+            var fitter = entry.GetComponent<UnityEngine.UI.ContentSizeFitter>();
+            if (fitter == null) fitter = entry.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
+            fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+            entry.overflowMode = TMPro.TextOverflowModes.Overflow;
+            entry.enableWordWrapping = true;
             entry.gameObject.SetActive(true);
             _questTrackerEntries.Add(entry);
         }
