@@ -282,6 +282,11 @@ public class DialogueUI : MonoBehaviour
                 foreach (var req in quest.requirements)
                     lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
             }
+            if (quest.killRequirements != null)
+            {
+                foreach (var kr in quest.killRequirements)
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ffbb77>{kr.monsterId}</color> <color=#888888>\u00d7{kr.count}</color>");
+            }
             questProposalRequirements.text = lines.Count > 0
                 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }
