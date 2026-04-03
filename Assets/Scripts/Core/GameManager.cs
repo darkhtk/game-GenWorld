@@ -177,7 +177,12 @@ public class GameManager : MonoBehaviour
 
         var conditional = nearest.EvaluateConditionalDialogue(Quests, Inventory);
         var dlg = uiManager.Dialogue;
-        if (dlg == null) return;
+        if (dlg == null)
+        {
+            nearest.ResumeMoving();
+            player.Frozen = false;
+            return;
+        }
 
         dlg.ClearLog();
         dlg.Show(nearest.Def, conditional);

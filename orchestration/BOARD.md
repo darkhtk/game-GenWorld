@@ -90,6 +90,8 @@
 | 78 | S-011 DataManager 로드 실패 폴백 | P2 | 👀 | 배열 프로퍼티 Empty 초기화 |
 | 79 | S-012 AudioManager null 방어 | P2 | ✅ | 이미 ?./!=null 체크 완비 확인 |
 | 80 | S-022 EffectHolder.Tick 안전성 | P2 | 👀 | static→instance 버퍼 변환 |
+| 81 | S-023 RegionTracker 경계 조건 | P2 | 👀 | null/empty 배열 방어 |
+| 82 | S-026 NPC 이동 재개 실패 | P2 | 👀 | TryInteractNPC dlg null 시 복구 |
 
 ---
 
@@ -108,7 +110,10 @@
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
 | S-011 DataManager 로드 실패 폴백 | 2026-04-03 | ✅ APPROVE | REVIEW-S011-v1 |
-| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | 대기 | static→instance 버퍼 |
+| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | ✅ APPROVE | REVIEW-S022-v1 |
+| S-023 RegionTracker 경계 조건 | 2026-04-03 | 대기 | null/empty 배열 방어 |
+| S-026 NPC 이동 재개 실패 | 2026-04-03 | 대기 | dlg null 시 NPC 복구 |
+| S-022 EffectHolder.Tick 안전성 | 2026-04-03 | ✅ APPROVE | REVIEW-S022-v1 |
 
 ## ✅ Done
 

@@ -9,6 +9,7 @@ public class RegionTracker
 
     public RegionDef GetRegionAt(float worldX, float worldY)
     {
+        if (_regions == null || _regions.Length == 0) return null;
         int tileX = Mathf.FloorToInt(worldX / GameConfig.TileSize);
         int tileY = Mathf.FloorToInt(-worldY / GameConfig.TileSize);
         foreach (var r in _regions)

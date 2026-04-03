@@ -17,8 +17,8 @@
 | 8 | S-015 | 🔧 | WorldMapGenerator null 방어 — Walkable 배열 미초기화 시 IndexOutOfRange 방지 | P2 | ⬜ |
 | 9 | S-016 | 🔧 | SkillSystem 쿨다운 동기화 — TimeSystem과 스킬 쿨다운 시간 단위(ms vs s) 일관성 검증 | P2 | ⬜ |
 | 10 | S-022 | 🔧 | EffectHolder.Tick 스레드 안전성 — 이펙트 순회 중 삭제 시 InvalidOperationException 방지 | P2 | 👀 |
-| 11 | S-023 | 🔧 | RegionTracker 경계 조건 — 맵 밖 좌표 입력 시 예외 방지 | P2 | ⬜ |
-| 12 | S-026 | 🔧 | NPC 이동 재개 실패 — 대화 종료 후 ResumeMoving 미호출 경로 확인 | P2 | ⬜ |
+| 11 | S-023 | 🔧 | RegionTracker 경계 조건 — 맵 밖 좌표 입력 시 예외 방지 | P2 | 👀 |
+| 12 | S-026 | 🔧 | NPC 이동 재개 실패 — 대화 종료 후 ResumeMoving 미호출 경로 확인 | P2 | 👀 |
 | 13 | S-021 | 🔧 | 테스트 커버리지 확장 — CombatSystem, InventorySystem, SaveMigrations 단위 테스트 추가 | P3 | ⬜ |
 | 14 | S-024 | 🔧 | ComboSystem 타이머 정밀도 — nowMs float 정밀도 손실 검증 (큰 Time.time 값) | P3 | ⬜ |
 | 15 | S-025 | 🔧 | DialogueCameraZoom 복원 보장 — 대화 중 강제 종료 시 카메라 줌 원복 | P3 | ⬜ |
