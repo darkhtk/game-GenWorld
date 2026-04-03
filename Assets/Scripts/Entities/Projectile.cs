@@ -128,7 +128,9 @@ public class Projectile : MonoBehaviour
         if (_traveled >= _totalDist)
         {
             _arrived = true;
-            OnArrive?.Invoke(_to);
+            var cb = OnArrive;
+            OnArrive = null;
+            cb?.Invoke(_to);
             ReturnToPool();
         }
     }
@@ -144,12 +146,14 @@ public class Projectile : MonoBehaviour
         if (_hitIds.Contains(id)) return;
         _hitIds.Add(id);
 
-        OnHitMonster?.Invoke(monster);
+        if (!_piercing)
+            _arrived = true;
+
+        var cb = OnHitMonster;
+        OnHitMonster = null;
+        cb?.Invoke(monster);
 
         if (!_piercing)
-        {
-            _arrived = true;
             ReturnToPool();
-        }
     }
 }

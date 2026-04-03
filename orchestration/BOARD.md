@@ -144,6 +144,7 @@
 | 132 | S-074 MonsterSpawner nightPoolBuffer stale 데이터 | P3 | ✅ | Supervisor — Clear 위치 이동 + Def null 방어 |
 | 133 | S-053 PlayerController 벽 끼임 방지 | P3 | 👀 | CCD Continuous 추가 |
 | 134 | S-055 UI 해상도 대응 | P3 | 👀 | 툴팁 오프셋 해상도 스케일링 |
+| 135 | S-069 Projectile 풀 반환 null 콜백 방어 | P3 | 👀 | capture-then-clear |
 
 ---
 
@@ -169,6 +170,7 @@
 |--------|--------|------|------|
 | S-053 PlayerController 벽 끼임 방지 | 2026-04-03 | ⏳ | CCD Continuous ��가, FixedUpdate 불필요 판단 |
 | S-055 UI 해상도 대응 | 2026-04-03 | ⏳ | 툴팁/HUD 오프셋 해상도 스케일링 적용 |
+| S-069 Projectile 풀 반환 null 콜백 방어 | 2026-04-03 | ⏳ | capture-then-clear + _arrived 선행 |
 
 ## ✅ Done
 
