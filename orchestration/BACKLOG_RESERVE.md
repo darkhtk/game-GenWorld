@@ -18,10 +18,10 @@
 | ~~9~~ | ~~S-046~~ | ~~🔧~~ | ~~MonsterSpawner 리전 전환 클린업 — APPROVE~~ | ~~P2~~ | ✅ |
 | ~~10~~ | ~~S-047~~ | ~~🔧~~ | ~~DialogueSystem 동시 대화 방지 — APPROVE~~ | ~~P2~~ | ✅ |
 | ~~11~~ | ~~S-048~~ | ~~🔧~~ | ~~SkillSystem 데이터 무결성 — REVIEW-S048-v2 APPROVE~~ | ~~P2~~ | ✅ |
-| 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 풀 무한 성장 방지 (maxSize 상한 도입 검토) | P3 | ⬜ |
+| 12 | S-049 | 🔧 | ObjectPool 최대 크기 제한 — 검증 완료: maxSize 적정, null 처리/Return 중복 방지 완비 | P3 | ✅ |
 | ~~13~~ | ~~S-050~~ | ~~🔧~~ | ~~InputSystem UI/게임 입력 분리 — APPROVE~~ | ~~P2~~ | ✅ |
 | 14 | S-051 | 🔧 | SceneTransition 메모리 누수 — v2 APPROVE | P2 | ✅ |
-| 15 | S-052 | 🔧 | EventBus 이벤트 순서 안정성 — 동일 이벤트 다중 핸들러 실행 순서 보장 검증 | P3 | ⬜ |
+| 15 | S-052 | 🔧 | EventBus 이벤트 순서 안정성 — 검증 완료: LIFO 순서, 전 핸들러 독립, using Linq 제거 | P3 | ✅ |
 | 16 | S-053 | 🔧 | PlayerController 벽 끼임 방지 — 콜라이더 경계에서 플레이어 위치 보정 확인 | P3 | ⬜ |
 | 17 | S-054 | 🔧 | AutoSave 전투 중 저장 방지 — 전투 상태에서 자동 저장 스킵 (데이터 일관성) | P2 | ✅ |
 | 18 | S-055 | 🔧 | UI 해상도 대응 — 다양한 해상도에서 UI 앵커/레이아웃 정상 동작 검증 | P3 | ⬜ |

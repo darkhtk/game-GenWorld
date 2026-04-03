@@ -128,6 +128,8 @@
 | 116 | S-065 EffectHolder DoT 중복 적용 | P2 | ✅ | REVIEW-S065-v1 ✅ APPROVE |
 | 117 | S-040 CombatManager 타겟팅 범위 | P3 | ✅ | REVIEW-S040-v1 ✅ APPROVE |
 | 118 | S-041 NPC 호감도 데이터 저장 | P3 | ✅ | 검증 완료 — 버그 없음, Restore clamp 방어 추가 |
+| 119 | S-049 ObjectPool 최대 크기 제한 | P3 | ✅ | 검증 완료 — maxSize 적정, null 처리 완비, Return 중복 방지 |
+| 120 | S-052 EventBus 이벤트 순서 안정성 | P3 | ✅ | 검증 완료 — LIFO 순서, 핸들러 독립 확인, using Linq 제거 |
 
 ---
 
@@ -156,6 +158,8 @@
 
 | 태스크 | 완료일 | 비고 |
 |--------|--------|------|
+| S-052 EventBus 이벤트 순서 안정성 | 2026-04-03 | 검증 완료 — 자가진행 (🔧 검증) |
+| S-049 ObjectPool 최대 크기 제한 | 2026-04-03 | 검증 완료 — 자가진행 (🔧 검증) |
 | S-041 NPC 호감도 데이터 저장 | 2026-04-03 | 검증 완료 — 자가진행 (🔧 검증) |
 | S-040 CombatManager 타겟팅 범위 | 2026-04-03 | REVIEW-S040-v1 ✅ APPROVE |
 | S-051 SceneTransition 메모리 누수 v2 | 2026-04-03 | REVIEW-S051-v2 ✅ APPROVE |
