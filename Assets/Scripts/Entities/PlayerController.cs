@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         if (Frozen) { _rb.linearVelocity = Vector2.zero; return; }
 
         // Aim direction (mouse)
+        if (_cachedCamera == null) _cachedCamera = Camera.main;
         if (_cachedCamera != null)
         {
             Vector3 mouseWorld = _cachedCamera.ScreenToWorldPoint(Input.mousePosition);
