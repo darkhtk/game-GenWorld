@@ -737,12 +737,12 @@ public class HUD : MonoBehaviour
             var lines = new List<string>();
             int level = gm.Skills.GetSkillLevel(skillId);
             float dmgMult = gm.Skills.GetDamageMultiplier(skillId);
-            lines.Add($"<color=#aaffaa>Level: {level}/{GameConfig.SkillMaxLevel}</color>");
-            if (def.damage > 0) lines.Add($"<color=#ffaa55>Damage: {def.damage * dmgMult:F0}</color>");
-            if (def.range > 0) lines.Add($"<color=#aaddff>Range: {def.range:F0}</color>");
-            if (def.mpCost > 0) lines.Add($"<color=#6688ff>MP Cost: {def.mpCost}</color>");
-            if (def.cooldown > 0) lines.Add($"<color=#cccccc>Cooldown: {def.cooldown / 1000f:F1}s</color>");
-            if (def.aoe > 0) lines.Add($"<color=#ffcc44>AoE: {def.aoe:F0}</color>");
+            lines.Add($"<color=#888888>Level</color> <color=#aaffaa><b>{level}</b>/{GameConfig.SkillMaxLevel}</color>");
+            if (def.damage > 0) lines.Add($"<color=#888888>Dmg</color> <color=#ffaa55><b>{def.damage * dmgMult:F0}</b></color>");
+            if (def.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#aaddff><b>{def.range:F0}</b></color>");
+            if (def.mpCost > 0) lines.Add($"<color=#888888>MP</color> <color=#6688ff><b>{def.mpCost}</b></color>");
+            if (def.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{def.cooldown / 1000f:F1}s</b></color>");
+            if (def.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffcc44><b>{def.aoe:F0}</b></color>");
             skillTooltipStats.text = string.Join("  ", lines);
         }
 
