@@ -45,6 +45,7 @@ public class PauseMenuUI : MonoBehaviour
         panel.SetActive(true);
         _previousTimeScale = Time.timeScale;
         Time.timeScale = 0f;
+        AudioManager.Instance?.PlaySFX("sfx_menu_open");
     }
 
     public void Close()
@@ -52,6 +53,7 @@ public class PauseMenuUI : MonoBehaviour
         if (panel != null) panel.SetActive(false);
         Time.timeScale = _previousTimeScale > 0 ? _previousTimeScale : 1f;
         if (saveConfirmText != null) saveConfirmText.gameObject.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_menu_close");
     }
 
     public void Toggle()
@@ -65,6 +67,7 @@ public class PauseMenuUI : MonoBehaviour
     void DoSave()
     {
         OnSaveRequested?.Invoke();
+        AudioManager.Instance?.PlaySFX("sfx_confirm");
         if (saveConfirmText != null)
         {
             saveConfirmText.gameObject.SetActive(true);

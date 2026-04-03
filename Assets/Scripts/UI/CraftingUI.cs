@@ -41,12 +41,14 @@ public class CraftingUI : MonoBehaviour
         _itemDefs = itemDefs;
         _onCraft = onCraft;
         if (panel != null) panel.SetActive(true);
+        AudioManager.Instance?.PlaySFX("sfx_menu_open");
         Refresh();
     }
 
     public void Close()
     {
         if (panel != null) panel.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_menu_close");
     }
 
     public void Toggle(CraftingSystem craftingSystem, InventorySystem inventory,
@@ -106,6 +108,7 @@ public class CraftingUI : MonoBehaviour
         btn.onClick.AddListener(() =>
         {
             _onCraft?.Invoke(resultId);
+            AudioManager.Instance?.PlaySFX("sfx_craft");
             Refresh();
         });
 

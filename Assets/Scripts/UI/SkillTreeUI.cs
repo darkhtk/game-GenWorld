@@ -104,10 +104,15 @@ public class SkillTreeUI : MonoBehaviour
     public void Show()
     {
         if (panel != null) panel.SetActive(true);
+        AudioManager.Instance?.PlaySFX("sfx_menu_open");
         Refresh();
     }
 
-    public void Hide() { if (panel != null) panel.SetActive(false); }
+    public void Hide()
+    {
+        if (panel != null) panel.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_menu_close");
+    }
     public void Toggle() { if (IsOpen) Hide(); else Show(); }
 
     public void Refresh()

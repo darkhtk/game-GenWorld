@@ -56,6 +56,7 @@ public class MainMenuController : MonoBehaviour
 
     void OnNewGame()
     {
+        AudioManager.Instance?.PlaySFX("sfx_confirm");
         if (SaveSystem.HasSave())
             SaveSystem.DeleteSave();
         SceneManager.LoadScene("GameScene");
@@ -64,6 +65,7 @@ public class MainMenuController : MonoBehaviour
     void OnContinue()
     {
         if (!SaveSystem.HasSave()) return;
+        AudioManager.Instance?.PlaySFX("sfx_confirm");
         SceneManager.LoadScene("GameScene");
     }
 }

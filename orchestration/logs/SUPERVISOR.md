@@ -1,34 +1,33 @@
 # SUPERVISOR Loop Log
 
-> **최종 실행:** 2026-04-03 (루프 #23)
-> **모드:** 🎨 에셋 점검 (S-031, S-035) + 코드 품질 감사 (Step 2-2)
+> **최종 실행:** 2026-04-03 (루프 #24)
+> **모드:** 🎨 S-039 UI SFX 누락 수정
 
 ## 이번 루프 수행 내용
 
-### 🎨 에셋 점검 2건
+### 🎨 S-039 UI SFX 누락 수정 ✅
 
-#### S-031 미니맵 아이콘 에셋 ✅ (누락 없음)
-- 5종 전체 존재 확인: minimap_player/monster/npc/quest/portal.png (16x16 RGBA)
-- .meta 파일 모두 포함. 누락 0건.
+**분석 결과:**
+- 코드 내 PlaySFX 참조 17종 전부 Resources/Audio/SFX/ 에 존재 (파일 누락 0건)
+- placeholder SFX 94종 이미 생성됨 (sfx_menu_open, sfx_menu_close, sfx_tab_switch 등)
+- **문제:** UI 스크립트에서 PlaySFX 호출 자체가 누락 (DialogueUI만 유일하게 sfx_speech 사용)
 
-#### S-035 장비 아이콘 누락 확인 ✅ (누락 없음)
-- items.json 참조 25종 대비 에셋 100% 일치
-- Spritesheet (Assets/Art/Items/items.png) + 개별 파일 (Resources/Sprites/Items/) 이중 확인
-- 누락 0건, 고아 파일 0건.
+**수정한 파일 8개:**
+| 파일 | 추가한 SFX |
+|------|------------|
+| PauseMenuUI.cs | sfx_menu_open (Open), sfx_menu_close (Close), sfx_confirm (Save) |
+| InventoryUI.cs | sfx_menu_open (Show), sfx_menu_close (Hide), sfx_confirm (Equip), sfx_tab_switch (Filter), sfx_click (Sort) |
+| ShopUI.cs | sfx_menu_open (Open), sfx_menu_close (Close), sfx_coin (Buy) |
+| SkillTreeUI.cs | sfx_menu_open (Show), sfx_menu_close (Hide) |
+| QuestUI.cs | sfx_menu_open (Show), sfx_menu_close (Hide), sfx_tab_switch (Tab) |
+| CraftingUI.cs | sfx_menu_open (Open), sfx_menu_close (Close), sfx_craft (Craft) |
+| EnhanceUI.cs | sfx_menu_open (Open), sfx_menu_close (Close), sfx_enchant_success/fail/critfail |
+| MainMenuController.cs | sfx_confirm (NewGame, Continue) |
+| DeathScreenUI.cs | sfx_confirm (Respawn) |
 
-### 🔧 코드 품질 감사 (5파일 심층 리뷰)
-- CombatSystem.cs (56줄) — 버그 0건
-- InventorySystem.cs (171줄) — 버그 0건
-- PlayerController.cs (133줄) — 버그 0건 (ScreenFlash.Dodge() → Flash() 내부 null 체크 확인)
-- QuestSystem.cs (171줄) — 버그 0건
-- GameManager.cs (929줄) — 버그 0건 (monsterSpawner [SerializeField], _killCounts Start() 시점 안전)
+**총 PlaySFX 호출 추가:** 22건
 
-### RESERVE 동기화
-- S-031, S-035 완료 이동
-- S-057(스킬 아이콘), S-058(몬스터 스프라이트) 🎨 태스크 추가
-- 미완료 23건 유지 (20건+ 충족)
-
-## 누적 현황 (루프 #1~#23)
+## 누적 현황 (루프 #1~#24)
 | 루프 | 행동 | 결과 |
 |------|------|------|
 | #1 | 에셋 + AI 대화 수정 | 치명 버그 8건, 에셋 5종 |
@@ -50,21 +49,32 @@
 | #21 | 코드 품질 감사 3건 | S-005 LINQ제거, S-007 stale ref(버그!), S-010 null방어 |
 | #22 | 코드 품질 감사 4건 + RESERVE 보충 | S-013 풀 누수(버그!), S-015 null방어, S-016 검증, ObjectPool 가드 |
 | #23 | 🎨 에셋 점검 2건 + 코드 감사 5건 | S-031/S-035 누락 없음, 5파일 버그 0건, RESERVE +2 |
+| #24 | 🎨 S-039 UI SFX 누락 수정 | 8개 UI에 PlaySFX 22건 추가 |
 
 ## 총 기여 요약
 - **치명 버그 수정**: 16건
 - **성능 최적화**: 7건
 - **방어 코드 강화**: 3건
-- **UX SFX 추가**: 6건
+- **UX SFX 추가**: 28건 (기존 6 + S-039 22건)
 - **에셋 생성**: 46종
 - **에셋 점검 완료**: 2건 (S-031 미니맵 5종, S-035 장비 25종)
 - **RESERVE 태스크 보충**: 42건 (누적)
 - **감사 시스템**: 38개 클래스 + 7개 재감사
 
 ## 수정 파일 (이번 루프)
+- `Assets/Scripts/UI/PauseMenuUI.cs`
+- `Assets/Scripts/UI/InventoryUI.cs`
+- `Assets/Scripts/UI/ShopUI.cs`
+- `Assets/Scripts/UI/SkillTreeUI.cs`
+- `Assets/Scripts/UI/QuestUI.cs`
+- `Assets/Scripts/UI/CraftingUI.cs`
+- `Assets/Scripts/UI/EnhanceUI.cs`
+- `Assets/Scripts/UI/MainMenuController.cs`
+- `Assets/Scripts/UI/DeathScreenUI.cs`
 - `orchestration/BACKLOG_RESERVE.md`
+- `orchestration/BOARD.md`
 - `orchestration/logs/SUPERVISOR.md`
 
 ## 다음 루프 예정
-- S-039 🎨 UI 사운드 누락 점검
-- Step 2-3 성능 최적화 또는 Step 2-2 코드 감사 계속
+- S-057 🎨 스킬 아이콘 누락 점검
+- Step 2-2 코드 품질 감사 또는 Step 2-3 성능 최적화

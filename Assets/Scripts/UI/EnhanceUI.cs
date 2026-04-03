@@ -69,12 +69,14 @@ public class EnhanceUI : MonoBehaviour
         _spendGold = spendGold;
         _onEnhance = onEnhance;
         if (panel != null) panel.SetActive(true);
+        AudioManager.Instance?.PlaySFX("sfx_menu_open");
         Refresh();
     }
 
     public void Close()
     {
         if (panel != null) panel.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_menu_close");
     }
 
     public void Toggle(Dictionary<string, ItemInstance> equipment, Dictionary<string, ItemDef> itemDefs,
@@ -173,15 +175,18 @@ public class EnhanceUI : MonoBehaviour
         {
             inst.enhanceLevel++;
             _onEnhance?.Invoke(slotName);
+            AudioManager.Instance?.PlaySFX("sfx_enchant_success");
             ShowResult($"<color=#66ff66>Success! +{inst.enhanceLevel}</color>");
         }
         else if (roll < info.success + info.destroy)
         {
             _equipment.Remove(slotName);
+            AudioManager.Instance?.PlaySFX("sfx_enchant_critfail");
             ShowResult("<color=#ff4444>Equipment Destroyed!</color>");
         }
         else
         {
+            AudioManager.Instance?.PlaySFX("sfx_enchant_fail");
             ShowResult("<color=#ffaa44>Enhancement Failed...</color>");
         }
         Refresh();

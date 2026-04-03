@@ -128,6 +128,7 @@ public class InventoryUI : MonoBehaviour
         var anim = panel != null ? panel.GetComponent<PanelAnimator>() : null;
         if (anim != null) anim.Show();
         else if (panel != null) panel.SetActive(true);
+        AudioManager.Instance?.PlaySFX("sfx_menu_open");
         Refresh();
     }
 
@@ -136,6 +137,7 @@ public class InventoryUI : MonoBehaviour
         var anim = panel != null ? panel.GetComponent<PanelAnimator>() : null;
         if (anim != null) anim.Hide();
         else if (panel != null) panel.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_menu_close");
         HideTooltip();
         CancelDrag();
     }
@@ -358,6 +360,7 @@ public class InventoryUI : MonoBehaviour
             OnEquipCallback?.Invoke(_pendingEquipIndex);
         _pendingEquipIndex = -1;
         if (comparePanel != null) comparePanel.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_confirm");
     }
 
     static string FormatStats(ItemStats s)
@@ -393,6 +396,7 @@ public class InventoryUI : MonoBehaviour
     void SetFilter(int idx)
     {
         _currentFilter = idx < FilterNames.Length ? FilterNames[idx] : "all";
+        AudioManager.Instance?.PlaySFX("sfx_tab_switch");
         Refresh();
     }
 
@@ -400,6 +404,7 @@ public class InventoryUI : MonoBehaviour
     {
         _currentSortMode = (_currentSortMode + 1) % SortModeNames.Length;
         if (sortModeText != null) sortModeText.text = SortModeNames[_currentSortMode];
+        AudioManager.Instance?.PlaySFX("sfx_click");
         Refresh();
     }
 

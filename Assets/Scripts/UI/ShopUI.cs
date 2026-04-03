@@ -45,6 +45,7 @@ public class ShopUI : MonoBehaviour
         _getGold = getGold;
         _spendGold = spendGold;
         if (panel != null) panel.SetActive(true);
+        AudioManager.Instance?.PlaySFX("sfx_menu_open");
         if (_inventory == null || _itemDefs == null) return;
         Refresh();
     }
@@ -52,6 +53,7 @@ public class ShopUI : MonoBehaviour
     public void Close()
     {
         if (panel != null) panel.SetActive(false);
+        AudioManager.Instance?.PlaySFX("sfx_menu_close");
     }
 
     public void Toggle(InventorySystem inventory, Dictionary<string, ItemDef> itemDefs,
@@ -119,6 +121,7 @@ public class ShopUI : MonoBehaviour
         if (overflow == 0)
         {
             _spendGold(price);
+            AudioManager.Instance?.PlaySFX("sfx_coin");
             Refresh();
         }
     }

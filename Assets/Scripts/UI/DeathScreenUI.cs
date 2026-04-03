@@ -66,6 +66,7 @@ public class DeathScreenUI : MonoBehaviour
         var pc = gm.GetComponentInChildren<PlayerController>();
         if (pc != null) pc.SetSpeed(gm.PlayerState.CurrentStats.spd);
 
+        AudioManager.Instance?.PlaySFX("sfx_confirm");
         if (panel != null) panel.SetActive(false);
     }
 }

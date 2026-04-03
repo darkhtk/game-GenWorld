@@ -10,7 +10,7 @@
 | 1 | S-006 | 🔧 | GameManager 분할 리팩토링 — 884줄 → 300줄 이하 (DialogueManager, SaveController 등 분리) | P2 | ⬜ |
 | 2 | S-021 | 🔧 | 테스트 커버리지 확장 — CombatSystem, InventorySystem, SaveMigrations 단위 테스트 추가 | P3 | ⬜ |
 | 3 | S-038 | 🔧 | WorldEvent 동시 실행 방지 — 월드 이벤트 중복 발동 방어 | P3 | ⬜ |
-| 4 | S-039 | 🎨 | 누락 UI 사운드 확인 — 버튼 클릭/패널 열기 SFX 누락 리스트업 및 placeholder 생성 | P3 | ⬜ |
+| 4 | S-039 | 🎨 | 누락 UI 사운드 확인 — 버튼 클릭/패널 열기 SFX 누락 리스트업 및 placeholder 생성 | P3 | ✅ |
 | 5 | S-040 | 🔧 | CombatManager 타겟팅 범위 — 화면 밖 몬스터 자동 타겟팅 방지 | P3 | ⬜ |
 | 6 | S-041 | 🔧 | NPC 호감도 데이터 저장 — 세이브/로드 시 호감도 누락 확인 | P3 | ⬜ |
 | 7 | S-042 | 🔧 | SaveSystem 동시 저장 경합 방지 — 자동 저장 중 수동 저장 요청 시 잠금/대기 처리 | P2 | ⬜ |
@@ -69,3 +69,4 @@
 | S-035 | 장비 아이콘 누락 — 25종 전체 존재 확인 (spritesheet+individual) | 2026-04-03 |
 | S-036 | AchievementSystem 중복 방지 — _completed.Contains 이미 존재 | 2026-04-03 |
 | S-037 | BuffSystem 만료 — EffectHolder.Tick 만료 제거 정상 | 2026-04-03 |
+| S-039 | UI SFX 누락 수정 — 8개 UI 스크립트에 PlaySFX 호출 추가 (menu_open/close, confirm, tab_switch, craft, enchant, coin) | 2026-04-03 |

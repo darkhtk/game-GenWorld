@@ -107,7 +107,8 @@
 | 95 | S-037 BuffSystem 만료 | P2 | ✅ | EffectHolder.Tick 만료 제거 정상 |
 | 96 | S-027 중복 스폰 | P2 | ✅ | cosmetic only |
 | 97 | S-028 자동 백업 | P2 | ✅ | S-001에서 구현됨 |
-| 98 | S-006 GameManager 분할 리팩토링 | P2 | 👀 | In Review |
+| 98 | S-039 UI SFX 누락 수정 | P3 | ✅ | 8개 UI에 PlaySFX 추가 |
+| 99 | S-006 GameManager 분할 리팩토링 | P2 | 👀 | In Review |
 
 ---
 
@@ -230,6 +231,7 @@
 | S-034 DialogueSystem 선택지 | 2026-04-03 | foreach 기반, 인덱스 접근 없음 ✅ |
 | S-037 BuffSystem 만료 | 2026-04-03 | EffectHolder.Tick 만료 제거 정상 ✅ |
 | S-026 NPC 이동 재개 v2 | 2026-04-03 | REVIEW-S026-v2 ✅ |
+| S-039 UI SFX 누락 수정 | 2026-04-03 | 8개 UI에 PlaySFX 추가 ✅ |
 
 ## 📋 Backlog
 
