@@ -174,7 +174,7 @@ public class SkillTreeUI : MonoBehaviour
             }
             else
             {
-                equipSlotLabels[i].text = $"<color=#444444>[{i + 1}]</color>";
+                equipSlotLabels[i].text = $"<color=#666666>[{i + 1}]</color>";
                 equipSlotLabels[i].color = Color.white;
             }
         }

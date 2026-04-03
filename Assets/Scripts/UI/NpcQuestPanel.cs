@@ -61,10 +61,14 @@ public class NpcQuestPanel : MonoBehaviour
         if (questDescText != null) { questDescText.text = quest.description ?? ""; questDescText.color = new Color(0.78f, 0.78f, 0.78f); }
         if (statusText != null)
         {
-            statusText.text = status ?? "";
-            statusText.color = status == "completable" ? new Color(0.4f, 1f, 0.4f)
-                : status == "active" ? new Color(0.6f, 0.8f, 1f)
-                : Color.white;
+            statusText.color = Color.white;
+            statusText.text = status switch
+            {
+                "completable" => "<color=#66ff66><b>\u2713 Ready to Complete</b></color>",
+                "active"      => "<color=#66aaff>\u25cf In Progress</color>",
+                "available"   => "<color=#ffee88>\u25b8 Available</color>",
+                _             => ""
+            };
         }
 
         if (requirementsText != null)

@@ -18,7 +18,7 @@ public class LoadingScreenUI : MonoBehaviour
         if (panel != null) panel.SetActive(false);
     }
 
-    public void Show() { if (panel != null) panel.SetActive(true); SetProgress(0, "Loading..."); }
+    public void Show() { if (panel != null) panel.SetActive(true); SetProgress(0, "<color=#888888>Loading...</color>"); }
     public void Hide() { if (panel != null) panel.SetActive(false); }
 
     public void SetProgress(float progress, string status = null)
