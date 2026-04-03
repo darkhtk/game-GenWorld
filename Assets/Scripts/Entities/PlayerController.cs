@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         _cachedCamera = Camera.main;
         _rb.gravityScale = 0;
         _rb.freezeRotation = true;
+        _rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
     void Update()

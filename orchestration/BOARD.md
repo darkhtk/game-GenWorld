@@ -141,6 +141,7 @@
 | 129 | S-072 상태이상 아이콘 추가 | P3 | ✅ | Supervisor — 7종 아이콘 생성 |
 | 130 | S-073 TimeSystem 기간 전환 로그 스팸 | P3 | ✅ | Supervisor — _lastPeriod 추적 중복 제거 |
 | 131 | S-075 MonsterController 사망 상태 피격 방지 | P2 | ✅ | Supervisor — TakeDamage 조기 반환 |
+| 132 | S-053 PlayerController 벽 끼임 방지 | P3 | 👀 | CCD Continuous 추가 |
 
 ---
 
@@ -158,12 +159,13 @@
 | 태스크 | 담당 | 시작일 | 비고 |
 |--------|------|--------|------|
 | ~~S-040~~ | ~~Developer~~ | ~~2026-04-03~~ | → In Review |
+| ~~S-053~~ | ~~Developer~~ | ~~2026-04-03~~ | → In Review |
 
 ## 👀 In Review
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| (없음) | | | |
+| S-053 PlayerController 벽 끼임 방지 | 2026-04-03 | ⏳ | CCD Continuous 추가, FixedUpdate 불필요 판단 |
 
 ## ✅ Done
 
