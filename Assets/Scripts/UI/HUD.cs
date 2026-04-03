@@ -384,7 +384,7 @@ public class HUD : MonoBehaviour
         if (regionText != null)
         {
             regionText.color = Color.white;
-            regionText.text = $"<color=#aaddff>{regionName}</color>";
+            regionText.text = $"<color=#aaddff><b>{regionName}</b></color>";
         }
         ShowRegionAnnounce(regionName);
     }

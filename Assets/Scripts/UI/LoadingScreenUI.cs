@@ -29,7 +29,7 @@ public class LoadingScreenUI : MonoBehaviour
             percentText.color = Color.white;
             int pct = Mathf.RoundToInt(progress * 100);
             string pctColor = pct >= 100 ? "#66ff66" : pct >= 50 ? "#aaddff" : "#6699aa";
-            percentText.text = $"<color={pctColor}>{pct}%</color>";
+            percentText.text = $"<color={pctColor}><b>{pct}%</b></color>";
         }
         if (statusText != null && !string.IsNullOrEmpty(status)) { statusText.color = Color.white; statusText.text = status; }
     }
