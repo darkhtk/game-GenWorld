@@ -1,38 +1,35 @@
 # DEVELOPER Loop Log
 
 **Last run:** 2026-04-03
-**Status:** S-026 v2, S-029 In Review 대기 — RESERVE P2 대부분 소진
+**Status:** S-006 In Review (GameManager refactoring)
 
 ## Loop Result
 - Build errors: 0
 - FREEZE: N
-- Discussions: N/A
-- NEEDS_WORK: S-026 수정 완료 (v2 제출)
+- Discussions: N/A (directory absent)
+- NEEDS_WORK: 11 files, all for already-Done tasks (stale reviews)
 
 ## 이번 루프 작업
 
-### 코드 변경
-| 태스크 | 파일 | 내용 |
-|--------|------|------|
-| S-026 v2 | GameManager.cs | SetDialogueOpen(false) + _dialogueNpc=null 추가 |
-| S-029 | GameManager.cs | 루트 드롭 overflow 경고 + 오렌지 텍스트 |
+### S-006 GameManager 분할 리팩토링 (928줄 → 308줄)
 
-### 검증 완료 (코드 변경 불필요)
-| 태스크 | 결과 |
-|--------|------|
-| S-030 UIManager null 참조 | 모든 참조에 null 체크 존재 |
-| S-032 TimeSystem 일시정지 | Time.deltaTime 기반 → timeScale=0에서 자동 정지 |
-| S-033 LootTable 빈 드롭 | drops null 체크 존재 (line 10) |
-| S-034 DialogueSystem 선택지 | foreach 기반, 인덱스 접근 없음 |
-| S-036 AchievementSystem 중복 | _completed.Contains 이미 존재 (line 53) |
-| S-037 BuffSystem 만료 | EffectHolder.Tick에서 만료 자동 제거 |
+| 새 파일 | 줄 수 | 책임 |
+|---------|-------|------|
+| DialogueController.cs | 278 | NPC 대화, NPC 등록, 로어 컨텍스트 |
+| SaveController.cs | 69 | 세이브/로드 |
+| GameUIWiring.cs | 281 | UI 콜백, 오디오 배선, 이벤트 구독 |
+| CombatRewardHandler.cs | 123 | 몬스터 킬 보상, 플레이어 사망 처리 |
 
-### specs 참조: N
+**변경 원칙:**
+- 모든 추출 클래스는 순수 C# (MonoBehaviour 아님)
+- GameManager에서 생성자 주입으로 의존성 전달
+- LINQ Count → 수동 루프로 대체 (S-005 잔류분 수정)
+- 동작 변경 없음 (pure refactoring)
 
-## RESERVE 잔여
-- S-006 GameManager 리팩토링 (보류)
-- S-021 테스트 커버리지 확장 (P3 — 기존 커버리지 양호)
-- S-027 MonsterSpawner 중복 스폰 (P2)
-- S-028 SaveSystem 자동 백업 (P2)
-- 🎨 태그: S-031, S-035, S-039 (스킵)
-- P3: S-038 WorldEvent 동시실행, S-040 타겟팅 범위, S-041 호감도 저장
+### specs 참조: N (SPEC-S006 없음)
+
+## RESERVE 잔여 (non-🎨, not in BOARD Done)
+- S-021 테스트 커버리지 확장 (P3)
+- S-038 WorldEvent 동시 실행 방지 (P3)
+- S-040 CombatManager 타겟팅 범위 (P3)
+- S-041 NPC 호감도 데이터 저장 (P3)

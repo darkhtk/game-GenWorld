@@ -1,0 +1,123 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CombatRewardHandler
+{
+    readonly PlayerController _player;
+    readonly PlayerStats _playerState;
+    readonly InventorySystem _inventory;
+    readonly DataManager _data;
+    readonly UIManager _uiManager;
+    readonly CombatManager _combatManager;
+    readonly MonsterSpawner _monsterSpawner;
+    readonly MonoBehaviour _host;
+    readonly Dictionary<string, int> _killCounts;
+
+    int _totalKills;
+    public int TotalKills => _totalKills;
+
+    public CombatRewardHandler(MonoBehaviour host, PlayerController player, PlayerStats playerState,
+        InventorySystem inventory, DataManager data, UIManager uiManager,
+        CombatManager combatManager, MonsterSpawner monsterSpawner,
+        Dictionary<string, int> killCounts)
+    {
+        _host = host;
+        _player = player;
+        _playerState = playerState;
+        _inventory = inventory;
+        _data = data;
+        _uiManager = uiManager;
+        _combatManager = combatManager;
+        _monsterSpawner = monsterSpawner;
+        _killCounts = killCounts;
+    }
+
+    public void SetTotalKills(int value) => _totalKills = value;
+
+    public void OnMonsterKilled(MonsterController monster)
+    {
+        monster.DeathProcessed = true;
+        SkillVFX.ShowAtPosition(_host, "vfx_monster_death", monster.Position.x, monster.Position.y);
+
+        var def = monster.Def;
+        _killCounts.TryGetValue(def.id, out int count);
+        _killCounts[def.id] = ++count;
+        _totalKills++;
+
+        int prevLevel = _playerState.Level;
+        var state = new PlayerLevelState
+        {
+            level = _playerState.Level, xp = _playerState.Xp,
+            skillPoints = _playerState.SkillPoints, statPoints = _playerState.StatPoints
+        };
+        StatsSystem.AddXp(ref state, def.xp);
+        _playerState.Level = state.level;
+        _playerState.Xp = state.xp;
+        _playerState.SkillPoints = state.skillPoints;
+        _playerState.StatPoints = state.statPoints;
+
+        if (_playerState.Level > prevLevel)
+        {
+            _playerState.RecalcStats(_data.Items, _data.SetBonuses);
+            _playerState.FullHeal();
+            _player.SetSpeed(_playerState.CurrentStats.spd);
+            var hud = _uiManager != null ? _uiManager.Hud : null;
+            if (hud != null)
+            {
+                hud.UpdateLevel(_playerState.Level, _playerState.SkillPoints, _playerState.StatPoints);
+                hud.UpdateXpBar(_playerState.Xp, GameConfig.XpForLevel(_playerState.Level));
+                hud.AddHistoryEntry($"Level Up! Lv.{_playerState.Level}", Color.yellow);
+            }
+        }
+
+        _playerState.Gold += def.gold;
+        EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
+
+        if (_combatManager != null)
+        {
+            Vector2 textPos = monster.Position + Vector2.up * 1.2f;
+            if (def.xp > 0)
+                _combatManager.ShowFloatingText(textPos, $"+{def.xp} XP", new Color(0.6f, 0.8f, 1f));
+            if (def.gold > 0)
+                _combatManager.ShowFloatingText(textPos + Vector2.up * 0.4f, $"+{def.gold}G", new Color(1f, 0.85f, 0.3f));
+        }
+
+        var drops = LootSystem.RollDrops(def.drops);
+        if (drops.Count > 0)
+            AudioManager.Instance?.PlaySFX("sfx_item_acquire");
+        float itemOffset = 0.8f;
+        foreach (var drop in drops)
+        {
+            bool stackable = _data.Items.TryGetValue(drop.itemId, out var itemDef) && itemDef.stackable;
+            int maxStack = itemDef?.maxStack ?? 1;
+            int overflow = _inventory.AddItem(drop.itemId, drop.count, stackable, maxStack);
+
+            string itemName = itemDef?.name ?? drop.itemId;
+            if (overflow > 0)
+                Debug.LogWarning($"[CombatRewardHandler] Inventory full: {overflow}x {itemName} lost");
+            if (_combatManager != null)
+                _combatManager.ShowFloatingText(
+                    monster.Position + Vector2.up * itemOffset,
+                    overflow > 0 ? $"+{itemName} x{drop.count - overflow} (FULL)" : $"+{itemName} x{drop.count}",
+                    overflow > 0 ? new Color(1f, 0.6f, 0.2f) : new Color(0.4f, 1f, 0.4f));
+            itemOffset += 0.4f;
+        }
+
+        EventBus.Emit(new MonsterKillEvent
+        {
+            monsterId = def.id, monsterName = def.name,
+            killCount = count, totalKills = _totalKills
+        });
+
+        _monsterSpawner.RemoveMonster(monster);
+    }
+
+    public void OnPlayerDeath()
+    {
+        int goldLoss = Mathf.FloorToInt(_playerState.Gold * GameConfig.DeathGoldPenalty);
+        _playerState.Gold -= goldLoss;
+        _playerState.FullHeal();
+        EventBus.Emit(new PlayerDeathEvent { deathX = _player.Position.x, deathY = _player.Position.y });
+        EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
+    }
+}
