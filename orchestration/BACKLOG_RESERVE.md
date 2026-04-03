@@ -12,7 +12,7 @@
 | 3 | S-006 | 🔧 | GameManager 분할 리팩토링 — 884줄 → 300줄 이하 (DialogueManager, SaveController 등 분리) | P2 | ⬜ |
 | 4 | S-007 | 🔧 | CombatManager _cachedMonsters 참조 안정성 — stale reference 방어 | P2 | 👀 |
 | 5 | S-008 | 🔧 | PlayerController _cachedCamera null 체크 — 씬 전환 시 Camera.main 무효화 대비 | P2 | ⬜ |
-| 6 | S-010 | 🔧 | QuestSystem null 방어 강화 — quest 완료 보상에서 items null 체크 | P2 | ⬜ |
+| 6 | S-010 | 🔧 | QuestSystem null 방어 강화 — quest 완료 보상에서 items null 체크 | P2 | 👀 |
 | 7 | S-011 | 🔧 | DataManager 로드 실패 시 기본값 폴백 — JSON 파싱 에러에서 빈 Dictionary 반환 | P2 | ⬜ |
 | 8 | S-012 | 🔧 | AudioManager null 참조 일괄 방어 — Instance 패턴에 초기화 전 호출 방어 | P2 | ⬜ |
 | 9 | S-013 | 🔧 | DamageText 풀링 검증 — 대량 몬스터 전투 시 텍스트 오브젝트 누수 확인 | P2 | ⬜ |

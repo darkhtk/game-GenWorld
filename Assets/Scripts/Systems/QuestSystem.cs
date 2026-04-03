@@ -135,6 +135,9 @@ public class QuestSystem
     public QuestReward GetScaledRewards(QuestDef quest, int rejectionCount, int relationship,
         float generosityMult = 1f)
     {
+        if (quest.rewards == null)
+            return new QuestReward { gold = 0, xp = 0, items = null };
+
         float tier = rejectionCount < TierMult.Length ? TierMult[rejectionCount] : 2.5f;
         float relBonus = relationship >= 20 ? 1.5f : relationship >= 10 ? 1.2f : 1f;
         float mult = tier * relBonus * generosityMult;

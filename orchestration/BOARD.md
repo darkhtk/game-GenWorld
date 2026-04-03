@@ -85,7 +85,7 @@
 | 73 | S-005 LINQ 할당 제거 | P2 | 👀 | InventorySystem.OccupiedSlots |
 | 74 | S-007 CombatManager stale ref 방어 | P2 | 👀 | _cachedMonsters 참조 안정성 |
 | 75 | S-009 FlashWhite 코루틴 중복 방지 | P2 | ✅ | StopCoroutine 가드 추가 |
-| 76 | S-010 QuestSystem null 방어 | P2 | ⬜ | quest.rewards.items null 체크 |
+| 76 | S-010 QuestSystem null 방어 | P2 | 👀 | quest.rewards.items null 체크 |
 
 ---
 
@@ -103,9 +103,10 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | 대기 | DeathProcessed 플래그 + 사망 감지 루프 |
+| S-004 DoT 사망 킬 보상 미처리 | 2026-04-03 | ✅ APPROVE | REVIEW-S004-v1 |
 | S-005 LINQ 할당 제거 | 2026-04-03 | 대기 | OccupiedSlots for 루프 변환 |
 | S-007 CombatManager stale ref 방어 | 2026-04-03 | 대기 | UseSkill null 리스트 early return |
+| S-010 QuestSystem null 방어 | 2026-04-03 | 대기 | GetScaledRewards rewards null 체크 |
 
 ## ✅ Done
 
@@ -195,4 +196,4 @@
 | ~~S-004~~ | P1 | 👀 In Review 제출 |
 | ~~S-005~~ | P2 | 👀 In Review 제출 |
 | ~~S-007~~ | P2 | 👀 In Review 제출 |
-| S-010 QuestSystem null 방어 강화 — quest 완료 보상에서 items null 체크 | P2 | RESERVE에서 이동 |
+| ~~S-010~~ | P2 | 👀 In Review 제출 |
