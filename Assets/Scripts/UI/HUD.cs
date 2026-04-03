@@ -421,8 +421,8 @@ public class HUD : MonoBehaviour
         if (levelText != null) { levelText.color = Color.white; levelText.text = $"<color=#99ff99>Lv.{level}</color>"; }
         if (statPointsText != null)
         {
-            string sp = skillPoints > 0 ? $"<color=#88aaff>SK:{skillPoints}</color>" : "";
-            string st = statPoints > 0 ? $"<color=#ffdd44>SP:{statPoints}</color>" : "";
+            string sp = skillPoints > 0 ? $"<b><color=#88aaff>SK:{skillPoints}</color></b>" : "";
+            string st = statPoints > 0 ? $"<b><color=#ffdd44>SP:{statPoints}</color></b>" : "";
             statPointsText.color = Color.white;
             statPointsText.text = $"{sp} {st}".Trim();
         }
