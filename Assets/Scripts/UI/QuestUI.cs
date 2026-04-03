@@ -116,8 +116,8 @@ public class QuestUI : MonoBehaviour
         var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
         if (texts.Length > 0)
         {
-            texts[0].text = message;
-            texts[0].color = new Color(0.5f, 0.5f, 0.5f);
+            texts[0].text = $"<color=#888888>{message}</color>";
+            texts[0].color = Color.white;
             texts[0].fontStyle = FontStyles.Italic;
         }
         for (int i = 1; i < texts.Length; i++)
