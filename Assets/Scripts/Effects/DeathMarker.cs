@@ -55,6 +55,12 @@ public class DeathMarker : MonoBehaviour
         {
             float blink = Mathf.PingPong(Time.time * 4f, 1f);
             _text.alpha = 0.3f + 0.7f * blink;
+            _text.text = $"\u2020\n<size=4><color=#ff9944>{Mathf.CeilToInt(remaining)}s</color></size>";
+        }
+        else if (remaining >= 10f && _text != null && _text.text != "\u2020")
+        {
+            _text.text = "\u2020";
+            _text.alpha = 1f;
         }
     }
 
