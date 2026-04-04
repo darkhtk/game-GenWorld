@@ -26,8 +26,8 @@ public class EnhanceUI : MonoBehaviour
     [SerializeField] Button confirmOkButton;
     [SerializeField] Button confirmCancelButton;
 
-    static readonly Color AffordableColor = new(0.4f, 1f, 0.4f);
-    static readonly Color UnaffordableColor = new(0.4f, 0.4f, 0.4f);
+    static readonly Color AffordableColor = new(0.4f, 1f, 0.533f);
+    static readonly Color UnaffordableColor = new(0.267f, 0.267f, 0.267f);
     static readonly string[] SlotLabels = { "Weapon", "Helmet", "Armor", "Boots", "Accessory" };
 
     static readonly (float success, float destroy, int gold)[] EnhanceTable =

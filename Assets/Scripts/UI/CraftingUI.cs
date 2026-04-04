@@ -15,8 +15,8 @@ public class CraftingUI : MonoBehaviour
     [SerializeField] Transform recipeListContent;
     [SerializeField] GameObject recipePrefab;
 
-    static readonly Color CraftableColor = new(0.4f, 1f, 0.4f);
-    static readonly Color UncraftableColor = new(0.4f, 0.4f, 0.4f);
+    static readonly Color CraftableColor = new(0.4f, 1f, 0.533f);
+    static readonly Color UncraftableColor = new(0.267f, 0.267f, 0.267f);
 
     readonly List<GameObject> _entries = new();
 

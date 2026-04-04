@@ -22,8 +22,8 @@ public class ShopUI : MonoBehaviour
     [SerializeField] Transform itemListContent;
     [SerializeField] GameObject shopItemPrefab;
 
-    static readonly Color AffordableColor = new(0.4f, 1f, 0.4f);
-    static readonly Color UnaffordableColor = new(0.4f, 0.4f, 0.4f);
+    static readonly Color AffordableColor = new(0.4f, 1f, 0.533f);
+    static readonly Color UnaffordableColor = new(0.267f, 0.267f, 0.267f);
 
     readonly List<GameObject> _itemEntries = new();
     readonly List<GameObject> _pool = new();
