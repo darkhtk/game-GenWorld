@@ -150,7 +150,7 @@ public class GameUIWiring
         dlg.OnAcceptQuest = questId =>
         {
             _quests.AcceptQuest(questId);
-            _uiManager.Hud?.AddHistoryEntry($"Quest accepted: {questId}", Color.cyan);
+            _uiManager.Hud?.AddHistoryEntry($"Quest accepted: {questId}", new Color(0.533f, 0.867f, 1f)); // #88ddff
         };
 
         dlg.OnCompleteQuest = questId =>
@@ -185,7 +185,7 @@ public class GameUIWiring
                 }
             }
             _uiManager.Hud?.AddHistoryEntry(
-                $"Quest complete! +{reward.gold}G +{reward.xp}XP", Color.yellow);
+                $"Quest complete! +{reward.gold}G +{reward.xp}XP", new Color(1f, 0.867f, 0.267f)); // #ffdd44
             AudioManager.Instance?.PlaySFX("sfx_quest_complete");
         };
     }
@@ -271,7 +271,7 @@ public class GameUIWiring
 
         EventBus.On<PlayerDeathEvent>(e =>
         {
-            if (hud != null) hud.AddHistoryEntry("You died!", Color.red);
+            if (hud != null) hud.AddHistoryEntry("You died!", new Color(1f, 0.4f, 0.333f)); // #ff6655
         });
 
         EventBus.On<SaveEvent>(_ =>

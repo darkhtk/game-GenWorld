@@ -67,7 +67,7 @@ public class CombatRewardHandler
             {
                 hud.UpdateLevel(_playerState.Level, _playerState.SkillPoints, _playerState.StatPoints);
                 hud.UpdateXpBar(_playerState.Xp, GameConfig.XpForLevel(_playerState.Level));
-                hud.AddHistoryEntry($"Level Up! Lv.{_playerState.Level}", Color.yellow);
+                hud.AddHistoryEntry($"Level Up! Lv.{_playerState.Level}", new Color(1f, 0.867f, 0.267f)); // #ffdd44
             }
         }
 

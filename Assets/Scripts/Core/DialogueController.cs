@@ -242,12 +242,12 @@ public class DialogueController
                 _playerState.Hp = _playerState.CurrentStats.maxHp;
                 _playerState.Mp = _playerState.CurrentStats.maxMp;
                 AudioManager.Instance?.PlaySFX("sfx_potion");
-                _uiManager.Hud?.AddHistoryEntry("HP/MP fully restored!", Color.green);
+                _uiManager.Hud?.AddHistoryEntry("HP/MP fully restored!", new Color(0.4f, 1f, 0.533f)); // #66ff88
                 break;
             case "reset_skills":
                 int refunded = _skills.ResetAllSkills();
                 _playerState.SkillPoints += refunded;
-                _uiManager.Hud?.AddHistoryEntry($"Skills reset! (+{refunded} SP)", Color.cyan);
+                _uiManager.Hud?.AddHistoryEntry($"Skills reset! (+{refunded} SP)", new Color(0.533f, 0.867f, 1f)); // #88ddff
                 break;
             case "reset_stats":
                 int totalBonus = 0;
@@ -256,7 +256,7 @@ public class DialogueController
                     _playerState.BonusStats[key] = 0;
                 _playerState.StatPoints += totalBonus;
                 _playerState.RecalcStats(_data.Items, _data.SetBonuses);
-                _uiManager.Hud?.AddHistoryEntry($"Stats reset! (+{totalBonus} points)", Color.cyan);
+                _uiManager.Hud?.AddHistoryEntry($"Stats reset! (+{totalBonus} points)", new Color(0.533f, 0.867f, 1f)); // #88ddff
                 break;
             case "open_shop":
                 break;
