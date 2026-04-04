@@ -27,6 +27,8 @@ public class DamageText : MonoBehaviour
             var tmp = go.AddComponent<TextMeshPro>();
             tmp.alignment = TextAlignmentOptions.Center;
             tmp.sortingOrder = 200;
+            tmp.outlineColor = new Color32(0, 0, 0, 200);
+            tmp.outlineWidth = 0.15f;
             var dt = go.AddComponent<DamageText>();
             dt._tmp = tmp;
             return dt;

@@ -87,7 +87,7 @@ public class AnimationPreviewUI : MonoBehaviour
         var npc = target.GetComponent<VillageNPC>();
         if (npc != null && npc.Def != null) _targetDef = npc.Def.animationDef;
 
-        if (entityNameLabel != null) { entityNameLabel.text = $"<b><color=#ffcc88>{target.name}</color></b>"; entityNameLabel.color = Color.white; }
+        if (entityNameLabel != null) { entityNameLabel.text = $"<b><color=#ff9944>{target.name}</color></b>"; entityNameLabel.color = Color.white; }
         panel.SetActive(true);
         BuildList();
     }
@@ -144,7 +144,7 @@ public class AnimationPreviewUI : MonoBehaviour
     void OnSpeedChanged(float value)
     {
         if (_targetAnimator != null) _targetAnimator.speed = value;
-        if (speedText != null) { speedText.color = Color.white; speedText.text = $"<color=#aaddff><b>{value:F1}x</b></color>"; }
+        if (speedText != null) { speedText.color = Color.white; speedText.text = $"<color=#88ddff><b>{value:F1}x</b></color>"; }
     }
 }
 #endif
