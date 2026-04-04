@@ -65,7 +65,7 @@ public class TooltipUI : MonoBehaviour
             string gradeHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(item.GradeEnum));
             lines.Add($"<color=#888888>Grade</color> <color={gradeHex}>{item.grade ?? "common"}</color>");
             if (item.stackable) lines.Add($"<color=#888888>Stack</color> <color=#aaaaaa><b>{item.maxStack}</b></color>");
-            _instance.statsText.text = string.Join("  ", lines);
+            _instance.statsText.text = string.Join("\n", lines);
         }
 
         if (_instance.gradeBar != null)
@@ -111,7 +111,7 @@ public class TooltipUI : MonoBehaviour
             if (skill.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{skill.cooldown / 1000f:F1}s</b></color>");
             if (skill.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#aaddff><b>{skill.range:F0}</b></color>");
             if (skill.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffcc44><b>{skill.aoe:F0}</b></color>");
-            _instance.statsText.text = string.Join("  ", lines);
+            _instance.statsText.text = string.Join("\n", lines);
         }
 
         if (_instance.gradeBar != null)

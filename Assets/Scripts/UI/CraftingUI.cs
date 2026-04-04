@@ -108,7 +108,7 @@ public class CraftingUI : MonoBehaviour
                 string check = met ? "<color=#66ff66>\u2713</color> " : "";
                 matLines.Add($"{check}<color=#cccccc>{matName}</color> <color={countColor}>(<b>{have}</b>/{mat.count})</color>");
             }
-            texts[1].text = string.Join("  ", matLines);
+            texts[1].text = string.Join("\n", matLines);
         }
 
         var btn = go.GetComponent<Button>();
