@@ -520,7 +520,7 @@ public class InventoryUI : MonoBehaviour
         int wisVal = bonus != null && bonus.TryGetValue("wis", out int w) ? w : 0;
         int lucVal = bonus != null && bonus.TryGetValue("luc", out int l) ? l : 0;
 
-        if (strText != null) { strText.color = Color.white; strText.text = $"<color=#ff9955>STR <b>{strVal}</b></color>  <color=#888888>ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}</color>"; }
+        if (strText != null) { strText.color = Color.white; strText.text = $"<color=#ff9944>STR <b>{strVal}</b></color>  <color=#888888>ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}</color>"; }
         if (dexText != null) { dexText.color = Color.white; dexText.text = $"<color=#55ddff>DEX <b>{dexVal}</b></color>  <color=#888888>SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}</color>"; }
         if (wisText != null) { wisText.color = Color.white; wisText.text = $"<color=#aa77ff>WIS <b>{wisVal}</b></color>  <color=#888888>MP+{wisVal * GameConfig.WisMpBonus:F0}</color>"; }
         if (lucText != null) { lucText.color = Color.white; lucText.text = $"<color=#ffdd44>LUC <b>{lucVal}</b></color>  <color=#888888>CRIT+{lucVal * GameConfig.LucCritBonus:F0}</color>"; }
