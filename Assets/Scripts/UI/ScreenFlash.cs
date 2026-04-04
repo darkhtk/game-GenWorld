@@ -9,10 +9,10 @@ public class ScreenFlash : MonoBehaviour
     static ScreenFlash _instance;
     Coroutine _activeFlash;
 
-    static readonly Color DamageColor = new(1f, 0f, 0f, 0.3f);
-    static readonly Color HealColor = new(0f, 1f, 0.3f, 0.25f);
-    static readonly Color LevelUpColor = new(1f, 0.85f, 0.2f, 0.35f);
-    static readonly Color DodgeColor = new(0.8f, 0.9f, 1f, 0.2f);
+    static readonly Color DamageColor = new(1f, 0f, 0f, 0.3f);                   // intense red (intentional alarm)
+    static readonly Color HealColor = new(0.4f, 1f, 0.533f, 0.25f);              // #66ff88
+    static readonly Color LevelUpColor = new(1f, 0.851f, 0f, 0.35f);             // #ffd900
+    static readonly Color DodgeColor = new(0.533f, 0.867f, 1f, 0.2f);            // #88ddff
 
     void Awake()
     {
