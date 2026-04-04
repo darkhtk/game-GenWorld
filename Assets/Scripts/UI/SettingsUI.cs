@@ -342,7 +342,7 @@ public class SettingsUI : MonoBehaviour
         _listeningRow = row;
         if (row.KeyText != null)
         {
-            row.KeyText.text = "<color=#ffff44><b>[PRESS KEY]</b></color>";
+            row.KeyText.text = "<color=#ffdd44><b>[PRESS KEY]</b></color>";
             row.KeyText.color = Color.white;
         }
     }
@@ -373,7 +373,7 @@ public class SettingsUI : MonoBehaviour
             if (_listeningRow.KeyText != null)
             {
                 string keyText = FormatKeyName(key);
-                _listeningRow.KeyText.text = dup ? keyText.Replace("#aaddff", "#44ffff") : keyText;
+                _listeningRow.KeyText.text = dup ? keyText.Replace("#88ddff", "#ff9944") : keyText;
                 _listeningRow.KeyText.color = Color.white;
             }
             _listeningRow = null;
@@ -414,7 +414,7 @@ public class SettingsUI : MonoBehaviour
             KeyCode.LeftControl => "LCtrl",
             _ => key.ToString()
         };
-        return $"<color=#aaddff><b>{name}</b></color>";
+        return $"<color=#88ddff><b>{name}</b></color>";
     }
 
     class KeyBindRow

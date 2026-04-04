@@ -141,12 +141,12 @@ public class ShopUI : MonoBehaviour
         {
             _spendGold(price);
             AudioManager.Instance?.PlaySFX("sfx_coin");
-            ShowStatus("<color=#66ff66>Purchased!</color>");
+            ShowStatus("<color=#66ff88>Purchased!</color>");
             Refresh();
         }
         else
         {
-            ShowStatus("<color=#ffaa44>Inventory full!</color>");
+            ShowStatus("<color=#ff9944>Inventory full!</color>");
             AudioManager.Instance?.PlaySFX("sfx_error");
         }
     }

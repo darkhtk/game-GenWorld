@@ -44,7 +44,7 @@ public class NpcProfilePanel : MonoBehaviour
             int hearts = Mathf.Clamp(Mathf.RoundToInt((relationship + 100f) / 200f * MaxHearts), 0, MaxHearts);
             var sb = new System.Text.StringBuilder();
             for (int i = 0; i < MaxHearts; i++)
-                sb.Append(i < hearts ? "<color=#ff4444>\u2665</color>" : "<color=#444444>\u2665</color>");
+                sb.Append(i < hearts ? "<color=#ff6655>\u2665</color>" : "<color=#444444>\u2665</color>");
             relationshipText.text = sb.ToString();
         }
 

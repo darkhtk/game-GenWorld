@@ -184,7 +184,7 @@ public class QuestUI : MonoBehaviour
         {
             var rewardLines = new List<string>();
             if (quest.rewards.gold > 0) rewardLines.Add($"<color=#ffd900>\u25c6 <b>{quest.rewards.gold:N0}</b>G</color>");
-            if (quest.rewards.xp > 0) rewardLines.Add($"<color=#aaffaa>\u25b8 <b>{quest.rewards.xp}</b> XP</color>");
+            if (quest.rewards.xp > 0) rewardLines.Add($"<color=#66ff88>\u25b8 <b>{quest.rewards.xp}</b> XP</color>");
             if (quest.rewards.items != null)
             {
                 foreach (var item in quest.rewards.items)
@@ -219,7 +219,7 @@ public class QuestUI : MonoBehaviour
                 foreach (var d in defs)
                     if (d.id == questId) { title = d.title; break; }
             }
-            texts[0].text = $"<color=#66ff66><b>\u2713</b></color> <color=#99ff99><b>{title}</b></color>";
+            texts[0].text = $"<color=#66ff88><b>\u2713</b></color> <color=#55ee88><b>{title}</b></color>";
             texts[0].color = Color.white;
         }
         for (int i = 1; i < texts.Length; i++)
