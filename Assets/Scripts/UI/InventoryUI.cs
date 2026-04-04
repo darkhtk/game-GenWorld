@@ -313,12 +313,12 @@ public class InventoryUI : MonoBehaviour
             var lines = new List<string>();
             var s = def.stats;
             int enh = inst.enhanceLevel * GameConfig.EnhanceBonusPerLevel;
-            if (s.atk > 0) lines.Add($"<color=#885522>ATK</color> <color=#ff9933><b>+{s.atk + enh}</b></color>");
-            if (s.def > 0) lines.Add($"<color=#224488>DEF</color> <color=#4499ff><b>+{s.def + enh}</b></color>");
-            if (s.maxHp > 0) lines.Add($"<color=#882222>HP</color> <color=#ff5555><b>+{s.maxHp + enh}</b></color>");
-            if (s.maxMp > 0) lines.Add($"<color=#333388>MP</color> <color=#6677ff><b>+{s.maxMp + enh}</b></color>");
-            if (s.spd > 0) lines.Add($"<color=#226644>SPD</color> <color=#44dd77><b>+{s.spd}</b></color>");
-            if (s.crit > 0) lines.Add($"<color=#886600>CRIT</color> <color=#ffd900><b>+{s.crit}%</b></color>");
+            if (s.atk > 0) lines.Add($"<color=#885522>ATK</color> <color=#ff9944><b>+{s.atk + enh}</b></color>");
+            if (s.def > 0) lines.Add($"<color=#224488>DEF</color> <color=#55aaff><b>+{s.def + enh}</b></color>");
+            if (s.maxHp > 0) lines.Add($"<color=#882222>HP</color> <color=#ff6655><b>+{s.maxHp + enh}</b></color>");
+            if (s.maxMp > 0) lines.Add($"<color=#333388>MP</color> <color=#6688ff><b>+{s.maxMp + enh}</b></color>");
+            if (s.spd > 0) lines.Add($"<color=#226644>SPD</color> <color=#55ee88><b>+{s.spd}</b></color>");
+            if (s.crit > 0) lines.Add($"<color=#886600>CRIT</color> <color=#ffdd44><b>+{s.crit}%</b></color>");
             if (inst.enhanceLevel > 0)
             {
                 string ec = inst.enhanceLevel >= 10 ? "#ff9900" : inst.enhanceLevel >= 7 ? "#66aaff" : inst.enhanceLevel >= 4 ? "#66ff66" : "#aaaaaa";
@@ -401,12 +401,12 @@ public class InventoryUI : MonoBehaviour
     static string FormatStats(ItemStats s)
     {
         var lines = new System.Text.StringBuilder();
-        if (s.atk > 0) lines.AppendLine($"<color=#885522>ATK</color> <color=#ff9933><b>{s.atk}</b></color>");
-        if (s.def > 0) lines.AppendLine($"<color=#224488>DEF</color> <color=#4499ff><b>{s.def}</b></color>");
-        if (s.maxHp > 0) lines.AppendLine($"<color=#882222>HP</color> <color=#ff5555><b>{s.maxHp}</b></color>");
-        if (s.maxMp > 0) lines.AppendLine($"<color=#333388>MP</color> <color=#6677ff><b>{s.maxMp}</b></color>");
-        if (s.spd > 0) lines.AppendLine($"<color=#226644>SPD</color> <color=#44dd77><b>{s.spd}</b></color>");
-        if (s.crit > 0) lines.AppendLine($"<color=#886600>CRIT</color> <color=#ffd900><b>{s.crit}%</b></color>");
+        if (s.atk > 0) lines.AppendLine($"<color=#885522>ATK</color> <color=#ff9944><b>{s.atk}</b></color>");
+        if (s.def > 0) lines.AppendLine($"<color=#224488>DEF</color> <color=#55aaff><b>{s.def}</b></color>");
+        if (s.maxHp > 0) lines.AppendLine($"<color=#882222>HP</color> <color=#ff6655><b>{s.maxHp}</b></color>");
+        if (s.maxMp > 0) lines.AppendLine($"<color=#333388>MP</color> <color=#6688ff><b>{s.maxMp}</b></color>");
+        if (s.spd > 0) lines.AppendLine($"<color=#226644>SPD</color> <color=#55ee88><b>{s.spd}</b></color>");
+        if (s.crit > 0) lines.AppendLine($"<color=#886600>CRIT</color> <color=#ffdd44><b>{s.crit}%</b></color>");
         return lines.ToString().TrimEnd();
     }
 

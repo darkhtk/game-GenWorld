@@ -52,11 +52,11 @@ public class TooltipUI : MonoBehaviour
             var s = item.stats;
             if (s != null)
             {
-                if (s.atk > 0) lines.Add($"<color=#885522>ATK</color> <color=#ffaa55><b>+{s.atk}</b></color>");
+                if (s.atk > 0) lines.Add($"<color=#885522>ATK</color> <color=#ff9944><b>+{s.atk}</b></color>");
                 if (s.def > 0) lines.Add($"<color=#224488>DEF</color> <color=#55aaff><b>+{s.def}</b></color>");
-                if (s.maxHp > 0) lines.Add($"<color=#882222>HP</color> <color=#ff6666><b>+{s.maxHp}</b></color>");
+                if (s.maxHp > 0) lines.Add($"<color=#882222>HP</color> <color=#ff6655><b>+{s.maxHp}</b></color>");
                 if (s.maxMp > 0) lines.Add($"<color=#333388>MP</color> <color=#6688ff><b>+{s.maxMp}</b></color>");
-                if (s.spd > 0) lines.Add($"<color=#226644>SPD</color> <color=#66ff88><b>+{s.spd}</b></color>");
+                if (s.spd > 0) lines.Add($"<color=#226644>SPD</color> <color=#55ee88><b>+{s.spd}</b></color>");
                 if (s.crit > 0) lines.Add($"<color=#886600>CRIT</color> <color=#ffdd44><b>+{s.crit}</b></color>");
             }
             if (item.healHp > 0) lines.Add($"<color=#884444>HealHP</color> <color=#ff9999><b>{item.healHp}</b></color>");
