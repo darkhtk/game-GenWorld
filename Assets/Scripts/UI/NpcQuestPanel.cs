@@ -65,7 +65,7 @@ public class NpcQuestPanel : MonoBehaviour
             statusText.text = status switch
             {
                 "completable" => "<color=#66ff66><b>\u2713 Ready to Complete</b></color>",
-                "active"      => "<color=#66aaff>\u25cf In Progress</color>",
+                "active"      => "<color=#88aaff>\u25cf In Progress</color>",
                 "available"   => "<color=#ffee88>\u25b8 Available</color>",
                 _             => ""
             };
