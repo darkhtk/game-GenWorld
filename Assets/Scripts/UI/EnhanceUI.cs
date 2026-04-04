@@ -144,10 +144,10 @@ public class EnhanceUI : MonoBehaviour
         {
             string slotColor = slotName switch
             {
-                "weapon"    => "#ff7744",
-                "helmet"    => "#aabbdd",
-                "armor"     => "#6699ff",
-                "boots"     => "#66dd88",
+                "weapon"    => "#ff9944",
+                "helmet"    => "#88aaff",
+                "armor"     => "#6688ff",
+                "boots"     => "#55ee88",
                 "accessory" => "#cc88ff",
                 _           => "#aaaaaa"
             };
@@ -264,18 +264,18 @@ public class EnhanceUI : MonoBehaviour
             inst.enhanceLevel++;
             _onEnhance?.Invoke(slotName);
             AudioManager.Instance?.PlaySFX("sfx_enchant_success");
-            ShowResult($"<b><color=#66ff66>Success! +{inst.enhanceLevel}</color></b>");
+            ShowResult($"<b><color=#66ff88>Success! +{inst.enhanceLevel}</color></b>");
         }
         else if (roll < info.success + info.destroy)
         {
             _equipment.Remove(slotName);
             AudioManager.Instance?.PlaySFX("sfx_enchant_critfail");
-            ShowResult("<b><color=#ff4444>Equipment Destroyed!</color></b>");
+            ShowResult("<b><color=#ff6655>Equipment Destroyed!</color></b>");
         }
         else
         {
             AudioManager.Instance?.PlaySFX("sfx_enchant_fail");
-            ShowResult("<b><color=#ffaa44>Enhancement Failed...</color></b>");
+            ShowResult("<b><color=#ff9944>Enhancement Failed...</color></b>");
         }
         Refresh();
     }

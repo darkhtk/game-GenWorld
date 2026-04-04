@@ -36,9 +36,9 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
             enhanceText.color = Color.white;
             if (enhanceLevel > 0)
             {
-                string eColor = enhanceLevel >= 10 ? "#ff9900"
-                    : enhanceLevel >= 7 ? "#66aaff"
-                    : enhanceLevel >= 4 ? "#66ff66"
+                string eColor = enhanceLevel >= 10 ? "#ff9944"
+                    : enhanceLevel >= 7 ? "#6688ff"
+                    : enhanceLevel >= 4 ? "#66ff88"
                     : "#aaaaaa";
                 enhanceText.text = $"<color={eColor}><b>+{enhanceLevel}</b></color>";
             }

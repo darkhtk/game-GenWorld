@@ -31,7 +31,7 @@ public class KeybindingsUI : MonoBehaviour
         keybindingsText.color = Color.white;
         const string H = "<color=#ffd900><b>";
         const string HE = "</b></color>";
-        const string K = "<color=#aaddff>";
+        const string K = "<color=#88ddff>";
         const string KE = "</color>";
         keybindingsText.text =
             $"<b><color=#ffffff>Keybindings</color></b>  <color=#555555>[F1 to close]</color>\n\n" +

@@ -28,7 +28,7 @@ public class LoadingScreenUI : MonoBehaviour
         {
             percentText.color = Color.white;
             int pct = Mathf.RoundToInt(progress * 100);
-            string pctColor = pct >= 100 ? "#66ff66" : pct >= 50 ? "#aaddff" : "#6699aa";
+            string pctColor = pct >= 100 ? "#66ff88" : pct >= 50 ? "#88ddff" : "#6699aa";
             percentText.text = $"<color={pctColor}><b>{pct}%</b></color>";
         }
         if (statusText != null && !string.IsNullOrEmpty(status)) { statusText.color = Color.white; statusText.text = status; }
@@ -42,7 +42,7 @@ public class LoadingScreenUI : MonoBehaviour
             SetProgress((float)i / steps.Length, steps[i]);
             yield return new WaitForSeconds(0.15f);
         }
-        SetProgress(1f, "<color=#66ff66><b>Complete!</b></color>");
+        SetProgress(1f, "<color=#66ff88><b>Complete!</b></color>");
         yield return new WaitForSeconds(0.3f);
         Hide();
     }

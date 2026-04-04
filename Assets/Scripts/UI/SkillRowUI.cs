@@ -19,10 +19,10 @@ public class SkillRowUI : MonoBehaviour
     [SerializeField] Sprite nodeLearned;
     [SerializeField] Sprite nodeLocked;
 
-    static readonly Color MaxedBg    = new(0.6f, 1f, 0.6f);
-    static readonly Color LearnedBg  = new(0.6f, 0.8f, 1f);
-    static readonly Color LearnableBg = new(1f, 0.9f, 0.5f);
-    static readonly Color LockedBg   = new(0.5f, 0.5f, 0.5f);
+    static readonly Color MaxedBg    = new(0.2f, 0.45f, 0.25f);
+    static readonly Color LearnedBg  = new(0.2f, 0.3f, 0.55f);
+    static readonly Color LearnableBg = new(0.45f, 0.38f, 0.12f);
+    static readonly Color LockedBg   = new(0.22f, 0.22f, 0.25f);
 
     public Action<string> OnLearnClicked;
     public Action<string> OnSelected;
@@ -73,7 +73,7 @@ public class SkillRowUI : MonoBehaviour
             }
             else if (level > 0)
             {
-                levelText.text = $"<color=#aaffaa><b>Lv.{level}</b></color><color=#888888>/{GameConfig.SkillMaxLevel}</color>";
+                levelText.text = $"<color=#55ee88><b>Lv.{level}</b></color><color=#888888>/{GameConfig.SkillMaxLevel}</color>";
                 levelText.color = Color.white;
             }
             else

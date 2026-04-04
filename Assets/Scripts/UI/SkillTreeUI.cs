@@ -134,7 +134,7 @@ public class SkillTreeUI : MonoBehaviour
                 : $"SK: <color=#555555>0</color>";
             skillPointsText.color = Color.white;
         }
-        if (playerLevelText != null) { playerLevelText.color = Color.white; playerLevelText.text = $"<color=#99ff99>Lv.<b>{playerLevel}</b></color>"; }
+        if (playerLevelText != null) { playerLevelText.color = Color.white; playerLevelText.text = $"<color=#55ee88>Lv.<b>{playerLevel}</b></color>"; }
 
         foreach (var def in skillDefs)
         {

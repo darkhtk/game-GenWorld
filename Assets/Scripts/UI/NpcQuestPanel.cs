@@ -64,9 +64,9 @@ public class NpcQuestPanel : MonoBehaviour
             statusText.color = Color.white;
             statusText.text = status switch
             {
-                "completable" => "<color=#66ff66><b>\u2713 Ready to Complete</b></color>",
+                "completable" => "<color=#66ff88><b>\u2713 Ready to Complete</b></color>",
                 "active"      => "<color=#88aaff>\u25cf In Progress</color>",
-                "available"   => "<color=#ffee88>\u25b8 Available</color>",
+                "available"   => "<color=#ffdd44>\u25b8 Available</color>",
                 _             => ""
             };
         }
@@ -90,7 +90,7 @@ public class NpcQuestPanel : MonoBehaviour
                 foreach (var kr in quest.killRequirements)
                 {
                     string mName = monsters != null && monsters.TryGetValue(kr.monsterId, out var mDef) ? mDef.name : kr.monsterId;
-                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ffbb77>{mName}</color> <color=#888888>\u00d7{kr.count}</color>");
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ff9944>{mName}</color> <color=#888888>\u00d7{kr.count}</color>");
                 }
             }
             requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
@@ -104,7 +104,7 @@ public class NpcQuestPanel : MonoBehaviour
             if (quest.rewards != null)
             {
                 if (quest.rewards.gold > 0) lines.Add($"<color=#ffd900>\u25c6 <b>{quest.rewards.gold:N0}</b>G</color>");
-                if (quest.rewards.xp > 0) lines.Add($"<color=#aaffaa>\u25b8 <b>{quest.rewards.xp}</b> XP</color>");
+                if (quest.rewards.xp > 0) lines.Add($"<color=#66ff88>\u25b8 <b>{quest.rewards.xp}</b> XP</color>");
                 if (quest.rewards.items != null)
                 {
                     foreach (var item in quest.rewards.items)

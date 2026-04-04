@@ -205,7 +205,7 @@ public class DialogueUI : MonoBehaviour
             {
                 string display = (actionDefs != null && actionDefs.TryGetValue(action, out var def))
                     ? def.label : action;
-                label.text = $"<color=#ffcc66>\u25cf</color> {display}";
+                label.text = $"<color=#ffdd44>\u25cf</color> {display}";
                 label.color = Color.white;
             }
 
@@ -309,7 +309,7 @@ public class DialogueUI : MonoBehaviour
             var itemDefs = GameManager.Instance?.Data?.Items;
             var lines = new List<string>();
             if (scaledRewards.gold > 0) lines.Add($"  <color=#ffd900>\u25c6 <b>{scaledRewards.gold:N0}</b>G</color>");
-            if (scaledRewards.xp > 0) lines.Add($"  <color=#aaffaa>\u25b8 <b>{scaledRewards.xp}</b> XP</color>");
+            if (scaledRewards.xp > 0) lines.Add($"  <color=#66ff88>\u25b8 <b>{scaledRewards.xp}</b> XP</color>");
             if (scaledRewards.items != null)
             {
                 foreach (var item in scaledRewards.items)

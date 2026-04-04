@@ -53,10 +53,10 @@ public class NpcProfilePanel : MonoBehaviour
             moodText.color = Color.white;
             var (emoji, col) = mood switch
             {
-                "Happy"    => (":)", "#88ff88"),
+                "Happy"    => (":)", "#66ff88"),
                 "Angry"    => (">:(", "#ff6655"),
-                "Scared"   => (":O", "#ffee66"),
-                "Grateful" => (":D", "#66ffee"),
+                "Scared"   => (":O", "#ffdd44"),
+                "Grateful" => (":D", "#88ddff"),
                 _          => (":|", "#aaaaaa")
             };
             moodText.text = $"<color=#888888>Mood:</color> <color={col}><b>{emoji} {mood}</b></color>";

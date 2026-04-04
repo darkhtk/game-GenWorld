@@ -54,8 +54,8 @@ public class GameStatsUI : MonoBehaviour
             "dawn"      => "#ffcc66",
             "morning"   => "#ffffdd",
             "afternoon" => "#ffffaa",
-            "evening"   => "#ff9966",
-            "night"     => "#8899ff",
+            "evening"   => "#ff9944",
+            "night"     => "#88aaff",
             _           => "#aaaaaa"
         };
         string periodDisplay = period.Length > 0
@@ -68,12 +68,12 @@ public class GameStatsUI : MonoBehaviour
         int completed = 0;
         foreach (var a in achievements)
             if (gm.Achievements.IsCompleted(a.id)) completed++;
-        string achColor = completed == achievements.Length ? "#ffd900" : completed > 0 ? "#aaffaa" : "#888888";
+        string achColor = completed == achievements.Length ? "#ffd900" : completed > 0 ? "#66ff88" : "#888888";
         string achSuffix = completed == achievements.Length ? " <color=#ffd900>\u2605</color>" : "";
         sb.AppendLine($"<color=#888888>Achievements</color>  <color={achColor}><b>{completed}/{achievements.Length}</b></color>{achSuffix}");
 
         if (gm.WorldEvents.IsEventActive)
-            sb.AppendLine($"\n<color=#ff9966>\u25cf Active Event: <b>{gm.WorldEvents.ActiveEvent?.name}</b></color>");
+            sb.AppendLine($"\n<color=#ff9944>\u25cf Active Event: <b>{gm.WorldEvents.ActiveEvent?.name}</b></color>");
 
         statsText.text = sb.ToString();
     }

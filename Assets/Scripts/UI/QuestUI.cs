@@ -155,10 +155,10 @@ public class QuestUI : MonoBehaviour
                 {
                     int have = _inventory != null ? _inventory.GetCount(req.itemId) : 0;
                     bool met = have >= req.count;
-                    string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
+                    string check = met ? "<color=#66ff88>\u2713</color>" : "<color=#ff6655>\u2717</color>";
                     string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
                         ? def.name : req.itemId;
-                    string countColor = met ? "#66ff66" : "#ffaa44";
+                    string countColor = met ? "#66ff88" : "#ff9944";
                     lines.Add($"  {check} {itemName} <color={countColor}>(<b>{have}</b>/{req.count})</color>");
                 }
             }
@@ -168,12 +168,12 @@ public class QuestUI : MonoBehaviour
                 {
                     int kills = _questSystem != null ? _questSystem.GetKillProgress(quest.id, kr.monsterId) : 0;
                     bool met = kills >= kr.count;
-                    string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
-                    string countColor = met ? "#66ff66" : "#ffaa44";
+                    string check = met ? "<color=#66ff88>\u2713</color>" : "<color=#ff6655>\u2717</color>";
+                    string countColor = met ? "#66ff88" : "#ff9944";
                     string monsterName = GameManager.Instance?.Data?.Monsters != null
                         && GameManager.Instance.Data.Monsters.TryGetValue(kr.monsterId, out var mDef)
                         ? mDef.name : kr.monsterId;
-                    lines.Add($"  {check} <color=#ffbb77>{monsterName}</color> <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
+                    lines.Add($"  {check} <color=#ff9944>{monsterName}</color> <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
                 }
             }
             texts[2].color = Color.white;

@@ -384,7 +384,7 @@ public class HUD : MonoBehaviour
         if (regionText != null)
         {
             regionText.color = Color.white;
-            regionText.text = $"<color=#aaddff><b>{regionName}</b></color>";
+            regionText.text = $"<color=#88ddff><b>{regionName}</b></color>";
         }
         ShowRegionAnnounce(regionName);
     }
@@ -418,7 +418,7 @@ public class HUD : MonoBehaviour
 
     public void UpdateLevel(int level, int skillPoints, int statPoints)
     {
-        if (levelText != null) { levelText.color = Color.white; levelText.text = $"<color=#99ff99>Lv.<b>{level}</b></color>"; }
+        if (levelText != null) { levelText.color = Color.white; levelText.text = $"<color=#55ee88>Lv.<b>{level}</b></color>"; }
         if (statPointsText != null)
         {
             string sp = skillPoints > 0 ? $"<b><color=#88aaff>SK:{skillPoints}</color></b>" : "";
@@ -597,7 +597,7 @@ public class HUD : MonoBehaviour
                 _questTrackerEntries[i].gameObject.SetActive(true);
                 var q = quests[i];
                 _questSb.Clear();
-                _questSb.AppendLine($"<b><color=#ffee88>{q.title}</color></b>");
+                _questSb.AppendLine($"<b><color=#ffdd44>{q.title}</color></b>");
 
                 if (q.requirements != null)
                 {
@@ -607,8 +607,8 @@ public class HUD : MonoBehaviour
                         bool done = have >= r.count;
                         string itemName = gm.Data?.Items != null && gm.Data.Items.TryGetValue(r.itemId, out var iDef)
                             ? iDef.name : r.itemId;
-                        string color = done ? "#88ff88" : have > 0 ? "#ffcc44" : "#aaaaaa";
-                        string check = done ? " <color=#66ff66>\u2713</color>" : "";
+                        string color = done ? "#66ff88" : have > 0 ? "#ffdd44" : "#aaaaaa";
+                        string check = done ? " <color=#66ff88>\u2713</color>" : "";
                         _questSb.AppendLine($"  <color={color}>{itemName}: <b>{Mathf.Min(have, r.count)}</b>/{r.count}{check}</color>");
                     }
                 }
@@ -620,9 +620,9 @@ public class HUD : MonoBehaviour
                         bool done = kills >= kr.count;
                         string monsterName = gm.Data?.Monsters != null && gm.Data.Monsters.TryGetValue(kr.monsterId, out var mDef)
                             ? mDef.name : kr.monsterId;
-                        string color = done ? "#88ff88" : kills > 0 ? "#ffcc44" : "#aaaaaa";
-                        string check = done ? " <color=#66ff66>\u2713</color>" : "";
-                        _questSb.AppendLine($"  <color={color}><color=#ffbb77>{monsterName}</color>: <b>{Mathf.Min(kills, kr.count)}</b>/{kr.count}{check}</color>");
+                        string color = done ? "#66ff88" : kills > 0 ? "#ffdd44" : "#aaaaaa";
+                        string check = done ? " <color=#66ff88>\u2713</color>" : "";
+                        _questSb.AppendLine($"  <color={color}><color=#ff9944>{monsterName}</color>: <b>{Mathf.Min(kills, kr.count)}</b>/{kr.count}{check}</color>");
                     }
                 }
                 _questTrackerEntries[i].text = _questSb.ToString().TrimEnd();
