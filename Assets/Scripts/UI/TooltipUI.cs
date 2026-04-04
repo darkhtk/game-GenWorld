@@ -86,7 +86,7 @@ public class TooltipUI : MonoBehaviour
             {
                 "ranged" => new Color(0.3f, 0.9f, 0.3f),
                 "magic"  => new Color(0.3f, 0.5f, 1f),
-                _        => new Color(0.9f, 0.4f, 0.4f)
+                _        => new Color(0.9f, 0.3f, 0.3f)
             };
             string treeHex = "#" + ColorUtility.ToHtmlStringRGB(treeColor);
             _instance.titleText.color = Color.white;

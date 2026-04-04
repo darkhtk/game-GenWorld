@@ -719,8 +719,8 @@ public class HUD : MonoBehaviour
             Color treeColor = def.tree switch
             {
                 "ranged" => new Color(0.3f, 0.9f, 0.3f),
-                "magic"  => new Color(0.4f, 0.6f, 1f),
-                _        => new Color(0.95f, 0.45f, 0.45f)
+                "magic"  => new Color(0.3f, 0.5f, 1f),
+                _        => new Color(0.9f, 0.3f, 0.3f)
             };
             string treeHex = "#" + ColorUtility.ToHtmlStringRGB(treeColor);
             skillTooltipName.color = Color.white;
