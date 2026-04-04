@@ -39,7 +39,7 @@ public class VillageNPC : MonoBehaviour
                 _sr.sprite = _sprites[0];
         }
         _patrolCenter = position;
-        NameLabel.Create(transform, def.name, new Color(0.4f, 0.8f, 1f), 1.0f);
+        NameLabel.Create(transform, def.name, new Color(0.533f, 0.867f, 1f), 1.0f); // #88ddff
         ValidateAnimations();
     }
 

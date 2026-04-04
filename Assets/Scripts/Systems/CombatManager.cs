@@ -244,7 +244,7 @@ public class CombatManager : MonoBehaviour
             }
             EventBus.Emit(new ComboEvent { name = combo.comboName });
             AudioManager.Instance?.PlaySFX("sfx_combo", 0f);
-            ShowFloatingText(_player.Position + Vector2.up, $"COMBO: {combo.comboName}!", new Color(1f, 0.8f, 0.2f));
+            ShowFloatingText(_player.Position + Vector2.up, $"COMBO: {combo.comboName}!", new Color(1f, 0.867f, 0.267f)); // #ffdd44
         }
         float range = skill.range * (1f + (aoeBonus - 1f) * 0.5f);
 
