@@ -110,12 +110,12 @@ public class TooltipUI : MonoBehaviour
             if (skill.mpCost > 0) lines.Add($"<color=#888888>MP</color> <color=#6688ff><b>{skill.mpCost}</b></color>");
             if (skill.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{skill.cooldown / 1000f:F1}s</b></color>");
             if (skill.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#aaddff><b>{skill.range:F0}</b></color>");
-            if (skill.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffcc44><b>{skill.aoe:F0}</b></color>");
+            if (skill.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffdd44><b>{skill.aoe:F0}</b></color>");
             _instance.statsText.text = string.Join("\n", lines);
         }
 
         if (_instance.gradeBar != null)
-            _instance.gradeBar.color = new Color(0.4f, 0.6f, 1f);
+            _instance.gradeBar.color = new Color(0.4f, 0.533f, 1f);
 
         PositionTooltip(screenPos);
     }

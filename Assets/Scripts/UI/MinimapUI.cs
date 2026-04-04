@@ -164,7 +164,7 @@ public class MinimapUI : MonoBehaviour
         {
             var go = monsterIconPrefab != null
                 ? Instantiate(monsterIconPrefab, iconContainer)
-                : CreateDefaultIcon(iconContainer, new Color(1f, 0.3f, 0.3f));
+                : CreateDefaultIcon(iconContainer, new Color(1f, 0.4f, 0.333f));
             _monsterIcons.Add(go.GetComponent<RectTransform>());
         }
         return _monsterIcons[index];
@@ -176,7 +176,7 @@ public class MinimapUI : MonoBehaviour
         {
             var go = npcIconPrefab != null
                 ? Instantiate(npcIconPrefab, iconContainer)
-                : CreateDefaultIcon(iconContainer, new Color(0.3f, 1f, 0.3f));
+                : CreateDefaultIcon(iconContainer, new Color(0.4f, 1f, 0.533f));
             _npcIcons.Add(go.GetComponent<RectTransform>());
         }
         return _npcIcons[index];

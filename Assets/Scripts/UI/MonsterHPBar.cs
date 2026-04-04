@@ -14,9 +14,9 @@ public class MonsterHPBar : MonoBehaviour
     const float HideDelay = 3f;
     const float FadeSpeed = 2f;
 
-    static readonly Color ColorGreen = new(0.2f, 0.9f, 0.2f);
-    static readonly Color ColorYellow = new(0.9f, 0.9f, 0.2f);
-    static readonly Color ColorRed = new(0.9f, 0.2f, 0.2f);
+    static readonly Color ColorGreen = new(0.333f, 0.933f, 0.533f);  // #55ee88
+    static readonly Color ColorYellow = new(1f, 0.867f, 0.267f);     // #ffdd44
+    static readonly Color ColorRed = new(1f, 0.4f, 0.333f);          // #ff6655
 
     public static MonsterHPBar Create(Transform target, int maxHp)
     {
