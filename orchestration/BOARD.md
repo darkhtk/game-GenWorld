@@ -1,5 +1,3 @@
-> 🛑 FREEZE — Critical: coordinator 에이전트 3회 연속 에러
-
 # Orchestration Board
 
 > **최종 업데이트:** 2026-04-03
