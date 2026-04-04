@@ -440,15 +440,15 @@ public class HUD : MonoBehaviour
         {
             hpPotionCount.color = Color.white;
             hpPotionCount.text = hpCount <= 0 ? "" : hpCount <= 2
-                ? $"<color=#ff4444><b>{hpCount}</b></color>"
-                : $"<color=#ff8888><b>{hpCount}</b></color>";
+                ? $"<color=#ff6655><b>{hpCount}</b></color>"
+                : $"<color=#ff9988><b>{hpCount}</b></color>";
         }
         if (mpPotionCount != null)
         {
             mpPotionCount.color = Color.white;
             mpPotionCount.text = mpCount <= 0 ? "" : mpCount <= 2
-                ? $"<color=#6666ff><b>{mpCount}</b></color>"
-                : $"<color=#8899ff><b>{mpCount}</b></color>";
+                ? $"<color=#6688ff><b>{mpCount}</b></color>"
+                : $"<color=#88aaff><b>{mpCount}</b></color>";
         }
     }
 
@@ -483,7 +483,7 @@ public class HUD : MonoBehaviour
     {
         if (bossBarRoot == null) return;
         bossBarRoot.SetActive(true);
-        if (bossNameText != null) { bossNameText.color = Color.white; bossNameText.text = $"<b><color=#ff4444>{bossName}</color></b>"; }
+        if (bossNameText != null) { bossNameText.color = Color.white; bossNameText.text = $"<b><color=#ff6655>{bossName}</color></b>"; }
         if (bossHpText != null) { bossHpText.color = Color.white; bossHpText.text = $"<color=#ff6655><b>{health}</b></color><color=#888888>/{maxHealth}</color>"; }
         if (bossFill != null)
             bossFill.fillAmount = maxHealth > 0 ? (float)health / maxHealth : 0f;
@@ -682,7 +682,7 @@ public class HUD : MonoBehaviour
                 float remaining = (info.expires - nowMs) / 1000f;
                 if (_effectTimerTexts[i] != null)
                 {
-                    string timerColor = remaining <= 2f ? "#ff6666" : remaining <= 5f ? "#ffdd44" : "#aaddff";
+                    string timerColor = remaining <= 2f ? "#ff6655" : remaining <= 5f ? "#ffdd44" : "#aaddff";
                     _effectTimerTexts[i].color = Color.white;
                     _effectTimerTexts[i].text = $"<color={timerColor}><b>{remaining:F0}s</b></color>";
                 }

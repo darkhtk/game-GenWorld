@@ -182,11 +182,11 @@ public class EnhanceUI : MonoBehaviour
             else
             {
                 float succ = info.success;
-                string succColor = succ >= 0.7f ? "#66ff88" : succ >= 0.4f ? "#ffdd44" : "#ff6666";
+                string succColor = succ >= 0.7f ? "#66ff88" : succ >= 0.4f ? "#ffdd44" : "#ff6655";
                 string costPart = $"<color=#ffd900>\u25c6 <b>{cost:N0}</b>G</color>";
                 string succPart = $"<color={succColor}><b>{succ * 100:F0}%</b></color>";
                 string destPart = info.destroy > 0
-                    ? $" | <color=#ff5555><b>{info.destroy * 100:F0}%</b> lose</color>" : "";
+                    ? $" | <color=#ff6655><b>{info.destroy * 100:F0}%</b> lose</color>" : "";
                 texts[2].text = $"{costPart} | {succPart}{destPart}";
             }
         }
