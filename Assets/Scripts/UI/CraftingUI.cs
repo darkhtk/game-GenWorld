@@ -85,7 +85,7 @@ public class CraftingUI : MonoBehaviour
         if (texts.Length > 0)
         {
             string prefix = canCraft ? "\u25b8" : "\u25b9";
-            string prefixColor = canCraft ? "#88ff88" : "#555555";
+            string prefixColor = canCraft ? "#66ff88" : "#555555";
             string gradeHex = canCraft && resultDef != null
                 ? "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(resultDef.GradeEnum))
                 : "#555555";

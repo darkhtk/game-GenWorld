@@ -117,7 +117,7 @@ public class InventoryUI : MonoBehaviour
         if (sortModeText != null)
         {
             sortModeText.color = Color.white;
-            sortModeText.text = $"<color=#666666>\u21c5</color> <color=#aaddff><b>{SortModeNames[_currentSortMode]}</b></color>";
+            sortModeText.text = $"<color=#666666>\u21c5</color> <color=#88ddff><b>{SortModeNames[_currentSortMode]}</b></color>";
         }
 
         if (strAddButton != null) strAddButton.onClick.AddListener(() => AllocateStat("str"));

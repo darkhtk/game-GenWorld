@@ -98,7 +98,7 @@ public class ShopUI : MonoBehaviour
         if (texts.Length > 0)
         {
             string prefix = canAfford ? "\u25b8" : "\u25b9";
-            string prefixColor = canAfford ? "#88ff88" : "#555555";
+            string prefixColor = canAfford ? "#66ff88" : "#555555";
             string nameHex = canAfford
                 ? "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(def.GradeEnum))
                 : "#555555";
