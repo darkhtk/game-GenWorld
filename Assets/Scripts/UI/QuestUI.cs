@@ -170,7 +170,10 @@ public class QuestUI : MonoBehaviour
                     bool met = kills >= kr.count;
                     string check = met ? "<color=#66ff66>\u2713</color>" : "<color=#ff5555>\u2717</color>";
                     string countColor = met ? "#66ff66" : "#ffaa44";
-                    lines.Add($"  {check} <color=#ffbb77>{kr.monsterId}</color> <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
+                    string monsterName = GameManager.Instance?.Data?.Monsters != null
+                        && GameManager.Instance.Data.Monsters.TryGetValue(kr.monsterId, out var mDef)
+                        ? mDef.name : kr.monsterId;
+                    lines.Add($"  {check} <color=#ffbb77>{monsterName}</color> <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
                 }
             }
             texts[2].color = Color.white;

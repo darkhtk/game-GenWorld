@@ -86,8 +86,12 @@ public class NpcQuestPanel : MonoBehaviour
             }
             if (quest.killRequirements != null)
             {
+                var monsters = GameManager.Instance?.Data?.Monsters;
                 foreach (var kr in quest.killRequirements)
-                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ffbb77>{kr.monsterId}</color> <color=#888888>\u00d7{kr.count}</color>");
+                {
+                    string mName = monsters != null && monsters.TryGetValue(kr.monsterId, out var mDef) ? mDef.name : kr.monsterId;
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ffbb77>{mName}</color> <color=#888888>\u00d7{kr.count}</color>");
+                }
             }
             requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }

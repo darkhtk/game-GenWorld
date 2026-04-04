@@ -618,9 +618,11 @@ public class HUD : MonoBehaviour
                     {
                         int kills = gm.Quests.GetKillProgress(q.id, kr.monsterId);
                         bool done = kills >= kr.count;
+                        string monsterName = gm.Data?.Monsters != null && gm.Data.Monsters.TryGetValue(kr.monsterId, out var mDef)
+                            ? mDef.name : kr.monsterId;
                         string color = done ? "#88ff88" : kills > 0 ? "#ffcc44" : "#aaaaaa";
                         string check = done ? " <color=#66ff66>\u2713</color>" : "";
-                        _questSb.AppendLine($"  <color={color}><color=#ffbb77>{kr.monsterId}</color>: <b>{Mathf.Min(kills, kr.count)}</b>/{kr.count}{check}</color>");
+                        _questSb.AppendLine($"  <color={color}><color=#ffbb77>{monsterName}</color>: <b>{Mathf.Min(kills, kr.count)}</b>/{kr.count}{check}</color>");
                     }
                 }
                 _questTrackerEntries[i].text = _questSb.ToString().TrimEnd();
