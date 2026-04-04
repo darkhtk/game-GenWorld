@@ -45,8 +45,8 @@ public class GameStatsUI : MonoBehaviour
         var sb = new System.Text.StringBuilder();
         sb.AppendLine("<b><color=#ffd900>Game Statistics</color></b>");
         sb.AppendLine();
-        sb.AppendLine($"<color=#888888>Play Time</color>  <color=#aaffaa><b>{hours:D2}:{mins:D2}:{secs:D2}</b></color>");
-        sb.AppendLine($"<color=#888888>Level</color>  <color=#99ff99><b>{gm.PlayerState.Level}</b></color>");
+        sb.AppendLine($"<color=#888888>Play Time</color>  <color=#66ff88><b>{hours:D2}:{mins:D2}:{secs:D2}</b></color>");
+        sb.AppendLine($"<color=#888888>Level</color>  <color=#55ee88><b>{gm.PlayerState.Level}</b></color>");
         sb.AppendLine($"<color=#888888>Gold</color>  <color=#ffd900><b>\u25c6 {gm.PlayerState.Gold:N0}G</b></color>");
         string period = gm.TimeSystem.Period ?? "";
         string periodColor = period switch

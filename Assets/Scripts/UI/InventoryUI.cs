@@ -166,7 +166,7 @@ public class InventoryUI : MonoBehaviour
         if (levelGoldText != null)
         {
             levelGoldText.color = Color.white;
-            levelGoldText.text = $"<color=#99ff99>Lv.<b>{gm.PlayerState.Level}</b></color>  <color=#ffd900>\u25c6 <b>{gm.PlayerState.Gold:N0}</b>G</color>";
+            levelGoldText.text = $"<color=#55ee88>Lv.<b>{gm.PlayerState.Level}</b></color>  <color=#ffd900>\u25c6 <b>{gm.PlayerState.Gold:N0}</b>G</color>";
         }
     }
 
@@ -321,7 +321,7 @@ public class InventoryUI : MonoBehaviour
             if (s.crit > 0) lines.Add($"<color=#886600>CRIT</color> <color=#ffdd44><b>+{s.crit}%</b></color>");
             if (inst.enhanceLevel > 0)
             {
-                string ec = inst.enhanceLevel >= 10 ? "#ff9900" : inst.enhanceLevel >= 7 ? "#66aaff" : inst.enhanceLevel >= 4 ? "#66ff66" : "#aaaaaa";
+                string ec = inst.enhanceLevel >= 10 ? "#ff9944" : inst.enhanceLevel >= 7 ? "#6688ff" : inst.enhanceLevel >= 4 ? "#66ff88" : "#aaaaaa";
                 lines.Add($"<color=#888888>Enh</color> <color={ec}><b>+{inst.enhanceLevel}</b></color>");
             }
             if (def.healHp > 0) lines.Add($"<color=#884444>HealHP</color> <color=#66ff88><b>{def.healHp}</b></color>");
@@ -424,7 +424,7 @@ public class InventoryUI : MonoBehaviour
 
     static void AppendDiff(System.Text.StringBuilder sb, string label, int diff)
     {
-        if (diff > 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#66ff66><b>+{diff} \u25b2</b></color>");
+        if (diff > 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#66ff88><b>+{diff} \u25b2</b></color>");
         else if (diff < 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#ff6655><b>{diff} \u25bc</b></color>");
     }
 
@@ -568,7 +568,7 @@ public class EquipSlotUI : MonoBehaviour
     {
         if (nameText != null)
         {
-            string ec = enhanceLevel >= 10 ? "#ff9900" : enhanceLevel >= 7 ? "#66aaff" : enhanceLevel >= 4 ? "#66ff66" : "#aaaaaa";
+            string ec = enhanceLevel >= 10 ? "#ff9944" : enhanceLevel >= 7 ? "#6688ff" : enhanceLevel >= 4 ? "#66ff88" : "#aaaaaa";
             string enh = enhanceLevel > 0 ? $" <color={ec}><b>+{enhanceLevel}</b></color>" : "";
             string gradeHex = ColorUtility.ToHtmlStringRGB(gradeColor);
             nameText.text = $"<b><color=#{gradeHex}>{itemName}</color></b>{enh}";

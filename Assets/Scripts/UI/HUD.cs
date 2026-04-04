@@ -682,7 +682,7 @@ public class HUD : MonoBehaviour
                 float remaining = (info.expires - nowMs) / 1000f;
                 if (_effectTimerTexts[i] != null)
                 {
-                    string timerColor = remaining <= 2f ? "#ff6655" : remaining <= 5f ? "#ffdd44" : "#aaddff";
+                    string timerColor = remaining <= 2f ? "#ff6655" : remaining <= 5f ? "#ffdd44" : "#88ddff";
                     _effectTimerTexts[i].color = Color.white;
                     _effectTimerTexts[i].text = $"<color={timerColor}><b>{remaining:F0}s</b></color>";
                 }
@@ -741,10 +741,10 @@ public class HUD : MonoBehaviour
             float dmgMult = gm.Skills.GetDamageMultiplier(skillId);
             lines.Add($"<color=#888888>Level</color> <color=#aaffaa><b>{level}</b>/{GameConfig.SkillMaxLevel}</color>");
             if (def.damage > 0) lines.Add($"<color=#888888>Dmg</color> <color=#ffaa55><b>{def.damage * dmgMult:F0}</b></color>");
-            if (def.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#aaddff><b>{def.range:F0}</b></color>");
+            if (def.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#88ddff><b>{def.range:F0}</b></color>");
             if (def.mpCost > 0) lines.Add($"<color=#888888>MP</color> <color=#6688ff><b>{def.mpCost}</b></color>");
             if (def.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{def.cooldown / 1000f:F1}s</b></color>");
-            if (def.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffcc44><b>{def.aoe:F0}</b></color>");
+            if (def.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffdd44><b>{def.aoe:F0}</b></color>");
             skillTooltipStats.text = string.Join("\n", lines);
         }
 

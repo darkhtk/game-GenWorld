@@ -296,7 +296,7 @@ public class DialogueUI : MonoBehaviour
                 foreach (var kr in quest.killRequirements)
                 {
                     string mName = monsters != null && monsters.TryGetValue(kr.monsterId, out var mDef) ? mDef.name : kr.monsterId;
-                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ffbb77>{mName}</color> <color=#888888>\u00d7{kr.count}</color>");
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ff9944>{mName}</color> <color=#888888>\u00d7{kr.count}</color>");
                 }
             }
             questProposalRequirements.text = lines.Count > 0
