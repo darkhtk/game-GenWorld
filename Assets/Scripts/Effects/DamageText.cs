@@ -44,7 +44,7 @@ public class DamageText : MonoBehaviour
     public static void Spawn(MonoBehaviour context, Vector2 pos, int amount, bool isCrit, Color? color = null)
     {
         if (context == null) return;
-        Color c = color ?? (isCrit ? Color.yellow : Color.white);
+        Color c = color ?? (isCrit ? new Color(1f, 0.867f, 0.267f) : Color.white); // crit = #ffdd44
         EnsurePool();
         var dt = _pool.Get();
         if (dt != null)

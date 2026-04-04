@@ -193,13 +193,13 @@ public class CombatManager : MonoBehaviour
             int remaining = dmg - absorbed;
             if (remaining > 0) PlayerState.Hp -= remaining;
             ShowDamageNumber(_player.Position + Vector2.up * 0.5f, dmg, false,
-                new Color(0.27f, 0.53f, 1f));
+                new Color(0.4f, 0.533f, 1f));
         }
         else
         {
             PlayerState.Hp -= dmg;
             ShowDamageNumber(_player.Position + Vector2.up * 0.5f, dmg, false,
-                new Color(1f, 0.27f, 0.27f));
+                new Color(1f, 0.4f, 0.333f));
         }
 
         if (PlayerState.Hp <= 0)
@@ -312,7 +312,7 @@ public class CombatManager : MonoBehaviour
                 if (PlayerState != null)
                 {
                     PlayerState.Hp = Mathf.Min(PlayerState.Hp + amount, stats.maxHp);
-                    ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, Color.green);
+                    ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, new Color(0.4f, 1f, 0.533f));
                 }
             }
         };
@@ -350,7 +350,7 @@ public class CombatManager : MonoBehaviour
                 if (PlayerState != null)
                 {
                     PlayerState.Hp = Mathf.Min(PlayerState.Hp + amount, stats.maxHp);
-                    ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, Color.green);
+                    ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, new Color(0.4f, 1f, 0.533f));
                 }
             },
             runner = _actionRunner
