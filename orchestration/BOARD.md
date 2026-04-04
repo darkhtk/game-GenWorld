@@ -27,7 +27,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-079 EffectHolder 버프 스택 상한 |  | ⏳ | maxStack + DefaultMaxStack + GetStackCount + 8 tests |
 | S-087 RegionManager 씬 전환 중 입력 차단 |  | ⏳ | SPEC-S-087 |
 | S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 |  | ⏳ | SPEC-S-091 |
 | S-083 AudioManager BGM 동시 변경 안정성 |  | ⏳ | P3 |
@@ -40,7 +39,7 @@
 | S-094 CraftingUI 재료 부족 항목별 표시 |  | ⏳ | P3 |
 | S-096 MonsterController 공격 범위 외 데미지 차단 |  | ⏳ | ⏳ |
 | S-097 SaveSystem 슬롯 삭제 확인 팝업 |  | ⏳ | P3 |
-| S-098 AchievementUI 알림 큐 중복 방지 | 2026-04-04 | ⏳ | P3 |
+| S-098 AchievementUI 알림 큐 중복 방지 |  | ⏳ | P3 |
 
 ## ✅ Done
 
@@ -184,9 +183,9 @@
 | S-054 AutoSave 전투 중 저장 방지 |  | REVIEW-S054-v1 ✅ APPROVE |
 | S-056 GameManager 초기화 순서 |  | REVIEW-S056-v1 ✅ APPROVE |
 | S-048 SkillSystem 데이터 무결성 v2 |  | REVIEW-S048-v2 ✅ APPROVE |
+| S-079 EffectHolder 버프 스택 상한 |  | maxStack + DefaultMaxStack + GetStackCount + 8 tests |
 
 ## 📋 Backlog
 
 | 태스크 | 우선순위 | 비고 |
 |--------|---------|------|
-----|
