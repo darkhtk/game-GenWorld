@@ -49,7 +49,7 @@ public class SkillRowUI : MonoBehaviour
         if (descText != null)
         {
             descText.text = def.description ?? "";
-            descText.color = new Color(0.7f, 0.7f, 0.75f);
+            descText.color = new Color(0.667f, 0.667f, 0.667f);
             descText.fontStyle = TMPro.FontStyles.Italic;
         }
         if (iconImage != null && icon != null) { iconImage.sprite = icon; iconImage.color = Color.white; }

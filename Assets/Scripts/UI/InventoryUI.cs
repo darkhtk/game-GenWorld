@@ -450,7 +450,7 @@ public class InventoryUI : MonoBehaviour
             if (label != null)
             {
                 label.fontStyle = active ? TMPro.FontStyles.Bold : TMPro.FontStyles.Normal;
-                label.color = active ? new Color(1f, 1f, 0.8f) : new Color(0.55f, 0.55f, 0.55f);
+                label.color = active ? new Color(1f, 1f, 0.8f) : new Color(0.533f, 0.533f, 0.533f);
             }
         }
     }

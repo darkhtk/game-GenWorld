@@ -273,7 +273,7 @@ public class DialogueUI : MonoBehaviour
         if (questProposalDesc != null)
         {
             questProposalDesc.text = quest.description;
-            questProposalDesc.color = new Color(0.78f, 0.78f, 0.78f);
+            questProposalDesc.color = new Color(0.733f, 0.733f, 0.733f);
             questProposalDesc.fontStyle = TMPro.FontStyles.Italic;
         }
 

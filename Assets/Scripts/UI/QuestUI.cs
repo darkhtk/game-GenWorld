@@ -143,7 +143,7 @@ public class QuestUI : MonoBehaviour
         if (texts.Length > 1)
         {
             texts[1].text = quest.description ?? "";
-            texts[1].color = new Color(0.78f, 0.78f, 0.78f);
+            texts[1].color = new Color(0.733f, 0.733f, 0.733f);
         }
 
         if (texts.Length > 2)

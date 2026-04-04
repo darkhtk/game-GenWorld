@@ -58,7 +58,7 @@ public class NpcQuestPanel : MonoBehaviour
 
         if (npcNameText != null) { npcNameText.color = Color.white; npcNameText.text = $"<b><color=#ffdd44>{npcName}</color></b>"; }
         if (questTitleText != null) { questTitleText.color = Color.white; questTitleText.text = $"<b><color=#ffdd44>\u25b8 {quest.title}</color></b>"; }
-        if (questDescText != null) { questDescText.text = quest.description ?? ""; questDescText.color = new Color(0.78f, 0.78f, 0.78f); }
+        if (questDescText != null) { questDescText.text = quest.description ?? ""; questDescText.color = new Color(0.733f, 0.733f, 0.733f); }
         if (statusText != null)
         {
             statusText.color = Color.white;
