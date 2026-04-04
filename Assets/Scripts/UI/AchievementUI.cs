@@ -77,7 +77,7 @@ public class AchievementUI : MonoBehaviour
                         ? $"<color=#ffdd44><b>{current}</b></color><color=#888888>/{required}</color>"
                         : $"<color=#888888>0/{required}</color>");
                 string descLine = !string.IsNullOrEmpty(def.description)
-                    ? $"\n  <color=#555566><size=10>{def.description}</size></color>"
+                    ? $"\n  <color=#888888><size=10>{def.description}</size></color>"
                     : "";
                 _listEntries[i].text = $"{prog}{namePart}  {progText}{descLine}";
                 _listEntries[i].color = Color.white;
