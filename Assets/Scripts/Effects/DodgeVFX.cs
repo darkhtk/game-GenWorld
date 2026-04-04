@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class DodgeVFX
 {
-    static readonly Color TrailColor = new(0.5f, 0.8f, 1f, 0.3f);
+    static readonly Color TrailColor = new(0.533f, 0.867f, 1f, 0.3f); // #88ddff
 
     public static void SpawnTrail(SpriteRenderer source, Vector2 position)
     {
