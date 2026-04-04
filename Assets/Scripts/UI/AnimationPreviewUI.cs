@@ -123,8 +123,8 @@ public class AnimationPreviewUI : MonoBehaviour
                 }
                 else
                 {
-                    string loopColor = entry.isLooping ? "#88ccff" : "#888888";
-                    label.text = $"\u25b6 <color=#ffffff>{entry.stateName}</color>  <color={loopColor}>{loopTag}</color>  <color=#ffdd44>{durStr}</color>";
+                    string loopColor = entry.isLooping ? "#88ddff" : "#888888";
+                    label.text = $"\u25b8 <color=#ffffff>{entry.stateName}</color>  <color={loopColor}>{loopTag}</color>  <color=#ffdd44>{durStr}</color>";
                 }
             }
 
