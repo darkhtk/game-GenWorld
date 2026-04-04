@@ -441,7 +441,7 @@ public class HUD : MonoBehaviour
             hpPotionCount.color = Color.white;
             hpPotionCount.text = hpCount <= 0 ? "" : hpCount <= 2
                 ? $"<color=#ff6655><b>{hpCount}</b></color>"
-                : $"<color=#ff9988><b>{hpCount}</b></color>";
+                : $"<color=#66ff88><b>{hpCount}</b></color>";
         }
         if (mpPotionCount != null)
         {

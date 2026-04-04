@@ -97,7 +97,7 @@ public class DialogueUI : MonoBehaviour
 
         if (npcNameText != null)
         {
-            string nameHex = !string.IsNullOrEmpty(npcDef.color) ? npcDef.color : "#ffe8aa";
+            string nameHex = !string.IsNullOrEmpty(npcDef.color) ? npcDef.color : "#ffdd44";
             npcNameText.color = Color.white;
             npcNameText.text = $"<b><color={nameHex}>{npcDef.name}</color></b>";
         }
@@ -147,7 +147,7 @@ public class DialogueUI : MonoBehaviour
 
         var entry = Instantiate(logEntryPrefab, logContent);
         string senderColor = !string.IsNullOrEmpty(color) ? color
-            : sender == "You" ? "#ccddff" : "#ffe8aa";
+            : sender == "You" ? "#88ddff" : "#ffdd44";
         entry.text = $"<b><color={senderColor}>{sender}:</color></b> {text}";
         entry.color = Color.white;
 
@@ -269,7 +269,7 @@ public class DialogueUI : MonoBehaviour
         if (questProposalPanel == null) return;
         questProposalPanel.SetActive(true);
 
-        if (questProposalTitle != null) { questProposalTitle.color = Color.white; questProposalTitle.text = $"<b><color=#ffe888>\u25b8 {quest.title}</color></b>"; }
+        if (questProposalTitle != null) { questProposalTitle.color = Color.white; questProposalTitle.text = $"<b><color=#ffdd44>\u25b8 {quest.title}</color></b>"; }
         if (questProposalDesc != null)
         {
             questProposalDesc.text = quest.description;
@@ -315,7 +315,7 @@ public class DialogueUI : MonoBehaviour
                 foreach (var item in scaledRewards.items)
                 {
                     string name = itemDefs != null && itemDefs.TryGetValue(item.itemId, out var d) ? d.name : item.itemId;
-                    lines.Add($"  <color=#ccddff>\u25b9 {name} \u00d7{item.count}</color>");
+                    lines.Add($"  <color=#88ddff>\u25b9 {name} \u00d7{item.count}</color>");
                 }
             }
             questProposalRewards.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
@@ -343,7 +343,7 @@ public class DialogueUI : MonoBehaviour
         if (questTitleText == null) return;
         questTitleText.color = Color.white;
         questTitleText.text = !string.IsNullOrEmpty(title)
-            ? $"<b><color=#ffe888>\u25b8 {title}</color></b>" : "";
+            ? $"<b><color=#ffdd44>\u25b8 {title}</color></b>" : "";
     }
 
     public void ClearLog()

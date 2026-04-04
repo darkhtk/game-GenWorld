@@ -138,7 +138,7 @@ public class QuestUI : MonoBehaviour
 
         var titleText = texts[0];
         titleText.color = Color.white;
-        titleText.text = $"<b><color=#ffe888>\u25b8 {quest.title}</color></b>";
+        titleText.text = $"<b><color=#ffdd44>\u25b8 {quest.title}</color></b>";
 
         if (texts.Length > 1)
         {
@@ -191,7 +191,7 @@ public class QuestUI : MonoBehaviour
                 {
                     string itemName = _itemDefs != null && _itemDefs.TryGetValue(item.itemId, out var def)
                         ? def.name : item.itemId;
-                    rewardLines.Add($"<color=#ccddff>\u25b9 {itemName} \u00d7{item.count}</color>");
+                    rewardLines.Add($"<color=#88ddff>\u25b9 {itemName} \u00d7{item.count}</color>");
                 }
             }
             texts[3].color = Color.white;

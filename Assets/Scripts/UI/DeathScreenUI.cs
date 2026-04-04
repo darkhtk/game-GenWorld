@@ -37,7 +37,7 @@ public class DeathScreenUI : MonoBehaviour
                 goldLossText.text = loss > 0 ? $"<color=#ff6655>\u25c6 <b>-{loss:N0}G</b> lost</color>" : "";
                 goldLossText.color = Color.white;
             }
-            if (titleText != null) { titleText.text = "<b><color=#ff3333>YOU</color> <color=#cc1111>DIED</color></b>"; titleText.color = Color.white; titleText.fontStyle = TMPro.FontStyles.Normal; }
+            if (titleText != null) { titleText.text = "<b><color=#ff6655>YOU</color> <color=#882222>DIED</color></b>"; titleText.color = Color.white; titleText.fontStyle = TMPro.FontStyles.Normal; }
             var pc = gm.GetComponentInChildren<PlayerController>();
             if (pc != null) { pc.SetSpeed(0); pc.Frozen = true; }
         }

@@ -70,7 +70,7 @@ public class AchievementUI : MonoBehaviour
                     : $"<color=#888888>\u25a1 </color>";
                 string namePart = done
                     ? $"<b><color=#66ff88>{def.name}</color></b>"
-                    : $"<color=#dddddd>{def.name}</color>";
+                    : $"<color=#aaaaaa>{def.name}</color>";
                 string progText = done
                     ? $"<color=#888888>({current}/{required})</color>"
                     : (current > 0

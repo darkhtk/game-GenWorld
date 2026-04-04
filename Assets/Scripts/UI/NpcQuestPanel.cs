@@ -56,8 +56,8 @@ public class NpcQuestPanel : MonoBehaviour
         if (panel != null) panel.SetActive(true);
         _currentQuestId = quest.id;
 
-        if (npcNameText != null) { npcNameText.color = Color.white; npcNameText.text = $"<b><color=#ffdd88>{npcName}</color></b>"; }
-        if (questTitleText != null) { questTitleText.color = Color.white; questTitleText.text = $"<b><color=#ffe888>\u25b8 {quest.title}</color></b>"; }
+        if (npcNameText != null) { npcNameText.color = Color.white; npcNameText.text = $"<b><color=#ffdd44>{npcName}</color></b>"; }
+        if (questTitleText != null) { questTitleText.color = Color.white; questTitleText.text = $"<b><color=#ffdd44>\u25b8 {quest.title}</color></b>"; }
         if (questDescText != null) { questDescText.text = quest.description ?? ""; questDescText.color = new Color(0.78f, 0.78f, 0.78f); }
         if (statusText != null)
         {
@@ -110,7 +110,7 @@ public class NpcQuestPanel : MonoBehaviour
                     foreach (var item in quest.rewards.items)
                     {
                         string name = itemDefs != null && itemDefs.TryGetValue(item.itemId, out var d) ? d.name : item.itemId;
-                        lines.Add($"<color=#ccddff>\u25b9 {name} \u00d7{item.count}</color>");
+                        lines.Add($"<color=#88ddff>\u25b9 {name} \u00d7{item.count}</color>");
                     }
                 }
             }

@@ -61,7 +61,7 @@ public class GameStatsUI : MonoBehaviour
         string periodDisplay = period.Length > 0
             ? char.ToUpper(period[0]) + period.Substring(1)
             : period;
-        sb.AppendLine($"<color=#888888>Game Hour</color>  <color=#88ccff><b>{gm.TimeSystem.GameHour:F1}</b></color>  <color={periodColor}>{periodDisplay}</color>");
+        sb.AppendLine($"<color=#888888>Game Hour</color>  <color=#88ddff><b>{gm.TimeSystem.GameHour:F1}</b></color>  <color={periodColor}>{periodDisplay}</color>");
         sb.AppendLine();
 
         var achievements = gm.Achievements.GetAll();
