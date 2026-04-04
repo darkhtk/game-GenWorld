@@ -18,7 +18,7 @@ public class BootSceneController : MonoBehaviour
         if (splashText != null)
         {
             splashText.color = Color.white;
-            splashText.text = "<b><color=#ffd900>Gen</color><color=#ffaa33>World</color></b>";
+            splashText.text = "<b><color=#ffd900>Gen</color><color=#ff9944>World</color></b>";
             splashText.alignment = TMPro.TextAlignmentOptions.Center;
         }
         StartCoroutine(BootSequence());

@@ -17,7 +17,7 @@ public class MainMenuController : MonoBehaviour
 
         if (titleText != null)
         {
-            titleText.text = "<b><color=#ffd900>Gen</color><color=#ffaa33>World</color></b>";
+            titleText.text = "<b><color=#ffd900>Gen</color><color=#ff9944>World</color></b>";
             titleText.color = Color.white;
         }
 
