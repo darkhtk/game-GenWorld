@@ -323,8 +323,8 @@ public class HUD : MonoBehaviour
             }
         }
 
-        if (hpText != null) { hpText.color = Color.white; hpText.text = $"<color=#ff6666><b>{hp}</b></color><color=#888888>/{maxHp}</color>"; }
-        if (mpText != null) { mpText.color = Color.white; mpText.text = $"<color=#6699ff><b>{mp}</b></color><color=#888888>/{maxMp}</color>"; }
+        if (hpText != null) { hpText.color = Color.white; hpText.text = $"<color=#ff6655><b>{hp}</b></color><color=#888888>/{maxHp}</color>"; }
+        if (mpText != null) { mpText.color = Color.white; mpText.text = $"<color=#6688ff><b>{mp}</b></color><color=#888888>/{maxMp}</color>"; }
     }
 
     public void UpdateXpBar(int currentXp, int totalXp)
@@ -484,7 +484,7 @@ public class HUD : MonoBehaviour
         if (bossBarRoot == null) return;
         bossBarRoot.SetActive(true);
         if (bossNameText != null) { bossNameText.color = Color.white; bossNameText.text = $"<b><color=#ff4444>{bossName}</color></b>"; }
-        if (bossHpText != null) { bossHpText.color = Color.white; bossHpText.text = $"<color=#ff6666><b>{health}</b></color><color=#888888>/{maxHealth}</color>"; }
+        if (bossHpText != null) { bossHpText.color = Color.white; bossHpText.text = $"<color=#ff6655><b>{health}</b></color><color=#888888>/{maxHealth}</color>"; }
         if (bossFill != null)
             bossFill.fillAmount = maxHealth > 0 ? (float)health / maxHealth : 0f;
     }

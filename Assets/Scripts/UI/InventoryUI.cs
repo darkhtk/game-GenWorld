@@ -490,12 +490,12 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshStats(Stats stats)
     {
-        if (atkText != null) { atkText.color = Color.white; atkText.text = $"<color=#884422>ATK</color> <color=#ffaa66><b>{stats.atk}</b></color>"; }
-        if (defText != null) { defText.color = Color.white; defText.text = $"<color=#224466>DEF</color> <color=#66aaff><b>{stats.def}</b></color>"; }
-        if (spdText != null) { spdText.color = Color.white; spdText.text = $"<color=#226633>SPD</color> <color=#44dd77><b>{stats.spd}</b></color>"; }
-        if (critText != null) { critText.color = Color.white; critText.text = $"<color=#886611>CRIT</color> <color=#ffcc33><b>{stats.crit}%</b></color>"; }
-        if (hpStatText != null) { hpStatText.color = Color.white; hpStatText.text = $"<color=#882222>HP</color> <color=#ff7777><b>{stats.hp}</b></color><color=#888888>/{stats.maxHp}</color>"; }
-        if (mpStatText != null) { mpStatText.color = Color.white; mpStatText.text = $"<color=#222266>MP</color> <color=#6688ff><b>{stats.mp}</b></color><color=#888888>/{stats.maxMp}</color>"; }
+        if (atkText != null) { atkText.color = Color.white; atkText.text = $"<color=#885522>ATK</color> <color=#ff9944><b>{stats.atk}</b></color>"; }
+        if (defText != null) { defText.color = Color.white; defText.text = $"<color=#224488>DEF</color> <color=#55aaff><b>{stats.def}</b></color>"; }
+        if (spdText != null) { spdText.color = Color.white; spdText.text = $"<color=#226644>SPD</color> <color=#55ee88><b>{stats.spd}</b></color>"; }
+        if (critText != null) { critText.color = Color.white; critText.text = $"<color=#886600>CRIT</color> <color=#ffdd44><b>{stats.crit}%</b></color>"; }
+        if (hpStatText != null) { hpStatText.color = Color.white; hpStatText.text = $"<color=#882222>HP</color> <color=#ff6655><b>{stats.hp}</b></color><color=#888888>/{stats.maxHp}</color>"; }
+        if (mpStatText != null) { mpStatText.color = Color.white; mpStatText.text = $"<color=#333388>MP</color> <color=#6688ff><b>{stats.mp}</b></color><color=#888888>/{stats.maxMp}</color>"; }
 
         RefreshStatAllocation();
     }

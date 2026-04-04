@@ -130,8 +130,8 @@ public class SkillTreeUI : MonoBehaviour
         if (skillPointsText != null)
         {
             skillPointsText.text = skillPoints > 0
-                ? $"SP: <color=#ffd900><b>{skillPoints}</b></color>"
-                : $"SP: <color=#555555>0</color>";
+                ? $"SK: <color=#88aaff><b>{skillPoints}</b></color>"
+                : $"SK: <color=#555555>0</color>";
             skillPointsText.color = Color.white;
         }
         if (playerLevelText != null) { playerLevelText.color = Color.white; playerLevelText.text = $"<color=#99ff99>Lv.<b>{playerLevel}</b></color>"; }
