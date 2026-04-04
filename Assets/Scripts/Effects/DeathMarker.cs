@@ -31,6 +31,8 @@ public class DeathMarker : MonoBehaviour
         tmp.color = Color.white;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.sortingOrder = 150;
+        tmp.outlineColor = new Color32(0, 0, 0, 180);
+        tmp.outlineWidth = 0.12f;
         marker._text = tmp;
 
         return marker;

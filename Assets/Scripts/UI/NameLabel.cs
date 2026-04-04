@@ -19,5 +19,7 @@ public static class NameLabel
         tmp.sortingOrder = 150;
         tmp.enableAutoSizing = false;
         tmp.overflowMode = TextOverflowModes.Overflow;
+        tmp.outlineColor = new Color32(0, 0, 0, 200);
+        tmp.outlineWidth = 0.15f;
     }
 }
