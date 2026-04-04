@@ -109,7 +109,7 @@ public class ShopUI : MonoBehaviour
 
         if (texts.Length > 1)
         {
-            string priceColor = canAfford ? "#ffd900" : "#666666";
+            string priceColor = canAfford ? "#ffd900" : "#444444";
             texts[1].text = $"<color={priceColor}>\u25c6 <b>{def.shopPrice:N0}</b>G</color>";
             texts[1].color = Color.white;
         }
