@@ -131,7 +131,7 @@ public class ShopUI : MonoBehaviour
 
         if (_getGold() < price)
         {
-            ShowStatus("<color=#ff4444>Not enough gold!</color>");
+            ShowStatus("<color=#ff6655>Not enough gold!</color>");
             AudioManager.Instance?.PlaySFX("sfx_error");
             return;
         }

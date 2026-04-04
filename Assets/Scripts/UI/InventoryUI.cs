@@ -425,7 +425,7 @@ public class InventoryUI : MonoBehaviour
     static void AppendDiff(System.Text.StringBuilder sb, string label, int diff)
     {
         if (diff > 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#66ff66><b>+{diff} \u25b2</b></color>");
-        else if (diff < 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#ff6666><b>{diff} \u25bc</b></color>");
+        else if (diff < 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#ff6655><b>{diff} \u25bc</b></color>");
     }
 
     void SetFilter(int idx)

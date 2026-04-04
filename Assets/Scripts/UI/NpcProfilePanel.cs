@@ -54,7 +54,7 @@ public class NpcProfilePanel : MonoBehaviour
             var (emoji, col) = mood switch
             {
                 "Happy"    => (":)", "#88ff88"),
-                "Angry"    => (">:(", "#ff6666"),
+                "Angry"    => (">:(", "#ff6655"),
                 "Scared"   => (":O", "#ffee66"),
                 "Grateful" => (":D", "#66ffee"),
                 _          => (":|", "#aaaaaa")
