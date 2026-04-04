@@ -280,11 +280,15 @@ public class DialogueUI : MonoBehaviour
         if (questProposalRequirements != null)
         {
             questProposalRequirements.color = Color.white;
+            var itemDefs = GameManager.Instance?.Data?.Items;
             var lines = new List<string>();
             if (quest.requirements != null)
             {
                 foreach (var req in quest.requirements)
-                    lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
+                {
+                    string name = itemDefs != null && itemDefs.TryGetValue(req.itemId, out var d) ? d.name : req.itemId;
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> {name} <color=#888888>\u00d7{req.count}</color>");
+                }
             }
             if (quest.killRequirements != null)
             {
@@ -298,13 +302,17 @@ public class DialogueUI : MonoBehaviour
         if (questProposalRewards != null)
         {
             questProposalRewards.color = Color.white;
+            var itemDefs = GameManager.Instance?.Data?.Items;
             var lines = new List<string>();
             if (scaledRewards.gold > 0) lines.Add($"  <color=#ffd900>\u25c6 <b>{scaledRewards.gold:N0}</b>G</color>");
             if (scaledRewards.xp > 0) lines.Add($"  <color=#aaffaa>\u25b8 <b>{scaledRewards.xp}</b> XP</color>");
             if (scaledRewards.items != null)
             {
                 foreach (var item in scaledRewards.items)
-                    lines.Add($"  <color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
+                {
+                    string name = itemDefs != null && itemDefs.TryGetValue(item.itemId, out var d) ? d.name : item.itemId;
+                    lines.Add($"  <color=#ccddff>\u25b9 {name} \u00d7{item.count}</color>");
+                }
             }
             questProposalRewards.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
         }

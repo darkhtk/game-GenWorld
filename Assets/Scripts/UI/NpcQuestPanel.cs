@@ -74,11 +74,15 @@ public class NpcQuestPanel : MonoBehaviour
         if (requirementsText != null)
         {
             requirementsText.color = Color.white;
+            var itemDefs = GameManager.Instance?.Data?.Items;
             var lines = new List<string>();
             if (quest.requirements != null)
             {
                 foreach (var req in quest.requirements)
-                    lines.Add($"  <color=#aaaaaa>\u25b9</color> {req.itemId} <color=#888888>\u00d7{req.count}</color>");
+                {
+                    string name = itemDefs != null && itemDefs.TryGetValue(req.itemId, out var d) ? d.name : req.itemId;
+                    lines.Add($"  <color=#aaaaaa>\u25b9</color> {name} <color=#888888>\u00d7{req.count}</color>");
+                }
             }
             if (quest.killRequirements != null)
             {
@@ -91,6 +95,7 @@ public class NpcQuestPanel : MonoBehaviour
         if (rewardsText != null)
         {
             rewardsText.color = Color.white;
+            var itemDefs = GameManager.Instance?.Data?.Items;
             var lines = new List<string>();
             if (quest.rewards != null)
             {
@@ -99,7 +104,10 @@ public class NpcQuestPanel : MonoBehaviour
                 if (quest.rewards.items != null)
                 {
                     foreach (var item in quest.rewards.items)
-                        lines.Add($"<color=#ccddff>\u25b9 {item.itemId} \u00d7{item.count}</color>");
+                    {
+                        string name = itemDefs != null && itemDefs.TryGetValue(item.itemId, out var d) ? d.name : item.itemId;
+                        lines.Add($"<color=#ccddff>\u25b9 {name} \u00d7{item.count}</color>");
+                    }
                 }
             }
             rewardsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
