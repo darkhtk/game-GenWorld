@@ -79,8 +79,8 @@ public class HUD : MonoBehaviour
     [SerializeField] TextMeshProUGUI regionAnnounceText;
     [SerializeField] CanvasGroup regionAnnounceGroup;
 
-    static readonly Color HpColor = new(1f, 0.267f, 0.267f);
-    static readonly Color MpColor = new(0.267f, 0.533f, 1f);
+    static readonly Color HpColor = new(1f, 0.4f, 0.333f);   // #ff6655
+    static readonly Color MpColor = new(0.4f, 0.533f, 1f);   // #6688ff
 
     const int MaxHistoryEntries = 8;
     const int MaxEffectIcons = 8;
