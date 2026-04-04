@@ -26,9 +26,9 @@ public static class GameConfig
     public const int SkillSlotCount = 6, SkillMaxLevel = 5;
     public const float HpRegenPerSecond = 2f;
     public static readonly Color GradeCommon = Color.white;
-    public static readonly Color GradeUncommon = new(0.4f, 1f, 0.4f);
-    public static readonly Color GradeRare = new(0.4f, 0.6f, 1f);
-    public static readonly Color GradeLegendary = new(1f, 0.6f, 0.2f);
+    public static readonly Color GradeUncommon = new(0.4f, 1f, 0.533f);   // #66ff88
+    public static readonly Color GradeRare = new(0.4f, 0.533f, 1f);       // #6688ff
+    public static readonly Color GradeLegendary = new(1f, 0.6f, 0.267f);  // #ff9944
     public static Color GetGradeColor(ItemGrade g) => g switch
     {
         ItemGrade.Uncommon => GradeUncommon, ItemGrade.Rare => GradeRare,
