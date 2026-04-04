@@ -193,7 +193,7 @@ public class QuestUI : MonoBehaviour
             }
             texts[3].color = Color.white;
             texts[3].text = rewardLines.Count > 0
-                ? string.Join("  ", rewardLines) : "";
+                ? string.Join("\n", rewardLines) : "";
         }
 
         _entries.Add(go);

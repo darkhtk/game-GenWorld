@@ -326,7 +326,7 @@ public class InventoryUI : MonoBehaviour
             }
             if (def.healHp > 0) lines.Add($"<color=#884444>HealHP</color> <color=#66ff88><b>{def.healHp}</b></color>");
             if (def.healMp > 0) lines.Add($"<color=#444488>HealMP</color> <color=#88aaff><b>{def.healMp}</b></color>");
-            tooltipStats.text = string.Join("  ", lines);
+            tooltipStats.text = string.Join("\n", lines);
         }
 
         var rt = tooltipPanel.GetComponent<RectTransform>();

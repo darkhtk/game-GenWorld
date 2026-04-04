@@ -743,7 +743,7 @@ public class HUD : MonoBehaviour
             if (def.mpCost > 0) lines.Add($"<color=#888888>MP</color> <color=#6688ff><b>{def.mpCost}</b></color>");
             if (def.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{def.cooldown / 1000f:F1}s</b></color>");
             if (def.aoe > 0) lines.Add($"<color=#888888>AoE</color> <color=#ffcc44><b>{def.aoe:F0}</b></color>");
-            skillTooltipStats.text = string.Join("  ", lines);
+            skillTooltipStats.text = string.Join("\n", lines);
         }
 
         if (slotIndex < skillIcons.Length && skillIcons[slotIndex] != null)
