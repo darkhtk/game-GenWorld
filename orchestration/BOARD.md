@@ -1,3 +1,5 @@
+> 🛑 FREEZE — Critical: client 에이전트 3회 연속 에러
+
 # Orchestration Board
 
 > **최종 업데이트:** 2026-04-03
@@ -18,7 +20,7 @@
 | 태스크 | 사�� | REVIEW | 비고 |
 |--------|------|--------|------|
 | S-087 RegionManager 씬 전환 중 입력 차단 | |  | SPEC-S-087 |
-| S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | | REVIEW-S-091-v1.md | SPEC-S-091 |
+| S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | |  | SPEC-S-091 |
 
 ## 🔧 In Progress
 
@@ -29,7 +31,6 @@
 
 | 태스크 | 완료일 | 결과 | 비고 |
 |--------|--------|------|------|
-| S-083 AudioManager BGM 동시 변경 안정성 |  | ⏳ | P3 |
 | S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 |  | ⏳ | high |
 | S-102 게임 핵심 시스템 런타임 추적 및 안정성 개선 |  | ⏳ | high |
 | S-084 WorldEventSystem 종료 잔존 오브젝트 정리 |  | ⏳ | P3 |
@@ -184,6 +185,7 @@
 | S-056 GameManager 초기화 순서 |  | REVIEW-S056-v1 ✅ APPROVE |
 | S-048 SkillSystem 데이터 무결성 v2 |  | REVIEW-S048-v2 ✅ APPROVE |
 | S-079 EffectHolder 버프 스택 상한 |  | maxStack + DefaultMaxStack + GetStackCount + 8 tests |
+| S-083 AudioManager BGM 동시 변경 안정성 |  | P3 |
 
 ## 📋 Backlog
 
