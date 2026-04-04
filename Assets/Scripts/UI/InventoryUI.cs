@@ -581,7 +581,7 @@ public class EquipSlotUI : MonoBehaviour
     public void Clear()
     {
         if (nameText != null) { nameText.text = "<color=#444444>(empty)</color>"; nameText.color = Color.white; }
-        if (borderImage != null) borderImage.color = new Color(0.3f, 0.3f, 0.3f, 0.6f);
+        if (borderImage != null) borderImage.color = new Color(0.267f, 0.267f, 0.267f, 0.6f);
         if (unequipButton != null) unequipButton.gameObject.SetActive(false);
     }
 }
