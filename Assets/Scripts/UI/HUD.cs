@@ -739,8 +739,8 @@ public class HUD : MonoBehaviour
             var lines = new List<string>();
             int level = gm.Skills.GetSkillLevel(skillId);
             float dmgMult = gm.Skills.GetDamageMultiplier(skillId);
-            lines.Add($"<color=#888888>Level</color> <color=#aaffaa><b>{level}</b>/{GameConfig.SkillMaxLevel}</color>");
-            if (def.damage > 0) lines.Add($"<color=#888888>Dmg</color> <color=#ffaa55><b>{def.damage * dmgMult:F0}</b></color>");
+            lines.Add($"<color=#888888>Level</color> <color=#55ee88><b>{level}</b>/{GameConfig.SkillMaxLevel}</color>");
+            if (def.damage > 0) lines.Add($"<color=#888888>Dmg</color> <color=#ff9944><b>{def.damage * dmgMult:F0}</b></color>");
             if (def.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#88ddff><b>{def.range:F0}</b></color>");
             if (def.mpCost > 0) lines.Add($"<color=#888888>MP</color> <color=#6688ff><b>{def.mpCost}</b></color>");
             if (def.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{def.cooldown / 1000f:F1}s</b></color>");

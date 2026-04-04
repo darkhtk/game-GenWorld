@@ -105,8 +105,8 @@ public class TooltipUI : MonoBehaviour
         {
             _instance.statsText.color = Color.white;
             var lines = new List<string>();
-            lines.Add($"<color=#888888>Level</color> <color=#aaffaa><b>{level}</b>/{GameConfig.SkillMaxLevel}</color>");
-            if (skill.damage > 0) lines.Add($"<color=#888888>Dmg</color> <color=#ffaa55><b>{skill.damage}</b></color>");
+            lines.Add($"<color=#888888>Level</color> <color=#55ee88><b>{level}</b>/{GameConfig.SkillMaxLevel}</color>");
+            if (skill.damage > 0) lines.Add($"<color=#888888>Dmg</color> <color=#ff9944><b>{skill.damage}</b></color>");
             if (skill.mpCost > 0) lines.Add($"<color=#888888>MP</color> <color=#6688ff><b>{skill.mpCost}</b></color>");
             if (skill.cooldown > 0) lines.Add($"<color=#888888>CD</color> <color=#cccccc><b>{skill.cooldown / 1000f:F1}s</b></color>");
             if (skill.range > 0) lines.Add($"<color=#888888>Rng</color> <color=#88ddff><b>{skill.range:F0}</b></color>");
