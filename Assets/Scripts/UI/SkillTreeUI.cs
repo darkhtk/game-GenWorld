@@ -131,7 +131,7 @@ public class SkillTreeUI : MonoBehaviour
         {
             skillPointsText.text = skillPoints > 0
                 ? $"SK: <color=#88aaff><b>{skillPoints}</b></color>"
-                : $"SK: <color=#555555>0</color>";
+                : $"SK: <color=#444444>0</color>";
             skillPointsText.color = Color.white;
         }
         if (playerLevelText != null) { playerLevelText.color = Color.white; playerLevelText.text = $"<color=#55ee88>Lv.<b>{playerLevel}</b></color>"; }
@@ -171,13 +171,13 @@ public class SkillTreeUI : MonoBehaviour
                     _                => MeleeColor
                 };
                 int lvl = skillSystem.GetSkillLevel(skillId);
-                string lvlStr = lvl > 0 ? $" <color=#555555>Lv.<b>{lvl}</b></color>" : "";
+                string lvlStr = lvl > 0 ? $" <color=#888888>Lv.<b>{lvl}</b></color>" : "";
                 equipSlotLabels[i].text = $"<b><color=#{ColorUtility.ToHtmlStringRGB(treeColor)}>{def.name}</color></b>{lvlStr}";
                 equipSlotLabels[i].color = Color.white;
             }
             else
             {
-                equipSlotLabels[i].text = $"<color=#666666>[{i + 1}]</color>";
+                equipSlotLabels[i].text = $"<color=#444444>[{i + 1}]</color>";
                 equipSlotLabels[i].color = Color.white;
             }
         }

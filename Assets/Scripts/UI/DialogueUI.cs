@@ -300,7 +300,7 @@ public class DialogueUI : MonoBehaviour
                 }
             }
             questProposalRequirements.text = lines.Count > 0
-                ? string.Join("\n", lines) : "<color=#666666>None</color>";
+                ? string.Join("\n", lines) : "<color=#444444>None</color>";
         }
 
         if (questProposalRewards != null)
@@ -318,7 +318,7 @@ public class DialogueUI : MonoBehaviour
                     lines.Add($"  <color=#88ddff>\u25b9 {name} \u00d7{item.count}</color>");
                 }
             }
-            questProposalRewards.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
+            questProposalRewards.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#444444>None</color>";
         }
 
         string questId = quest.id;

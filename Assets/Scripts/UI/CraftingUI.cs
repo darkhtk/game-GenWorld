@@ -85,10 +85,10 @@ public class CraftingUI : MonoBehaviour
         if (texts.Length > 0)
         {
             string prefix = canCraft ? "\u25b8" : "\u25b9";
-            string prefixColor = canCraft ? "#66ff88" : "#555555";
+            string prefixColor = canCraft ? "#66ff88" : "#444444";
             string gradeHex = canCraft && resultDef != null
                 ? "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(resultDef.GradeEnum))
-                : "#555555";
+                : "#444444";
             string nameStr = canCraft ? $"<b><color={gradeHex}>{resultName}</color></b>" : $"<color={gradeHex}>{resultName}</color>";
             texts[0].text = $"<color={prefixColor}>{prefix}</color> {nameStr}";
             texts[0].color = Color.white;

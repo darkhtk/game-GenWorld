@@ -93,7 +93,7 @@ public class NpcQuestPanel : MonoBehaviour
                     lines.Add($"  <color=#aaaaaa>\u25b9</color> <color=#ff9944>{mName}</color> <color=#888888>\u00d7{kr.count}</color>");
                 }
             }
-            requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
+            requirementsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#444444>None</color>";
         }
 
         if (rewardsText != null)
@@ -114,7 +114,7 @@ public class NpcQuestPanel : MonoBehaviour
                     }
                 }
             }
-            rewardsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#666666>None</color>";
+            rewardsText.text = lines.Count > 0 ? string.Join("\n", lines) : "<color=#444444>None</color>";
         }
 
         bool isAcceptable = status == "available" || status == null;

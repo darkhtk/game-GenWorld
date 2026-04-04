@@ -78,7 +78,7 @@ public class SkillRowUI : MonoBehaviour
             }
             else
             {
-                levelText.text = $"<color=#555555>Lv.0/{GameConfig.SkillMaxLevel}</color>";
+                levelText.text = $"<color=#444444>Lv.0/{GameConfig.SkillMaxLevel}</color>";
                 levelText.color = Color.white;
             }
         }
