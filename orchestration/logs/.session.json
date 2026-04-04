@@ -1,7 +1,7 @@
 {
-  "sessionId": "762e7bf9-917",
-  "startedAt": "2026-04-04T01:36:24.467Z",
-  "lastActiveAt": "2026-04-04T01:36:54.479Z",
+  "sessionId": "68059585-3b1",
+  "startedAt": "2026-04-04T00:50:39.935Z",
+  "lastActiveAt": "2026-04-04T01:38:40.639Z",
   "status": "running",
   "agentSessions": {
     "supervisor": null,
@@ -11,7 +11,7 @@
   },
   "inProgressTasks": [],
   "totalCostUsd": 0,
-  "totalRuns": 0,
+  "totalRuns": 15,
   "config": {
     "mode": "full",
     "direction": "stabilize",
