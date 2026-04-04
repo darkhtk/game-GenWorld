@@ -290,8 +290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: GenWorld::MainMenuController
   newGameButton: {fileID: 964513760}
   continueButton: {fileID: 2049413904}
-  settingsButton: {fileID: 0}
-  settingsUI: {fileID: 0}
+  settingsButton: {fileID: 9001004}
+  settingsUI: {fileID: 9002002}
   titleText: {fileID: 1779318878}
 --- !u!114 &605885237
 MonoBehaviour:
@@ -371,6 +371,9 @@ RectTransform:
   - {fileID: 1779318880}
   - {fileID: 964513763}
   - {fileID: 2049413907}
+  - {fileID: 9001001}
+  - {fileID: 9002001}
+  - {fileID: 9003001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
