@@ -19,10 +19,10 @@ public class QuestUI : MonoBehaviour
     [SerializeField] Transform questListContent;
     [SerializeField] GameObject questEntryPrefab;
 
-    static readonly Color ActiveTabColor = new(0.3f, 0.4f, 0.6f);
-    static readonly Color InactiveTabColor = new(0.2f, 0.2f, 0.2f);
-    static readonly Color MetColor = new(0.4f, 1f, 0.4f);
-    static readonly Color UnmetColor = new(1f, 0.4f, 0.4f);
+    static readonly Color ActiveTabColor = new(0.3f, 0.5f, 0.8f);
+    static readonly Color InactiveTabColor = new(0.15f, 0.15f, 0.15f);
+    static readonly Color MetColor = new(0.4f, 1f, 0.533f);
+    static readonly Color UnmetColor = new(1f, 0.4f, 0.333f);
 
     bool _showCompleted;
     readonly List<GameObject> _entries = new();
