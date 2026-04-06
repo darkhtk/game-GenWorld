@@ -1,0 +1,18 @@
+{
+  "claudeConnection": {
+    "status": "connected",
+    "accountLabel": "Claude Project Connection",
+    "connectedAt": "2026-04-05T10:49:51.466Z",
+    "lastValidatedAt": "2026-04-05T13:16:16.623Z",
+    "details": "Claude local account authentication was detected."
+  },
+  "codexConnection": {
+    "status": "connected",
+    "accountLabel": "Codex Desktop Connection",
+    "accountId": "535d83a4-2683-4063-861a-81c4c3300522",
+    "connectedAt": "2026-04-05T10:31:23.486Z",
+    "lastValidatedAt": "2026-04-05T13:16:16.742Z",
+    "details": "Codex CLI and local auth token were detected."
+  },
+  "activeProvider": "codex"
+}

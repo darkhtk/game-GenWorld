@@ -1,51 +1,52 @@
-> 🛑 FREEZE — Critical: client 에이전트 3회 연속 에러
+> FREEZE: Critical: client 에이전트 3회 연속 에러
 
 # Orchestration Board
 
-> **최종 업데이트:** 2026-04-03
-> **프로젝트:** GenWorld
-> **현재 상태:** 안정화 (Stabilize) — 견고성 강화 진행 중
+> **Last Updated:** 2026-04-05
+> **Project:** 
+> **Current Phase:** 
 
 ---
 
-## 로드맵
+## Roadmap
 
-| # | 태스크 | 우선순위 | 상태 | 비고 |
-|---|--------|---------|------|------|
+| # | Task | Priority | Status | Notes |
+|---|------|----------|--------|-------|
+| 1 | S-087 RegionManager 씬 전환 중 입력 차단 | P2 | IN_REVIEW |  |
+| 2 | S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | P2 | BACKLOG |  |
+| 3 | S-101 게임 개발을 위한 프로젝트 브리프 작성 | high | BACKLOG |  |
+| 4 | S-102 게임 MVP 범위 정의 | high | DONE |  |
 
 ---
 
-## ❌ Rejected (최우선 수정)
+## Rejected
 
-| 태스크 | 사�� | REVIEW | 비고 |
-|--------|------|--------|------|
-| S-087 RegionManager 씬 전환 중 입력 차단 | |  | SPEC-S-087 |
-| S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | |  | SPEC-S-091 |
+| Task | Review | Notes |
+|------|--------|-------|
+| S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 |  | high |
+| S-084 WorldEventSystem 종료 잔존 오브젝트 정리 |  | P3 |
 
-## 🔧 In Progress
+## In Progress
 
-| 태스크 | 담당 | 시작일 | 비고 |
-|--------|------|--------|------|
+| Task | Assignee | Started | Notes |
+|------|----------|---------|-------|
 
-## 👀 In Review
+## In Review
 
-| 태스크 | 완료일 | 결과 | 비고 |
-|--------|--------|------|------|
-| S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 |  | ⏳ | high |
-| S-102 게임 핵심 시스템 런타임 추적 및 안정성 개선 |  | ⏳ | high |
-| S-084 WorldEventSystem 종료 잔존 오브젝트 정리 |  | ⏳ | P3 |
-| S-085 NPC 대화 종료 직후 재진입 방지 |  | ⏳ | P3 |
-| S-086 SkillBar 쿨다운 시각 동기화 |  | ⏳ | P3 |
-| S-092 DialogueUI 긴 텍스트 오버플로 처리 |  | ⏳ | P3 |
-| S-094 CraftingUI 재료 부족 항목별 표시 |  | ⏳ | P3 |
-| S-096 MonsterController 공격 범위 외 데미지 차단 |  | ⏳ | ⏳ |
-| S-097 SaveSystem 슬롯 삭제 확인 팝업 |  | ⏳ | P3 |
-| S-098 AchievementUI 알림 큐 중복 방지 |  | ⏳ | P3 |
+| Task | Completed | Verdict | Notes |
+|------|-----------|---------|-------|
+| S-086 SkillBar 쿨다운 시각 동기화 |  | PENDING | P3 |
+| S-092 DialogueUI 긴 텍스트 오버플로 처리 |  | PENDING | P3 |
+| S-094 CraftingUI 재료 부족 항목별 표시 |  | PENDING | P3 |
+| S-096 MonsterController 공격 범위 외 데미지 차단 |  | PENDING | ⏳ |
+| S-097 SaveSystem 슬롯 삭제 확인 팝업 |  | PENDING | P3 |
+| S-098 AchievementUI 알림 큐 중복 방지 |  | PENDING | P3 |
+| S-087 RegionManager 씬 전환 중 입력 차단 |  | PENDING | PENDING |
 
-## ✅ Done
+## Done
 
-| 태스크 | 완료일 | 비고 |
-|--------|--------|------|
+| Task | Completed | Notes |
+|------|-----------|-------|
 | S-078 DialogueSystem AI 응답 타임아웃 |  | REVIEW-S078-v1 ✅ APPROVE |
 | S-077 SaveSystem 슬롯 데이터 무결성 검증 |  | REVIEW-S077-v1 ✅ APPROVE |
 | S-076 CombatManager 동시 공격 순차 처리 |  | REVIEW-S076-v1 ✅ APPROVE |
@@ -186,8 +187,13 @@
 | S-048 SkillSystem 데이터 무결성 v2 |  | REVIEW-S048-v2 ✅ APPROVE |
 | S-079 EffectHolder 버프 스택 상한 |  | maxStack + DefaultMaxStack + GetStackCount + 8 tests |
 | S-083 AudioManager BGM 동시 변경 안정성 |  | P3 |
+| S-102 게임 핵심 시스템 런타임 추적 및 안정성 개선 |  | high |
+| S-085 NPC 대화 종료 직후 재진입 방지 |  | P3 |
 
-## 📋 Backlog
+## Backlog
 
-| 태스크 | 우선순위 | 비고 |
-|--------|---------|------|
+| Task | Priority | Notes |
+|------|----------|-------|
+| S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | P2 | P2 |
+| S-101 게임 개발을 위한 프로젝트 브리프 작성 | P2 | high |
+| S-102 게임 MVP 범위 정의 | P2 | high |
