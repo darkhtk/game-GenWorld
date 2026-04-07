@@ -21,6 +21,7 @@
 | 7   | S-110 ShopUI 판매 기능 미구현              | Critical | DONE      | 914a4ad |
 | 8   | S-111 XP바 레벨업 시에만 갱신               | P2       | DONE      | b631604 |
 | 9   | S-112 재료/장비 판매가 미정의 — 전 아이템 1G 판매  | Critical | DONE      | ed5d554 |
+| 10  | S-113 WorldEvent 배율 선언만 되고 미적용        | Critical | DONE      | bf997ae |
 
 ---
 
