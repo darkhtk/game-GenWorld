@@ -20,6 +20,7 @@
 | 6   | S-109 ScreenFlash 플레이어 피격 시 미호출     | Critical | DONE      | 914a4ad |
 | 7   | S-110 ShopUI 판매 기능 미구현              | Critical | DONE      | 914a4ad |
 | 8   | S-111 XP바 레벨업 시에만 갱신               | P2       | DONE      | b631604 |
+| 9   | S-112 재료/장비 판매가 미정의 — 전 아이템 1G 판매  | Critical | DONE      | ed5d554 |
 
 ---
 
