@@ -17,6 +17,7 @@ public class ItemDef
     public int healHp;
     public int healMp;
     public int shopPrice;
+    public int sellPrice; // explicit sell-to-vendor price; if 0, falls back to shopPrice/2
 
     [JsonIgnore] public ItemType TypeEnum => ItemTypeUtil.Parse(type);
     [JsonIgnore] public ItemGrade GradeEnum => ItemGradeUtil.Parse(grade);

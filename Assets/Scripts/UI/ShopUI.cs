@@ -138,7 +138,10 @@ public class ShopUI : MonoBehaviour
             var slot = _inventory.GetSlot(i);
             if (slot == null) continue;
             if (!_itemDefs.TryGetValue(slot.itemId, out var def)) continue;
-            int sellPrice = Mathf.Max(1, def.shopPrice / 2);
+            int sellPrice = def.sellPrice > 0 ? def.sellPrice
+                          : def.shopPrice > 0 ? def.shopPrice / 2
+                          : 0;
+            if (sellPrice <= 0) continue; // unsellable item
             AddSellEntry(def, slot.count, i, sellPrice);
         }
     }
