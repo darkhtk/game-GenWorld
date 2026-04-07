@@ -23,6 +23,9 @@ public class Projectile : MonoBehaviour
 
     Rigidbody2D _rb;
     CircleCollider2D _col;
+    SpriteRenderer _sr;
+
+    static Sprite _defaultSprite;
 
     static void EnsurePool()
     {
@@ -37,9 +40,12 @@ public class Projectile : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true;
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sortingOrder = 50;
             var proj = go.AddComponent<Projectile>();
             proj._rb = rb;
             proj._col = col;
+            proj._sr = sr;
             return proj;
         }, _poolParent, 20, 50);
     }
@@ -94,6 +100,49 @@ public class Projectile : MonoBehaviour
             _col.isTrigger = true;
         }
         _col.radius = size > 0 ? size / 32f : 0.25f;
+
+        if (_sr == null) TryGetComponent(out _sr);
+        if (_sr != null)
+        {
+            if (_sr.sprite == null) _sr.sprite = GetDefaultSprite();
+            if (color != 0)
+            {
+                float r = ((color >> 16) & 0xFF) / 255f;
+                float g = ((color >> 8) & 0xFF) / 255f;
+                float b = (color & 0xFF) / 255f;
+                _sr.color = new Color(r, g, b, 1f);
+            }
+            else
+            {
+                _sr.color = Color.white;
+            }
+        }
+    }
+
+    static Sprite GetDefaultSprite()
+    {
+        if (_defaultSprite != null) return _defaultSprite;
+        const int size = 16;
+        var tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        tex.filterMode = FilterMode.Point;
+        float cx = size * 0.5f, cy = size * 0.5f, r = size * 0.44f;
+        var pixels = new Color32[size * size];
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float dx = x + 0.5f - cx, dy = y + 0.5f - cy;
+                float dist = UnityEngine.Mathf.Sqrt(dx * dx + dy * dy);
+                pixels[y * size + x] = dist <= r
+                    ? new Color32(255, 255, 255, 255)
+                    : new Color32(0, 0, 0, 0);
+            }
+        }
+        tex.SetPixels32(pixels);
+        tex.Apply();
+        UnityEngine.Object.DontDestroyOnLoad(tex);
+        _defaultSprite = Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 32f);
+        return _defaultSprite;
     }
 
     void ReturnToPool()

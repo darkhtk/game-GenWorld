@@ -4,8 +4,12 @@ using Unity.Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
+    // Fallback intensity is calibrated for Cinemachine units; multiply for raw cam offset
+    const float FallbackScale = 12f;
+
     static CinemachineImpulseSource _impulseSource;
     static Coroutine _activeShake;
+    static MonoBehaviour _shakeContext;
 
     public static void Shake(MonoBehaviour context, float durationMs, float intensity)
     {
@@ -23,13 +27,16 @@ public class CameraShake : MonoBehaviour
         }
 
         // Fallback: direct camera shake if no Cinemachine setup
-        var cam = Camera.main; // Only called on shake, not per-frame
+        var cam = Camera.main;
         if (cam == null) return;
 
-        if (_activeShake != null)
-            context.StopCoroutine(_activeShake);
+        // Stop previous shake on whichever MonoBehaviour started it
+        if (_activeShake != null && _shakeContext != null)
+            _shakeContext.StopCoroutine(_activeShake);
 
-        _activeShake = context.StartCoroutine(DoShake(cam.transform, durationMs / 1000f, intensity));
+        _shakeContext = context;
+        _activeShake = context.StartCoroutine(
+            DoShake(cam.transform, durationMs / 1000f, intensity * FallbackScale));
     }
 
     static IEnumerator DoShake(Transform camTransform, float duration, float intensity)
@@ -49,5 +56,6 @@ public class CameraShake : MonoBehaviour
 
         camTransform.localPosition = originalPos;
         _activeShake = null;
+        _shakeContext = null;
     }
 }

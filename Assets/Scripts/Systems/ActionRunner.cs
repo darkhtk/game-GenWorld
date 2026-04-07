@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActionContext : SkillContext
 {
     public ActionRunner runner;
+    public UnityEngine.MonoBehaviour mono;
 }
 
 public class ActionRunner
@@ -178,6 +179,19 @@ public class ActionRunner
             if (closest != null) affected.Add(closest);
         }
 
+        if (a.effect == "knockback")
+        {
+            float force = a.value > 0 ? a.value : 8f;
+            Vector2 origin = (Vector2)ctx.player.position;
+            foreach (var m in affected)
+            {
+                Vector2 dir = (m.Position - origin).normalized;
+                if (dir == Vector2.zero) dir = Vector2.up;
+                m.ApplyKnockback(dir, force);
+            }
+            return;
+        }
+
         foreach (var m in affected)
         {
             switch (a.effect)
@@ -191,8 +205,6 @@ public class ActionRunner
                 case "dot":
                     m.Effects.ApplyDot(ctx.now + dur,
                         Mathf.RoundToInt(ctx.stats.atk * (a.value > 0 ? a.value : 0.5f)));
-                    break;
-                case "knockback":
                     break;
             }
         }
@@ -314,8 +326,8 @@ public class ActionRunner
         }
 
         bool followPlayer = a.pattern == "self";
-        var go = new GameObject(followPlayer ? "FollowingArea" : "GroundArea");
-        var area = go.AddComponent<AreaEffect>();
+        var area = AreaEffect.Get();
+        area.name = followPlayer ? "FollowingArea" : "GroundArea";
         area.Init(followPlayer ? ctx.player : null, hx, hy, aoe, dur, tick,
             a.onTick, ctx, ctx.runner);
         ctx.showEffect?.Invoke(hx, hy);
@@ -330,7 +342,10 @@ public class ActionRunner
     void HandleVisual(SkillAction a, ActionContext ctx, float hx, float hy,
         List<MonsterController> targets)
     {
-        ctx.showEffect?.Invoke(hx, hy);
+        if (ctx.mono != null && ctx.skill != null)
+            SkillVFX.ShowAtPosition(ctx.mono, SkillVFX.ResolveVFXName(ctx.skill.id), hx, hy);
+        else
+            ctx.showEffect?.Invoke(hx, hy);
     }
 
     static bool IsInCone(Vector2 origin, float aimAngle, float halfAngle, Vector2 target)

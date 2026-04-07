@@ -213,7 +213,19 @@ public class CombatManager : MonoBehaviour
 
         float nowMs = Time.time * 1000f;
         var result = Skills.UseSkill(slot, PlayerState.Mp, nowMs);
-        if (!result.success || result.skill == null) return;
+        if (!result.success || result.skill == null)
+        {
+            if (result.reason == "no_mp")
+            {
+                ShowFloatingText(_player.Position + Vector2.up, "MP 부족", new Color(0.4f, 0.6f, 1f));
+                AudioManager.Instance?.PlaySFX("sfx_error");
+            }
+            else if (result.reason == "cooldown")
+            {
+                AudioManager.Instance?.PlaySFX("sfx_error");
+            }
+            return;
+        }
 
         PlayerState.Mp -= result.mpCost;
         var skill = result.skill;
@@ -354,7 +366,8 @@ public class CombatManager : MonoBehaviour
                     ShowDamageNumber(_player.Position + Vector2.up * 0.5f, amount, false, new Color(0.4f, 1f, 0.533f));
                 }
             },
-            runner = _actionRunner
+            runner = _actionRunner,
+            mono = this
         };
         return ctx;
     }

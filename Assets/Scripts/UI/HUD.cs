@@ -115,6 +115,40 @@ public class HUD : MonoBehaviour
 
         StyleBars();
 
+        // Auto-create missing cooldown overlays for skill slots not wired in inspector
+        if (skillIcons != null)
+        {
+            int needed = skillIcons.Length;
+            int existing = skillCooldownOverlays != null ? skillCooldownOverlays.Length : 0;
+            if (existing < needed)
+            {
+                var expanded = new Image[needed];
+                for (int i = 0; i < existing; i++)
+                    expanded[i] = skillCooldownOverlays != null ? skillCooldownOverlays[i] : null;
+                for (int i = existing; i < needed; i++)
+                {
+                    if (skillIcons[i] == null) continue;
+                    var go = new GameObject("CooldownOverlay_Auto");
+                    go.transform.SetParent(skillIcons[i].transform, false);
+                    var rt = go.AddComponent<RectTransform>();
+                    rt.anchorMin = Vector2.zero;
+                    rt.anchorMax = Vector2.one;
+                    rt.offsetMin = Vector2.zero;
+                    rt.offsetMax = Vector2.zero;
+                    var img = go.AddComponent<Image>();
+                    img.color = new Color(0f, 0f, 0f, 0.6f);
+                    img.type = Image.Type.Filled;
+                    img.fillMethod = Image.FillMethod.Radial360;
+                    img.fillOrigin = (int)Image.Origin360.Top;
+                    img.fillClockwise = false;
+                    img.fillAmount = 0f;
+                    img.raycastTarget = false;
+                    expanded[i] = img;
+                }
+                skillCooldownOverlays = expanded;
+            }
+        }
+
         if (skillCooldownOverlays != null)
         {
             for (int i = 0; i < skillCooldownOverlays.Length; i++)
@@ -241,6 +275,7 @@ public class HUD : MonoBehaviour
     {
         var gm = GameManager.Instance;
         if (gm == null || gm.Skills == null) return;
+        if (skillCooldownOverlays == null) return;
 
         float nowMs = Time.time * 1000f;
         float[] fractions = gm.Skills.GetCooldowns(nowMs);
@@ -350,7 +385,11 @@ public class HUD : MonoBehaviour
                     if (spr != null)
                     {
                         skillIcons[i].sprite = spr;
-                        skillIcons[i].color = Color.white;
+                        var gm = GameManager.Instance;
+                        bool hasMp = gm == null || gm.PlayerState == null || gm.Data == null
+                            || !gm.Data.Skills.TryGetValue(skillId, out var sd)
+                            || gm.PlayerState.Mp >= sd.mpCost;
+                        skillIcons[i].color = hasMp ? Color.white : new Color(0.45f, 0.45f, 0.55f);
                     }
                 }
             }
@@ -463,7 +502,7 @@ public class HUD : MonoBehaviour
 
     public void SetBuffDuration(int slotIndex, float durationMs, string buffName)
     {
-        if (slotIndex < 0 || slotIndex >= skillBuffTexts.Length) return;
+        if (slotIndex < 0 || skillBuffTexts == null || slotIndex >= skillBuffTexts.Length) return;
         if (skillBuffTexts[slotIndex] == null) return;
 
         if (durationMs > 0)

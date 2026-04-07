@@ -31,13 +31,13 @@
       "mpCost": 12,
       "cooldown": 5000,
       "damage": 1.8,
-      "range": 2.0,
-      "aoe": 2.0,
+      "range": 2,
+      "aoe": 2,
       "description": "주변 360도 범위 공격.",
       "actions": [
         {
           "type": "deal_damage",
-          "aoe": 2.0
+          "aoe": 2
         },
         {
           "type": "visual"
@@ -52,7 +52,7 @@
       "requiredLevel": 6,
       "mpCost": 15,
       "cooldown": 8000,
-      "damage": 2.0,
+      "damage": 2,
       "range": 3.75,
       "aoe": 0,
       "description": "전방 돌진. 높은 데미지 + 스턴.",
@@ -283,7 +283,12 @@
           "type": "spawn_projectile",
           "speed": 9.38,
           "piercing": true,
-          "pathWidth": 16
+          "pathWidth": 16,
+          "onHit": [
+            {
+              "type": "visual"
+            }
+          ]
         },
         {
           "type": "visual"
@@ -307,7 +312,12 @@
           "type": "spawn_projectile",
           "pattern": "fan",
           "speed": 7.81,
-          "pathWidth": 16
+          "pathWidth": 16,
+          "onHit": [
+            {
+              "type": "visual"
+            }
+          ]
         },
         {
           "type": "visual"
@@ -322,7 +332,7 @@
       "requiredLevel": 6,
       "mpCost": 12,
       "cooldown": 6000,
-      "damage": 1.0,
+      "damage": 1,
       "range": 6.25,
       "aoe": 0,
       "description": "독 부여. 5초간 DOT.",
@@ -336,6 +346,9 @@
               "effect": "dot",
               "duration": 5000,
               "value": 0.3
+            },
+            {
+              "type": "visual"
             }
           ]
         },
@@ -420,12 +433,18 @@
               "aoe": 56,
               "duration": 3000,
               "value": 0.2
+            },
+            {
+              "type": "visual"
             }
           ],
           "onArrive": [
             {
               "type": "deal_damage",
               "aoe": 56
+            },
+            {
+              "type": "visual"
             }
           ]
         },
@@ -443,7 +462,7 @@
       "mpCost": 24,
       "cooldown": 18000,
       "damage": 1.5,
-      "range": 5.0,
+      "range": 5,
       "aoe": 2.5,
       "description": "지정 영역에 3초간 화살 낙하.",
       "actions": [
@@ -480,7 +499,7 @@
       "requiredLevel": 26,
       "mpCost": 25,
       "cooldown": 20000,
-      "damage": 5.0,
+      "damage": 5,
       "range": 1.88,
       "aoe": 0,
       "description": "궁극기. 초고데미지.",
@@ -502,7 +521,7 @@
       "requiredLevel": 30,
       "mpCost": 30,
       "cooldown": 30000,
-      "damage": 4.0,
+      "damage": 4,
       "range": 3.75,
       "aoe": 0,
       "description": "타겟 뒤 순간이동 + 크리 공격 + 짧은 은신.",
@@ -535,7 +554,7 @@
       "requiredLevel": 1,
       "mpCost": 10,
       "cooldown": 4000,
-      "damage": 2.0,
+      "damage": 2,
       "range": 5.62,
       "aoe": 1.5,
       "description": "충돌 또는 도착 시 범위 폭발.",
@@ -552,6 +571,9 @@
               "type": "screen_shake",
               "duration": 200,
               "intensity": 0.005
+            },
+            {
+              "type": "visual"
             }
           ],
           "onArrive": [
@@ -563,6 +585,9 @@
               "type": "screen_shake",
               "duration": 200,
               "intensity": 0.005
+            },
+            {
+              "type": "visual"
             }
           ]
         },
@@ -580,7 +605,7 @@
       "mpCost": 8,
       "cooldown": 3000,
       "damage": 1.5,
-      "range": 5.0,
+      "range": 5,
       "aoe": 0,
       "description": "단일 대상 + 둔화 3초.",
       "actions": [
@@ -593,6 +618,9 @@
               "effect": "slow",
               "duration": 3000,
               "value": 0.5
+            },
+            {
+              "type": "visual"
             }
           ]
         },
@@ -718,7 +746,7 @@
       "mpCost": 30,
       "cooldown": 20000,
       "damage": 2.5,
-      "range": 5.0,
+      "range": 5,
       "aoe": 1.38,
       "description": "타겟 주변 4발 낙하. 각각 범위 폭발.",
       "actions": [
@@ -740,6 +768,9 @@
               "type": "screen_shake",
               "duration": 150,
               "intensity": 0.008
+            },
+            {
+              "type": "visual"
             }
           ]
         },
@@ -757,7 +788,7 @@
       "mpCost": 35,
       "cooldown": 30000,
       "damage": 2.5,
-      "range": 5.0,
+      "range": 5,
       "aoe": 3.12,
       "description": "궁극기. 지속 범위 데미지 + 둔화.",
       "actions": [
@@ -795,7 +826,7 @@
       "mpCost": 40,
       "cooldown": 45000,
       "damage": 2.8,
-      "range": 5.0,
+      "range": 5,
       "aoe": 4.38,
       "description": "대범위 지속 데미지 + 랜덤 번개.",
       "actions": [

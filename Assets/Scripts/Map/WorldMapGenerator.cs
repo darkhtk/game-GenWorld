@@ -55,6 +55,26 @@ public class WorldMapGenerator : MonoBehaviour
             }
         }
 
+        // Collision tilemap must not render — visual layer is groundTilemap only.
+        // If both render the same tile asset, objects appear doubled and shifted.
+        if (collisionTilemap != null)
+        {
+            var rend = collisionTilemap.GetComponent<TilemapRenderer>();
+            if (rend != null) rend.enabled = false;
+
+            // Force TilemapCollider2D to rebuild after tile placement
+            var col = collisionTilemap.GetComponent<TilemapCollider2D>();
+            if (col != null) { col.enabled = false; col.enabled = true; }
+        }
+
+        // Warn if tilemaps are at different world positions (scene setup error)
+        if (groundTilemap != null && collisionTilemap != null)
+        {
+            Vector3 delta = collisionTilemap.transform.position - groundTilemap.transform.position;
+            if (delta.sqrMagnitude > 0.0001f)
+                Debug.LogWarning($"[WorldMap] collisionTilemap is offset from groundTilemap by {delta:F3} — colliders will not align with visuals. Fix in scene editor.");
+        }
+
         Debug.Log($"[WorldMap] Generated {w}x{h} map with {regions.Length} regions");
     }
 
@@ -174,5 +194,19 @@ public class WorldMapGenerator : MonoBehaviour
     Vector3Int TileToCell(int tileX, int tileY)
     {
         return new Vector3Int(tileX, -tileY - 1, 0);
+    }
+
+    // Tile coords -> world position (tile center). Keep in sync with MonsterSpawner.
+    public static Vector2 TileToWorld(int tileX, int tileY)
+    {
+        return new Vector2((tileX + 0.5f) * GameConfig.TileSize,
+                           -(tileY + 0.5f) * GameConfig.TileSize);
+    }
+
+    // World position -> tile coords. Keep in sync with RegionTracker.
+    public static void WorldToTile(float worldX, float worldY, out int tileX, out int tileY)
+    {
+        tileX = Mathf.FloorToInt(worldX / GameConfig.TileSize);
+        tileY = Mathf.FloorToInt(-worldY / GameConfig.TileSize);
     }
 }
