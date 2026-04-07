@@ -333,6 +333,21 @@ public class GameUIWiring
             _saveGame();
             if (hud != null) hud.ShowSaveIndicator();
         });
+
+        EventBus.On<WorldEventStartEvent>(e =>
+        {
+            if (hud == null) return;
+            hud.AddHistoryEntry(
+                $"\u26a0 {e.name}: {e.description}",
+                new Color(1f, 0.6f, 0.267f)); // #ff9944
+            AudioManager.Instance?.PlaySFX("sfx_rank_up");
+        });
+
+        EventBus.On<WorldEventEndEvent>(e =>
+        {
+            if (hud == null) return;
+            hud.AddHistoryEntry($"Event ended: {e.id}", new Color(0.533f, 0.533f, 0.533f)); // #888888
+        });
     }
 
     public void PushInitialState()
