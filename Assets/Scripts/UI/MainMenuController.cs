@@ -11,6 +11,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] SettingsUI settingsUI;
     [SerializeField] TextMeshProUGUI titleText;
 
+    TextMeshProUGUI _newGameLabel;
+    bool _awaitingNewGameConfirm;
+
     void Awake()
     {
         SetupBackground();
@@ -22,11 +25,14 @@ public class MainMenuController : MonoBehaviour
         }
 
         if (newGameButton != null)
+        {
+            _newGameLabel = newGameButton.GetComponentInChildren<TextMeshProUGUI>();
             newGameButton.onClick.AddListener(OnNewGame);
+        }
 
         if (continueButton != null)
         {
-            continueButton.onClick.AddListener(OnContinue);
+            continueButton.onClick.AddListener(() => { CancelNewGameConfirm(); OnContinue(); });
             continueButton.interactable = SaveSystem.HasSave();
         }
 
@@ -62,10 +68,27 @@ public class MainMenuController : MonoBehaviour
 
     void OnNewGame()
     {
+        if (SaveSystem.HasSave() && !_awaitingNewGameConfirm)
+        {
+            _awaitingNewGameConfirm = true;
+            if (_newGameLabel != null)
+                _newGameLabel.text = "<color=#ff6655>OVERWRITE SAVE?</color>";
+            AudioManager.Instance?.PlaySFX("sfx_error");
+            return;
+        }
+
         AudioManager.Instance?.PlaySFX("sfx_confirm");
         if (SaveSystem.HasSave())
             SaveSystem.DeleteSave();
         SceneManager.LoadScene("GameScene");
+    }
+
+    void CancelNewGameConfirm()
+    {
+        if (!_awaitingNewGameConfirm) return;
+        _awaitingNewGameConfirm = false;
+        if (_newGameLabel != null)
+            _newGameLabel.text = "New Game";
     }
 
     void OnContinue()

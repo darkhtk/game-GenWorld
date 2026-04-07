@@ -18,6 +18,8 @@ public class AchievementUI : MonoBehaviour
     [SerializeField] CanvasGroup popupCanvasGroup;
 
     readonly List<TextMeshProUGUI> _listEntries = new();
+    readonly Queue<AchievementUnlockedEvent> _popupQueue = new();
+    bool _popupRunning;
 
     void Awake()
     {
@@ -93,9 +95,24 @@ public class AchievementUI : MonoBehaviour
     void OnUnlocked(AchievementUnlockedEvent e)
     {
         if (popupPanel == null) return;
-        if (popupName != null) { popupName.color = Color.white; popupName.text = $"<color=#ffd900>\u2605 <b>{e.name}</b></color>"; }
-        if (popupReward != null) { popupReward.color = Color.white; popupReward.text = !string.IsNullOrEmpty(e.rewardDesc) ? $"<color=#888888>Reward:</color> <color=#66ff88><b>{e.rewardDesc}</b></color>" : ""; }
-        StartCoroutine(ShowPopup());
+        foreach (var queued in _popupQueue)
+            if (queued.id == e.id) return;
+        _popupQueue.Enqueue(e);
+        if (!_popupRunning)
+            StartCoroutine(DrainPopupQueue());
+    }
+
+    IEnumerator DrainPopupQueue()
+    {
+        _popupRunning = true;
+        while (_popupQueue.Count > 0)
+        {
+            var e = _popupQueue.Dequeue();
+            if (popupName != null) { popupName.color = Color.white; popupName.text = $"<color=#ffd900>\u2605 <b>{e.name}</b></color>"; }
+            if (popupReward != null) { popupReward.color = Color.white; popupReward.text = !string.IsNullOrEmpty(e.rewardDesc) ? $"<color=#888888>Reward:</color> <color=#66ff88><b>{e.rewardDesc}</b></color>" : ""; }
+            yield return ShowPopup();
+        }
+        _popupRunning = false;
     }
 
     IEnumerator ShowPopup()

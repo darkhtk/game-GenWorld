@@ -35,12 +35,12 @@
 
 | Task                                   | Completed | Verdict | Notes   |
 | -------------------------------------- | --------- | ------- | ------- |
-| S-086 SkillBar 쿨다운 시각 동기화              |           | PENDING | P3      |
-| S-092 DialogueUI 긴 텍스트 오버플로 처리         |           | PENDING | P3      |
-| S-094 CraftingUI 재료 부족 항목별 표시          |           | PENDING | P3      |
-| S-096 MonsterController 공격 범위 외 데미지 차단 |           | PENDING | ⏳       |
-| S-097 SaveSystem 슬롯 삭제 확인 팝업           |           | PENDING | P3      |
-| S-098 AchievementUI 알림 큐 중복 방지         |           | PENDING | P3      |
+| S-086 SkillBar 쿨다운 시각 동기화              | 2026-04-07 | APPROVE | 코드 검증 — 구현 정상 |
+| S-092 DialogueUI 긴 텍스트 오버플로 처리         | 2026-04-07 | APPROVE | 코드 검증 — 구현 정상 |
+| S-094 CraftingUI 재료 부족 항목별 표시          | 2026-04-07 | APPROVE | 코드 검증 — 구현 정상 |
+| S-096 MonsterController 공격 범위 외 데미지 차단 | 2026-04-07 | APPROVE | 코드 검증 — 구현 정상 |
+| S-097 SaveSystem 슬롯 삭제 확인 팝업           | 2026-04-07 | APPROVE | 더블탭 확인 패턴 구현 |
+| S-098 AchievementUI 알림 큐 중복 방지         | 2026-04-07 | APPROVE | 큐+중복방지 구현 |
 | S-087 RegionManager 씬 전환 중 입력 차단       | 2026-04-07 | APPROVE | acedd9a — 0.5s timer |
 
 ## Done
