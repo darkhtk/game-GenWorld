@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviour
         PlayerEffects.Tick(nowMs);
         RegenHp();
         RefreshHud();
+        RefreshBossBar(monsters);
         AutoUsePotion();
 
         RegionTracker.UpdatePlayerRegion(playerPos.x, playerPos.y);
@@ -227,6 +228,24 @@ public class GameManager : MonoBehaviour
         _lastHudMp = mp;
         var s = PlayerState.CurrentStats;
         uiManager.Hud.UpdateBars(hp, s.maxHp, mp, s.maxMp);
+    }
+
+    void RefreshBossBar(System.Collections.Generic.List<MonsterController> monsters)
+    {
+        if (uiManager == null || uiManager.Hud == null) return;
+        MonsterController boss = null;
+        foreach (var m in monsters)
+        {
+            if (m != null && !m.IsDead && m.Def != null && m.Def.rank == "boss")
+            {
+                boss = m;
+                break;
+            }
+        }
+        if (boss != null)
+            uiManager.Hud.ShowBossBar(boss.Def.name, boss.Hp, boss.Def.hp);
+        else
+            uiManager.Hud.HideBossBar();
     }
 
     void HandleRegionTransition()

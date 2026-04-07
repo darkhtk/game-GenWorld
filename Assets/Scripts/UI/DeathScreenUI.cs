@@ -32,6 +32,11 @@ public class DeathScreenUI : MonoBehaviour
         if (gm != null)
         {
             int loss = Mathf.FloorToInt(gm.PlayerState.Gold * GameConfig.DeathGoldPenalty);
+            if (loss > 0)
+            {
+                gm.PlayerState.Gold -= loss;
+                EventBus.Emit(new GoldChangeEvent { gold = gm.PlayerState.Gold });
+            }
             if (goldLossText != null)
             {
                 goldLossText.text = loss > 0 ? $"<color=#ff6655>\u25c6 <b>-{loss:N0}G</b> lost</color>" : "";
