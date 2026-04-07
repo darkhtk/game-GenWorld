@@ -11,7 +11,7 @@ public static class DodgeVFX
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = source.sprite;
         sr.color = TrailColor;
-        sr.sortingOrder = source.sortingOrder - 1;
+        sr.sortingOrder = source.sortingOrder > 0 ? source.sortingOrder - 1 : 0;
         go.transform.position = position;
         go.transform.localScale = source.transform.localScale;
         Object.Destroy(go, 0.15f);

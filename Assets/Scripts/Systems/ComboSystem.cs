@@ -27,7 +27,7 @@ public class ComboSystem
     {
         _combos.Add(new ComboEntry
         {
-            sequence = new[] { "slash", "thrust" },
+            sequence = new[] { "heavy_strike", "spin_slash" },
             bonusType = "damage_mult", bonusValue = 1.5f,
             name = "Blade Fury"
         });

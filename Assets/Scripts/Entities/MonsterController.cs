@@ -93,8 +93,12 @@ public class MonsterController : MonoBehaviour
         if (Effects.Has("stun")) { _rb.linearVelocity = Vector2.zero; return; }
 
         float distToPlayerSq = (Position - playerPos).sqrMagnitude;
-        float slowFactor = Effects.Has("slow") ? Effects.GetValue("slow") : 1f;
+        bool isSlow = Effects.Has("slow");
+        float slowFactor = isSlow ? Effects.GetValue("slow") : 1f;
         float speed = Def.spd * _spdMult * slowFactor;
+        if (_sr == null) _sr = GetComponent<SpriteRenderer>();
+        if (_sr != null && _flashCoroutine == null)
+            _sr.color = isSlow ? new Color(0.5f, 0.7f, 1f) : Color.white;
 
         // DoT tick (EffectHolder uses ms internally)
         float nowMs = now * 1000f;
@@ -195,6 +199,9 @@ public class MonsterController : MonoBehaviour
                     _spdMult = phase.statMult.spd;
                     _cooldownMult = phase.statMult.cooldown;
                 }
+                SkillVFX.ShowAtPosition(this, "vfx_fireball", Position.x, Position.y);
+                AudioManager.Instance?.PlaySFX("sfx_phase_transition");
+                CameraShake.Shake(this, 500f, 0.012f);
                 break;
             }
         }
@@ -233,6 +240,12 @@ public class MonsterController : MonoBehaviour
         yield return FlashWait;
         _sr.color = Color.white;
         _flashCoroutine = null;
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
+        if (IsDead || _rb == null) return;
+        _rb.linearVelocity = direction.normalized * force;
     }
 
     public bool CanAttack(float now)

@@ -86,6 +86,8 @@ public class MonsterSpawner : MonoBehaviour
             }
             mc.Init(def, pos);
             _monsters.Add(mc);
+            SkillVFX.ShowAtPosition(this, "vfx_hit_impact", pos.x, pos.y);
+            AudioManager.Instance?.PlaySFX("sfx_spawn", 0.05f);
         }
     }
 

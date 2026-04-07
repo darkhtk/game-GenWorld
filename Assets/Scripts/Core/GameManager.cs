@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     {
         Projectile.ClearPool();
         DamageText.ClearPool();
+        SkillVFX.ClearPool();
+        AreaEffect.ClearPool();
         EventBus.Clear();
         SceneManager.sceneLoaded += OnSceneLoadedCleanup;
     }
@@ -206,6 +208,28 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
                 combatManager.ExecuteSkill(i);
         }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            PlayerState.SkillPoints += 1000;
+            uiManager?.Hud?.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+            Debug.Log("[Debug] +1000 SkillPoints");
+        }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            PlayerState.Level = 50;
+            PlayerState.Xp = 0;
+            PlayerState.RecalcStats(Data.Items, Data.SetBonuses);
+            PlayerState.FullHeal();
+            player.SetSpeed(PlayerState.CurrentStats.spd);
+            var hud = uiManager?.Hud;
+            hud?.UpdateLevel(PlayerState.Level, PlayerState.SkillPoints, PlayerState.StatPoints);
+            hud?.UpdateXpBar(0, GameConfig.XpForLevel(50));
+            hud?.UpdateBars(PlayerState.Hp, PlayerState.CurrentStats.maxHp, PlayerState.Mp, PlayerState.CurrentStats.maxMp);
+            Debug.Log("[Debug] Level set to 50");
+        }
+#endif
     }
 
     void RegenHp()

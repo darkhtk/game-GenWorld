@@ -15,7 +15,6 @@ public static class GameConfig
     public const int HpPerLevel = 12, MpPerLevel = 6;
     public const int SkillPointsPerLevel = 2, StatPointsPerLevel = 3;
     public static int XpForLevel(int level) => Mathf.FloorToInt(50 * Mathf.Pow(1.3f, level - 1));
-    public static int EnhanceCost(int level) => 100 + 150 * level;
     public const int EnhanceBonusPerLevel = 2;
     public const float AutoAttackBaseRange = 1.75f, AutoAttackRangePerLevel = 0.06f;
     public const float AutoAttackCooldown = 1000f, AutoAttackDmgPerLevel = 0.05f;

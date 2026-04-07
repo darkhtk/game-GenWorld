@@ -100,7 +100,7 @@ public class PauseMenuUI : MonoBehaviour
             bgmVolumeSlider.value = PlayerPrefs.GetFloat("bgm_volume", 0.5f);
             bgmVolumeSlider.onValueChanged.AddListener(v =>
             {
-                if (AudioManager.Instance != null) AudioManager.Instance.SetBGMVolume(v);
+                SettingsManager.BGMVolume = v;
             });
         }
         if (sfxVolumeSlider != null)
@@ -108,7 +108,7 @@ public class PauseMenuUI : MonoBehaviour
             sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfx_volume", 0.7f);
             sfxVolumeSlider.onValueChanged.AddListener(v =>
             {
-                if (AudioManager.Instance != null) AudioManager.Instance.SetSFXVolume(v);
+                SettingsManager.SFXVolume = v;
             });
         }
         if (fullscreenToggle != null)
