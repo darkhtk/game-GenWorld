@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     float _lastAutoPotionTime;
     float _lastAutoSaveTime;
     string _lastRegionId = "";
+    float _regionTransitionEnd;
     int _lastHudHp = -1, _lastHudMp = -1;
 
     DialogueController _dialogue;
@@ -151,7 +152,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        bool inputBlocked = uiManager != null && uiManager.IsInputBlocked();
+        bool inputBlocked = (uiManager != null && uiManager.IsInputBlocked())
+            || Time.time < _regionTransitionEnd;
 
         if (!inputBlocked)
         {
@@ -234,6 +236,7 @@ public class GameManager : MonoBehaviour
         _lastRegionId = regionId;
         if (string.IsNullOrEmpty(regionId)) return;
 
+        _regionTransitionEnd = Time.time + 0.5f;
         if (Data.Regions.TryGetValue(regionId, out var region))
             monsterSpawner.SpawnForRegion(region, Data.Monsters, worldMap);
     }
