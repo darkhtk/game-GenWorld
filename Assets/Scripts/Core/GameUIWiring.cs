@@ -195,7 +195,11 @@ public class GameUIWiring
         var pm = _uiManager?.PauseMenu;
         if (pm == null) return;
         pm.OnSaveRequested = () => EventBus.Emit(new SaveEvent());
-        pm.OnMainMenuRequested = () => SceneManager.LoadScene("MainMenuScene");
+        pm.OnMainMenuRequested = () =>
+        {
+            _uiManager?.HideAll();
+            SceneManager.LoadScene("MainMenuScene");
+        };
     }
 
     void WireAudio(Action playRegionBGM)
