@@ -73,7 +73,12 @@ public class CombatRewardHandler
             }
         }
 
-        _playerState.Gold += def.gold;
+        var worldEvents = GameManager.Instance?.WorldEvents;
+        float goldMult = worldEvents?.GlobalGoldMultiplier ?? 1f;
+        float dropMult = worldEvents?.GlobalDropMultiplier ?? 1f;
+
+        int actualGold = Mathf.RoundToInt(def.gold * goldMult);
+        _playerState.Gold += actualGold;
         EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
 
         if (_combatManager != null)
@@ -81,11 +86,14 @@ public class CombatRewardHandler
             Vector2 textPos = monster.Position + Vector2.up * 1.2f;
             if (def.xp > 0)
                 _combatManager.ShowFloatingText(textPos, $"+{def.xp} XP", new Color(0.533f, 0.867f, 1f)); // #88ddff
-            if (def.gold > 0)
-                _combatManager.ShowFloatingText(textPos + Vector2.up * 0.4f, $"+{def.gold}G", new Color(1f, 0.851f, 0f)); // #ffd900
+            if (actualGold > 0)
+            {
+                string goldLabel = goldMult > 1f ? $"+{actualGold}G ×{goldMult:0.#}" : $"+{actualGold}G";
+                _combatManager.ShowFloatingText(textPos + Vector2.up * 0.4f, goldLabel, new Color(1f, 0.851f, 0f)); // #ffd900
+            }
         }
 
-        var drops = LootSystem.RollDrops(def.drops);
+        var drops = LootSystem.RollDrops(def.drops, null, dropMult);
         if (drops.Count > 0)
             AudioManager.Instance?.PlaySFX("sfx_item_acquire");
         float itemOffset = 0.8f;
