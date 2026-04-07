@@ -17,6 +17,9 @@
 | 3   | S-103 NPC open_shop/crafting/enhance 액션 미구현 | Critical | DONE   | 1b04235 |
 | 4   | S-101 게임 개발을 위한 프로젝트 브리프 작성        | high     | BACKLOG   |       |
 | 5   | S-102 게임 MVP 범위 정의                 | high     | DONE      |       |
+| 6   | S-109 ScreenFlash 플레이어 피격 시 미호출     | Critical | DONE      | 914a4ad |
+| 7   | S-110 ShopUI 판매 기능 미구현              | Critical | DONE      | 914a4ad |
+| 8   | S-111 XP바 레벨업 시에만 갱신               | P2       | DONE      | b631604 |
 
 ---
 
