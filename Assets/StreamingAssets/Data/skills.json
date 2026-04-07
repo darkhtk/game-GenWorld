@@ -654,6 +654,9 @@
               "type": "apply_effect",
               "effect": "stun",
               "duration": 300
+            },
+            {
+              "type": "visual"
             }
           ]
         },
