@@ -57,12 +57,14 @@ public class CombatRewardHandler
         _playerState.SkillPoints = state.skillPoints;
         _playerState.StatPoints = state.statPoints;
 
+        var hud = _uiManager != null ? _uiManager.Hud : null;
+        hud?.UpdateXpBar(_playerState.Xp, GameConfig.XpForLevel(_playerState.Level));
+
         if (_playerState.Level > prevLevel)
         {
             _playerState.RecalcStats(_data.Items, _data.SetBonuses);
             _playerState.FullHeal();
             _player.SetSpeed(_playerState.CurrentStats.spd);
-            var hud = _uiManager != null ? _uiManager.Hud : null;
             if (hud != null)
             {
                 hud.UpdateLevel(_playerState.Level, _playerState.SkillPoints, _playerState.StatPoints);
