@@ -40,6 +40,7 @@ public class GameUIWiring
         WireInventoryCallbacks();
         WireSkillTreeCallbacks();
         WireDialogueCallbacks();
+        WireNpcQuestCallbacks();
         WirePauseMenuCallbacks();
         WireAudio(playRegionBGM);
         SubscribeEvents(host, regionTracker, getLastAutoSaveTime, setLastAutoSaveTime, playRegionBGM);
@@ -186,6 +187,55 @@ public class GameUIWiring
             }
             _uiManager.Hud?.AddHistoryEntry(
                 $"Quest complete! +{reward.gold}G +{reward.xp}XP", new Color(1f, 0.867f, 0.267f)); // #ffdd44
+            AudioManager.Instance?.PlaySFX("sfx_quest_complete");
+        };
+    }
+
+    void WireNpcQuestCallbacks()
+    {
+        var nq = _uiManager?.NpcQuest;
+        if (nq == null) return;
+
+        nq.OnAcceptQuest = questId =>
+        {
+            _quests.AcceptQuest(questId);
+            _uiManager.Hud?.AddHistoryEntry($"Quest accepted: {questId}", new Color(0.533f, 0.867f, 1f));
+            nq.Hide();
+        };
+
+        nq.OnCompleteQuest = questId =>
+        {
+            var reward = _quests.CompleteQuest(questId, _inventory);
+            nq.Hide();
+            if (reward == null) return;
+            if (reward.gold > 0)
+            {
+                _playerState.Gold += reward.gold;
+                EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
+            }
+            if (reward.xp > 0)
+            {
+                var state = new PlayerLevelState
+                {
+                    level = _playerState.Level, xp = _playerState.Xp,
+                    skillPoints = _playerState.SkillPoints, statPoints = _playerState.StatPoints
+                };
+                StatsSystem.AddXp(ref state, reward.xp);
+                _playerState.Level = state.level; _playerState.Xp = state.xp;
+                _playerState.SkillPoints = state.skillPoints; _playerState.StatPoints = state.statPoints;
+                _playerState.RecalcStats(_data.Items, _data.SetBonuses);
+                _player.SetSpeed(_playerState.CurrentStats.spd);
+            }
+            if (reward.items != null)
+            {
+                foreach (var ri in reward.items)
+                {
+                    bool stackable = _data.Items.TryGetValue(ri.itemId, out var def) && def.stackable;
+                    _inventory.AddItem(ri.itemId, ri.count, stackable, def?.maxStack ?? 1);
+                }
+            }
+            _uiManager.Hud?.AddHistoryEntry(
+                $"Quest complete! +{reward.gold}G +{reward.xp}XP", new Color(1f, 0.867f, 0.267f));
             AudioManager.Instance?.PlaySFX("sfx_quest_complete");
         };
     }
