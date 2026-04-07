@@ -259,9 +259,47 @@ public class DialogueController
                 _uiManager.Hud?.AddHistoryEntry($"Stats reset! (+{totalBonus} points)", new Color(0.533f, 0.867f, 1f)); // #88ddff
                 break;
             case "open_shop":
+            {
+                var shop = _uiManager?.Shop;
+                if (shop == null) break;
+                shop.Open(_inventory, _data.Items,
+                    () => _playerState.Gold,
+                    spent =>
+                    {
+                        _playerState.Gold -= spent;
+                        EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
+                    });
                 break;
+            }
             case "open_crafting":
+            {
+                var craftingUI = _uiManager?.Crafting;
+                var craftingSystem = GameManager.Instance?.Crafting;
+                if (craftingUI == null || craftingSystem == null) break;
+                craftingUI.Open(craftingSystem, _inventory, _data.Items, resultId =>
+                {
+                    craftingSystem.Craft(resultId, _inventory);
+                });
                 break;
+            }
+            case "open_enhance":
+            {
+                var enhance = _uiManager?.Enhance;
+                if (enhance == null) break;
+                enhance.Open(_playerState.Equipment, _data.Items,
+                    () => _playerState.Gold,
+                    spent =>
+                    {
+                        _playerState.Gold -= spent;
+                        EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
+                    },
+                    _ =>
+                    {
+                        _playerState.RecalcStats(_data.Items, _data.SetBonuses);
+                        EventBus.Emit(new EquipChangeEvent());
+                    });
+                break;
+            }
         }
     }
 
