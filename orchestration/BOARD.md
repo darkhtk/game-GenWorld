@@ -14,8 +14,9 @@
 | --- | ---------------------------------- | -------- | --------- | ----- |
 | 1   | S-087 RegionManager 씬 전환 중 입력 차단   | P2       | DONE      | acedd9a |
 | 2   | S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | P2       | DONE      | f7173de |
-| 3   | S-101 게임 개발을 위한 프로젝트 브리프 작성        | high     | BACKLOG   |       |
-| 4   | S-102 게임 MVP 범위 정의                 | high     | DONE      |       |
+| 3   | S-103 NPC open_shop/crafting/enhance 액션 미구현 | Critical | DONE   | 1b04235 |
+| 4   | S-101 게임 개발을 위한 프로젝트 브리프 작성        | high     | BACKLOG   |       |
+| 5   | S-102 게임 MVP 범위 정의                 | high     | DONE      |       |
 
 ---
 
