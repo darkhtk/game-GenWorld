@@ -22,6 +22,7 @@ public static class GameConfig
     public const float AutoAttackArcHalf = Mathf.PI / 3f;
     public const float DefaultDetectRange = 5f, ChaseRangeMult = 2.5f, MaxSpawnDistance = 25f;
     public const float DropTimeout = 300000f, DeathGoldPenalty = 0.1f;
+    public const float ProjectileSpeedScale = 0.35f; // 전역 발사체 속도 배율 — 여기서 조정
     public static readonly string[] EquipSlots = { "weapon", "helmet", "armor", "boots", "accessory" };
     public const int SkillSlotCount = 6, SkillMaxLevel = 5;
     public const float HpRegenPerSecond = 2f;

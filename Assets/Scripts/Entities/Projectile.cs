@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
     {
         _from = from;
         _to = to;
-        _speed = speed;
+        _speed = speed * GameConfig.ProjectileSpeedScale;
         _piercing = piercing;
         _arrived = false;
         _spawnTime = Time.time;

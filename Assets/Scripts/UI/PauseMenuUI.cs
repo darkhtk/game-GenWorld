@@ -26,6 +26,7 @@ public class PauseMenuUI : MonoBehaviour
     public Action OnSaveRequested;
     public Action OnMainMenuRequested;
 
+    public bool IsOpen => panel != null && panel.activeSelf;
     float _previousTimeScale;
 
     void Awake()

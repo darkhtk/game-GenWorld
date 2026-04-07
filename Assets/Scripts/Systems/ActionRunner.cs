@@ -211,7 +211,7 @@ public class ActionRunner
     void HandleSpawnProjectile(SkillAction a, ActionContext ctx, float hx, float hy,
         List<MonsterController> targets)
     {
-        float speed = a.speed > 0 ? a.speed : 200f;
+        float speed = a.speed > 0 ? a.speed : 10f;
         float range = a.range > 0 ? a.range : ctx.range;
         bool piercing = a.piercing;
         float ratio = a.ratio > 0 ? a.ratio : 1f;

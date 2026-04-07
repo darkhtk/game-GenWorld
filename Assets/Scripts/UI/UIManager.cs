@@ -81,7 +81,8 @@ public class UIManager : MonoBehaviour
             || (crafting != null && crafting.IsOpen)
             || (enhance != null && enhance.IsOpen)
             || (skillTree != null && skillTree.IsOpen)
-            || (quest != null && quest.IsOpen);
+            || (quest != null && quest.IsOpen)
+            || (pauseMenu != null && pauseMenu.IsOpen);
     }
 
     public bool IsInputBlocked() => _dialogueOpen || IsAnyPanelOpen();
