@@ -296,15 +296,16 @@ public class InventoryUI : MonoBehaviour
         if (tooltipName != null)
         {
             string gradeHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(def.GradeEnum));
-            tooltipName.text = $"<b><color={gradeHex}>{def.name}</color></b>";
+            string gradeLabel = $"<size=80%><color={gradeHex}>[{def.grade?.ToUpper()}]</color></size>";
+            tooltipName.text = $"<b><color={gradeHex}>{def.name}</color></b>  {gradeLabel}";
             tooltipName.color = Color.white;
             tooltipName.fontStyle = TMPro.FontStyles.Normal;
         }
         if (tooltipDesc != null)
         {
-            tooltipDesc.text = $"<color=#bbbbbb>{def.description ?? ""}</color>";
+            tooltipDesc.text = $"<color=#aaaaaa><i>{def.description ?? ""}</i></color>";
             tooltipDesc.color = Color.white;
-            tooltipDesc.fontStyle = TMPro.FontStyles.Italic;
+            tooltipDesc.fontStyle = TMPro.FontStyles.Normal;
         }
 
         if (tooltipStats != null)
@@ -313,25 +314,27 @@ public class InventoryUI : MonoBehaviour
             var lines = new List<string>();
             var s = def.stats;
             int enh = inst.enhanceLevel * GameConfig.EnhanceBonusPerLevel;
-            if (s.atk > 0) lines.Add($"<color=#885522>ATK</color> <color=#ff9944><b>+{s.atk + enh}</b></color>");
-            if (s.def > 0) lines.Add($"<color=#224488>DEF</color> <color=#55aaff><b>+{s.def + enh}</b></color>");
-            if (s.maxHp > 0) lines.Add($"<color=#882222>HP</color> <color=#ff6655><b>+{s.maxHp + enh}</b></color>");
-            if (s.maxMp > 0) lines.Add($"<color=#333388>MP</color> <color=#6688ff><b>+{s.maxMp + enh}</b></color>");
-            if (s.spd > 0) lines.Add($"<color=#226644>SPD</color> <color=#55ee88><b>+{s.spd}</b></color>");
-            if (s.crit > 0) lines.Add($"<color=#886600>CRIT</color> <color=#ffdd44><b>+{s.crit}%</b></color>");
+            if (s.atk > 0)   lines.Add(StatTooltipLine("⚔", "ATK", $"+{s.atk + enh}", StatValueColor("atk")));
+            if (s.def > 0)   lines.Add(StatTooltipLine("🛡", "DEF", $"+{s.def + enh}", StatValueColor("def")));
+            if (s.maxHp > 0) lines.Add(StatTooltipLine("♥", "HP",  $"+{s.maxHp + enh}", StatValueColor("hp")));
+            if (s.maxMp > 0) lines.Add(StatTooltipLine("◈", "MP",  $"+{s.maxMp + enh}", StatValueColor("mp")));
+            if (s.spd > 0)   lines.Add(StatTooltipLine("⚡", "SPD", $"+{s.spd}",         StatValueColor("spd")));
+            if (s.crit > 0)  lines.Add(StatTooltipLine("✦", "CRIT",$"+{s.crit}%",        StatValueColor("crit")));
             if (inst.enhanceLevel > 0)
             {
-                string ec = inst.enhanceLevel >= 10 ? "#ff9944" : inst.enhanceLevel >= 7 ? "#6688ff" : inst.enhanceLevel >= 4 ? "#66ff88" : "#aaaaaa";
-                lines.Add($"<color=#888888>Enh</color> <color={ec}><b>+{inst.enhanceLevel}</b></color>");
+                string ec = inst.enhanceLevel >= 10 ? "#ff8833" : inst.enhanceLevel >= 7 ? "#6688ff" : inst.enhanceLevel >= 4 ? "#44ee88" : "#aaaaaa";
+                lines.Add(StatTooltipLine("▲", "강화", $"+{inst.enhanceLevel}", ec));
             }
-            if (def.healHp > 0) lines.Add($"<color=#884444>HealHP</color> <color=#66ff88><b>{def.healHp}</b></color>");
-            if (def.healMp > 0) lines.Add($"<color=#444488>HealMP</color> <color=#88aaff><b>{def.healMp}</b></color>");
+            if (def.healHp > 0) lines.Add(StatTooltipLine("♥", "회복 HP", $"{def.healHp}", StatValueColor("hp")));
+            if (def.healMp > 0) lines.Add(StatTooltipLine("◈", "회복 MP", $"{def.healMp}", StatValueColor("mp")));
+            if (def.sellPrice > 0)
+                lines.Add($"\n<color=#555555>─────────────</color>\n<color=#888888>판매가</color>  <color=#ffd900><b>{def.sellPrice:N0}G</b></color>");
             tooltipStats.text = string.Join("\n", lines);
         }
 
         var rt = tooltipPanel.GetComponent<RectTransform>();
         Vector2 pos = Input.mousePosition;
-        float pad = 10f * (Screen.height / 1080f);
+        float pad = 12f;
         float x = pos.x + pad;
         float y = pos.y - pad;
         if (rt != null)
@@ -341,6 +344,30 @@ public class InventoryUI : MonoBehaviour
         }
         tooltipPanel.transform.position = new Vector3(x, y, 0);
     }
+
+    // ── 통합 색상 팔레트 ────────────────────────────────────────────
+    static string StatValueColor(string stat) => stat switch
+    {
+        "atk"  => "#ff7733",
+        "def"  => "#55aaff",
+        "hp"   => "#ff4455",
+        "mp"   => "#7788ff",
+        "spd"  => "#44ee88",
+        "crit" => "#ffdd44",
+        _      => "#ffffff"
+    };
+
+    static string StatLabelColor(string stat) => stat switch
+    {
+        "str"  => "#ff8844",
+        "dex"  => "#44ddff",
+        "wis"  => "#aa88ff",
+        "luc"  => "#ffee44",
+        _      => "#aaaaaa"
+    };
+
+    static string StatTooltipLine(string icon, string label, string value, string valueHex)
+        => $"<color=#777777>{icon} {label}</color>  <color={valueHex}><b><size=110%>{value}</size></b></color>";
 
     void HideTooltip()
     {
@@ -400,32 +427,35 @@ public class InventoryUI : MonoBehaviour
 
     static string FormatStats(ItemStats s)
     {
-        var lines = new System.Text.StringBuilder();
-        if (s.atk > 0) lines.AppendLine($"<color=#885522>ATK</color> <color=#ff9944><b>{s.atk}</b></color>");
-        if (s.def > 0) lines.AppendLine($"<color=#224488>DEF</color> <color=#55aaff><b>{s.def}</b></color>");
-        if (s.maxHp > 0) lines.AppendLine($"<color=#882222>HP</color> <color=#ff6655><b>{s.maxHp}</b></color>");
-        if (s.maxMp > 0) lines.AppendLine($"<color=#333388>MP</color> <color=#6688ff><b>{s.maxMp}</b></color>");
-        if (s.spd > 0) lines.AppendLine($"<color=#226644>SPD</color> <color=#55ee88><b>{s.spd}</b></color>");
-        if (s.crit > 0) lines.AppendLine($"<color=#886600>CRIT</color> <color=#ffdd44><b>{s.crit}%</b></color>");
-        return lines.ToString().TrimEnd();
+        var sb = new System.Text.StringBuilder();
+        if (s.atk > 0)   sb.AppendLine(StatTooltipLine("⚔", "ATK",  $"{s.atk}",   StatValueColor("atk")));
+        if (s.def > 0)   sb.AppendLine(StatTooltipLine("🛡", "DEF",  $"{s.def}",   StatValueColor("def")));
+        if (s.maxHp > 0) sb.AppendLine(StatTooltipLine("♥", "HP",   $"{s.maxHp}", StatValueColor("hp")));
+        if (s.maxMp > 0) sb.AppendLine(StatTooltipLine("◈", "MP",   $"{s.maxMp}", StatValueColor("mp")));
+        if (s.spd > 0)   sb.AppendLine(StatTooltipLine("⚡", "SPD",  $"{s.spd}",   StatValueColor("spd")));
+        if (s.crit > 0)  sb.AppendLine(StatTooltipLine("✦", "CRIT", $"{s.crit}%", StatValueColor("crit")));
+        return sb.ToString().TrimEnd();
     }
 
     static string FormatDiff(ItemStats newS, ItemStats curS)
     {
-        var lines = new System.Text.StringBuilder();
-        AppendDiff(lines, "ATK", newS.atk - curS.atk);
-        AppendDiff(lines, "DEF", newS.def - curS.def);
-        AppendDiff(lines, "HP", newS.maxHp - curS.maxHp);
-        AppendDiff(lines, "MP", newS.maxMp - curS.maxMp);
-        AppendDiff(lines, "SPD", newS.spd - curS.spd);
-        AppendDiff(lines, "CRIT", newS.crit - curS.crit);
-        return lines.ToString().TrimEnd();
+        var sb = new System.Text.StringBuilder();
+        AppendDiff(sb, "ATK",  newS.atk  - curS.atk);
+        AppendDiff(sb, "DEF",  newS.def  - curS.def);
+        AppendDiff(sb, "HP",   newS.maxHp - curS.maxHp);
+        AppendDiff(sb, "MP",   newS.maxMp - curS.maxMp);
+        AppendDiff(sb, "SPD",  newS.spd  - curS.spd);
+        AppendDiff(sb, "CRIT", newS.crit - curS.crit);
+        return sb.ToString().TrimEnd();
     }
 
     static void AppendDiff(System.Text.StringBuilder sb, string label, int diff)
     {
-        if (diff > 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#66ff88><b>+{diff} \u25b2</b></color>");
-        else if (diff < 0) sb.AppendLine($"<color=#888888>{label}</color> <color=#ff6655><b>{diff} \u25bc</b></color>");
+        if (diff == 0) return;
+        string arrow = diff > 0 ? "▲" : "▼";
+        string col   = diff > 0 ? "#44ee88" : "#ff4455";
+        string sign  = diff > 0 ? "+" : "";
+        sb.AppendLine($"<color=#777777>{label}</color>  <color={col}><b>{sign}{diff} {arrow}</b></color>");
     }
 
     void SetFilter(int idx)
@@ -490,14 +520,28 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshStats(Stats stats)
     {
-        if (atkText != null) { atkText.color = Color.white; atkText.text = $"<color=#885522>ATK</color> <color=#ff9944><b>{stats.atk}</b></color>"; }
-        if (defText != null) { defText.color = Color.white; defText.text = $"<color=#224488>DEF</color> <color=#55aaff><b>{stats.def}</b></color>"; }
-        if (spdText != null) { spdText.color = Color.white; spdText.text = $"<color=#226644>SPD</color> <color=#55ee88><b>{stats.spd}</b></color>"; }
-        if (critText != null) { critText.color = Color.white; critText.text = $"<color=#886600>CRIT</color> <color=#ffdd44><b>{stats.crit}%</b></color>"; }
-        if (hpStatText != null) { hpStatText.color = Color.white; hpStatText.text = $"<color=#882222>HP</color> <color=#ff6655><b>{stats.hp}</b></color><color=#888888>/{stats.maxHp}</color>"; }
-        if (mpStatText != null) { mpStatText.color = Color.white; mpStatText.text = $"<color=#333388>MP</color> <color=#6688ff><b>{stats.mp}</b></color><color=#888888>/{stats.maxMp}</color>"; }
-
+        SetStatText(atkText,  "⚔", "ATK",  $"{stats.atk}",                 "atk");
+        SetStatText(defText,  "🛡", "DEF",  $"{stats.def}",                 "def");
+        SetStatText(spdText,  "⚡", "SPD",  $"{stats.spd}",                 "spd");
+        SetStatText(critText, "✦", "CRIT", $"{stats.crit}%",               "crit");
+        if (hpStatText != null)
+        {
+            hpStatText.color = Color.white;
+            hpStatText.text = $"<color=#aaaaaa>♥ HP</color>  <color={StatValueColor("hp")}><b><size=115%>{stats.hp}</size></b></color><color=#555555>/{stats.maxHp}</color>";
+        }
+        if (mpStatText != null)
+        {
+            mpStatText.color = Color.white;
+            mpStatText.text = $"<color=#aaaaaa>◈ MP</color>  <color={StatValueColor("mp")}><b><size=115%>{stats.mp}</size></b></color><color=#555555>/{stats.maxMp}</color>";
+        }
         RefreshStatAllocation();
+    }
+
+    static void SetStatText(TextMeshProUGUI tmp, string icon, string label, string value, string statKey)
+    {
+        if (tmp == null) return;
+        tmp.color = Color.white;
+        tmp.text = $"<color=#aaaaaa>{icon} {label}</color>  <color={StatValueColor(statKey)}><b><size=115%>{value}</size></b></color>";
     }
 
     void RefreshStatAllocation()
@@ -512,7 +556,9 @@ public class InventoryUI : MonoBehaviour
         if (statPointsText != null)
         {
             statPointsText.color = Color.white;
-            statPointsText.text = hasPoints ? $"<color=#ffdd44>SP: <b>{points}</b></color>" : "";
+            statPointsText.text = hasPoints
+                ? $"<color=#ffee44>✦ 스탯 포인트  <b><size=120%>{points}</size></b></color>"
+                : "<color=#555555>스탯 포인트 없음</color>";
         }
 
         int strVal = bonus != null && bonus.TryGetValue("str", out int s) ? s : 0;
@@ -520,10 +566,33 @@ public class InventoryUI : MonoBehaviour
         int wisVal = bonus != null && bonus.TryGetValue("wis", out int w) ? w : 0;
         int lucVal = bonus != null && bonus.TryGetValue("luc", out int l) ? l : 0;
 
-        if (strText != null) { strText.color = Color.white; strText.text = $"<color=#ff9944>STR <b>{strVal}</b></color>  <color=#888888>ATK+{strVal * GameConfig.StrAtkBonus:F0} HP+{strVal * GameConfig.StrHpBonus:F0}</color>"; }
-        if (dexText != null) { dexText.color = Color.white; dexText.text = $"<color=#88ddff>DEX <b>{dexVal}</b></color>  <color=#888888>SPD+{dexVal * GameConfig.DexSpdBonus:F0} DEF+{dexVal * GameConfig.DexDefBonus:F0}</color>"; }
-        if (wisText != null) { wisText.color = Color.white; wisText.text = $"<color=#88aaff>WIS <b>{wisVal}</b></color>  <color=#888888>MP+{wisVal * GameConfig.WisMpBonus:F0}</color>"; }
-        if (lucText != null) { lucText.color = Color.white; lucText.text = $"<color=#ffdd44>LUC <b>{lucVal}</b></color>  <color=#888888>CRIT+{lucVal * GameConfig.LucCritBonus:F0}</color>"; }
+        string sc = StatLabelColor("str"), dc = StatLabelColor("dex"),
+               wc = StatLabelColor("wis"), lc = StatLabelColor("luc");
+
+        if (strText != null)
+        {
+            strText.color = Color.white;
+            strText.text = $"<color={sc}><b>STR  <size=115%>{strVal}</size></b></color>"
+                         + $"  <color=#666666>ATK+{strVal * GameConfig.StrAtkBonus:F0}  HP+{strVal * GameConfig.StrHpBonus:F0}</color>";
+        }
+        if (dexText != null)
+        {
+            dexText.color = Color.white;
+            dexText.text = $"<color={dc}><b>DEX  <size=115%>{dexVal}</size></b></color>"
+                         + $"  <color=#666666>SPD+{dexVal * GameConfig.DexSpdBonus:F0}  DEF+{dexVal * GameConfig.DexDefBonus:F0}</color>";
+        }
+        if (wisText != null)
+        {
+            wisText.color = Color.white;
+            wisText.text = $"<color={wc}><b>WIS  <size=115%>{wisVal}</size></b></color>"
+                         + $"  <color=#666666>MP+{wisVal * GameConfig.WisMpBonus:F0}</color>";
+        }
+        if (lucText != null)
+        {
+            lucText.color = Color.white;
+            lucText.text = $"<color={lc}><b>LUC  <size=115%>{lucVal}</size></b></color>"
+                         + $"  <color=#666666>CRIT+{lucVal * GameConfig.LucCritBonus:F0}%</color>";
+        }
 
         if (strAddButton != null) strAddButton.gameObject.SetActive(hasPoints);
         if (dexAddButton != null) dexAddButton.gameObject.SetActive(hasPoints);
