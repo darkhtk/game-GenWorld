@@ -17,6 +17,12 @@ public class ShopUI : MonoBehaviour
     [Header("Status")]
     [SerializeField] TextMeshProUGUI statusText;
 
+    [Header("Tabs")]
+    [SerializeField] Button buyTabButton;
+    [SerializeField] Button sellTabButton;
+    [SerializeField] TextMeshProUGUI buyTabText;
+    [SerializeField] TextMeshProUGUI sellTabText;
+
     [Header("Item List")]
     [SerializeField] ScrollRect scrollRect;
     [SerializeField] Transform itemListContent;
@@ -24,6 +30,8 @@ public class ShopUI : MonoBehaviour
 
     static readonly Color AffordableColor = new(0.4f, 1f, 0.533f);
     static readonly Color UnaffordableColor = new(0.267f, 0.267f, 0.267f);
+    static readonly Color ActiveTabColor = new(1f, 0.867f, 0f);
+    static readonly Color InactiveTabColor = new(0.533f, 0.533f, 0.533f);
 
     readonly List<GameObject> _itemEntries = new();
     readonly List<GameObject> _pool = new();
@@ -32,11 +40,14 @@ public class ShopUI : MonoBehaviour
     Dictionary<string, ItemDef> _itemDefs;
     Func<int> _getGold;
     Action<int> _spendGold;
+    bool _sellMode;
 
     void Awake()
     {
         if (panel != null) panel.SetActive(false);
         if (closeButton != null) closeButton.onClick.AddListener(Close);
+        if (buyTabButton != null) buyTabButton.onClick.AddListener(() => SetSellMode(false));
+        if (sellTabButton != null) sellTabButton.onClick.AddListener(() => SetSellMode(true));
     }
 
     public bool IsOpen => panel != null && panel.activeSelf;
@@ -49,10 +60,11 @@ public class ShopUI : MonoBehaviour
         _itemDefs = itemDefs;
         _getGold = getGold;
         _spendGold = spendGold;
+        _sellMode = false;
         if (panel != null) panel.SetActive(true);
-        if (titleText != null) { titleText.color = Color.white; titleText.text = "<b><color=#ffd900>Shop</color></b>"; }
         AudioManager.Instance?.PlaySFX("sfx_menu_open");
         if (_inventory == null || _itemDefs == null) return;
+        UpdateTabVisuals();
         Refresh();
     }
 
@@ -69,6 +81,30 @@ public class ShopUI : MonoBehaviour
         else Open(inventory, itemDefs, getGold, spendGold);
     }
 
+    void SetSellMode(bool sell)
+    {
+        if (_sellMode == sell) return;
+        _sellMode = sell;
+        UpdateTabVisuals();
+        Refresh();
+    }
+
+    void UpdateTabVisuals()
+    {
+        if (titleText != null)
+        {
+            titleText.color = Color.white;
+            titleText.text = _sellMode
+                ? "<b><color=#ff9944>Sell Items</color></b>"
+                : "<b><color=#ffd900>Shop</color></b>";
+        }
+
+        if (buyTabText != null)
+            buyTabText.color = _sellMode ? InactiveTabColor : ActiveTabColor;
+        if (sellTabText != null)
+            sellTabText.color = _sellMode ? ActiveTabColor : InactiveTabColor;
+    }
+
     public void Refresh()
     {
         ClearEntries();
@@ -77,15 +113,37 @@ public class ShopUI : MonoBehaviour
         int gold = _getGold();
         if (goldText != null) { goldText.color = Color.white; goldText.text = $"<color=#ffd900>\u25c6 <b>{gold:N0}</b>G</color>"; }
 
+        if (_sellMode)
+            RefreshSell(gold);
+        else
+            RefreshBuy(gold);
+    }
+
+    void RefreshBuy(int gold)
+    {
         foreach (var kv in _itemDefs)
         {
             var def = kv.Value;
             if (def.shopPrice <= 0) continue;
-            AddShopEntry(def, gold);
+            AddBuyEntry(def, gold);
         }
     }
 
-    void AddShopEntry(ItemDef def, int gold)
+    void RefreshSell(int gold)
+    {
+        if (_inventory == null) return;
+        int slotCount = _inventory.MaxSlots;
+        for (int i = 0; i < slotCount; i++)
+        {
+            var slot = _inventory.GetSlot(i);
+            if (slot == null) continue;
+            if (!_itemDefs.TryGetValue(slot.itemId, out var def)) continue;
+            int sellPrice = Mathf.Max(1, def.shopPrice / 2);
+            AddSellEntry(def, slot.count, i, sellPrice);
+        }
+    }
+
+    void AddBuyEntry(ItemDef def, int gold)
     {
         if (itemListContent == null || shopItemPrefab == null) return;
 
@@ -125,6 +183,39 @@ public class ShopUI : MonoBehaviour
         _itemEntries.Add(go);
     }
 
+    void AddSellEntry(ItemDef def, int count, int slotIdx, int sellPrice)
+    {
+        if (itemListContent == null || shopItemPrefab == null) return;
+
+        var go = GetOrCreateEntry();
+        go.SetActive(true);
+
+        var texts = go.GetComponentsInChildren<TextMeshProUGUI>(true);
+        string nameHex = "#" + ColorUtility.ToHtmlStringRGB(GameConfig.GetGradeColor(def.GradeEnum));
+
+        if (texts.Length > 0)
+        {
+            string countStr = count > 1 ? $" <color=#aaaaaa>x{count}</color>" : "";
+            texts[0].text = $"<color=#ff9944>\u25b8</color> <b><color={nameHex}>{def.name}</color></b>{countStr}";
+            texts[0].color = Color.white;
+        }
+
+        if (texts.Length > 1)
+        {
+            texts[1].text = $"<color=#ffd900>\u25c6 <b>{sellPrice:N0}</b>G</color> <color=#888888>(sell)</color>";
+            texts[1].color = Color.white;
+        }
+
+        var btn = go.GetComponent<Button>();
+        if (btn == null) btn = go.AddComponent<Button>();
+        btn.onClick.RemoveAllListeners();
+        btn.interactable = true;
+        string itemId = def.id;
+        btn.onClick.AddListener(() => SellItem(itemId, slotIdx, sellPrice));
+
+        _itemEntries.Add(go);
+    }
+
     void BuyItem(string itemId, int price, bool stackable, int maxStack)
     {
         if (_getGold == null || _spendGold == null || _inventory == null) return;
@@ -149,6 +240,24 @@ public class ShopUI : MonoBehaviour
             ShowStatus("<color=#ff9944>Inventory full!</color>");
             AudioManager.Instance?.PlaySFX("sfx_error");
         }
+    }
+
+    void SellItem(string itemId, int slotIdx, int sellPrice)
+    {
+        if (_inventory == null || _spendGold == null) return;
+
+        var removed = _inventory.RemoveAtSlot(slotIdx);
+        if (removed == null)
+        {
+            ShowStatus("<color=#ff6655>Could not sell item!</color>");
+            AudioManager.Instance?.PlaySFX("sfx_error");
+            return;
+        }
+
+        _spendGold(-sellPrice); // negative = receive gold
+        AudioManager.Instance?.PlaySFX("sfx_coin");
+        ShowStatus($"<color=#66ff88>Sold for <color=#ffd900>{sellPrice:N0}G</color>!</color>");
+        Refresh();
     }
 
     void ShowStatus(string text)

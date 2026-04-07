@@ -198,6 +198,7 @@ public class CombatManager : MonoBehaviour
         else
         {
             PlayerState.Hp -= dmg;
+            ScreenFlash.Damage();
             ShowDamageNumber(_player.Position + Vector2.up * 0.5f, dmg, false,
                 new Color(1f, 0.4f, 0.333f));
         }
