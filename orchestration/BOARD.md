@@ -1,6 +1,6 @@
 # Orchestration Board
 
-> **Last Updated:** 2026-04-06
+> **Last Updated:** 2026-04-07
 > **Project:** GENWorld
 > **Current Phase:** Stabilize
 
@@ -12,8 +12,8 @@
 
 | #   | Task                               | Priority | Status    | Notes |
 | --- | ---------------------------------- | -------- | --------- | ----- |
-| 1   | S-087 RegionManager 씬 전환 중 입력 차단   | P2       | IN_REVIEW |       |
-| 2   | S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | P2       | BACKLOG   |       |
+| 1   | S-087 RegionManager 씬 전환 중 입력 차단   | P2       | DONE      | acedd9a |
+| 2   | S-091 UIManager 씬 전환 시 열린 패널 일괄 닫기 | P2       | DONE      | f7173de |
 | 3   | S-101 게임 개발을 위한 프로젝트 브리프 작성        | high     | BACKLOG   |       |
 | 4   | S-102 게임 MVP 범위 정의                 | high     | DONE      |       |
 
@@ -41,7 +41,7 @@
 | S-096 MonsterController 공격 범위 외 데미지 차단 |           | PENDING | ⏳       |
 | S-097 SaveSystem 슬롯 삭제 확인 팝업           |           | PENDING | P3      |
 | S-098 AchievementUI 알림 큐 중복 방지         |           | PENDING | P3      |
-| S-087 RegionManager 씬 전환 중 입력 차단       |           | PENDING | PENDING |
+| S-087 RegionManager 씬 전환 중 입력 차단       | 2026-04-07 | APPROVE | acedd9a — 0.5s timer |
 
 ## Done
 
