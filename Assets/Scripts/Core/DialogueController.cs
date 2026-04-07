@@ -116,6 +116,19 @@ public class DialogueController
         dlg.Show(nearest.Def, conditional);
         EventBus.Emit(new DialogueStartEvent { npcId = nearest.Def.id });
 
+        var brain = nearest.Brain;
+        if (brain != null)
+        {
+            var memories = brain.GetTopMemories(5)
+                .ConvertAll(m => m.eventText);
+            _uiManager.NpcProfile?.Show(
+                nearest.Def.name,
+                nearest.Def.color,
+                brain.GetRelationship("player"),
+                brain.CurrentMood.ToString(),
+                memories);
+        }
+
         if (nearest.Def.actions != null && nearest.Def.actions.Length > 0)
             dlg.SetActionButtons(nearest.Def.actions, _data.ActionDefs);
 
@@ -132,6 +145,7 @@ public class DialogueController
 
         dlg.OnClose = () =>
         {
+            _uiManager.NpcProfile?.Hide();
             _uiManager.SetDialogueOpen(false);
             _player.Frozen = false;
             capturedNpc.ResumeMoving();
