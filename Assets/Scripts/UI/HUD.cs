@@ -86,7 +86,7 @@ public class HUD : MonoBehaviour
     const int MaxEffectIcons = 8;
     const int MaxTrackedQuests = 3;
     readonly List<TextMeshProUGUI> _questTrackerEntries = new();
-    bool _questTrackerVisible = true;
+    bool _questTrackerVisible;
     static readonly WaitForSeconds RegionAnnounceHold = new(2f);
     readonly System.Text.StringBuilder _questSb = new();
     const float BarLerpSpeed = 8f;
@@ -97,7 +97,7 @@ public class HUD : MonoBehaviour
     readonly List<Image> _effectFillImages = new();
     readonly List<Image> _effectIconImages = new();
     Dictionary<string, Sprite> _statusIconMap;
-    bool _historyVisible = true;
+    bool _historyVisible;
     PlayerController _cachedPlayer;
     int _hoveredSkillSlot = -1;
     int _potionThrottle;
@@ -106,6 +106,8 @@ public class HUD : MonoBehaviour
     void Awake()
     {
         if (bossBarRoot != null) bossBarRoot.SetActive(false);
+        if (historyRoot != null) historyRoot.SetActive(_historyVisible);
+        if (questTrackerRoot != null) questTrackerRoot.SetActive(_questTrackerVisible);
         if (saveIndicator != null) saveIndicator.alpha = 0f;
         if (historyToggleButton != null)
             historyToggleButton.onClick.AddListener(ToggleHistory);

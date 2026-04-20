@@ -79,6 +79,12 @@ public class MinimapUI : MonoBehaviour
         UpdateEntityIcons();
     }
 
+    public void ToggleViewRadius()
+    {
+        _viewRadius = _viewRadius > 45f ? 30f : 60f;
+        UpdateMapView();
+    }
+
     void UpdateMapView()
     {
         if (mapImage == null || _mapTexture == null) return;
