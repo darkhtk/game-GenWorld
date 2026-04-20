@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,13 +51,6 @@ public class GameManager : MonoBehaviour
         SkillVFX.ClearPool();
         AreaEffect.ClearPool();
         EventBus.Clear();
-        SceneManager.sceneLoaded += OnSceneLoadedCleanup;
-    }
-
-    static void OnSceneLoadedCleanup(Scene scene, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= OnSceneLoadedCleanup;
-        Resources.UnloadUnusedAssets();
     }
 
     async System.Threading.Tasks.Task InitAISafe()
