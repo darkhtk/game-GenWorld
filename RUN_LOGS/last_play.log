@@ -1,0 +1,57 @@
+Mono path[0] = 'C:/Users/darkh/Projects/GenWorld/SteamBuild/output/GenWorld_Data/Managed'
+Mono config path = 'C:/Users/darkh/Projects/GenWorld/SteamBuild/output/MonoBleedingEdge/etc'
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.3.9f1 (7a9955a4f2fa)
+[Subsystems] Discovering subsystems at path C:/Users/darkh/Projects/GenWorld/SteamBuild/output/GenWorld_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 5070
+[D3D12 Device Filter] Driver Version: 32.0.15.9186
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 11943 MB
+[D3D12 Device Filter] Processor Count: 12
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 5070 (ID=0x2f04)
+    Vendor:          NVIDIA
+    VRAM:            11943 MB
+    App VRAM Budget: 11175 MB
+    Driver:          32.0.15.9186
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.076 seconds
+- Finished resetting the current domain, in  0.002 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+Using Windows.Gaming.Input
+<RI> Input initialized.
+UnloadTime: 0.930000 ms
+[EventSystemEnsurer] Created missing EventSystem
+[DataManager] Validation: 6 skills had missing fields (patched with defaults)
+[DataManager] Loaded: 64 items, 27 skills, 15 monsters, 8 npcs, 10 quests, 8 regions, 8 profiles
+[WorldMap] Generated 200x200 map with 8 regions
+[MinimapUI] Initialized 200x200
+[GameManager] Minimap initialized (200x200)
+[VillageNPC] 마을 촌장: no AnimationDef assigned
+[VillageNPC] 사냥꾼: no AnimationDef assigned
+[VillageNPC] 약초꾼: no AnimationDef assigned
+[VillageNPC] 대장장이: no AnimationDef assigned
+[VillageNPC] 여관주인: no AnimationDef assigned
+[VillageNPC] 경비병: no AnimationDef assigned
+[VillageNPC] 방랑 상인: no AnimationDef assigned
+[VillageNPC] 노인 학자: no AnimationDef assigned
+[SaveController] Loaded save - Level 1, Gold 55
+[GameManager] Initialized
+[WorldEvent] Started: Blood Moon (duration 2h)
+The character with Unicode value \u2713 was not found in the [NotoSansKR-SemiBold SDF] font asset or any potential fallbacks. It was replaced by Unicode character \u25A1 in text object [SaveIndicator].
+[OllamaClient] Ollama available, warming model...
+Curl error 28: Operation timed out after 10000 milliseconds with 0 bytes received
+[AIManager] AI enabled: True

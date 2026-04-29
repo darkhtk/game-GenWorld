@@ -1,0 +1,21 @@
+2026-04-20T13:08:36.032Z [LogCaptureManager] session_start unity=6000.3.9f1 platform=WindowsPlayer path=C:/Users/darkh/AppData/LocalLow/DefaultCompany/GenWorld\logs\player.log
+2026-04-20T13:08:36.059Z [Log] [EventSystemEnsurer] Created missing EventSystem
+2026-04-20T13:08:36.683Z [Warning] [DataManager] Validation: 6 skills had missing fields (patched with defaults)
+2026-04-20T13:08:36.683Z [Log] [DataManager] Loaded: 64 items, 27 skills, 15 monsters, 8 npcs, 10 quests, 8 regions, 8 profiles
+2026-04-20T13:08:36.734Z [Log] [WorldMap] Generated 200x200 map with 8 regions
+2026-04-20T13:08:36.738Z [Log] [MinimapUI] Initialized 200x200
+2026-04-20T13:08:36.738Z [Log] [GameManager] Minimap initialized (200x200)
+2026-04-20T13:08:36.746Z [Warning] [VillageNPC] 마을 촌장: no AnimationDef assigned
+2026-04-20T13:08:36.747Z [Warning] [VillageNPC] 사냥꾼: no AnimationDef assigned
+2026-04-20T13:08:36.747Z [Warning] [VillageNPC] 약초꾼: no AnimationDef assigned
+2026-04-20T13:08:36.748Z [Warning] [VillageNPC] 대장장이: no AnimationDef assigned
+2026-04-20T13:08:36.748Z [Warning] [VillageNPC] 여관주인: no AnimationDef assigned
+2026-04-20T13:08:36.749Z [Warning] [VillageNPC] 경비병: no AnimationDef assigned
+2026-04-20T13:08:36.749Z [Warning] [VillageNPC] 방랑 상인: no AnimationDef assigned
+2026-04-20T13:08:36.750Z [Warning] [VillageNPC] 노인 학자: no AnimationDef assigned
+2026-04-20T13:08:36.764Z [Log] [SaveController] Loaded save - Level 1, Gold 55
+2026-04-20T13:08:36.771Z [Log] [GameManager] Initialized
+2026-04-20T13:08:36.786Z [Log] [WorldEvent] Started: Blood Moon (duration 2h)
+2026-04-20T13:08:36.847Z [Warning] The character with Unicode value \u2713 was not found in the [NotoSansKR-SemiBold SDF] font asset or any potential fallbacks. It was replaced by Unicode character \u25A1 in text object [SaveIndicator].
+2026-04-20T13:08:37.118Z [Log] [OllamaClient] Ollama available, warming model...
+2026-04-20T13:08:47.131Z [Log] [AIManager] AI enabled: True

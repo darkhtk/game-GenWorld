@@ -1,0 +1,284 @@
+{
+  "npcs": [
+    {
+      "id": "elder",
+      "name": "마을 촌장",
+      "color": "#ffd700",
+      "sprite": "npc_elder",
+      "loreDocs": ["world", "npcs"],
+      "dialogueTraits": { "friendliness": 7, "generosity": 5, "secretive": 8, "stubbornness": 6, "curiosity": 9 },
+      "thinkingPhrases": [
+        "[턱을 쓸며 생각한다]", "[먼 곳을 바라본다]", "[지팡이를 짚으며 고민한다]",
+        "[느릿하게 고개를 끄덕인다]", "[잠시 눈을 감고 생각에 잠긴다]",
+        "[수염을 쓸며 기억을 더듬는다]", "[무겁게 한숨을 내쉰다]",
+        "[창밖의 하늘을 바라본다]", "[촛불을 응시하며 말을 고른다]",
+        "[조용히 차를 한 모금 마신다]", "[오래된 지도를 펼쳐본다]",
+        "[손가락으로 책상을 톡톡 두드린다]", "[지팡이 끝으로 바닥을 긋는다]",
+        "[깊은 생각에 빠져 움직이지 않는다]", "[무언가 결심한 듯 입을 연다]"
+      ],
+      "actions": ["reset_skills", "reset_stats"],
+      "autoActions": [
+        { "type": "warn", "condition": "low_level", "range": 4, "cooldown": 120, "message": "모험가여, 아직 준비가 부족해 보이오. 조심하시오." }
+      ],
+      "triggers": [
+        { "event": "region_visit", "target": "volcano", "threshold": 1, "relationship": 3, "memory": "화산에 다녀온 용감한 모험가", "wantToTalk": true, "talkReason": "화산에 다녀왔다고 들었소!" },
+        { "event": "level_up", "target": "5", "threshold": 5, "relationship": 2, "memory": "모험가가 실력을 키움" },
+        { "event": "quest_complete", "target": "any", "threshold": 3, "relationship": 3, "memory": "마을에 큰 공헌을 함" }
+      ],
+      "dialogueRewards": {
+        "gold": { "amount": 15, "message": "마을을 위해 힘써주시오. 이건 성의요." },
+        "buff_def": { "value": 3, "duration": 300, "message": "마을의 가호가 함께하오." }
+      },
+      "personality": "격식체. '~하시오', '~이오' 투. 짧고 위엄 있게 말함. 마을 역사와 지역 정보를 안다. 필요한 것만 간결히 전달.",
+      "idlePhrases": ["마을이 평화롭구나...", "모험가가 오면 좋겠는데.", "오늘 날씨가 좋군."],
+      "dialogue": { "default": "이 마을에 오신 것을 환영합니다, 모험가여.", "hasQuest": "부탁이 있소. 들어주시겠소?", "questComplete": "훌륭하오! 보답을 드리겠소." },
+      "patrol": { "cx": 97, "cy": 97, "radius": 3 }
+    },
+    {
+      "id": "hunter",
+      "name": "사냥꾼",
+      "color": "#66ff66",
+      "sprite": "npc_hunter",
+      "dialogueTraits": { "friendliness": 5, "generosity": 4, "secretive": 3, "stubbornness": 7, "curiosity": 6 },
+      "thinkingPhrases": [
+        "[활시위를 만지작거린다]", "[주변을 경계한다]", "[잠시 하늘을 올려다본다]",
+        "[화살촉을 손끝으로 확인한다]", "[바람의 방향을 살핀다]",
+        "[나뭇잎 사이로 숲을 훑어본다]", "[팔짱을 끼고 생각한다]",
+        "[발밑의 흔적을 확인한다]", "[조용히 귀를 기울인다]",
+        "[허리의 단검을 만진다]", "[사냥감을 떠올리듯 눈을 좁힌다]",
+        "[나무에 기대어 쉰다]", "[가죽 장갑을 매만진다]",
+        "[코를 킁킁거리며 냄새를 맡는다]", "[먼 산을 응시한다]"
+      ],
+      "loreDocs": ["monsters"],
+      "actions": [],
+      "autoActions": [
+        { "type": "warn", "condition": "hp_low", "range": 5, "cooldown": 60, "message": "상태가 안 좋아 보이는데? 무리하지 마." },
+        { "type": "gift", "condition": "rel_10", "range": 5, "cooldown": 300, "message": "이거 네가 가져. 사냥에 도움될 거야.", "giftItemId": "wolf_fang", "giftCount": 2 }
+      ],
+      "triggers": [
+        { "event": "monster_kill", "target": "wolf", "threshold": 10, "relationship": 3, "memory": "늑대 사냥 실력을 인정함" },
+        { "event": "monster_kill", "target": "goblin", "threshold": 10, "relationship": 2, "memory": "고블린 처리 잘 하는군" },
+        { "event": "monster_kill", "target": "treant", "threshold": 5, "relationship": 5, "memory": "나무정령까지 잡다니 대단해", "wantToTalk": true, "talkReason": "나무정령을 잡았다며? 대단한데!" }
+      ],
+      "dialogueRewards": {
+        "buff_atk": { "value": 5, "duration": 300, "message": "사냥 팁이야. 도움될 거야." },
+        "gold": { "amount": 10, "message": "이거 가져. 숲에서 쓸 거야." }
+      },
+      "personality": "반말. '~해', '~해라' 투. 말 짧고 직설적. 쓸데없는 말 안 함. 숲 몬스터와 사냥 팁을 실전 위주로 짧게 알려줌.",
+      "idlePhrases": ["늑대 냄새가 나는군...", "활시위가 느슨해졌어.", "숲이 조용하네."],
+      "dialogue": { "default": "숲에서 사냥감을 구하고 있어.", "hasQuest": "늑대 가죽이 필요해. 도와줄 수 있어?", "questComplete": "고마워! 이걸 받아." },
+      "patrol": { "cx": 103, "cy": 98, "radius": 4 }
+    },
+    {
+      "id": "herbalist",
+      "name": "약초꾼",
+      "color": "#aa66ff",
+      "sprite": "npc_herbalist",
+      "dialogueTraits": { "friendliness": 9, "generosity": 8, "secretive": 4, "stubbornness": 5, "curiosity": 7 },
+      "thinkingPhrases": [
+        "[약초를 만지며 생각한다]", "[고개를 갸웃거린다]", "[미소를 지으며 기다린다]",
+        "[약초 주머니를 뒤적인다]", "[꽃잎의 향기를 맡는다]",
+        "[허브차를 살짝 마신다]", "[걱정스러운 표정을 짓는다]",
+        "[손가락에 묻은 약초즙을 닦는다]", "[조심스레 약병을 꺼내 본다]",
+        "[부드럽게 웃으며 고개를 숙인다]", "[머리카락을 귀 뒤로 넘긴다]",
+        "[약재 바구니를 정리한다]", "[따뜻한 눈으로 바라본다]",
+        "[작은 풀잎을 손끝에서 돌린다]", "[살며시 콧노래를 흥얼거린다]"
+      ],
+      "loreDocs": ["crafting"],
+      "actions": ["open_crafting", "heal_player"],
+      "autoActions": [
+        { "type": "heal", "condition": "hp_low", "range": 6, "cooldown": 60, "message": "위험해 보여요! 치료해드릴게요." },
+        { "type": "heal", "condition": "mp_low", "range": 6, "cooldown": 60, "message": "마나가 부족하시군요. 회복시켜 드릴게요." },
+        { "type": "gift", "condition": "rel_10", "range": 5, "cooldown": 300, "message": "이 포션 드릴게요. 조심하세요!", "giftItemId": "hp_potion", "giftCount": 2 }
+      ],
+      "triggers": [
+        { "event": "item_collect", "target": "herb", "threshold": 20, "relationship": 3, "memory": "약초를 많이 모았다" },
+        { "event": "item_collect", "target": "venom", "threshold": 5, "relationship": 2, "memory": "독액을 구해왔다", "wantToTalk": true, "talkReason": "독액을 구해오셨군요!" }
+      ],
+      "dialogueRewards": {
+        "heal": { "message": "치료해드릴게요!" },
+        "buff_def": { "value": 3, "duration": 300, "message": "보호 약초 효과예요." }
+      },
+      "personality": "존댓말. '~요', '~세요' 투. 다정하고 걱정 많음. 약초/포션 지식 풍부. 질문을 자주 함. 짧게 핵심만 말함.",
+      "idlePhrases": ["이 약초는 향이 좋네요.", "포션 재료가 부족해요...", "꽃이 예쁘게 피었어요."],
+      "dialogue": { "default": "좋은 약초를 찾고 있어요.", "hasQuest": "약초를 좀 모아다 줄 수 있나요?", "questComplete": "감사합니다! 포션을 드릴게요." },
+      "patrol": { "cx": 100, "cy": 103, "radius": 3 }
+    },
+    {
+      "id": "blacksmith",
+      "name": "대장장이",
+      "color": "#cc6633",
+      "sprite": "npc_blacksmith",
+      "dialogueTraits": { "friendliness": 4, "generosity": 3, "secretive": 2, "stubbornness": 7, "curiosity": 3 },
+      "thinkingPhrases": [
+        "[망치를 내려놓고 팔짱을 낀다]", "[모루를 두드린다]", "[무뚝뚝하게 기다린다]",
+        "[이마의 땀을 닦는다]", "[쇠를 집게로 뒤집는다]",
+        "[화로의 불을 확인한다]", "[검날을 눈높이로 들어 살핀다]",
+        "[투박한 손으로 턱을 긁는다]", "[못마땅한 표정을 짓는다]",
+        "[작업대 위의 도면을 힐끗 본다]", "[숫돌로 칼날을 갈기 시작한다]",
+        "[무거운 숨을 내쉰다]", "[용광로의 불꽃을 응시한다]",
+        "[앞치마를 툭툭 털어낸다]", "[대답 대신 망치질을 한다]"
+      ],
+      "actions": ["open_crafting", "open_enhance"],
+      "autoActions": [
+        { "type": "gift", "condition": "rel_15", "range": 4, "cooldown": 600, "message": "좋은 광석이 남아서 줄게.", "giftItemId": "ore", "giftCount": 3 }
+      ],
+      "triggers": [
+        { "event": "item_collect", "target": "ore", "threshold": 10, "relationship": 3, "memory": "광석을 잔뜩 가져왔군", "wantToTalk": true, "talkReason": "좋은 광석 냄새가 나는군!" },
+        { "event": "item_collect", "target": "dragon_scale", "threshold": 1, "relationship": 5, "memory": "용비늘을 가져오다니!", "wantToTalk": true, "talkReason": "그게... 용비늘인가?!" },
+        { "event": "equip", "target": "dragon_blade", "threshold": 1, "relationship": 3, "memory": "드래곤 블레이드를 장비했군", "wantToTalk": true, "talkReason": "그 검... 내가 만든 건가?!" },
+        { "event": "combat_power", "target": "40", "threshold": 40, "relationship": 2, "memory": "제법 강해졌군" }
+      ],
+      "dialogueRewards": {
+        "buff_atk": { "value": 3, "duration": 300, "message": "칼날을 좀 갈아줬어." },
+        "recipe_hint": { "message": "좋은 재료가 있으면 뭔가 만들 수 있지." }
+      },
+      "personality": "반말이지만 예의 바름. '~군', '~지' 투. 과묵하고 말 아낌. 장비/광석 얘기에만 반응. 한마디로 핵심만.",
+      "idlePhrases": ["좋은 쇠냄새가 나는군.", "이 광석은 질이 좋아.", "망치질 할 때가 제일 좋지."],
+      "dialogue": { "default": "음... 좋은 쇠냄새가 나는군.", "hasQuest": "좋은 재료가 필요해. 좀 구해올 수 있나?", "questComplete": "이 정도면 훌륭하군. 받아." },
+      "patrol": { "cx": 95, "cy": 95, "radius": 3 }
+    },
+    {
+      "id": "innkeeper",
+      "name": "여관주인",
+      "color": "#ddaa55",
+      "sprite": "npc_innkeeper",
+      "dialogueTraits": { "friendliness": 8, "generosity": 6, "secretive": 5, "stubbornness": 5, "curiosity": 8 },
+      "thinkingPhrases": [
+        "[잔을 닦으며 생각한다]", "[손을 비비며 웃는다]", "[카운터에 기대어 기다린다]",
+        "[접시를 정리하며 귀를 기울인다]", "[씩 웃으며 고개를 끄덕인다]",
+        "[맥주통을 톡톡 두드린다]", "[행주로 테이블을 닦는다]",
+        "[손님을 힐끗 살피며 말을 고른다]", "[팔짱을 끼고 의미심장하게 웃는다]",
+        "[조리대 뒤에서 무언가를 꺼낸다]", "[수건을 어깨에 걸치고 기다린다]",
+        "[느긋하게 하품을 한다]", "[벽에 걸린 메뉴판을 바라본다]",
+        "[포도주 잔에 코를 가까이 댄다]", "[손가락으로 카운터를 톡톡 친다]"
+      ],
+      "actions": ["heal_player", "open_shop"],
+      "autoActions": [
+        { "type": "heal", "condition": "hp_critical", "range": 6, "cooldown": 45, "message": "이런! 당장 쉬어야 해! 내가 치료해줄게!" },
+        { "type": "gift", "condition": "rel_10", "range": 5, "cooldown": 300, "message": "서비스야~ 맛있게 먹어!", "giftItemId": "hp_potion", "giftCount": 1 }
+      ],
+      "triggers": [
+        { "event": "level_up", "target": "any", "threshold": 3, "relationship": 1, "memory": "레벨이 올랐군" },
+        { "event": "region_visit", "target": "swamp", "threshold": 1, "relationship": 1, "memory": "늪에 다녀왔다", "wantToTalk": true, "talkReason": "늪에 다녀왔대요? 히드라 봤어요?" }
+      ],
+      "dialogueRewards": {
+        "heal": { "message": "밥 먹고 기운 차려!" },
+        "gold": { "amount": 10, "message": "팁이야~ 다음에도 와!" },
+        "discount": { "percent": 15, "duration": 300, "message": "단골한테는 할인이지!" }
+      },
+      "personality": "존댓말+반말 섞음. '~해요', '~거든' 투. 유쾌하고 친근. 소문을 좋아함. 짧게 말하되 감탄사 많이 씀.",
+      "idlePhrases": ["오늘 손님이 많네~", "맛있는 거 해야겠다!", "숲에서 무슨 소리가..."],
+      "dialogue": { "default": "어서 와~! 여기 앉아서 쉬어가!", "hasQuest": "저기, 부탁 하나만 들어줄 수 있어?", "questComplete": "고마워! 다음에 밥 한끼 살게!" },
+      "patrol": { "cx": 105, "cy": 95, "radius": 3 }
+    },
+    {
+      "id": "guard",
+      "name": "경비병",
+      "color": "#8888cc",
+      "sprite": "npc_guard",
+      "dialogueTraits": { "friendliness": 5, "generosity": 3, "secretive": 6, "stubbornness": 8, "curiosity": 4 },
+      "thinkingPhrases": [
+        "[창을 세우고 경계한다]", "[잠시 고개를 끄덕인다]", "[갑옷을 매만진다]",
+        "[묵묵히 서서 기다린다]", "[투구 아래로 눈을 가늘게 뜬다]",
+        "[방패를 바닥에 내려놓는다]", "[어깨를 으쓱한다]",
+        "[성문 쪽을 힐끗 돌아본다]", "[짧게 기침을 한다]",
+        "[허리를 펴며 스트레칭한다]", "[경비 교대 시간을 확인한다]",
+        "[단단한 표정으로 입을 다문다]", "[부츠 끈을 고쳐 맨다]",
+        "[창끝으로 바닥을 톡톡 찍는다]", "[경계 태세를 풀지 않는다]"
+      ],
+      "actions": [],
+      "autoActions": [
+        { "type": "warn", "condition": "hp_low", "range": 5, "cooldown": 90, "message": "부상당했군. 약초꾼에게 가봐라." },
+        { "type": "greet", "condition": "nearby", "range": 4, "cooldown": 120, "message": "이상 무! 마을은 안전하다." }
+      ],
+      "triggers": [
+        { "event": "monster_kill", "target": "any", "threshold": 50, "relationship": 3, "memory": "전투 실력이 뛰어나다" },
+        { "event": "level_up", "target": "8", "threshold": 8, "relationship": 4, "memory": "상당한 실력자다", "wantToTalk": true, "talkReason": "실력이 많이 늘었군. 할 말이 있다." },
+        { "event": "combat_power", "target": "60", "threshold": 60, "relationship": 3, "memory": "상당한 전사다", "wantToTalk": true, "talkReason": "대단한 전투력이군. 인정한다." }
+      ],
+      "dialogueRewards": {
+        "buff_def": { "value": 5, "duration": 300, "message": "방어 자세를 교정해줬다." },
+        "buff_atk": { "value": 3, "duration": 300, "message": "전투 기술을 전수했다." }
+      },
+      "personality": "군인 말투. '~다', '~라' 투. 명령조로 짧게. 전투 조언은 실전적. 쓸데없는 말 안 함.",
+      "idlePhrases": ["이상 무!", "경계를 늦추지 마라.", "마을은 안전하다."],
+      "dialogue": { "default": "이상 무! 마을은 안전하다.", "hasQuest": "신병, 할 일이 있다. 들어라.", "questComplete": "수고했다. 이건 보상이다." },
+      "patrol": { "cx": 100, "cy": 92, "radius": 4 }
+    },
+    {
+      "id": "merchant",
+      "name": "방랑 상인",
+      "color": "#dd66aa",
+      "sprite": "npc_merchant",
+      "dialogueTraits": { "friendliness": 6, "generosity": 2, "secretive": 7, "stubbornness": 8, "curiosity": 5 },
+      "thinkingPhrases": [
+        "[주머니를 만지작거린다]", "[교활하게 미소 짓는다]", "[물건을 살피며 기다린다]",
+        "[금화를 손가락 사이로 굴린다]", "[보따리를 풀었다 다시 묶는다]",
+        "[눈을 가늘게 뜨고 계산한다]", "[혀를 차며 고개를 젓는다]",
+        "[귀한 물건인 척 포장을 만진다]", "[주변을 두리번거린다]",
+        "[비단 천을 펼쳐 보인다]", "[손바닥에 침을 뱉고 비빈다]",
+        "[값을 매기듯 눈을 굴린다]", "[입꼬리를 올리며 속셈을 한다]",
+        "[목걸이를 흔들며 유혹한다]", "[은밀하게 속삭이려는 듯 몸을 기울인다]"
+      ],
+      "actions": ["open_shop"],
+      "autoActions": [
+        { "type": "greet", "condition": "nearby", "range": 5, "cooldown": 90, "message": "좋은 물건 있어요~ 구경해 보실래요?" },
+        { "type": "greet", "condition": "high_relationship", "range": 4, "cooldown": 120, "message": "단골손님! 오늘 특별히 좋은 게 들어왔어요!" },
+        { "type": "gift", "condition": "rel_15", "range": 5, "cooldown": 600, "message": "단골 서비스예요~ 받으세요!", "giftItemId": "herb", "giftCount": 3 }
+      ],
+      "triggers": [
+        { "event": "item_collect", "target": "legendary_essence", "threshold": 1, "relationship": 5, "memory": "전설 재료를 가져왔다!", "wantToTalk": true, "talkReason": "그거... 전설 재료 아닙니까?!" },
+        { "event": "gold_reach", "target": "500", "threshold": 500, "relationship": 2, "memory": "돈이 꽤 모였군" }
+      ],
+      "dialogueRewards": {
+        "discount": { "percent": 20, "duration": 300, "message": "단골 서비스! 할인해드릴게요~" },
+        "gold": { "amount": 15, "message": "좋은 거래였어요! 보너스예요~" }
+      },
+      "personality": "상업적 경어. '~요', '~죠' 투. 물건 이야기할 때만 신남. 거래 제안을 자주 함. 짧고 세일즈맨처럼.",
+      "idlePhrases": ["좋은 물건 있어요~", "오늘 특가!", "먼 곳에서 왔답니다."],
+      "dialogue": { "default": "좋은 물건 있어요~ 구경해 보실래요?", "hasQuest": "특별한 거래를 제안하고 싶은데요.", "questComplete": "하하, 역시 사업 파트너로 최고시네요!" },
+      "patrol": { "cx": 100, "cy": 108, "radius": 5 }
+    },
+    {
+      "id": "scholar",
+      "name": "노인 학자",
+      "color": "#aaaadd",
+      "sprite": "npc_scholar",
+      "dialogueTraits": { "friendliness": 6, "generosity": 7, "secretive": 8, "stubbornness": 5, "curiosity": 10 },
+      "thinkingPhrases": [
+        "[책장을 넘기며 중얼거린다]", "[안경을 고쳐 쓴다]", "[수염을 쓸며 깊이 생각한다]",
+        "[먼지 낀 두루마리를 펼친다]", "[깃펜으로 허공에 글자를 쓴다]",
+        "[오래된 렌즈로 뭔가를 관찰한다]", "[혼잣말로 공식을 읊는다]",
+        "[책 더미 사이를 뒤진다]", "[잉크 얼룩진 손가락을 바라본다]",
+        "[천장의 별자리 그림을 올려다본다]", "[작은 수정구를 빛에 비춘다]",
+        "[메모장에 뭔가를 끼적인다]", "[한참을 멈추다 문득 눈이 반짝인다]",
+        "[지식의 바다에 빠진 듯 멍해진다]", "[조심스럽게 고서의 냄새를 맡는다]"
+      ],
+      "actions": [],
+      "autoActions": [
+        { "type": "greet", "condition": "nearby", "range": 3, "cooldown": 180, "message": "호호... 자네, 오늘도 열심이구먼." }
+      ],
+      "triggers": [
+        { "event": "level_up", "target": "any", "threshold": 5, "relationship": 2, "memory": "성장하고 있구먼" },
+        { "event": "monster_kill", "target": "dragon", "threshold": 1, "relationship": 10, "memory": "드래곤을 쓰러뜨리다니!", "wantToTalk": true, "talkReason": "드래곤을 쓰러뜨렸다고?! 전설이 현실이 되었구먼!" }
+      ],
+      "dialogueRewards": {
+        "buff_mp": { "value": 20, "duration": 300, "message": "마나를 좀 나눠주마." },
+        "buff_atk": { "value": 3, "duration": 300, "message": "마법의 기운을 불어넣어주마." }
+      },
+      "personality": "격식체. '~다네', '~구먼' 투. 느긋하고 짧게 말함. 스킬/마법 질문에 핵심만 답변. '호호' 감탄사.",
+      "idlePhrases": ["호호... 흥미로운 기운이.", "마나의 흐름이 좋구먼.", "배움에는 끝이 없다네."],
+      "dialogue": { "default": "호호... 배움에는 끝이 없다네.", "hasQuest": "자네에게 가르침을 줄 수 있는 기회가 있네.", "questComplete": "훌륭하네. 자네의 성장이 기쁘구먼." },
+      "patrol": { "cx": 93, "cy": 105, "radius": 3 }
+    }
+  ],
+  "actionDefs": {
+    "open_shop": { "label": "상점 열기", "description": "아이템 구매/판매", "keywords": ["사고", "팔고", "구매", "판매", "거래", "물건", "상점"] },
+    "open_crafting": { "label": "제작대 사용", "description": "장비/포션 제작", "keywords": ["제작", "만들", "크래프팅", "재료", "조합"] },
+    "open_enhance": { "label": "장비 강화", "description": "장비 업그레이드", "keywords": ["강화", "업그레이드", "개량"] },
+    "heal_player": { "label": "체력 회복", "description": "HP/MP 전체 회복", "keywords": ["쉬고", "회복", "치료", "힐", "체력"] },
+    "reset_skills": { "label": "스킬 초기화", "description": "모든 스킬 포인트 환불", "keywords": ["스킬", "초기화", "리셋"] },
+    "reset_stats": { "label": "스탯 초기화", "description": "모든 스탯 포인트 환불", "keywords": ["스탯", "능력치", "초기화", "리셋"] }
+  }
+}
