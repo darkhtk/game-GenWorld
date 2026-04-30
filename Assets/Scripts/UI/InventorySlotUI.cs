@@ -62,6 +62,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
             else gradeFrameImage.enabled = false;
         }
         ApplySlotBg();
+        ApplyEmptyAlpha(false);
     }
 
     public void SetActive(bool active)
@@ -76,6 +77,19 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (enhanceText != null) enhanceText.text = "";
         if (borderImage != null) borderImage.color = new Color(0.267f, 0.267f, 0.267f);
         if (iconImage != null) { iconImage.sprite = null; iconImage.enabled = false; iconImage.color = Color.white; }
+        if (gradeFrameImage != null) gradeFrameImage.enabled = false;
+        ApplySlotBg();
+        ApplyEmptyAlpha(true);
+    }
+
+    void ApplyEmptyAlpha(bool empty)
+    {
+        if (_bgImage == null) _bgImage = GetComponent<Image>();
+        if (_bgImage == null) return;
+        var c = _bgImage.color;
+        c.a = empty ? GameConfig.UI.InventorySlotEmptyAlpha
+                    : GameConfig.UI.InventorySlotFilledAlpha;
+        _bgImage.color = c;
     }
 
     public Sprite IconSprite => iconImage != null ? iconImage.sprite : null;

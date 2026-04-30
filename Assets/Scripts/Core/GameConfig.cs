@@ -84,6 +84,13 @@ public static class GameConfig
         public const string QuestProgressBarUnmetColor = "#ff9944";
         public const string QuestProgressBarBgColor    = "#444444";
         public const bool   QuestProgressBarEnabled    = true;
+
+        // S-123: Inventory slot bg alpha — empty slots dim to give a visible
+        // "available drop target" affordance without hiding the grid structure.
+        // Filled stays opaque. Same 0.3 value also tracks the drag-ghost convention
+        // (InventorySlotUI.SetDragGhost / S-138 follow-up).
+        public const float InventorySlotEmptyAlpha  = 0.3f;
+        public const float InventorySlotFilledAlpha = 1.0f;
     }
 
     // Single source of truth for monster aggression / engagement timing windows.
