@@ -75,6 +75,15 @@ public static class GameConfig
         public const float  ButtonHoverSfxVolume = 0.55f;
         public const float  ButtonClickSfxVolume = 0.85f;
         public const bool   ButtonSfxEnabled     = true;
+
+        // S-128: QuestUI requirement/killRequirement progress bar — fixed-width
+        // glyph bar built into the same TMP node (no prefab change). Cells fill
+        // proportionally; met (>= required) flips the color from unmet→met.
+        public const int    QuestProgressBarCells      = 10;
+        public const string QuestProgressBarMetColor   = "#66ff88";
+        public const string QuestProgressBarUnmetColor = "#ff9944";
+        public const string QuestProgressBarBgColor    = "#444444";
+        public const bool   QuestProgressBarEnabled    = true;
     }
 
     // Single source of truth for monster aggression / engagement timing windows.
