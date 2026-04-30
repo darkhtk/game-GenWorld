@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-30 (Coordinator 6회차 — S-084 Phase 2 APPROVE 후 Client 후속 권고 4건 흡수 신규 등재 S-144~S-147)
+> **최종 갱신:** 2026-04-30 (Coordinator 7회차 — S-125 APPROVE 흡수 ✅ + S-126 Developer In Review 진입 ~~취소선~~/👀 정리. 잔여 22건(🎨 6 + 🐛 16))
 > **방향:** polish (UX/UI > 비주얼/오디오 > 성능)
 > **태그 규약:** `🎨` = 에셋(스프라이트/SFX/BGM/이펙트) 동반 태스크. 감독관이 우선 픽업.
 
@@ -30,8 +30,8 @@
 | ID    | 태스크                                                  | 우선순위 | 영역         | 비고                                                |
 | ----- | --------------------------------------------------- | ---- | ---------- | ------------------------------------------------- |
 | ~~S-124~~ | ~~인벤토리 드래그 앤 드롭 시각 피드백~~ ✅ 2026-04-30 | P2   | UI         | DONE — REVIEW-S-124-v1 APPROVE / ee545e1 (BOARD ✅ 이동 완료) |
-| ~~S-125~~ | ~~SkillTree 미해금 노드 해금 조건 결합 표시~~ 👀 2026-04-30      | P2   | UI         | In Review (Developer) — SkillRowUI.UpdateState 잠금 분기에서 레벨/포인트 deficit 결합 표기 (`Lv.5+ -2pt`). 선행 스킬은 SkillDef 미정의 → 향후 별도 SPEC. |
-| S-126 | 옵션창 ESC로 닫기 일관성 (현재 메뉴별 상이)                          | P2   | UI         | InputManager 메뉴 스택 활용                             |
+| ~~S-125~~ | ~~SkillTree 미해금 노드 해금 조건 결합 표시~~ ✅ 2026-04-30      | P2   | UI         | DONE — REVIEW-S-125-v1 APPROVE / 8bd46ba (BOARD #10 ✅ 이동 완료). SkillRowUI.UpdateState 잠금 분기에서 레벨/포인트 deficit 결합 표기 (`Lv.5+ -2pt`). 선행 스킬은 SkillDef 미정의 → 향후 별도 SPEC. |
+| ~~S-126~~ | ~~옵션창 ESC로 닫기 일관성~~ 👀 2026-04-30                          | P2   | UI         | In Review (Developer 7회차) — UIManager ESC 분기 재구조화 + IsAnyPanelOpen NPC/Dialogue 포함 + HideAll dialogue OnClose 동반 호출. SPEC 부재(specs 참조 N) → Coordinator 후속 SPEC 작성 검토. |
 | S-127 | 미니맵 NPC 마커 색상 분리 (퀘스트/상점/기본)                        | P3   | UI         | MinimapIcon 컴포넌트에 type enum 추가                    |
 | S-128 | 퀘스트 추적 UI 진행률 바 (현재 숫자만)                            | P2   | UI         | "3/10 처치" → 게이지 바 추가                              |
 | S-129 | GameManager 싱글톤 null 체크 강화 (Awake 순서 의존)             | P2   | Core       | 씬 전환 직후 NRE 산발                                   |

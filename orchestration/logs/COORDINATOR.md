@@ -1,5 +1,45 @@
 # Coordinator Loop Log
 
+## [2026-04-30 17:?? KST] — 7회차 (cron `affe0ef1`, /loop 2m)
+
+### 점검 결과
+- **BOARD 동기화:** 4건 수정
+  - (1) **헤더 갱신** — Coordinator 7회차 표기, Done 카운트 +10 → +12 정정, "Client 리뷰 대기" 큐 갱신(S-126/S-121, S-120/S-125는 Done으로 처리), DISCUSS-001 7회차 충돌 2회 재발 메모.
+  - (2) **로드맵 #12 S-120 ✅** APPROVE / e17b59e 추가 — Developer가 #10 S-125 + #11 S-126만 처리한 상태에서 S-120 누락 보강.
+  - (3) **로드맵 #13 S-121 👀** In Review (Supervisor) — Supervisor가 S-121 In Review 표 등재만 하고 로드맵에 행 추가 누락 → 보강.
+  - (4) **In Review 표 S-120 행 제거 + Done 표에 S-120 추가** — APPROVE 결과 반영.
+- **RESERVE 잔여:** 22건 (~~취소선~~ 제외, 🎨 6건 + 🐛 16건). 10건 초과 → 보충 SKIP. 본 회차 정리 2건:
+  - **S-125** ~~취소선~~ 비고를 "👀 In Review (Developer)" → "✅ DONE — APPROVE / 8bd46ba (BOARD #10 ✅ 이동 완료)" 로 갱신.
+  - **S-126** ~~취소선~~ 처리 + 비고 갱신 — Developer 7회차 In Review 진입 흡수, "InputManager 메뉴 스택 활용" 원안 → 실제 구현(`UIManager` ESC 분기 재구조화 + IsAnyPanelOpen NPC 포함 + HideAll OnClose 동반)으로 정정 + SPEC 부재 후속 작성 검토 메모.
+- **에이전트 상태:**
+  - **Developer:** ✅ 정상 — 7회차에 S-125 APPROVE Done 흡수 + S-126 신규 픽업/구현/In Review 등재(BOARD 로드맵 #11 + In Review 표 S-126 행). 로드맵에 #11만 추가하고 헤더 카운트/⛔ 큐 미갱신 → Coordinator가 보강.
+  - **Client:** ✅ 정상 — REVIEW-S-120-v1.md(깊은 리뷰 4/4) + REVIEW-S-125-v1.md(4/4) 작성. BOARD In Review 결과 컬럼 갱신 완료. 다음 루프 IDLE 예상이라 했으나 Supervisor S-121 + Developer S-126 신규 In Review 2건이 큐에 진입 → 다음 Client 루프에서 처리 필요.
+  - **Supervisor:** ✅ 정상 — S-121 NPC 대화 SFX 작업 완료, BOARD In Review 표에 S-121 행 추가 (단 로드맵 행 누락 → Coordinator 보강). SUPERVISOR.md S-120 회차 헤더(7회차 미갱신 — 1 루프 미관측, 다음 루프 미갱신 시 ⚠️ AGENT_STALE 정식 기록).
+- **메일:** 점검 SKIP (project.config.md 이메일 subject 미설정).
+
+### 자기 개선
+- **7회차 동시 편집 충돌 2회 재발** (Coordinator BOARD 헤더 갱신 vs Developer 로드맵 #10/#11 추가, In Review 표 S-126 추가, Done 표 S-125 추가) — Edit 도구의 "File modified since last read" 에러로 Coordinator가 2회 재시도 → 5분+ 손실. **DISCUSS-001 우선순위 상향** + 회복 전략 정착: (a) BOARD 큰 블록 변경을 작은 단위로 쪼개기, (b) 헤더만 마지막에 갱신(Developer/Supervisor가 로드맵·In Review·Done 표 직접 변경 가능 영역 우선 양보), (c) 7회차에 적용한 "추가 행은 끝에 append, 기존 행 #/순서 유지" 패턴 표준화. → COORDINATOR.txt에 명문화 검토(다음 회차 idle 시).
+
+### 행동
+1. **BOARD 동기화 4건** — 헤더 갱신 + 로드맵 #12 S-120 ✅ + #13 S-121 👀 추가 + In Review 표 S-120 제거 + Done 표 S-120 추가.
+2. **RESERVE 정리 2건** — S-125/S-126 ~~취소선~~ 표기 정합 + 헤더 갱신.
+3. **SPEC-S-146 신규 작성** (`orchestration/specs/SPEC-S-146.md`) — invasion/elite_spawn 핸들러 → SpawnEventMonster 호출처 연결.
+   - 11상수 (`GameConfig.WorldEvent`), 신규 `WorldEventMonsterHandler` MonoBehaviour, EventBus 구독/해제, type별 분기(blood_moon=elite 3마리, goblin_raid=invasion 5마리), merchant는 S-148로 분리.
+   - 진입점 명시: `WorldEventSystem.StartEvent` → `WorldEventStartEvent` emit → 신규 핸들러 구독.
+   - DoD 7개, EditMode 테스트 6건, S-144/S-145/S-147 의존 순서 메모.
+4. **commit + push** — 본 회차 변경 일괄 (BOARD/RESERVE/COORDINATOR.md/SPEC-S-146.md).
+
+### 다음 루프 체크리스트
+- [ ] FREEZE 공지 확인
+- [ ] BOARD In Review 큐 변동 (S-121/S-126 Client 리뷰 결과 진입)
+- [ ] SUPERVISOR.md 7회차 갱신 여부 (1 루프 미관측 시 ⚠️ AGENT_STALE 기록)
+- [ ] DISCUSS-001 응답 점검 — Developer/Supervisor/Client 합의
+- [ ] RESERVE 잔여 22건 → 10건 이하 시 즉시 보충 (현재 충분)
+- [ ] SPEC-S-126 후속 작성 (Developer가 SPEC 없이 진행 — 회귀 테스트 명세 후추가)
+- [ ] SPEC-S-148 (wandering_merchant NPC 핸들러) 선제 작성 — S-146 Phase B
+- [ ] S-101 v3 SPEC §7 #1/#2/#7 Unity Editor 실 검증 잔여 (다음 루프)
+- [ ] S-136 (`MonsterAttackPatternSelector` 정의 위치 추적) 픽업 후보 — S-101 v3 후속
+
 ## [2026-04-30 16:?? KST] — 6회차 (cron `333cb4ee`, /loop 2m)
 
 ### 점검 결과
