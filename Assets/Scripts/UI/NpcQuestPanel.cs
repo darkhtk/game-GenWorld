@@ -32,6 +32,8 @@ public class NpcQuestPanel : MonoBehaviour
 
     string _currentQuestId;
 
+    public bool IsOpen => panel != null && panel.activeSelf;
+
     void Awake()
     {
         if (panel != null) panel.SetActive(false);

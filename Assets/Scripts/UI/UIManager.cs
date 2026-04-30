@@ -34,8 +34,6 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (_dialogueOpen) return;
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (IsAnyPanelOpen())
@@ -44,6 +42,8 @@ public class UIManager : MonoBehaviour
                 pauseMenu.Toggle();
             return;
         }
+
+        if (_dialogueOpen) return;
 
         if (Input.GetKeyDown(KeyCode.I) && inventory != null) inventory.Toggle();
         if (Input.GetKeyDown(KeyCode.K) && skillTree != null) skillTree.Toggle();
@@ -62,7 +62,12 @@ public class UIManager : MonoBehaviour
         if (enhance != null) enhance.Close();
         if (skillTree != null) skillTree.Hide();
         if (quest != null) quest.Hide();
-        if (dialogue != null) dialogue.Hide();
+        if (dialogue != null && dialogue.IsOpen)
+        {
+            var onClose = dialogue.OnClose;
+            dialogue.Hide();
+            onClose?.Invoke();
+        }
         if (npcProfile != null) npcProfile.Hide();
         if (npcQuest != null) npcQuest.Hide();
         if (pauseMenu != null) pauseMenu.Close();
@@ -82,6 +87,9 @@ public class UIManager : MonoBehaviour
             || (enhance != null && enhance.IsOpen)
             || (skillTree != null && skillTree.IsOpen)
             || (quest != null && quest.IsOpen)
+            || (dialogue != null && dialogue.IsOpen)
+            || (npcProfile != null && npcProfile.IsOpen)
+            || (npcQuest != null && npcQuest.IsOpen)
             || (pauseMenu != null && pauseMenu.IsOpen);
     }
 

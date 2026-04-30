@@ -21,6 +21,8 @@ public class NpcProfilePanel : MonoBehaviour
     const int MaxHearts = 10;
     readonly List<GameObject> _memoryEntries = new();
 
+    public bool IsOpen => panel != null && panel.activeSelf;
+
     void Awake()
     {
         if (panel != null) panel.SetActive(false);
