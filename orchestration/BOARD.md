@@ -1,9 +1,9 @@
 # Orchestration Board
 
-> **최종 업데이트:** 2026-04-30 (Developer — S-101 v3 SPEC-S-101 기반 fix 제출 → In Review)
+> **최종 업데이트:** 2026-04-30 (Developer — S-124 인벤토리 드래그 ghost feedback 제출 → In Review)
 > **프로젝트:** GENWorld
-> **현재 상태:** Stabilize (Done 150건+2, In Progress 0건, In Review 1건, Rejected 0건)
-> **📌 Client 리뷰 대기:** S-101 v3 (this commit) — SPEC §7 수용 기준 6/7 충족, BOARD 비고 정정만 Coordinator 영역 잔여.
+> **현재 상태:** Stabilize (Done 150건+4, In Progress 1건(P3 보류), In Review 2건, Rejected 0건)
+> **📌 Client 리뷰 대기:** S-101 v3 + S-124.
 
 ---
 
@@ -15,6 +15,9 @@
 | 2   | S-084: WorldEventSystem 종료 잔존 오브젝트 정리 | P3   | ⛔  | BLOCKED — S-101 v3 리뷰 결과 대기              |
 | 3   | S-114: 🎨 회피 모션 잔상 이펙트 스프라이트         | P2   | ✅  | APPROVE (REVIEW-S-114-v1) — 6ab7a5c                |
 | 4   | S-115: 🎨 데미지 텍스트 폰트 아웃라인/그림자 강화      | P2   | ✅  | APPROVE (REVIEW-S-115-v1) — edae030               |
+| 5   | S-116: 🎨 스킬 쿨다운 회복 SFX                     | P2   | ✅  | DONE — sfx_cooldown_ready.wav + HUD 트리거 (cfce018) |
+| 6   | S-119: 🎨 레벨업 파티클 이펙트                     | P2   | ✅  | DONE — vfx_levelup_burst + LevelUpVFX 16 spark (3fd219c) |
+| 7   | S-124: 인벤토리 드래그 앤 드롭 시각 피드백             | P2   | 👀  | In Review — 원본 슬롯 ghost(α=0.3) + dragIcon sprite 복사 |
 
 ---
 
@@ -38,6 +41,7 @@
 | 태스크 | 우선순위 | 완료일 | 결과 | 비고 |
 | --- | ---- | --- | --- | --- |
 | S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 (v3) | high | 2026-04-30 | 대기 | SPEC-S-101 기반 v3: ① `SetAIStateForTest`/`SetDodgeStateForTest` 테스트 API 도입(CS0272 해소), ② `GameConfig.MonsterAggro` 단일 상수(`RecentHitWindow=2f`, `IsInCombatWindow=2f`, `DodgeAggroSyncRangeMult=1.3f`), ③ `CombatManager.HandleMonsterAttacks` early return 제거 — 패턴/페이즈 진행 유지, `ApplyDamageToPlayer`에 invincibility 단일 chokepoint, ④ `m.Def == null` null-safety 가드, ⑤ Test 4건 재구성 + 컴포넌트 순서 보정. SPEC §7 수용 기준 6/7 충족. |
+| S-124 인벤토리 드래그 앤 드롭 시각 피드백 | P2 | 2026-04-30 | 대기 | InventorySlotUI에 `IconSprite` getter / `SetDragGhost(bool)` 추가 (iconImage.color.a = 0.3). InventoryUI.OnSlotBeginDrag에서 원본 슬롯 ghost ON + dragIcon에 실제 sprite 복사. CancelDrag에서 ghost OFF. RefreshGrid의 SetItem이 color.white 강제 → drop 후 자동 복원. SPEC 없음 (BACKLOG_RESERVE 비고: "드래그 중 아이콘 반투명"). |
 
 ---
 
@@ -57,6 +61,8 @@
 | S-109 ScreenFlash 미호출                  | P2   |     | 914a4ad |
 | S-114 🎨 회피 모션 잔상 이펙트 스프라이트       | P2   | 2026-04-30 | APPROVE / 6ab7a5c |
 | S-115 🎨 데미지 텍스트 폰트 아웃라인/그림자 강화 | P2   | 2026-04-30 | APPROVE / edae030 (REVIEW-S-115-v1, 4/4 페르소나 APPROVE) |
+| S-116 🎨 스킬 쿨다운 회복 SFX 누락                  | P2   | 2026-04-30 | DONE / cfce018 (sfx_cooldown_ready.wav 220ms 1320Hz + HUD.UpdateCooldowns transition trigger) |
+| S-119 🎨 레벨업 파티클 이펙트                       | P2   | 2026-04-30 | DONE / 3fd219c (vfx_levelup_burst 8f sprite + LevelUpVFX 16-spark 방사 1.0s) |
 
 ---
 

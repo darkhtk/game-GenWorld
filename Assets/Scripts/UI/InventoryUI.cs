@@ -245,10 +245,17 @@ public class InventoryUI : MonoBehaviour
         if (item == null) return;
         _dragFromSlot = index;
         _dragging = true;
+        if (index >= 0 && index < _slots.Count)
+            _slots[index].SetDragGhost(true);
         if (dragIcon != null)
         {
             dragIcon.gameObject.SetActive(true);
             dragIcon.color = Color.white;
+            if (index >= 0 && index < _slots.Count)
+            {
+                var srcSprite = _slots[index].IconSprite;
+                if (srcSprite != null) dragIcon.sprite = srcSprite;
+            }
         }
     }
 
@@ -268,6 +275,8 @@ public class InventoryUI : MonoBehaviour
 
     void CancelDrag()
     {
+        if (_dragFromSlot >= 0 && _dragFromSlot < _slots.Count)
+            _slots[_dragFromSlot].SetDragGhost(false);
         _dragging = false;
         _dragFromSlot = -1;
         if (dragIcon != null) dragIcon.gameObject.SetActive(false);

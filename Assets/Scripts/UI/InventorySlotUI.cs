@@ -75,7 +75,17 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHa
         if (countText != null) countText.text = "";
         if (enhanceText != null) enhanceText.text = "";
         if (borderImage != null) borderImage.color = new Color(0.267f, 0.267f, 0.267f);
-        if (iconImage != null) { iconImage.sprite = null; iconImage.enabled = false; }
+        if (iconImage != null) { iconImage.sprite = null; iconImage.enabled = false; iconImage.color = Color.white; }
+    }
+
+    public Sprite IconSprite => iconImage != null ? iconImage.sprite : null;
+
+    public void SetDragGhost(bool active)
+    {
+        if (iconImage == null) return;
+        var c = iconImage.color;
+        c.a = active ? 0.3f : 1f;
+        iconImage.color = c;
     }
 
     void ApplySlotBg()
