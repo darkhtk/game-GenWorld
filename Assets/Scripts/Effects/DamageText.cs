@@ -27,12 +27,25 @@ public class DamageText : MonoBehaviour
             var tmp = go.AddComponent<TextMeshPro>();
             tmp.alignment = TextAlignmentOptions.Center;
             tmp.sortingOrder = 200;
-            tmp.outlineColor = new Color32(0, 0, 0, 200);
-            tmp.outlineWidth = 0.15f;
+            tmp.outlineColor = Color.black;
+            tmp.outlineWidth = 0.2f;
+            ApplyDropShadow(tmp);
             var dt = go.AddComponent<DamageText>();
             dt._tmp = tmp;
             return dt;
         }, _poolParent, 30, 80);
+    }
+
+    static void ApplyDropShadow(TextMeshPro tmp)
+    {
+        var mat = tmp.fontMaterial;
+        if (mat == null) return;
+        mat.EnableKeyword(ShaderUtilities.Keyword_Underlay);
+        mat.SetColor(ShaderUtilities.ID_UnderlayColor, new Color(0f, 0f, 0f, 0.65f));
+        mat.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.6f);
+        mat.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.6f);
+        mat.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0.4f);
+        mat.SetFloat(ShaderUtilities.ID_UnderlaySoftness, 0.15f);
     }
 
     public static void ClearPool()
