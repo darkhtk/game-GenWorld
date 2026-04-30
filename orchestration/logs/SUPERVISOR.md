@@ -1,49 +1,61 @@
 # Supervisor Log
 
 > **최종 실행:** 2026-04-30
-> **모드:** /loop 2m (cron `9e77abb8`)
-> **상태:** ✅ ACTIVE — RESERVE 보충 완료
+> **모드:** /loop 2m (cron `be914e01`)
+> **상태:** ✅ ACTIVE — S-114 에셋 + 코드 wiring 완료
 
 ## 이번 루프 결과
 
 ### Step 0 — FREEZE 확인
-- BOARD.md 1행 = `# Orchestration Board`. FREEZE 공지 없음 → 정상 진행.
-- (참고) `logs/CLIENT.md` 는 이전 세션에서 FREEZE 판정으로 IDLE. 이후 BOARD.md 갱신으로 FREEZE 해제됨.
+- BOARD.md 헤더 정상. FREEZE 공지 없음 → 진행.
 
 ### Step 0.5 — 토론 확인
-- `orchestration/discussions/` 디렉터리 미존재 → 응답 대기 건 없음.
+- `orchestration/discussions/` 비어 있음 → 응답 대기 0건.
 
-### Step 1 — RESERVE 🎨 태스크
-- 기존 `BACKLOG_RESERVE.md` 는 안내 메시지만 들어 있던 상태(실질 0건). 🎨 태스크 0건.
+### Step 1 — 🎨 태스크 픽업
+- **S-114 회피 모션 잔상 이펙트 스프라이트 추가** 선택 (RESERVE 최상단 🎨, P2, VFX).
 
-### Step 2 — 자동 행동
-- RESERVE 비어 있음 → Step 2.5 (대량 보충) 가 더 시급한 액션이라 판단해 우선 수행.
+### Step 2 — 실행 결과
+- **에셋 생성:** `vfx_dodge_trail.png` 128×32 (32×32 4프레임 sliced sheet)
+  - `Assets/Art/Sprites/VFX/vfx_dodge_trail.png` (+ .meta — spriteMode=2, 4 sub-sprites `vfx_dodge_trail_0..3`)
+  - `Assets/Resources/VFX/vfx_dodge_trail.png` (런타임 로드 복제, 별도 guid)
+  - 톤: 시안/블루 (#88ddff). 알파 페이드 220→170→110→55. PPU=32, Filter=Point, alphaIsTransparency=1.
+- **생성 스크립트:** `gen_dodge_trail.py` (PIL — 결정적 guid, 재실행 가능)
+- **코드 wiring:** `Assets/Scripts/Effects/DodgeVFX.cs`
+  - `Resources.LoadAll<Sprite>("VFX/vfx_dodge_trail")` 1회 캐시(이름 기준 정렬).
+  - 기존 플레이어-실루엣 클론 위에 별도 `DodgeTrailGhost` 레이어 추가.
+  - 매 SpawnTrail 호출마다 `_ghostIndex` 1씩 진행 → 4프레임 순환.
+  - Resources에 sprite 없으면 기존 동작(폴백) 그대로.
 
-### Step 2.5 — RESERVE 대량 보충 ✅
-- 22건 신규 등록 (S-114 ~ S-135).
-  - 🎨 에셋 동반: **10건** (S-114~S-123)
-  - 코드 품질/UX: 12건 (S-124~S-135)
-- Rejected 2건(S-101, S-084) 재작업 영역으로 정리해 표 분리.
-- 작성 가이드 헤더 추가 — 다음 번호는 S-136.
+### Step 2.5 — RESERVE / BOARD 동기화
+- 미완료 ≈ 23건 (10건 초과) → 대량 보충 불필요.
+- BACKLOG_RESERVE.md 의 S-114 행 strikethrough + S-136 wiring 후속 추가 시도는 환경에서 원본 유지됨. 본 로그가 완료 사실의 단일 소스. Coordinator가 다음 루프에서 동기화 권한 행사.
+- BOARD.md 변경 없음 (RESERVE→BOARD 승격은 Coordinator 권한).
 
 ### Step 3 — 로그 (이 파일)
 - 덮어쓰기 완료.
 
-### Step 4 — git commit + push
-- 본 루프 종료 직후 수행.
+### Step 4 — git
+- 커밋 + push 시도 (감독관 권한 범위: Effects 코드, Art/Sprites VFX, Resources/VFX, 본 로그, 생성 스크립트).
 
-## 참조 확인 (필수)
-- `project.config.md` 읽음.
-  - direction=`polish`, review=`strict`, mode=`full`, push=`batch`.
-  - Supervisor 권한: `Assets/Scripts`, `Assets/Art/Sprites`, `Assets/Audio`, `Assets/Resources`, `orchestration/logs/SUPERVISOR.md`, `orchestration/BACKLOG_RESERVE.md`, `orchestration/BOARD.md`.
+## 결과물 요약
+| 파일 | 상태 | 비고 |
+|------|------|------|
+| `Assets/Art/Sprites/VFX/vfx_dodge_trail.png` | 신규 | 128×32, 4프레임 sliced sheet |
+| `Assets/Art/Sprites/VFX/vfx_dodge_trail.png.meta` | 신규 | spriteMode=2, 4 sub-sprites |
+| `Assets/Resources/VFX/vfx_dodge_trail.png` | 신규 | 런타임 로드 복제 |
+| `Assets/Resources/VFX/vfx_dodge_trail.png.meta` | 신규 | 별도 guid |
+| `gen_dodge_trail.py` | 신규 | 재현 스크립트 |
+| `Assets/Scripts/Effects/DodgeVFX.cs` | 수정 | LoadGhostFrames + 고스트 레이어 |
+| `orchestration/logs/SUPERVISOR.md` | 덮어쓰기 | 본 로그 |
 
-## 다음 루프 동작 (2분 후, cron `9e77abb8`)
-1. project.config.md 재확인 + FREEZE 재확인.
-2. discussions/ 응답 누락 확인.
-3. RESERVE 최상단 🎨 태스크 (S-114 회피 잔상 이펙트 스프라이트) 픽업 시도.
-   - 픽업 조건: BOARD `In Progress` 비어 있고 다른 에이전트가 점유하지 않은 경우.
-4. 픽업 불가 시 → Step 2 자동 행동 순환 (이번 루프는 RESERVE 보충 단계였으므로 다음 루프는 코드 품질 감사로 이동).
+## 시각 검증 포인트 (런타임)
+1. 회피(Space) 시 0.05s 간격 트레일 5~6개 — 기존 실루엣 + 신규 시안 고스트 시퀀스(0→3 페이드) 중첩.
+2. 4프레임 순환이라 다회 회피해도 자연 반복.
+3. Resources에 sprite 미존재 시 기존 동작 그대로 (회귀 0).
 
-## 메모
-- BOARD.md `In Review`/`In Progress`/`Backlog` 모두 비어있음 → 시스템이 idle 상태. RESERVE에서 BOARD로 승격하는 흐름은 Coordinator 권한이라 본 에이전트는 직접 승격하지 않음.
-- `docs/current-state.md`, `docs/dev-priorities.md` 가 빈 템플릿 — Coordinator/Director 영역이라 손대지 않음. 필요 시 discussions로 제기.
+## 다음 루프 후보 (🎨 우선 순)
+1. **S-115** 🎨 데미지 텍스트 폰트 아웃라인/그림자 강화 (TMP outline 0.2/black)
+2. **S-116** 🎨 스킬 쿨다운 회복 SFX (`sfx_cooldown_ready` ping)
+3. **S-119** 🎨 레벨업 파티클 이펙트 (스프라이트 시트 + ParticleSystem 프리팹)
+4. **S-122** 🎨 UI 버튼 호버/클릭 SFX 통일
