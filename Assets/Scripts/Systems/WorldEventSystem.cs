@@ -101,6 +101,14 @@ public class WorldEventSystem
         _activeEvent = null;
     }
 
+    // S-084: 씬 전환/세이브 종료 등 외부 호출로 진행 중 이벤트를 강제 종료.
+    // 정상 EndEvent 경로를 거쳐 WorldEventEndEvent를 발행 → 구독자가 잔존 오브젝트 정리.
+    public void ForceEndActiveEvent()
+    {
+        if (_activeEvent == null) return;
+        EndEvent();
+    }
+
     // Save/Load
     public (string activeId, float startHour, Dictionary<string, float> lastOccurrence) Serialize()
     {

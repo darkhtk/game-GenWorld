@@ -1,42 +1,40 @@
 # Orchestration Board
 
-> **최종 업데이트:** 2026-04-30 (Coordinator)
+> **최종 업데이트:** 2026-04-30 (Developer)
 > **프로젝트:** GENWorld
-> **현재 상태:** Stabilize (Done 150건+, In Progress 0건, Rejected 2건)
-
-> ⚠️ **개발자 다음 루프 우선처리:** Rejected 재작업 → S-101 (high) → S-084 (P3). 픽업 시 In Progress로 이동 + REVIEW 사유 확인.
+> **현재 상태:** Stabilize (Done 150건+, In Progress 1건, In Review 1건, Rejected 0건)
 
 ---
 
 ## 로드맵
 
-| #   | 태스크                                   | 우선순위 | 상태  | 비고               |
-| --- | ------------------------------------- | ---- | --- | ---------------- |
-| 1   | S-101: 회피 기능 수행 시 몬스터 리셋 버그 수정        | high | ❌   | Rejected — 수정 필요 |
-| 2   | S-084: WorldEventSystem 종료 잔존 오브젝트 정리 | P3   | ❌   | Rejected — 수정 필요 |
+| #   | 태스크                                   | 우선순위 | 상태  | 비고                                       |
+| --- | ------------------------------------- | ---- | --- | ---------------------------------------- |
+| 1   | S-101: 회피 기능 수행 시 몬스터 리셋 버그 수정        | high | 👀  | In Review (v2) — fix 0643971 적용 후 리뷰 재요청 |
+| 2   | S-084: WorldEventSystem 종료 잔존 오브젝트 정리 | P3   | 🔧  | In Progress — 정리 인프라 작업 중                |
 
 ---
 
 ## ❌ Rejected (최우선 수정)
 
-| 태스크                                  | 사유                                | REVIEW                            | 비고   |
-| ------------------------------------ | --------------------------------- | --------------------------------- | ---- |
-| S-101 회피 기능 수행 시 몬스터 리셋 버그 수정        | 회피 중 몬스터 AI 상태 초기화 — 원인 파악 필요    | reviews/REVIEW-S-101-v1.md       | high |
-| S-084 WorldEventSystem 종료 잔존 오브젝트 정리 | OnDisable 풀 반환 누락                | reviews/REVIEW-S-084-v1.md       | P3   |
+| 태스크 | 사유 | REVIEW | 비고 |
+| --- | --- | ------ | --- |
 
 ---
 
 ## 🔧 In Progress
 
-| 태스크 | 우선순위 | 담당  | 시작일 | 비고  |
+| 태스크 | 우선순위 | 담당 | 시작일 | 비고 |
 | --- | ---- | --- | --- | --- |
+| S-084 WorldEventSystem 종료 잔존 오브젝트 정리 | P3 | Developer | 2026-04-30 | EventOriginId 태그 + WorldEventEndEvent 구독 정리 |
 
 ---
 
 ## 👀 In Review
 
-| 태스크 | 우선순위 | 완료일 | 결과  | 비고  |
+| 태스크 | 우선순위 | 완료일 | 결과 | 비고 |
 | --- | ---- | --- | --- | --- |
+| S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 | high | 2026-04-10 | 대기 (v2 요청) | fix 0643971 — Return 상태 reaggro-first, RecentHitWindow=5s, HP recover floor 50%, DodgeMonsterResetBugTest 3건 추가 |
 
 ---
 
