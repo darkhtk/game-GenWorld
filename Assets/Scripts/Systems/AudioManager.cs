@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Sources")]
     [SerializeField] AudioSource bgmSource;
+    [SerializeField] AudioSource bgmSourceB;   // S-120: secondary for dual-source crossfade
     [SerializeField] AudioSource sfxSource;
     [SerializeField] AudioSource ambientSource;
 
@@ -20,8 +21,18 @@ public class AudioManager : MonoBehaviour
     Coroutine _fadeCoroutine;
     Coroutine _duckCoroutine;
     float _duckMultiplier = 1f;
+    bool _useSourceA = true;   // S-120: which BGM source is currently active/primary
+
+    AudioSource ActiveBgm => _useSourceA ? bgmSource : bgmSourceB;
+    AudioSource IdleBgm   => _useSourceA ? bgmSourceB : bgmSource;
 
     float BgmTargetVolume() => _bgmVolume * _masterVolume * _duckMultiplier;
+
+    void ApplyBgmVolume(float vol)
+    {
+        if (bgmSource != null) bgmSource.volume = vol;
+        if (bgmSourceB != null) bgmSourceB.volume = vol;
+    }
 
     void Awake()
     {
@@ -30,6 +41,7 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         if (bgmSource == null) bgmSource = CreateSource("BGM", true);
+        if (bgmSourceB == null) bgmSourceB = CreateSource("BGM_B", true);
         if (sfxSource == null) sfxSource = CreateSource("SFX", false);
         if (ambientSource == null) ambientSource = CreateSource("Ambient", true);
 
@@ -45,10 +57,13 @@ public class AudioManager : MonoBehaviour
     void OnSceneChanged(Scene prev, Scene next)
     {
         var keep = new HashSet<string>();
-        if (bgmSource.clip != null)
+        if (bgmSource != null && bgmSource.clip != null)
             foreach (var kv in _clipCache)
                 if (kv.Value == bgmSource.clip) { keep.Add(kv.Key); break; }
-        if (ambientSource.clip != null)
+        if (bgmSourceB != null && bgmSourceB.clip != null)
+            foreach (var kv in _clipCache)
+                if (kv.Value == bgmSourceB.clip) { keep.Add(kv.Key); break; }
+        if (ambientSource != null && ambientSource.clip != null)
             foreach (var kv in _clipCache)
                 if (kv.Value == ambientSource.clip) { keep.Add(kv.Key); break; }
 
@@ -81,43 +96,82 @@ public class AudioManager : MonoBehaviour
     {
         var clip = GetClip($"Audio/BGM/{clipName}");
         if (clip == null) { Debug.LogWarning($"[AudioManager] BGM not found: {clipName}"); return; }
-        if (bgmSource.clip == clip && bgmSource.isPlaying) return;
+        var active = ActiveBgm;
+        if (active != null && active.clip == clip && active.isPlaying) return;
 
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(CrossfadeBGM(clip, fadeTime));
+        _fadeCoroutine = StartCoroutine(
+            GameConfig.Audio.BgmCrossfadeDualSource && bgmSourceB != null
+                ? CrossfadeBGMDual(clip, fadeTime)
+                : CrossfadeBGM(clip, fadeTime));
     }
 
     public void StopBGM(float fadeTime = 0.5f)
     {
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(FadeOut(bgmSource, fadeTime));
+        _fadeCoroutine = StartCoroutine(FadeOut(ActiveBgm, fadeTime));
     }
 
     IEnumerator CrossfadeBGM(AudioClip newClip, float fadeTime)
     {
-        float halfFade = fadeTime * 0.5f;
-        float startVol = bgmSource.volume;
+        var src = ActiveBgm;
+        float halfFade = Mathf.Max(0.0001f, fadeTime * 0.5f);
+        float startVol = src.volume;
 
         for (float t = 0; t < halfFade; t += Time.unscaledDeltaTime)
         {
-            bgmSource.volume = Mathf.Lerp(startVol, 0f, t / halfFade);
+            src.volume = Mathf.Lerp(startVol, 0f, t / halfFade);
             yield return null;
         }
 
-        bgmSource.clip = newClip;
-        bgmSource.Play();
-        float targetVol = _bgmVolume * _masterVolume;
+        src.clip = newClip;
+        src.Play();
+        float targetVol = BgmTargetVolume();
 
         for (float t = 0; t < halfFade; t += Time.unscaledDeltaTime)
         {
-            bgmSource.volume = Mathf.Lerp(0f, targetVol, t / halfFade);
+            src.volume = Mathf.Lerp(0f, targetVol, t / halfFade);
             yield return null;
         }
-        bgmSource.volume = targetVol;
+        src.volume = targetVol;
+        _fadeCoroutine = null;
+    }
+
+    // S-120: Dual-source crossfade — both sources play simultaneously, one ramps down while
+    // the other ramps up over fadeTime. Eliminates the silence gap of the sequential variant.
+    IEnumerator CrossfadeBGMDual(AudioClip newClip, float fadeTime)
+    {
+        var outgoing = ActiveBgm;
+        var incoming = IdleBgm;
+        if (incoming == null) { yield return CrossfadeBGM(newClip, fadeTime); yield break; }
+
+        float startOut = outgoing != null ? outgoing.volume : 0f;
+        float target = BgmTargetVolume();
+
+        incoming.clip = newClip;
+        incoming.volume = 0f;
+        incoming.Play();
+
+        float dur = Mathf.Max(0.0001f, fadeTime);
+        for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
+        {
+            float k = t / dur;
+            // S-118 interop: re-read target each frame so DuckBGM multiplier changes flow through.
+            float curTarget = BgmTargetVolume();
+            if (outgoing != null) outgoing.volume = Mathf.Lerp(startOut, 0f, k);
+            incoming.volume = Mathf.Lerp(0f, curTarget, k);
+            yield return null;
+        }
+
+        if (outgoing != null) { outgoing.volume = 0f; outgoing.Stop(); outgoing.clip = null; }
+        incoming.volume = BgmTargetVolume();
+        _useSourceA = !_useSourceA;
+        _fadeCoroutine = null;
     }
 
     IEnumerator FadeOut(AudioSource source, float fadeTime)
     {
+        if (source == null) yield break;
         float startVol = source.volume;
         for (float t = 0; t < fadeTime; t += Time.unscaledDeltaTime)
         {
@@ -126,6 +180,7 @@ public class AudioManager : MonoBehaviour
         }
         source.Stop();
         source.volume = startVol;
+        _fadeCoroutine = null;
     }
 
     public void PlaySFX(string clipName, float pitchVariation = 0f)
@@ -161,7 +216,7 @@ public class AudioManager : MonoBehaviour
     public void SetBGMVolume(float vol)
     {
         _bgmVolume = Mathf.Clamp01(vol);
-        bgmSource.volume = BgmTargetVolume();
+        ApplyBgmVolume(BgmTargetVolume());
         PlayerPrefs.SetFloat("bgm_volume", _bgmVolume);
     }
 
@@ -174,8 +229,8 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float vol)
     {
         _masterVolume = Mathf.Clamp01(vol);
-        bgmSource.volume = BgmTargetVolume();
-        ambientSource.volume = 0.3f * _masterVolume;
+        ApplyBgmVolume(BgmTargetVolume());
+        if (ambientSource != null) ambientSource.volume = 0.3f * _masterVolume;
         PlayerPrefs.SetFloat("master_volume", _masterVolume);
     }
 
@@ -197,26 +252,28 @@ public class AudioManager : MonoBehaviour
         for (float t = 0f; t < fadeTime; t += Time.unscaledDeltaTime)
         {
             _duckMultiplier = Mathf.Lerp(startMult, target, t / fadeTime);
-            bgmSource.volume = BgmTargetVolume();
+            // While a crossfade is active, let it own the per-source volumes; the multiplier
+            // already feeds BgmTargetVolume() which the crossfade re-reads each frame.
+            if (_fadeCoroutine == null) ApplyBgmVolume(BgmTargetVolume());
             yield return null;
         }
         _duckMultiplier = target;
-        bgmSource.volume = BgmTargetVolume();
+        if (_fadeCoroutine == null) ApplyBgmVolume(BgmTargetVolume());
 
         for (float h = 0f; h < hold; h += Time.unscaledDeltaTime)
         {
-            bgmSource.volume = BgmTargetVolume();
+            if (_fadeCoroutine == null) ApplyBgmVolume(BgmTargetVolume());
             yield return null;
         }
 
         for (float t = 0f; t < fadeTime; t += Time.unscaledDeltaTime)
         {
             _duckMultiplier = Mathf.Lerp(target, 1f, t / fadeTime);
-            bgmSource.volume = BgmTargetVolume();
+            if (_fadeCoroutine == null) ApplyBgmVolume(BgmTargetVolume());
             yield return null;
         }
         _duckMultiplier = 1f;
-        bgmSource.volume = BgmTargetVolume();
+        if (_fadeCoroutine == null) ApplyBgmVolume(BgmTargetVolume());
         _duckCoroutine = null;
     }
 
@@ -229,7 +286,7 @@ public class AudioManager : MonoBehaviour
         _bgmVolume = PlayerPrefs.GetFloat("bgm_volume", 0.5f);
         _sfxVolume = PlayerPrefs.GetFloat("sfx_volume", 0.7f);
         _masterVolume = PlayerPrefs.GetFloat("master_volume", 1f);
-        bgmSource.volume = BgmTargetVolume();
-        ambientSource.volume = 0.3f * _masterVolume;
+        ApplyBgmVolume(BgmTargetVolume());
+        if (ambientSource != null) ambientSource.volume = 0.3f * _masterVolume;
     }
 }

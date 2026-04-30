@@ -1,8 +1,8 @@
 # Supervisor Log
 
 > **최종 실행:** 2026-04-30
-> **모드:** /loop 2m (cron `ea4c0446`)
-> **상태:** ✅ ACTIVE — S-118 BGM ducking 완료
+> **모드:** /loop 2m (cron `248ec8f7`)
+> **상태:** ✅ ACTIVE — S-120 보스룸 BGM 트랜지션 완료
 
 ## 이번 루프 결과
 
@@ -10,56 +10,69 @@
 - BOARD.md 헤더 정상. FREEZE 공지 없음 → 진행.
 
 ### Step 0.5 — 토론 확인
-- `orchestration/discussions/` 비어있음 (Glob 0 hit) → 응답 대기 0건.
+- `orchestration/discussions/` 폴더 미존재 (Glob 0 hit) → 응답 대기 0건.
 
 ### Step 1 — 🎨 태스크 픽업
-- 직전 루프(S-117) 완료. RESERVE 🎨 미완료 최상단 = **S-118 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4초)** (P3, Audio).
+- 직전 루프(S-118) 완료. RESERVE 🎨 미완료 최상단 = **S-120 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)** (P3, Audio, SPEC-S-120 작성됨).
 - 본 루프 픽업 → 실행.
 
 ### Step 2 — 실행 결과
 
-**(a) 코드 변경** — AudioManager에 ducking API 도입
-- `Assets/Scripts/Systems/AudioManager.cs`
-  - 신규 필드: `Coroutine _duckCoroutine`, `float _duckMultiplier = 1f`
-  - 신규 헬퍼: `BgmTargetVolume() => _bgmVolume * _masterVolume * _duckMultiplier`
-  - 신규 public API: `DuckBGM(float dropDb = -6f, float duration = 0.4f, float fadeTime = 0.08f)` — 진행 중인 _duckCoroutine 있으면 stop 후 재시작 (재진입 안전).
-  - 신규 코루틴: `DuckRoutine(dropDb, duration, fadeTime)` — `target = 10^(dropDb/20)` (=−6dB → 0.5012), `fadeTime`을 `min(fadeTime, duration*0.5)` 로 클램프, `hold = max(0, duration - fadeTime*2)` 자동 계산. fade-in → hold → fade-out 3단계, 모두 `Time.unscaledDeltaTime` (게임 일시정지 무관).
-  - 일관성 정리: `SetBGMVolume`, `SetMasterVolume`, `LoadVolumeSettings` 의 `bgmSource.volume = _bgmVolume * _masterVolume` 표현을 모두 `BgmTargetVolume()` 로 통일 — 사용자가 ducking 도중 슬라이더 만져도 multiplier 보존.
-- `Assets/Scripts/Core/CombatRewardHandler.cs:107-112`
-  - 기존 단일 줄 `if (drops.Count > 0) AudioManager.Instance?.PlaySFX(...)` → 블록으로 확장.
-  - drops>0 분기에서 `PlaySFX("sfx_item_acquire")` 직후 `DuckBGM(-6f, 0.4f)` 호출. SPEC 그대로.
+**(a) 신규 데이터 — `Assets/Scripts/Core/GameConfig.cs`**
+- 정적 클래스 `GameConfig.Audio` 신규.
+  - `BgmTransitionDefault = 1.0f` — 일반 지역 트랜지션 (마을/숲/늪/동굴).
+  - `BgmTransitionBossEnter = 1.5f` — 보스룸 진입 (volcano/dragon_lair).
+  - `BgmTransitionBossExit = 1.0f` — 보스룸 이탈 (현재 동일, 추후 조정 여지).
+  - `BgmCrossfadeDualSource = true` — dual-source 동시 페이드 활성. false 시 legacy 시퀀셜 fallback.
+  - `BossRegionIds = { "volcano", "dragon_lair" }` — `GameManager.PlayRegionBGM` 매핑(316~317행)과 1대1 일치.
+  - 헬퍼 `IsBossRegion(string)` (null/empty 안전), `BgmFadeTimeFor(string)` (boss → 1.5f / else → 1.0f).
 
-**(b) 영향 범위 / 안전성 확인**
-- 진행 중 `_fadeCoroutine` (PlayBGM crossfade) 과의 충돌: ducking 코루틴은 매 프레임 `bgmSource.volume`에 직접 쓰지만, crossfade 도중에는 PlayBGM 호출 시점의 lerp가 우선 — 단 crossfade 종료 직후 ducking 코루틴이 이어서 정상 적용됨. 아이템 획득은 평상시 시점이라 실전 충돌 가능성 낮음.
-- 재진입: 짧은 시간 안에 여러 drop이 연속 발생 → 직전 _duckCoroutine StopCoroutine으로 안전 갱신.
-- ScalePlayBGM/StopBGM과 ducking 동시 호출 시도: 별도 코루틴 (분리) — 각자 자신의 lerp만 진행. PlayBGM이 직접 `bgmSource.volume = targetVol`로 마지막에 고정하지만, _duckMultiplier는 1f가 아닌 한 ducking 코루틴이 다음 프레임에 다시 덮어씀.
+**(b) AudioManager dual-source — `Assets/Scripts/Systems/AudioManager.cs`**
+- SerializeField `bgmSourceB` 추가 + `Awake`에서 `CreateSource("BGM_B", true)` 자동 생성.
+- 활성 소스 추적 `bool _useSourceA` + 프로퍼티 `ActiveBgm`/`IdleBgm`.
+- 신규 헬퍼 `ApplyBgmVolume(float)` — 양 소스 동일 볼륨 일괄 적용.
+- 신규 코루틴 `CrossfadeBGMDual(AudioClip, float)`:
+  - incoming = IdleBgm: clip 설정 + volume=0 + Play
+  - outgoing = ActiveBgm: 시작 볼륨 캡처
+  - `for t in [0, fadeTime)`: outgoing → 0, incoming → `BgmTargetVolume()` (매 프레임 재계산 → S-118 DuckBGM 충돌 회피)
+  - 종료 시 outgoing.Stop() + clip null + `_useSourceA = !_useSourceA` 토글.
+- `PlayBGM(name, fadeTime)`이 `BgmCrossfadeDualSource && bgmSourceB != null`이면 dual, 아니면 legacy `CrossfadeBGM` 실행.
+- `CrossfadeBGM`(legacy)도 `ActiveBgm` 기반으로 변경 + 종료 시 `_fadeCoroutine = null` 해제.
+- `StopBGM`/`FadeOut`도 `ActiveBgm` 사용 + null guard + `_fadeCoroutine` 해제.
 
-### Step 2.5 — RESERVE 정리 + 보충
-- ✅ S-118 — 취소선 + DONE 표기 + 구현 요약.
-- ✅ S-124 (코드 품질 섹션 잔존) — BOARD ✅에 이미 흡수되었으므로 RESERVE에서도 취소선 + BOARD 참조.
-- 🎨 미완료가 4건(S-120/121/122/123)뿐이라 다음 루프 픽업 안전망으로 4건 보충:
-  - **S-140** 🎨 보스 처치 시 화면 흔들림 + 승리 코드 SFX (sfx_boss_die_chord 1.2s) — P2 VFX/SFX
-  - **S-141** 🎨 포션 사용 SFX 종류별 분리 (hp/mp/buff 3종 250ms) — P3 SFX
-  - **S-142** 🎨 NPC 대화 시작 시 BGM 페이드 다운 (-3dB sustain, Hide 시 복원) — P3 Audio (S-118 DuckBGM API 재사용 가능)
-  - **S-143** 🎨 발걸음 SFX 지형별 분리 (grass/stone/wood, 0.4s 간격) — P3 SFX
-- 작성 가이드 footer "다음 번호 S-144부터" 갱신.
+**(c) BgmTargetVolume 호출지 dual 적용 (7곳 통합)**
+- `SetBGMVolume`, `SetMasterVolume`, `LoadVolumeSettings`, `DuckRoutine` 4구간(fade-in / target / hold / fade-out)에서 `bgmSource.volume = BgmTargetVolume()` → `ApplyBgmVolume(BgmTargetVolume())`.
+- DuckRoutine은 `_fadeCoroutine != null` (크로스페이드 활성) 시 `_duckMultiplier`만 갱신하고 ApplyBgmVolume 호출 생략 — 크로스페이드가 매 프레임 `BgmTargetVolume()` 재계산하므로 자연스럽게 multiplier 반영.
+- `OnSceneChanged`도 `bgmSourceB.clip` keep 추가.
 
-### Step 3 — BOARD 동기화
-- `BOARD.md` 헤더 갱신 ("Supervisor — S-118 ✅ DONE 흡수: AudioManager.DuckBGM"), Done 카운트 150+8.
-- 로드맵에 #9 S-118 행 추가, ✅ Done 테이블에 S-118 행 추가 (구현 요약 풀 텍스트).
-- 후속 메모 추가: DuckBGM API 재사용 (S-140 보스, S-142 NPC 대화).
+**(d) GameManager fadeTime 분기 — `Assets/Scripts/Core/GameManager.cs:328`**
+- `AudioManager.Instance?.PlayBGM(bgm)` → `PlayBGM(bgm, GameConfig.Audio.BgmFadeTimeFor(region))` 1라인.
 
-### Step 4 — 자동 행동 사이클 진입 시점 안내
-- 본 루프는 🎨 태스크가 RESERVE 최상단에 존재하여 Step 1 단독 진행. Step 2 자동 행동(코드 감사/성능/UX 등) 미진입.
-- 다음 루프 RESERVE 🎨 최상단 후보: **S-120 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)** — RegionManager.OnRegionChanged 진입점. AudioManager.PlayBGM에 이미 fadeTime 인자 있으므로 트리거 추가 + RegionDef BGM 매핑만 정리하면 가능.
+**(e) EditMode 테스트 — `Assets/Tests/EditMode/AudioConfigTests.cs` (신규, 7건)**
+1. `IsBossRegion_VolcanoTrue` — volcano → true.
+2. `IsBossRegion_DragonLairTrue` — dragon_lair → true.
+3. `IsBossRegion_VillageFalse` — village → false.
+4. `IsBossRegion_EmptyOrNullFalse` — "" / null → false (NRE 가드 검증).
+5. `BgmFadeTimeFor_BossRegionUses1_5s` — volcano/dragon_lair → 1.5f (상수 자체 + 리터럴 양쪽 검증).
+6. `BgmFadeTimeFor_NormalRegionUses1s` — village/forest/cave → 1.0f.
+7. `BossRegionIds_ContainsExactlyVolcanoAndDragonLair` — 길이 2 + 두 항목 포함.
 
-## 메트릭
-- **수정 파일:** 4 (AudioManager.cs, CombatRewardHandler.cs, BACKLOG_RESERVE.md, BOARD.md)
-- **신규 라인:** AudioManager +43, CombatRewardHandler +5, RESERVE +4 행, BOARD +2 행
-- **에셋 신규:** 0 (코드만, 외부 에셋 의존 없음)
-- **빌드 위험:** 낮음 (public API 추가 / 기존 호출 시그니처 불변 / using 추가 불필요 — System.Collections.IEnumerator 이미 import됨)
+(SPEC §7 #3/#4의 코루틴 시뮬레이션 테스트는 EditMode에서 `Time.unscaledDeltaTime` 시뮬레이션 + AudioSource MonoBehaviour 의존이라 PlayMode 또는 사용자 수동 검증으로 미룸.)
 
-## 다음 루프 우선순위
-1. **🎨 S-120** 보스룸 진입 BGM 크로스페이드 — AudioManager.PlayBGM(fadeTime=1.5f) 트리거 + RegionManager 진입점 훅
-2. RESERVE 🎨 카운트 모니터링 (현재 8건). 4건 이하 진입 시 추가 보충.
-3. S-118 DuckBGM API의 자체 검증 — Unity Editor 컴파일 통과 확인 권장 (Coordinator/Client 루프에서 컴파일 상태 보고 시 회수).
+### Step 2.5 — RESERVE 보충
+- 미완료 17건 (🎨 6건 + 🐛 11건) → 10건 초과 → 보충 보류.
+
+### Step 3 — 로그
+- 본 파일 덮어쓰기 완료.
+
+### Step 4 — git
+- 다음.
+
+## 다음 루프 후보
+- 🎨 미완료 최상단 = **S-121 NPC 대화 시작/종료 SFX** (P3, SFX). DialogueUI Show/Hide 진입점 훅 + sfx_dialogue_open/close.wav 신규.
+- 또는 **S-122 UI 버튼 호버/클릭 SFX 통일** (P2, UI/SFX). 공통 UIButton 컴포넌트 + 일괄 부착 — 코드 변경 폭이 커서 SPEC 사전 작성 필요.
+
+## DoD 잔여 (S-120, PlayMode/사용자 수동)
+- §6: village → volcano 진입 시 `bgm_forest` → `bgm_boss` 1.5s 부드러운 교차, 무음 갭 X 청취 검증.
+- §7: 보스 진입 직후 0.5s 시점 아이템 픽업 → 더킹이 새 active source(incoming)에 정상 적용.
+- 보스 진입 직후 다른 region 통과 (롤백 시나리오) → 코루틴 안전 종료.

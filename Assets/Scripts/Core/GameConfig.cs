@@ -35,6 +35,29 @@ public static class GameConfig
         ItemGrade.Legendary => GradeLegendary, _ => GradeCommon
     };
 
+    // S-120: Single source of truth for BGM transition timing + boss-region routing.
+    // Both GameManager.PlayRegionBGM (fadeTime branch) and AudioManager.CrossfadeBGM
+    // MUST read from here.
+    public static class Audio
+    {
+        public const float BgmTransitionDefault   = 1.0f;
+        public const float BgmTransitionBossEnter = 1.5f;
+        public const float BgmTransitionBossExit  = 1.0f;
+        public const bool  BgmCrossfadeDualSource = true;
+        public static readonly string[] BossRegionIds = { "volcano", "dragon_lair" };
+
+        public static bool IsBossRegion(string regionId)
+        {
+            if (string.IsNullOrEmpty(regionId)) return false;
+            for (int i = 0; i < BossRegionIds.Length; i++)
+                if (BossRegionIds[i] == regionId) return true;
+            return false;
+        }
+
+        public static float BgmFadeTimeFor(string regionId) =>
+            IsBossRegion(regionId) ? BgmTransitionBossEnter : BgmTransitionDefault;
+    }
+
     // Single source of truth for monster aggression / engagement timing windows.
     // Both MonsterController.UpdateAI (Return-state guard) and CombatManager
     // (IsInCombat, dodge-aggro sync) MUST read from here — see SPEC-S-101 §3-3.

@@ -324,7 +324,8 @@ public class GameManager : MonoBehaviour
             "cave" or "deep_cave" => "amb_cave",
             _ => "amb_village"
         };
-        AudioManager.Instance?.PlayBGM(bgm);
+        // S-120: boss regions get a longer 1.5s crossfade for impact; others use default 1.0s.
+        AudioManager.Instance?.PlayBGM(bgm, GameConfig.Audio.BgmFadeTimeFor(region));
         AudioManager.Instance?.PlayAmbient(amb);
     }
 
