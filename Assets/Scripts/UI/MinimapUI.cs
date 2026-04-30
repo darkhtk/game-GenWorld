@@ -10,6 +10,10 @@ public class MinimapUI : MonoBehaviour
     [SerializeField] GameObject monsterIconPrefab;
     [SerializeField] GameObject npcIconPrefab;
 
+    public static readonly Color NpcMarkerDefault = new(0.4f, 1f, 0.533f);   // #66ff88
+    public static readonly Color NpcMarkerShop    = new(1f, 0.85f, 0.2f);    // #ffd933
+    public static readonly Color NpcMarkerQuest   = new(1f, 0.55f, 0.2f);    // #ff8c33
+
     Texture2D _mapTexture;
     float _viewRadius = 30f;
     float _lastUpdateTime;
@@ -143,14 +147,18 @@ public class MinimapUI : MonoBehaviour
             _npcCacheTime = Time.time;
         }
         int nCount = 0;
+        var quests = gm.Quests;
+        var inventory = gm.Inventory;
         foreach (var npc in _cachedNpcs)
         {
+            if (npc == null) continue;
             float dist = Vector2.Distance(playerPos, npc.Position);
             if (dist > _viewRadius * GameConfig.TileSize) continue;
 
             var icon = GetNpcIcon(nCount);
             icon.gameObject.SetActive(true);
             icon.anchoredPosition = WorldToMinimap(playerPos, npc.Position);
+            ApplyNpcMarkerColor(icon, npc, quests, inventory);
             nCount++;
         }
         for (int i = nCount; i < _npcIcons.Count; i++)
@@ -191,6 +199,29 @@ public class MinimapUI : MonoBehaviour
     void OnDestroy()
     {
         if (_mapTexture != null) Destroy(_mapTexture);
+    }
+
+    static void ApplyNpcMarkerColor(RectTransform iconRT, VillageNPC npc,
+        QuestSystem quests, InventorySystem inventory)
+    {
+        if (iconRT == null) return;
+        var img = iconRT.GetComponent<Image>();
+        if (img == null) return;
+        bool hasQuestForNpc = false;
+        if (quests != null && npc?.Def != null && !string.IsNullOrEmpty(npc.Def.id))
+            hasQuestForNpc = quests.GetQuestStatusForNpc(npc.Def.id, inventory).HasValue;
+        img.color = ClassifyNpcMarkerColor(npc?.Def, hasQuestForNpc);
+    }
+
+    public static Color ClassifyNpcMarkerColor(NpcDef def, bool hasQuestForNpc)
+    {
+        if (def == null) return NpcMarkerDefault;
+        if (def.actions != null)
+        {
+            for (int i = 0; i < def.actions.Length; i++)
+                if (def.actions[i] == "open_shop") return NpcMarkerShop;
+        }
+        return hasQuestForNpc ? NpcMarkerQuest : NpcMarkerDefault;
     }
 
     static GameObject CreateDefaultIcon(Transform parent, Color color)
