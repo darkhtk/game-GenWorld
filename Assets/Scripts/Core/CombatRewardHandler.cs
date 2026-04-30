@@ -92,6 +92,20 @@ public class CombatRewardHandler
             AudioManager.Instance?.PlaySFX(coinSfx);
         }
 
+        // S-140: boss-only feedback — camera shake + victory chord + BGM duck.
+        if (def.rank == "boss" && GameConfig.Audio.BossDeathEnabled)
+        {
+            CameraShake.Shake(_host,
+                GameConfig.Audio.BossDeathCameraShakeMs,
+                GameConfig.Audio.BossDeathCameraShakeIntensity);
+            AudioManager.Instance?.PlaySFXScaled(
+                GameConfig.Audio.BossDeathSfxName,
+                GameConfig.Audio.BossDeathSfxVolume);
+            AudioManager.Instance?.DuckBGM(
+                GameConfig.Audio.BossDeathDuckBgmDropDb,
+                GameConfig.Audio.BossDeathDuckBgmDuration);
+        }
+
         if (_combatManager != null)
         {
             Vector2 textPos = monster.Position + Vector2.up * 1.2f;

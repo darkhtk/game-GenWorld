@@ -63,6 +63,17 @@ public static class GameConfig
         public const float  DialogueOpenSfxVolume  = 0.85f;
         public const float  DialogueCloseSfxVolume = 0.70f;
         public const bool   DialogueSfxEnabled     = true;
+
+        // S-140: Boss death feedback — CinemachineImpulse + victory chord SFX + BGM duck.
+        // Reuses existing sfx_boss_defeat.wav (~1.5s) to avoid asset bloat. Duck is held
+        // longer/deeper than item-pickup default (-6dB / 0.4s) so the chord rings clean.
+        public const string BossDeathSfxName              = "sfx_boss_defeat";
+        public const float  BossDeathSfxVolume            = 0.95f;
+        public const float  BossDeathCameraShakeMs        = 600f;
+        public const float  BossDeathCameraShakeIntensity = 0.022f;
+        public const float  BossDeathDuckBgmDropDb        = -8f;
+        public const float  BossDeathDuckBgmDuration      = 1.2f;
+        public const bool   BossDeathEnabled              = true;
     }
 
     // S-122: Common UI button SFX (hover/click). UIButtonSfx component reads these
