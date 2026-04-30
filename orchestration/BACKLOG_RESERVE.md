@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-30 (Supervisor — S-119 DONE: vfx_levelup_burst.png + LevelUpVFX.cs 황금 파티클 16개 방사)
+> **최종 갱신:** 2026-04-30 (Supervisor — S-117 DONE: sfx_coin_small/pile/burst.wav 3종 + CombatRewardHandler rank 분기)
 > **방향:** polish (UX/UI > 비주얼/오디오 > 성능)
 > **태그 규약:** `🎨` = 에셋(스프라이트/SFX/BGM/이펙트) 동반 태스크. 감독관이 우선 픽업.
 
@@ -13,7 +13,7 @@
 | ~~S-114~~ | ~~🎨 회피 모션 잔상 이펙트 스프라이트 추가~~ ✅ 2026-04-30          | P2   | VFX     | DONE — vfx_dodge_trail 4f sprite + DodgeVFX ghost layer (commit 6ab7a5c) |
 | ~~S-115~~ | ~~🎨 데미지 텍스트 폰트 아웃라인/그림자 강화~~ ✅ 2026-04-30        | P2   | UI      | DONE — outline 0.2 black + Underlay 드롭섀도우 (DamageText.cs)             |
 | ~~S-116~~ | ~~🎨 스킬 쿨다운 회복 SFX 누락~~ ✅ 2026-04-30                | P2   | SFX     | DONE — sfx_cooldown_ready.wav (220ms 1320Hz 벨톤) + HUD.UpdateCooldowns transition trigger |
-| S-117 | 🎨 몬스터 처치 시 골드 드롭 사운드 (등급별 3종)                        | P3   | SFX     | 일반/엘리트/보스 차별화. coin_small/coin_pile/coin_burst     |
+| ~~S-117~~ | ~~🎨 몬스터 처치 시 골드 드롭 사운드 (등급별 3종)~~ ✅ 2026-04-30 | P3 | SFX | DONE — sfx_coin_small.wav (150ms 단발), sfx_coin_pile.wav (280ms 3-pluck), sfx_coin_burst.wav (500ms arpeggio+sparkle) + CombatRewardHandler def.rank 분기 |
 | S-118 | 🎨 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4초)                      | P3   | Audio   | 획득 SFX 묻힘. AudioMixer snapshot 전환                  |
 | ~~S-119~~ | ~~🎨 레벨업 파티클 이펙트~~ ✅ 2026-04-30                  | P2   | VFX     | DONE — vfx_levelup_burst 8f sprite + LevelUpVFX 16-spark 방사 (1.0s) |
 | S-120 | 🎨 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)                       | P3   | Audio   | 현재 컷 전환. RegionManager.OnRegionChanged             |

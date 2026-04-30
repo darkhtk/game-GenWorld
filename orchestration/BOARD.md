@@ -40,7 +40,7 @@
 
 | 태스크 | 우선순위 | 완료일 | 결과 | 비고 |
 | --- | ---- | --- | --- | --- |
-| S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 (v3) | high | 2026-04-30 | 대기 | SPEC-S-101 기반 v3: ① `SetAIStateForTest`/`SetDodgeStateForTest` 테스트 API 도입(CS0272 해소), ② `GameConfig.MonsterAggro` 단일 상수(`RecentHitWindow=2f`, `IsInCombatWindow=2f`, `DodgeAggroSyncRangeMult=1.3f`), ③ `CombatManager.HandleMonsterAttacks` early return 제거 — 패턴/페이즈 진행 유지, `ApplyDamageToPlayer`에 invincibility 단일 chokepoint, ④ `m.Def == null` null-safety 가드, ⑤ Test 4건 재구성 + 컴포넌트 순서 보정. SPEC §7 수용 기준 6/7 충족. |
+| S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 (v3) | high | 2026-04-30 | ✅ APPROVE | REVIEW-S-101-v3 (5373b76, [깊은 리뷰], 4/4 페르소나 APPROVE). v2 BLOCKER 5건 모두 해소. 다음 루프 Unity Editor 실 컴파일 + EditMode test 4건 실행 검증 권장 (SPEC §7 #1/#2/#7 마무리). 사전 존재 의심 1건: `MonsterAttackPatternSelector` 정의 위치 추적 — v3 책임 외, 별도 태스크 회부 권장. |
 | S-124 인벤토리 드래그 앤 드롭 시각 피드백 | P2 | 2026-04-30 | 대기 | InventorySlotUI에 `IconSprite` getter / `SetDragGhost(bool)` 추가 (iconImage.color.a = 0.3). InventoryUI.OnSlotBeginDrag에서 원본 슬롯 ghost ON + dragIcon에 실제 sprite 복사. CancelDrag에서 ghost OFF. RefreshGrid의 SetItem이 color.white 강제 → drop 후 자동 복원. SPEC 없음 (BACKLOG_RESERVE 비고: "드래그 중 아이콘 반투명"). |
 
 ---

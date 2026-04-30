@@ -81,6 +81,17 @@ public class CombatRewardHandler
         _playerState.Gold += actualGold;
         EventBus.Emit(new GoldChangeEvent { gold = _playerState.Gold });
 
+        if (actualGold > 0)
+        {
+            string coinSfx = def.rank switch
+            {
+                "boss"  => "sfx_coin_burst",
+                "elite" => "sfx_coin_pile",
+                _       => "sfx_coin_small",
+            };
+            AudioManager.Instance?.PlaySFX(coinSfx);
+        }
+
         if (_combatManager != null)
         {
             Vector2 textPos = monster.Position + Vector2.up * 1.2f;

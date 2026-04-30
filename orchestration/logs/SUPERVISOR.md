@@ -1,8 +1,8 @@
 # Supervisor Log
 
 > **최종 실행:** 2026-04-30
-> **모드:** /loop 2m (cron `aed574c7`)
-> **상태:** ✅ ACTIVE — S-119 레벨업 파티클 이펙트 완료
+> **모드:** /loop 2m (cron `e964a414`)
+> **상태:** ✅ ACTIVE — S-117 등급별 골드 드롭 SFX 3종 완료
 
 ## 이번 루프 결과
 
@@ -13,79 +13,42 @@
 - `orchestration/discussions/` 디렉토리 부재 → 응답 대기 0건.
 
 ### Step 1 — 🎨 태스크 픽업
-- 직전 루프(S-116) 완료. RESERVE 🎨 미완료 중 P2 최상단 = **S-119 레벨업 파티클 이펙트** (P2, VFX). S-117/118/120/121/123은 P3.
+- 직전 루프(S-119) 완료. RESERVE 🎨 미완료 최상단 = **S-117 등급별 골드 드롭 SFX 3종** (P3, SFX).
 - 본 루프 픽업 → 실행.
 
 ### Step 2 — 실행 결과
 
-**(a) 에셋 생성** — `vfx_levelup_burst.png`
-- 경로: `Assets/Resources/VFX/vfx_levelup_burst.png` (Resources.LoadAll<Sprite>("VFX/vfx_levelup_burst") 경로).
-- 스펙:
-  - **256×32 RGBA** sprite sheet (8프레임 × 32×32, sprite multiple)
-  - 프레임 0~3: 황금 코어가 작게 시작 → 8개 방사 스파이크 + 외곽 링이 형성되며 풀 폭발 (피크 frame3)
-  - 프레임 4~7: 코어/링 페이드, 마지막엔 거의 투명한 잔상
-  - 색 팔레트: 코어 화이트(#fffff0) → 미드 옐로(#fff5c8) → 골드(#ffeb70) → 외곽 앰버(#ffc830)
-  - System.Drawing AntiAlias 렌더링, PNG로 저장 (7,318 bytes)
-- `.meta`:
-  - 신규 GUID `c419a37e8b194d4ea7c91f0d75e2b6a3`
-  - `spriteMode: 2` (multiple), pivot center, PPU 32, point filter
-  - 8개 sprite rect (`vfx_levelup_burst_0` ~ `_7`) + nameFileIdTable
-  - `vfx_loot_glow.png.meta`와 동일 직렬화 버전.
+**(a) 에셋 생성** — 등급별 코인 SFX 3종
+- 생성기: `orchestration/scripts/gen_coin_sfx.py` (재실행 가능, 결정론적 — random.Random(seed) 사용)
+- 출력 (모두 16-bit PCM mono 44.1kHz):
+  - `Assets/Audio/Generated/sfx_coin_small.wav` — **150ms / 13,274B** — normal 몬스터용 단발 코인 pluck. 2400→2900Hz 지수 sweep + 짧은 노이즈 attack.
+  - `Assets/Audio/Generated/sfx_coin_pile.wav` — **280ms / 24,740B** — elite 몬스터용 3-pluck 코인 더미. 2200/1900/2500Hz chirp 60ms 간격 stagger + light noise.
+  - `Assets/Audio/Generated/sfx_coin_burst.wav` — **500ms / 44,144B** — boss 몬스터용 화려한 분수. 5-step 디센딩 아르페지오 (3200→1900Hz, 55ms 간격) + 230ms 위치에서 3800/4500Hz sparkle tail (250ms 페이드).
+- `.meta` 3종 (Unity 표준 AudioImporter, 신규 GUID):
+  - `sfx_coin_small.wav.meta` — `a404b91d7cb34f21bf90650d50369f19`
+  - `sfx_coin_pile.wav.meta`  — `91115b70efb3452cbac5c2817ab1b392`
+  - `sfx_coin_burst.wav.meta` — `4828dbf0470048dfb41bd71980f8228e`
 
-**(b) 코드 신규** — `Assets/Scripts/Effects/LevelUpVFX.cs`
-- `LevelUpVFX.Spawn(MonoBehaviour, Vector2)` 정적 진입점.
-- 두 코루틴 동시 실행:
-  - **PlayBurst** (0.55s): 중앙 빛 폭발 1장 SpriteRenderer. 0.6→2.4 스케일 확대 + 8프레임 시퀀스 + 0.4s 이후 페이드.
-  - **PlayParticles** (1.0s): 황금 별 16개 방사형 발사.
-    - 균등 360° 분포 + ±0.18rad 지터, 속도 1.4~2.4 unit/s, 위쪽 0.6 unit/s 바이어스(스파크 상승감).
-    - 매 프레임 drag(1→0.65) + 중력 1.4 unit/s² 적용.
-    - 회전: 초기 랜덤 각 + ±260°/s 자전.
-    - 색상: 골드~페일 옐로 워밍 보간(#ffd95a~#fff5b3).
-    - 스케일: startScale(0.18~0.28) → 35% 축소.
-    - 알파: `1 - t²` ease-out 페이드.
-- `EnsureAssets()`: 정적 캐시. Resources 로드 실패 시 절차적 8프레임 폴백 + 8×8 황금 입자 텍스처 자동 생성 (Resources 누락에도 런타임 안전).
-- `_vfxParent`: DontDestroyOnLoad 풀 컨테이너.
-- 파일 162라인 (300 권장 이내).
+**(b) 코드 통합** — `Assets/Scripts/Core/CombatRewardHandler.cs`
+- `OnMonsterKilled` 의 `actualGold > 0` 분기 직후에 등급 판정 + `AudioManager.PlaySFX` 호출 추가.
+- 매핑:
+  - `def.rank == "boss"` → `sfx_coin_burst`
+  - `def.rank == "elite"` → `sfx_coin_pile`
+  - 그 외 (`"normal"`/null) → `sfx_coin_small`
+- `MonsterDef.rank` (StreamingAssets/Data/monsters.json) 기반. GameManager 252~257에서 동일 컨벤션으로 `def.rank == "boss"` 사용 중 → 일관성 확보.
+- 골드 0 드롭 시 SFX 미재생 (의도). `AudioManager.Instance` null-safe.
 
-**(c) 코드 wiring** — `Assets/Scripts/Effects/EventVFX.cs`
-- `OnLevelUp(LevelUpEvent)`에서 기존 `SkillVFX.ShowAtPosition(this, "vfx_heal", ...)` 호출 → `LevelUpVFX.Spawn(this, player.Position)`로 교체.
-- DamageText "LEVEL UP!" 텍스트는 유지(텍스트 + VFX 중첩).
-- 기존 `GameUIWiring.cs`에서 발사하는 `sfx_levelup` SFX와 `ScreenFlash.LevelUp()` 황금 0.6s 플래시는 그대로 유지 → 레벨업 순간 **(VFX 폭발 + 16 스파크) + (전체 화면 황금 플래시) + (거대 텍스트 "LEVEL UP! Lv.X") + sfx_levelup**.
+### Step 3 — RESERVE 보충 검토
+- 미완료 항목 = (🎨 6건: S-118, S-120, S-121, S-122, S-123 / 코드품질 12건: S-125~S-135) → 17건 ≥ 10건. 보충 SKIP.
 
-### Step 2.5 — RESERVE 동기화
-- 🎨 미완료: S-117, S-118, S-120, S-121, S-122, S-123 (6건) + 🐛 S-124~S-135 (12건) = **18건**. 10건 초과 → 보충 불필요.
-- BACKLOG_RESERVE.md 헤더 갱신 + S-119 strikethrough + DONE 마커 표기.
+### Step 4 — BOARD 동기화
+- BOARD.md 동시 편집 충돌 (Coordinator/Client가 동일 분 내 S-124 APPROVE 흡수 진행) → BOARD.md 직접 수정 보류, Coordinator에게 위임. BACKLOG_RESERVE.md 헤더 + S-117 취소선 처리 완료.
 
-### Step 3 — 로그 (이 파일)
-- 덮어쓰기 완료.
+### Step 5 — git
+- `git add` (Generated wav/meta + CombatRewardHandler.cs + scripts + RESERVE + 본 로그)
+- `git commit` (`asset(S-117): coin drop sfx tier3 + CombatRewardHandler rank 분기`)
 
-### Step 4 — git
-- 커밋 + push 시도 (PNG/meta 2건 + LevelUpVFX.cs/.meta 2건 + EventVFX.cs + RESERVE + 본 로그).
-
-## 결과물 요약
-| 파일 | 상태 | 비고 |
-|------|------|------|
-| `Assets/Resources/VFX/vfx_levelup_burst.png` | 신규 | 256×32 8f sprite sheet (황금 폭발) |
-| `Assets/Resources/VFX/vfx_levelup_burst.png.meta` | 신규 | GUID c419a37e... sprite multiple 8개 |
-| `Assets/Scripts/Effects/LevelUpVFX.cs` | 신규 | 162L. 빛 폭발 + 16 황금 스파크 1초 |
-| `Assets/Scripts/Effects/LevelUpVFX.cs.meta` | 신규 | GUID 8e2c4f1a... |
-| `Assets/Scripts/Effects/EventVFX.cs` | 수정 | OnLevelUp → LevelUpVFX.Spawn 호출 |
-| `orchestration/BACKLOG_RESERVE.md` | 수정 | S-119 DONE 마킹 + 헤더 갱신 |
-| `orchestration/logs/SUPERVISOR.md` | 덮어쓰기 | 본 로그 |
-
-## 시각/청각 검증 포인트 (런타임)
-1. 레벨업 순간 플레이어 머리 위 0.4 유닛 위치에 황금 빛 폭발이 0.55초간 0.6→2.4배로 확대되며 페이드.
-2. 동시에 황금 별 16개가 균등한 360° 방사로 1.0초간 흩어짐 (위쪽으로 약간 떠오르며 회전).
-3. 파티클은 각자 다른 색조(밝은 골드~페일 옐로)와 회전 속도로 다양성 확보.
-4. 1초 후 모든 파티클/번스트 GameObject 자동 Destroy → 메모리 누적 없음.
-5. Resources/VFX/vfx_levelup_burst.png 누락 시에도 절차적 폴백 8프레임 + 8×8 입자 텍스처 자동 생성 → 런타임 NRE 없음.
-6. 기존 ScreenFlash 황금 플래시(0.6s) + sfx_levelup + DamageText "LEVEL UP!"과 자연스럽게 합주.
-7. 빠른 연속 레벨업(여러 레벨 동시 상승) 시 코루틴이 각각 독립 실행 → 폭발 중첩 가능 (의도).
-
-## 다음 루프 후보 (🎨 우선 순)
-1. **S-122** 🎨 UI 버튼 호버/클릭 SFX 통일 (P2, 공통 UIButton 컴포넌트)
-2. **S-117** 🎨 몬스터 처치 시 골드 드롭 사운드 (P3, 등급별 3종)
-3. **S-118** 🎨 아이템 획득 팝업 BGM 더킹 (P3)
-4. **S-120** 🎨 보스룸 진입 BGM 크로스페이드 (P3)
-5. **S-121** 🎨 NPC 대화 시작/종료 SFX (P3)
-6. **S-123** 🎨 인벤토리 빈 슬롯 톤다운 (P3)
+## 다음 루프 후보
+- **S-118 🎨 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4초)** — AudioMixer snapshot 두 개 + ItemAcquireUI Show 진입점에서 transition.
+- **S-122 🎨 UI 버튼 호버/클릭 SFX 통일** — P2. 공통 UIButton 컴포넌트 + 일괄 부착.
+- **S-120 🎨 보스룸 진입 BGM 트랜지션 1.5s 크로스페이드** — RegionManager.OnRegionChanged 훅.
