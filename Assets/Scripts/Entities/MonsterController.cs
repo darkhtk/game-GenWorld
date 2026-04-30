@@ -11,6 +11,11 @@ public class MonsterController : MonoBehaviour
     public Vector2 Position => (Vector2)transform.position;
     public EffectHolder Effects { get; } = new();
     public MonsterAIState AIState { get; private set; } = MonsterAIState.Patrol;
+
+    // Test-only mutator — production code MUST NOT call this. Intended for EditMode tests
+    // that need to drive Return / Chase transitions deterministically without simulating
+    // distance/cooldown windows.
+    public void SetAIStateForTest(MonsterAIState state) => AIState = state;
     public float SpawnTime { get; set; }
     public float LastHitByPlayerTime { get; set; }
     public bool IsReturning => AIState == MonsterAIState.Return;
@@ -31,7 +36,9 @@ public class MonsterController : MonoBehaviour
     const float ReturnDamageReduction = 5f;
     const float ReturnSpeedMult = 1.5f;
     const float ReturnReaggroMult = 0.5f;
-    const float RecentHitWindow = 2f;
+    // Single source of truth lives in GameConfig.MonsterAggro — see SPEC-S-101 §3-3.
+    // The local alias keeps call sites readable without re-introducing a magic number.
+    static float RecentHitWindow => GameConfig.MonsterAggro.RecentHitWindow;
 
     float _atkMult = 1f, _defMult = 1f, _spdMult = 1f, _cooldownMult = 1f;
     MonsterHPBar _hpBar;
@@ -155,18 +162,15 @@ public class MonsterController : MonoBehaviour
                 if (Time.time - _returnStartTime > ReturnForceTeleport)
                 {
                     transform.position = _spawnPos;
-                    // Only reset HP if monster was actually damaged (not at full HP)
-                    if (Hp < Def.hp)
-                        Hp = Def.hp;
+                    // Only reset HP if monster was actually damaged (no-op at full HP).
+                    if (Hp < Def.hp) Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
                     break;
                 }
                 MoveToward(_spawnPos, speed * ReturnSpeedMult);
                 if ((Position - _spawnPos).sqrMagnitude < 256f)
                 {
-                    // Only reset HP if monster was actually damaged (not at full HP)
-                    if (Hp < Def.hp)
-                        Hp = Def.hp;
+                    if (Hp < Def.hp) Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
                 }
                 else if (distToPlayerSq <= Def.detectRange * ReturnReaggroMult * (Def.detectRange * ReturnReaggroMult))

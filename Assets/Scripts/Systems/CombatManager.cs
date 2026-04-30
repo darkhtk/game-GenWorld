@@ -25,10 +25,11 @@ public class CombatManager : MonoBehaviour
         {
             if (_cachedMonsters == null) return false;
             float now = Time.time;
+            float window = GameConfig.MonsterAggro.IsInCombatWindow;
             for (int i = 0; i < _cachedMonsters.Count; i++)
             {
                 var m = _cachedMonsters[i];
-                if (m != null && !m.IsDead && now - m.LastHitByPlayerTime < 3f)
+                if (m != null && !m.IsDead && now - m.LastHitByPlayerTime < window)
                     return true;
             }
             return false;
@@ -154,34 +155,28 @@ public class CombatManager : MonoBehaviour
         TickPlayerHostileEffects(now);
 
         bool playerDodging = _player.Invincible || _player.IsDodging;
-        if (playerDodging)
-        {
-            // Update LastHitByPlayerTime for monsters in attack range during dodge
-            // to prevent immediate Return state transition
-            for (int i = monsters.Count - 1; i >= 0; i--)
-            {
-                var m = monsters[i];
-                if (m == null || m.IsDead) continue;
-                float atkRange = m.Def.attackRange * 1.3f;
-                float distSq = (m.Position - _player.Position).sqrMagnitude;
-                if (distSq <= atkRange * atkRange)
-                {
-                    m.LastHitByPlayerTime = Time.time;
-                }
-            }
-            return;
-        }
+        float dodgeAggroMult = GameConfig.MonsterAggro.DodgeAggroSyncRangeMult;
 
         for (int i = monsters.Count - 1; i >= 0; i--)
         {
             var m = monsters[i];
-            if (m == null || m.IsDead) continue;
-            if (PlayerState != null && PlayerState.Hp <= 0) break;
+            if (m == null || m.IsDead || m.Def == null) continue;
 
-            float atkRange = m.Def.attackRange * 1.3f;
+            float atkRangeSync = m.Def.attackRange * dodgeAggroMult;
             float distSq = (m.Position - _player.Position).sqrMagnitude;
-            if (distSq > atkRange * atkRange) continue;
+            float atkRangeSyncSq = atkRangeSync * atkRangeSync;
 
+            // Dodge-aggro sync: keep nearby monsters engaged during the i-frame so
+            // they do not slip into Return on the next frame. See SPEC-S-101 §3-2.
+            if (playerDodging && distSq <= atkRangeSyncSq)
+                m.LastHitByPlayerTime = Time.time;
+
+            if (PlayerState != null && PlayerState.Hp <= 0) break;
+            if (distSq > atkRangeSyncSq) continue;
+
+            // Run pattern progression even while the player dodges so boss windups,
+            // phase-enter actions, and multi-step patterns are not nullified by a
+            // single 0.2s i-frame. ApplyDamageToPlayer is the only thing dodge gates.
             var phaseEnterActions = m.ConsumePhaseEnterActions();
             if (phaseEnterActions != null && phaseEnterActions.Length > 0)
                 ExecuteMonsterActions(m, phaseEnterActions, monsters, now, m.Position);
@@ -204,6 +199,12 @@ public class CombatManager : MonoBehaviour
                 FireMonsterProjectile(m);
                 continue;
             }
+
+            // Plain melee tick: damage is gated by ApplyDamageToPlayer's invincibility
+            // checks (mana_shield + Hp <= 0 already handled there). During dodge we
+            // skip the actual damage application but still play impact VFX/SFX so the
+            // attack does not silently disappear.
+            if (playerDodging) continue;
 
             var stats = _getStats();
             int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
@@ -265,6 +266,9 @@ public class CombatManager : MonoBehaviour
     void ApplyDamageToPlayer(int dmg)
     {
         if (PlayerState == null || PlayerState.Hp <= 0) return;
+        // Single chokepoint for invincibility — pattern/projectile paths can run during
+        // dodge (so windups/phases progress) but never actually subtract Hp here.
+        if (_player != null && (_player.Invincible || _player.IsDodging)) return;
 
         if (_playerEffects.Has("mana_shield") && PlayerState.Mp > 0)
         {

@@ -34,4 +34,20 @@ public static class GameConfig
         ItemGrade.Uncommon => GradeUncommon, ItemGrade.Rare => GradeRare,
         ItemGrade.Legendary => GradeLegendary, _ => GradeCommon
     };
+
+    // Single source of truth for monster aggression / engagement timing windows.
+    // Both MonsterController.UpdateAI (Return-state guard) and CombatManager
+    // (IsInCombat, dodge-aggro sync) MUST read from here — see SPEC-S-101 §3-3.
+    public static class MonsterAggro
+    {
+        // Window after a player hit during which the monster will not give up the
+        // chase and slip into Return state. Same value also gates IsInCombat.
+        public const float RecentHitWindow = 2f;
+        // Same window applied from the combat-side perspective (drives IsInCombat).
+        public const float IsInCombatWindow = RecentHitWindow;
+        // Multiplier on monster.Def.attackRange used when refreshing aggro while
+        // the player is dodging. Within (attackRange × this) we keep the monster
+        // engaged so a single 0.2s i-frame can't drop it into Return.
+        public const float DodgeAggroSyncRangeMult = 1.3f;
+    }
 }

@@ -16,6 +16,14 @@ public class PlayerController : MonoBehaviour
     public bool IsDodging { get; private set; }
     public bool Invincible { get; private set; }
 
+    // Test-only mutator — production code MUST NOT call this. Lets EditMode tests
+    // exercise the dodge-related combat paths without simulating the full Update tick.
+    public void SetDodgeStateForTest(bool dodging, bool invincible)
+    {
+        IsDodging = dodging;
+        Invincible = invincible;
+    }
+
     float _lastDodgeTime = -999f;
     const float DodgeCooldown = 0.8f;
     const float DodgeDuration = 0.2f;
