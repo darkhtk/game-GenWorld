@@ -159,7 +159,8 @@ public class QuestUI : MonoBehaviour
                     string itemName = _itemDefs != null && _itemDefs.TryGetValue(req.itemId, out var def)
                         ? def.name : req.itemId;
                     string countColor = met ? "#66ff88" : "#ff9944";
-                    lines.Add($"  {check} {itemName} <color={countColor}>(<b>{have}</b>/{req.count})</color>");
+                    string bar = QuestProgressBarBuilder.Build(have, req.count);
+                    lines.Add($"  {check} {itemName} {bar} <color={countColor}>(<b>{have}</b>/{req.count})</color>");
                 }
             }
             if (quest.killRequirements != null)
@@ -173,7 +174,8 @@ public class QuestUI : MonoBehaviour
                     string monsterName = GameManager.Instance?.Data?.Monsters != null
                         && GameManager.Instance.Data.Monsters.TryGetValue(kr.monsterId, out var mDef)
                         ? mDef.name : kr.monsterId;
-                    lines.Add($"  {check} <color=#ff9944>{monsterName}</color> <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
+                    string bar = QuestProgressBarBuilder.Build(kills, kr.count);
+                    lines.Add($"  {check} <color=#ff9944>{monsterName}</color> {bar} <color={countColor}>(<b>{kills}</b>/{kr.count})</color>");
                 }
             }
             texts[2].color = Color.white;
