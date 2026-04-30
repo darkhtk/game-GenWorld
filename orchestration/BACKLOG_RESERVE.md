@@ -18,7 +18,7 @@
 | ~~S-119~~ | ~~🎨 레벨업 파티클 이펙트~~ ✅ 2026-04-30                  | P2   | VFX     | DONE — vfx_levelup_burst 8f sprite + LevelUpVFX 16-spark 방사 (1.0s) |
 | ~~S-120~~ | ~~🎨 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)~~ ✅ 2026-04-30          | P3   | Audio   | DONE — GameConfig.Audio 신규(BossRegionIds/BgmTransitionBossEnter=1.5s/Default=1.0s/CrossfadeDualSource=true) + AudioManager.bgmSourceB + CrossfadeBGMDual(동시 ramp, 무음 갭 X) + GameManager.PlayRegionBGM fadeTime 분기. DuckBGM과 충돌 없음(크로스페이드 활성 시 _duckMultiplier만 갱신, 매 프레임 BgmTargetVolume 재계산). EditMode 7건. |
 | ~~S-121~~ | ~~🎨 NPC 대화 시작/종료 SFX~~ ✅ 2026-04-30                  | P3   | SFX     | DONE — sfx_dialogue_open.wav (200ms paper-flip) + sfx_dialogue_close.wav (180ms book-thud) Generated+Resources 양쪽 배치, GameConfig.Audio 5상수, AudioManager.PlaySFXScaled 신규 (volumeScale 오버로드), DialogueUI.Show/Hide 훅. 부수: S-117 코인 SFX Resources 누락 fixup(런타임 PlaySFX no-op 버그). EditMode `DialogueAudioConfigTests` 5건. |
-| S-122 | 🎨 UI 버튼 호버/클릭 SFX 통일 (UIButton 컴포넌트)                  | P2   | UI/SFX  | 일부 버튼만 사운드 있음. 공통 UIButton 만들고 일괄 부착                |
+| ~~S-122~~ | ~~🎨 UI 버튼 호버/클릭 SFX 통일 (UIButton 컴포넌트)~~ 👀 2026-04-30 (Phase 1) | P2   | UI/SFX  | In Review (Supervisor) Phase 1 — `sfx_ui_hover.wav` (60ms subtle tap, peak 0.55) Generated+Resources 양쪽 + .meta 2개. 클릭은 기존 `sfx_click.wav` 재사용. `GameConfig.UI` 신규 클래스 5상수. `UIButtonSfx` 컴포넌트 신규(Button 부착, IPointerEnter/Click, interactable 가드, per-instance override 4필드 + 토글 2개). EditMode `UIButtonSfxConfigTests` 5건. **Phase 2 = S-148 신규 등재**(기존 Button 일괄 부착). |
 | S-123 | 🎨 인벤토리 빈 슬롯 그래픽 톤다운 (alpha 0.3)                       | P3   | UI      | 채워진 슬롯과 시각 구분 약함                                    |
 | S-140 | 🎨 보스 처치 시 화면 흔들림 + 승리 코드 SFX (sfx_boss_die_chord 1.2s) | P2   | VFX/SFX | 보스 처치가 일반 몬스터와 동일 피드백. CinemachineImpulse + 코드 진행 SFX |
 | S-141 | 🎨 포션 사용 SFX 종류별 분리 (sfx_potion_hp/mp/buff 3종 250ms)        | P3   | SFX     | 현재 sfx_potion 단일. ItemUseSystem.Use 분기에서 itemDef.subtype 기반 호출 |
@@ -49,6 +49,7 @@
 | S-145 | `WorldEventEndEvent_PreservesUntaggedMonsters` 회귀 테스트 + `[SetUp] EventBus.Clear()` | P3 | Tests | REVIEW-S-084-v2 🔍 QA 권고. EditMode `WorldEventCleanupTests`에 untagged-preservation 직접 단언 부재 — eventId="raid_001" 정리 시 EventOriginId=null 몬스터가 보존되는지 명시 단언 추가. + `[SetUp]` 에 `EventBus.Clear()` 호출하여 테스트 간 핸들러 누수 방지. |
 | S-146 | invasion / elite_spawn / merchant 핸들러 SPEC 작성 → SpawnEventMonster 호출처 연결 | P2 | Systems/Spec | REVIEW-S-084-v2 🎮/⚔️ 권고. S-084 Phase 2가 cleanup 인프라만 깔고 spawn 측 프로덕션 호출처 0. WorldEventSystem이 emit하는 type별 핸들러(spawn 위치/수량/난이도 보정) SPEC 작성 후 `SpawnEventMonster` 연결. SPEC-S-146.md 신규 필요 — Coordinator 선제 작성 후보. |
 | S-147 | `RegionManager.SwitchRegion` / `SaveSystem.OnSceneUnload` → `WorldEventSystem.ForceEndActiveEvent` 와이어링 | P3 | Systems | REVIEW-S-084-v2 🔍 QA 권고. Phase 1에서 `ForceEndActiveEvent` 인프라 완성됐으나 호출처는 자연 만료(`EndEvent`)뿐 — 씬 전환/세이브 로드 시점에 강제 종료 호출 없음 → 잔존 이벤트 몬스터가 다음 씬으로 이월될 잠재 리스크. 1라인씩 훅 추가. |
+| S-148 | 🎨 UIButtonSfx 일괄 부착 (S-122 Phase 2) — Editor 자동 부착 스크립트 | P2 | UI/Tooling | S-122 Phase 1 후속. `UIButtonSfx` 컴포넌트는 만들었으나 어느 Button 에도 부착 안 됨 → 사용자 청취상 무변화. Editor 스크립트 작성 필요: 모든 .prefab + .unity 스캔, `Button` 있고 `UIButtonSfx` 없는 모든 곳에 부착 + asset 변경 보존. 시스템성 Button(이미 sfx_cancel/sfx_menu_close 직접 호출하는 곳: PauseMenuUI 닫기버튼, MainMenuController 등)은 `playOnClick=false` 설정해 중복 재생 회피. 검수 후 PR 분리. |
 
 ---
 

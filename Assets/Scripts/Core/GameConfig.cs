@@ -65,6 +65,18 @@ public static class GameConfig
         public const bool   DialogueSfxEnabled     = true;
     }
 
+    // S-122: Common UI button SFX (hover/click). UIButtonSfx component reads these
+    // unless per-instance overrides are set. Hover volume kept low (0.55) since
+    // hover SFX fires on every cursor sweep — must not fatigue.
+    public static class UI
+    {
+        public const string ButtonHoverSfxName   = "sfx_ui_hover";
+        public const string ButtonClickSfxName   = "sfx_click";
+        public const float  ButtonHoverSfxVolume = 0.55f;
+        public const float  ButtonClickSfxVolume = 0.85f;
+        public const bool   ButtonSfxEnabled     = true;
+    }
+
     // Single source of truth for monster aggression / engagement timing windows.
     // Both MonsterController.UpdateAI (Return-state guard) and CombatManager
     // (IsInCombat, dodge-aggro sync) MUST read from here — see SPEC-S-101 §3-3.
