@@ -39,8 +39,22 @@ public class GameManager : MonoBehaviour
     Camera _cachedCam;
     bool _initialized;
 
+    // S-129: True when Instance is alive AND Start() has finished initialising subsystems.
+    // External callers should prefer this over a bare null check on Instance, since Awake
+    // assigns Instance before subsystems (Inventory/Skills/Quests/...) are constructed.
+    public static bool IsReady => Instance != null && Instance._initialized;
+
     void Awake()
     {
+        // S-129: Reject duplicates so an extra GameManager dropped into a scene cannot
+        // overwrite the live singleton mid-session. The first-wins policy matches the
+        // implicit assumption of every `var gm = GameManager.Instance;` call site.
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("[GameManager] Duplicate GameManager detected; destroying duplicate.");
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
@@ -51,6 +65,9 @@ public class GameManager : MonoBehaviour
         SkillVFX.ClearPool();
         AreaEffect.ClearPool();
         EventBus.Clear();
+        // S-129: Avoid stale Instance pointing at a destroyed GameObject after scene unload.
+        if (Instance == this)
+            Instance = null;
     }
 
     async System.Threading.Tasks.Task InitAISafe()
@@ -121,6 +138,9 @@ public class GameManager : MonoBehaviour
     {
         if (!_initialized) return;
         if (player == null || PlayerState == null) return;
+        // S-129: Scene transitions can null out serialized references one frame before
+        // _initialized flips. Bail out instead of NRE-ing on the spawner/combatManager.
+        if (monsterSpawner == null || combatManager == null) return;
         if (player.Frozen) return;
 
         TimeSystem?.Update(Time.deltaTime);
@@ -298,9 +318,12 @@ public class GameManager : MonoBehaviour
 
     void SpawnInitialRegion()
     {
+        // S-129: Defensive guards — Start() ordering or test/edit-mode scenes may leave
+        // any of these unassigned, which previously NRE'd on first frame.
+        if (player == null || RegionTracker == null || Data == null || worldMap == null) return;
         RegionTracker.UpdatePlayerRegion(player.Position.x, player.Position.y);
         _lastRegionId = RegionTracker.CurrentRegionId;
-        if (Data.Regions.TryGetValue(_lastRegionId, out var region))
+        if (Data.Regions.TryGetValue(_lastRegionId, out var region) && monsterSpawner != null)
             monsterSpawner.SpawnForRegion(region, Data.Monsters, worldMap);
     }
 

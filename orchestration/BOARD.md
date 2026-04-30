@@ -28,6 +28,7 @@
 | 15  | S-127: 미니맵 NPC 마커 색상 분리 (퀘스트/상점/기본)                              | P3   | ✅  | APPROVE (REVIEW-S-127-v1, 4/4 페르소나 만장일치) — c88f1c2 |
 | 16  | S-128: QuestUI 진행률 바 (requirements/killRequirements)                              | P2   | ✅  | APPROVE (REVIEW-S-128-v1, [깊은 리뷰 6/N], 4/4 페르소나 만장일치) — f376fb5 + 559836b(missed UI consts fixup) |
 | 17  | S-123: 🎨 인벤토리 빈 슬롯 그래픽 톤다운 (alpha 0.3)                              | P3   | ✅  | APPROVE (REVIEW-S-123-v1, 4/4 페르소나 만장일치) — a10603c |
+| 18  | S-129: GameManager 싱글톤 null 체크 강화 (Awake 순서 의존)                        | P2   | 👀  | In Review (Developer 10회차) — Awake 중복 가드(first-wins) + OnDestroy Instance 클리어 + IsReady 게이트 + Update/SpawnInitialRegion null 가드. EditMode `GameManagerSingletonTests` 5건. SPEC 부재(specs 참조 N) |
 
 ---
 
@@ -49,6 +50,7 @@
 
 | 태스크 | 우선순위 | 완료일 | 결과 | 비고 |
 | --- | ---- | --- | --- | --- |
+| S-129 GameManager 싱글톤 null 체크 강화 (Awake 순서 의존) | P2 | 2026-04-30 | (대기) | RESERVE 비고 충족(씬 전환 직후 NRE 산발). 변경: `Assets/Scripts/Core/GameManager.cs` Awake 중복 인스턴스 가드(first-wins, `Destroy(gameObject)` + early return) + OnDestroy `if (Instance == this) Instance = null` 정리(stale 참조 차단) + `public static bool IsReady => Instance != null && Instance._initialized` 신규(외부 호출자 권장 게이트) + Update 진입 시 `monsterSpawner == null \|\| combatManager == null` 가드 + SpawnInitialRegion `player/RegionTracker/Data/worldMap` null 4-가드 + monsterSpawner 호출 가드. 외부 호출자 시그니처 변경 0(`Instance` getter는 그대로). 신규: `Assets/Tests/EditMode/GameManagerSingletonTests.cs` NUnit 5건(Awake 할당/OnDestroy 클리어/중복 무영향/IsReady false-no-instance/IsReady false-before-Start). SPEC 부재(specs 참조 N). 자가검증: 핵심 메서드(Awake/OnDestroy/IsReady) 호출처는 Unity 라이프사이클(자동) + 18개 외부 파일 `GameManager.Instance` 참조 — 신규 메서드 IsReady는 후속 마이그레이션 후보. UI 자가검증 §2.5: 신규 시스템 아닌 기존 GameManager 하드닝 → ②(UI 버튼) N/A. |
 
 ---
 
