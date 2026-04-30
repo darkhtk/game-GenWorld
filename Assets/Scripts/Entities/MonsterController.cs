@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
 public class MonsterController : MonoBehaviour
@@ -20,6 +21,11 @@ public class MonsterController : MonoBehaviour
     float _lastAttackTime;
     float _returnStartTime;
     int _currentPhase;
+    float _pendingAttackReadyAtMs = -1f;
+    Vector2 _pendingAttackTarget;
+    MonsterAttackPattern _pendingAttackPattern;
+    SkillAction[] _pendingPhaseEnterActions;
+    readonly Dictionary<string, float> _patternLastUseTimesMs = new();
 
     const float ReturnForceTeleport = 5f;
     const float ReturnDamageReduction = 5f;
@@ -149,14 +155,18 @@ public class MonsterController : MonoBehaviour
                 if (Time.time - _returnStartTime > ReturnForceTeleport)
                 {
                     transform.position = _spawnPos;
-                    Hp = Def.hp;
+                    // Only reset HP if monster was actually damaged (not at full HP)
+                    if (Hp < Def.hp)
+                        Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
                     break;
                 }
                 MoveToward(_spawnPos, speed * ReturnSpeedMult);
                 if ((Position - _spawnPos).sqrMagnitude < 256f)
                 {
-                    Hp = Def.hp;
+                    // Only reset HP if monster was actually damaged (not at full HP)
+                    if (Hp < Def.hp)
+                        Hp = Def.hp;
                     AIState = MonsterAIState.Patrol;
                 }
                 else if (distToPlayerSq <= Def.detectRange * ReturnReaggroMult * (Def.detectRange * ReturnReaggroMult))
@@ -199,6 +209,7 @@ public class MonsterController : MonoBehaviour
                     _spdMult = phase.statMult.spd;
                     _cooldownMult = phase.statMult.cooldown;
                 }
+                _pendingPhaseEnterActions = phase.onEnter;
                 SkillVFX.ShowAtPosition(this, "vfx_fireball", Position.x, Position.y);
                 AudioManager.Instance?.PlaySFX("sfx_phase_transition");
                 CameraShake.Shake(this, 500f, 0.012f);
@@ -255,4 +266,76 @@ public class MonsterController : MonoBehaviour
     }
 
     public void MarkAttacked(float now) => _lastAttackTime = now;
+
+    public SkillAction[] ConsumePhaseEnterActions()
+    {
+        var actions = _pendingPhaseEnterActions;
+        _pendingPhaseEnterActions = null;
+        return actions;
+    }
+
+    public bool HasPendingAttack => _pendingAttackPattern != null;
+
+    public bool TryGetAttackToExecute(float nowMs, Vector2 targetPosition,
+        out MonsterAttackPattern pattern, out Vector2 lockedTargetPosition)
+    {
+        pattern = null;
+        lockedTargetPosition = targetPosition;
+
+        if (_pendingAttackPattern != null)
+        {
+            if (nowMs < _pendingAttackReadyAtMs)
+            {
+                lockedTargetPosition = _pendingAttackTarget;
+                return false;
+            }
+
+            pattern = _pendingAttackPattern;
+            lockedTargetPosition = _pendingAttackTarget;
+            _pendingAttackPattern = null;
+            _pendingAttackReadyAtMs = -1f;
+            return true;
+        }
+
+        if (!CanAttack(nowMs))
+            return false;
+
+        pattern = MonsterAttackPatternSelector.ChooseReadyPattern(
+            GetActiveAttackPatterns(),
+            _patternLastUseTimesMs,
+            nowMs);
+
+        if (pattern == null)
+            return false;
+
+        _lastAttackTime = nowMs;
+        lockedTargetPosition = targetPosition;
+        _pendingAttackTarget = targetPosition;
+        if (!string.IsNullOrWhiteSpace(pattern.name))
+            _patternLastUseTimesMs[pattern.name] = nowMs;
+
+        PlayAnimation("attack");
+
+        if (pattern.windupMs > 0f)
+        {
+            _pendingAttackPattern = pattern;
+            _pendingAttackReadyAtMs = nowMs + pattern.windupMs;
+            return false;
+        }
+
+        return true;
+    }
+
+    public MonsterAttackPattern[] GetActiveAttackPatterns()
+    {
+        if (Def?.phases != null && _currentPhase > 0)
+        {
+            int phaseIndex = Mathf.Clamp(_currentPhase - 1, 0, Def.phases.Length - 1);
+            var phasePatterns = Def.phases[phaseIndex]?.attackPatterns;
+            if (phasePatterns != null && phasePatterns.Length > 0)
+                return phasePatterns;
+        }
+
+        return Def?.attackPatterns;
+    }
 }

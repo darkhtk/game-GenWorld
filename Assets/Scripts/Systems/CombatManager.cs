@@ -4,6 +4,7 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     PlayerController _player;
+    PlayerAnimator _playerAnimator;
     System.Func<Stats> _getStats;
     System.Func<int> _getLevel;
     System.Action<MonsterController> _onMonsterDeath;
@@ -51,6 +52,7 @@ public class CombatManager : MonoBehaviour
         System.Action<MonsterController> onMonsterDeath, System.Action onPlayerDeath, EffectHolder playerEffects)
     {
         _player = player;
+        _playerAnimator = player != null ? player.GetComponent<PlayerAnimator>() : null;
         _getStats = getStats;
         _getLevel = getLevel;
         _onMonsterDeath = onMonsterDeath;
@@ -75,7 +77,12 @@ public class CombatManager : MonoBehaviour
 
         float nowMs = Time.time * 1000f;
         if (!Input.GetMouseButton(0)) return;
-        if (nowMs - _lastAutoAttackTime < GameConfig.AutoAttackCooldown) return;
+        ExecuteAutoAttack(monsters, nowMs);
+    }
+
+    bool ExecuteAutoAttack(List<MonsterController> monsters, float nowMs)
+    {
+        if (nowMs - _lastAutoAttackTime < GameConfig.AutoAttackCooldown) return false;
 
         _lastAutoAttackTime = nowMs;
 
@@ -86,9 +93,13 @@ public class CombatManager : MonoBehaviour
 
         Vector2 playerPos = _player.Position;
         Vector2 aimDir = _player.AimDirection;
+        if (aimDir.sqrMagnitude < 0.001f) aimDir = Vector2.right;
         float swingAngle = Mathf.Atan2(aimDir.y, aimDir.x);
 
         bool stealthActive = _playerEffects.Has("stealth");
+        bool landedHit = false;
+        _playerAnimator?.PlayAttack(0.18f);
+        SkillVFX.ShowAutoAttackCast(this, playerPos, aimDir, stealthActive);
         _pendingKills ??= new List<MonsterController>();
         _pendingKills.Clear();
 
@@ -113,9 +124,10 @@ public class CombatManager : MonoBehaviour
             m.LastHitByPlayerTime = Time.time;
             bool dead = m.TakeDamage(dmg);
             ShowDamageNumber(m.Position + Vector2.up * 0.5f, dmg, isCrit);
-            SkillVFX.ShowAtPosition(this, "vfx_melee_hit", m.Position.x, m.Position.y);
+            SkillVFX.ShowAutoAttackImpact(this, m.Position, aimDir, isCrit);
             AudioManager.Instance?.PlaySFX(isCrit ? "sfx_critical_hit" : "sfx_attack", 0.1f);
             if (dead) _pendingKills.Add(m);
+            landedHit = true;
         }
 
         for (int i = 0; i < _pendingKills.Count; i++)
@@ -124,24 +136,66 @@ public class CombatManager : MonoBehaviour
 
         if (stealthActive)
             _playerEffects.Remove("stealth");
+
+        return landedHit;
+    }
+
+    public bool DebugPerformAutoAttack(List<MonsterController> monsters, float nowMs)
+    {
+        if (monsters == null) return false;
+        _cachedMonsters = monsters;
+        return ExecuteAutoAttack(monsters, nowMs);
     }
 
     public void HandleMonsterAttacks(List<MonsterController> monsters, float now)
     {
         if (monsters == null || _player == null) return;
         _cachedMonsters = monsters;
-        if (_player.Invincible || _player.IsDodging) return;
+        TickPlayerHostileEffects(now);
+
+        bool playerDodging = _player.Invincible || _player.IsDodging;
+        if (playerDodging)
+        {
+            // Update LastHitByPlayerTime for monsters in attack range during dodge
+            // to prevent immediate Return state transition
+            for (int i = monsters.Count - 1; i >= 0; i--)
+            {
+                var m = monsters[i];
+                if (m == null || m.IsDead) continue;
+                float atkRange = m.Def.attackRange * 1.3f;
+                float distSq = (m.Position - _player.Position).sqrMagnitude;
+                if (distSq <= atkRange * atkRange)
+                {
+                    m.LastHitByPlayerTime = Time.time;
+                }
+            }
+            return;
+        }
 
         for (int i = monsters.Count - 1; i >= 0; i--)
         {
             var m = monsters[i];
             if (m == null || m.IsDead) continue;
             if (PlayerState != null && PlayerState.Hp <= 0) break;
-            if (!m.CanAttack(now)) continue;
 
             float atkRange = m.Def.attackRange * 1.3f;
             float distSq = (m.Position - _player.Position).sqrMagnitude;
             if (distSq > atkRange * atkRange) continue;
+
+            var phaseEnterActions = m.ConsumePhaseEnterActions();
+            if (phaseEnterActions != null && phaseEnterActions.Length > 0)
+                ExecuteMonsterActions(m, phaseEnterActions, monsters, now, m.Position);
+
+            if (m.TryGetAttackToExecute(now, _player.Position, out var pattern, out var lockedTarget))
+            {
+                ExecuteMonsterPattern(m, pattern, monsters, now, lockedTarget);
+                continue;
+            }
+
+            if (m.HasPendingAttack || (m.GetActiveAttackPatterns()?.Length ?? 0) > 0)
+                continue;
+
+            if (!m.CanAttack(now)) continue;
 
             m.MarkAttacked(now);
 
@@ -171,15 +225,41 @@ public class CombatManager : MonoBehaviour
         proj.OnArrive = arrivePos =>
         {
             if (_player == null || PlayerState == null) return;
-            if (_player.Invincible || _player.IsDodging) return;
             if (m == null || m.IsDead) return;
             float hitDist = Vector2.Distance(arrivePos, _player.Position);
             if (hitDist > 40f) return;
+
+            // Update LastHitByPlayerTime for engagement tracking even during dodge
+            m.LastHitByPlayerTime = Time.time;
+
+            if (_player.Invincible || _player.IsDodging) return;
             var stats = _getStats();
             int dmg = CombatSystem.CalcDamage(m.EffectiveAtk, stats.def, false);
             ApplyDamageToPlayer(dmg);
             SkillVFX.ShowAtPosition(this, "vfx_ranged_hit", _player.Position.x, _player.Position.y);
         };
+    }
+
+    void ExecuteMonsterPattern(MonsterController monster, MonsterAttackPattern pattern,
+        List<MonsterController> monsters, float nowMs, Vector2 targetPos)
+    {
+        if (monster == null || pattern?.actions == null || pattern.actions.Length == 0)
+            return;
+
+        ExecuteMonsterActions(monster, pattern.actions, monsters, nowMs, targetPos);
+    }
+
+    void ExecuteMonsterActions(MonsterController monster, SkillAction[] actions,
+        List<MonsterController> monsters, float nowMs, Vector2 targetPos)
+    {
+        if (monster == null || actions == null || actions.Length == 0 || _player == null)
+            return;
+
+        Vector2 from = monster.Position;
+        Vector2 delta = targetPos - from;
+        float angle = delta.sqrMagnitude > 0f ? Mathf.Atan2(delta.y, delta.x) : 0f;
+        var ctx = BuildMonsterActionContext(monster, monsters, nowMs, angle, targetPos.x, targetPos.y);
+        _actionRunner.Run(actions, ctx, targetPos.x, targetPos.y);
     }
 
     void ApplyDamageToPlayer(int dmg)
@@ -262,11 +342,21 @@ public class CombatManager : MonoBehaviour
         float range = skill.range * (1f + (aoeBonus - 1f) * 0.5f);
 
         Vector2 playerPos = _player.Position;
+        Vector2 cursorWorld = _player.MouseWorldPosition;
         Vector2 aimDir = _player.AimDirection;
+        Vector2 cursorDelta = cursorWorld - playerPos;
+        if (cursorDelta.sqrMagnitude > 0.0001f)
+            aimDir = cursorDelta.normalized;
+        if (aimDir.sqrMagnitude < 0.0001f)
+            aimDir = Vector2.right;
+
         float angle = Mathf.Atan2(aimDir.y, aimDir.x);
-        float clampedDist = range;
-        float targetX = playerPos.x + Mathf.Cos(angle) * clampedDist;
-        float targetY = playerPos.y + Mathf.Sin(angle) * clampedDist;
+        Vector2 directionTarget = playerPos + aimDir * range;
+        Vector2 clampedCursor = cursorDelta.sqrMagnitude > range * range && range > 0f
+            ? playerPos + cursorDelta.normalized * range
+            : cursorWorld;
+        SkillTargetMode targetMode = SkillTargetingResolver.Resolve(skill);
+        Vector2 resolvedTarget = ResolveSkillTargetPoint(targetMode, playerPos, clampedCursor, directionTarget);
 
         var monsters = _cachedMonsters;
         if (monsters == null) return;
@@ -278,13 +368,15 @@ public class CombatManager : MonoBehaviour
         if (skill.actions != null && skill.actions.Length > 0 && string.IsNullOrEmpty(skill.behavior))
         {
             var ctx = BuildActionContext(skill, result.skillLevel, stats, monsters, nowMs,
-                dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetX, targetY);
+                dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetMode,
+                cursorWorld, clampedCursor, directionTarget, resolvedTarget);
             _actionRunner.ExecuteSkill(skill.actions, ctx);
         }
         else
         {
             var ctx = BuildSkillContext(skill, result.skillLevel, stats, monsters, nowMs,
-                dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetX, targetY);
+                dmgMult, aoeBonus, durBonus, buffBonus, range, angle, targetMode,
+                cursorWorld, clampedCursor, directionTarget, resolvedTarget);
             _skillExecutor.Execute(ctx);
         }
 
@@ -295,7 +387,8 @@ public class CombatManager : MonoBehaviour
 
     SkillContext BuildSkillContext(SkillDef skill, int skillLevel, Stats stats,
         List<MonsterController> monsters, float now, float dmgMult, float aoeBonus,
-        float durBonus, float buffBonus, float range, float angle, float tx, float ty)
+        float durBonus, float buffBonus, float range, float angle, SkillTargetMode targetMode,
+        Vector2 cursorWorld, Vector2 clampedCursor, Vector2 directionTarget, Vector2 resolvedTarget)
     {
         return new SkillContext
         {
@@ -310,9 +403,16 @@ public class CombatManager : MonoBehaviour
             duration = durBonus,
             range = range,
             buffBonus = buffBonus,
+            targetMode = targetMode,
             angle = angle,
-            targetX = tx,
-            targetY = ty,
+            targetX = resolvedTarget.x,
+            targetY = resolvedTarget.y,
+            cursorX = cursorWorld.x,
+            cursorY = cursorWorld.y,
+            clampedCursorX = clampedCursor.x,
+            clampedCursorY = clampedCursor.y,
+            directionTargetX = directionTarget.x,
+            directionTargetY = directionTarget.y,
             dealDamage = _dealDmgDel,
             showDmg = _showDmgDel,
             showEffect = _showEffectDel,
@@ -333,7 +433,8 @@ public class CombatManager : MonoBehaviour
 
     ActionContext BuildActionContext(SkillDef skill, int skillLevel, Stats stats,
         List<MonsterController> monsters, float now, float dmgMult, float aoeBonus,
-        float durBonus, float buffBonus, float range, float angle, float tx, float ty)
+        float durBonus, float buffBonus, float range, float angle, SkillTargetMode targetMode,
+        Vector2 cursorWorld, Vector2 clampedCursor, Vector2 directionTarget, Vector2 resolvedTarget)
     {
         var ctx = new ActionContext
         {
@@ -348,9 +449,16 @@ public class CombatManager : MonoBehaviour
             duration = durBonus,
             range = range,
             buffBonus = buffBonus,
+            targetMode = targetMode,
             angle = angle,
-            targetX = tx,
-            targetY = ty,
+            targetX = resolvedTarget.x,
+            targetY = resolvedTarget.y,
+            cursorX = cursorWorld.x,
+            cursorY = cursorWorld.y,
+            clampedCursorX = clampedCursor.x,
+            clampedCursorY = clampedCursor.y,
+            directionTargetX = directionTarget.x,
+            directionTargetY = directionTarget.y,
             dealDamage = _dealDmgDel,
             showDmg = _showDmgDel,
             showEffect = _showEffectDel,
@@ -370,6 +478,74 @@ public class CombatManager : MonoBehaviour
             mono = this
         };
         return ctx;
+    }
+
+    ActionContext BuildMonsterActionContext(MonsterController monster, List<MonsterController> monsters,
+        float nowMs, float angle, float tx, float ty)
+    {
+        var monsterStats = new Stats
+        {
+            hp = monster.Hp,
+            maxHp = monster.Def.hp,
+            atk = monster.EffectiveAtk,
+            def = monster.EffectiveDef,
+            spd = Mathf.RoundToInt(monster.Def.spd),
+            crit = 0
+        };
+
+        return new ActionContext
+        {
+            player = monster.transform,
+            primaryTarget = _player.transform,
+            targetPlayer = true,
+            stats = monsterStats,
+            monsters = monsters,
+            now = nowMs,
+            skill = null,
+            skillLevel = 1,
+            dmgMult = 1f,
+            aoe = 0f,
+            duration = 1f,
+            range = monster.Def.attackRange,
+            buffBonus = 1f,
+            targetMode = SkillTargetMode.CursorPosition,
+            angle = angle,
+            targetX = tx,
+            targetY = ty,
+            cursorX = tx,
+            cursorY = ty,
+            clampedCursorX = tx,
+            clampedCursorY = ty,
+            directionTargetX = tx,
+            directionTargetY = ty,
+            dealDamageToPrimaryTarget = (baseDmg, isCrit, tintColor) =>
+            {
+                if (PlayerState == null || _player == null) return false;
+                int rawDamage = Mathf.RoundToInt(baseDmg);
+                int dmg = CombatSystem.CalcDamage(rawDamage, _getStats().def, isCrit);
+                ApplyDamageToPlayer(dmg);
+                return dmg > 0;
+            },
+            showDmg = _showDmgDel,
+            showEffect = (x, y) => SkillVFX.ShowAtPosition(this, x, y),
+            recalcStats = NoopRecalc,
+            shakeCamera = _shakeCamDel,
+            applyEffectToPrimaryTarget = ApplyEffectToPlayer,
+            healPlayer = _ => { },
+            runner = _actionRunner,
+            mono = this
+        };
+    }
+
+    static Vector2 ResolveSkillTargetPoint(
+        SkillTargetMode targetMode, Vector2 playerPos, Vector2 clampedCursor, Vector2 directionTarget)
+    {
+        return targetMode switch
+        {
+            SkillTargetMode.CursorPosition => clampedCursor,
+            SkillTargetMode.CursorDirection => directionTarget,
+            _ => playerPos
+        };
     }
 
     bool DealDamageToMonster(MonsterController m, float baseDmg, bool isCrit, int tintColor)
@@ -406,5 +582,35 @@ public class CombatManager : MonoBehaviour
     public void ShowFloatingText(Vector2 pos, string msg, Color? color = null)
     {
         DamageText.SpawnText(this, pos, msg, color);
+    }
+
+    void ApplyEffectToPlayer(string effectType, float expiresAt, float value)
+    {
+        if (_playerEffects == null)
+            return;
+
+        switch (effectType)
+        {
+            case "stun":
+            case "slow":
+                _playerEffects.Apply(effectType, expiresAt, value);
+                break;
+            case "dot":
+                int dotDamage = Mathf.Max(1, Mathf.RoundToInt(_getStats().maxHp * value));
+                _playerEffects.ApplyDot(expiresAt, dotDamage);
+                break;
+        }
+    }
+
+    void TickPlayerHostileEffects(float nowMs)
+    {
+        if (_playerEffects == null || PlayerState == null || _player == null)
+            return;
+
+        float dotDamage = _playerEffects.TickDot(nowMs);
+        if (dotDamage <= 0f)
+            return;
+
+        ApplyDamageToPlayer(Mathf.Max(1, Mathf.RoundToInt(dotDamage)));
     }
 }
