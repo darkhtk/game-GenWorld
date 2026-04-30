@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
+using UnityEngine;
 
 public class WorldEventCleanupTests
 {
@@ -56,5 +58,108 @@ public class WorldEventCleanupTests
 
         Assert.AreEqual(1f, sys.GlobalDropMultiplier, 0.001f);
         Assert.AreEqual(1f, sys.GlobalGoldMultiplier, 0.001f);
+    }
+
+    // ------------------------------------------------------------
+    // S-084 Phase 2: EventOriginId 태깅 + Spawner 구독 정리
+    // ------------------------------------------------------------
+
+    GameObject _spawnerGO;
+    GameObject _prefabGO;
+    MonsterSpawner _spawner;
+    MonsterDef _def;
+
+    void BuildSpawnerHarness()
+    {
+        _prefabGO = new GameObject("MonsterPrefab");
+        _prefabGO.AddComponent<Rigidbody2D>();
+        _prefabGO.AddComponent<SpriteRenderer>();
+        _prefabGO.AddComponent<MonsterController>();
+        _prefabGO.SetActive(false); // act as a prefab template
+
+        _spawnerGO = new GameObject("Spawner");
+        _spawner = _spawnerGO.AddComponent<MonsterSpawner>();
+
+        typeof(MonsterSpawner)
+            .GetField("monsterPrefab", BindingFlags.NonPublic | BindingFlags.Instance)
+            .SetValue(_spawner, _prefabGO);
+
+        _def = ScriptableObject.CreateInstance<MonsterDef>();
+        _def.name = "test_monster";
+        _def.hp = 50; _def.atk = 5; _def.def = 1; _def.spd = 1f;
+        _def.detectRange = 5f; _def.attackRange = 2f; _def.attackCooldown = 1f;
+    }
+
+    void TeardownSpawnerHarness()
+    {
+        if (_spawnerGO != null) Object.DestroyImmediate(_spawnerGO);
+        if (_prefabGO != null) Object.DestroyImmediate(_prefabGO);
+        if (_def != null) Object.DestroyImmediate(_def);
+    }
+
+    [Test]
+    public void MonsterController_EventOriginId_DefaultsToNull()
+    {
+        var go = new GameObject("M");
+        go.AddComponent<Rigidbody2D>();
+        go.AddComponent<SpriteRenderer>();
+        var mc = go.AddComponent<MonsterController>();
+
+        Assert.IsNull(mc.EventOriginId);
+
+        Object.DestroyImmediate(go);
+    }
+
+    [Test]
+    public void DespawnEventMonsters_RemovesOnlyMatchingTags()
+    {
+        BuildSpawnerHarness();
+        try
+        {
+            _spawner.SpawnEventMonster(_def, Vector2.zero, "blood_moon");
+            _spawner.SpawnEventMonster(_def, Vector2.right, "blood_moon");
+            _spawner.SpawnEventMonster(_def, Vector2.up, "goblin_raid");
+            Assert.AreEqual(3, _spawner.ActiveMonsters.Count);
+
+            int removed = _spawner.DespawnEventMonsters("blood_moon");
+
+            Assert.AreEqual(2, removed);
+            Assert.AreEqual(1, _spawner.ActiveMonsters.Count);
+            Assert.AreEqual("goblin_raid", _spawner.ActiveMonsters[0].EventOriginId);
+        }
+        finally { TeardownSpawnerHarness(); }
+    }
+
+    [Test]
+    public void DespawnEventMonsters_NullOrEmptyId_NoOp()
+    {
+        BuildSpawnerHarness();
+        try
+        {
+            _spawner.SpawnEventMonster(_def, Vector2.zero, "blood_moon");
+            Assert.AreEqual(1, _spawner.ActiveMonsters.Count);
+
+            Assert.AreEqual(0, _spawner.DespawnEventMonsters(null));
+            Assert.AreEqual(0, _spawner.DespawnEventMonsters(string.Empty));
+            Assert.AreEqual(1, _spawner.ActiveMonsters.Count, "tagged monsters must survive null/empty cleanup");
+        }
+        finally { TeardownSpawnerHarness(); }
+    }
+
+    [Test]
+    public void WorldEventEndEvent_TriggersSpawnerCleanup()
+    {
+        BuildSpawnerHarness();
+        try
+        {
+            _spawner.SpawnEventMonster(_def, Vector2.zero, "blood_moon");
+            _spawner.SpawnEventMonster(_def, Vector2.up, "goblin_raid");
+
+            EventBus.Emit(new WorldEventEndEvent { id = "blood_moon" });
+
+            Assert.AreEqual(1, _spawner.ActiveMonsters.Count);
+            Assert.AreEqual("goblin_raid", _spawner.ActiveMonsters[0].EventOriginId);
+        }
+        finally { TeardownSpawnerHarness(); }
     }
 }

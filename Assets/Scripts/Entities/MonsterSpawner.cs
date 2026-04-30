@@ -98,6 +98,48 @@ public class MonsterSpawner : MonoBehaviour
         StartCoroutine(DespawnRoutine());
     }
 
+    void OnEnable() => EventBus.On<WorldEventEndEvent>(OnWorldEventEnded);
+    void OnDisable() => EventBus.Off<WorldEventEndEvent>(OnWorldEventEnded);
+
+    void OnWorldEventEnded(WorldEventEndEvent e) => DespawnEventMonsters(e.id);
+
+    // S-084: WorldEvent 종료 시 해당 이벤트로 스폰된 몬스터를 일괄 정리.
+    // EventOriginId가 일치하는 항목만 제거 — 일반 리전 몬스터(null)는 유지.
+    public int DespawnEventMonsters(string eventId)
+    {
+        if (string.IsNullOrEmpty(eventId)) return 0;
+        int removed = 0;
+        for (int i = _monsters.Count - 1; i >= 0; i--)
+        {
+            var m = _monsters[i];
+            if (m == null) { _monsters.RemoveAt(i); continue; }
+            if (m.EventOriginId != eventId) continue;
+            EventBus.Emit(new MonsterDespawnEvent { monsterId = m.Def?.id });
+            _monsters.RemoveAt(i);
+            Destroy(m.gameObject);
+            removed++;
+        }
+        return removed;
+    }
+
+    // S-084: WorldEvent 핸들러가 호출. eventId로 태깅된 몬스터를 스폰 → 종료 시 자동 정리됨.
+    public MonsterController SpawnEventMonster(MonsterDef def, Vector2 pos, string eventId)
+    {
+        if (def == null || monsterPrefab == null) return null;
+        var go = Instantiate(monsterPrefab, pos, Quaternion.identity, transform);
+        var mc = go.GetComponent<MonsterController>();
+        if (mc == null)
+        {
+            Debug.LogError("[MonsterSpawner] MonsterController missing on prefab");
+            Destroy(go);
+            return null;
+        }
+        mc.Init(def, pos);
+        mc.EventOriginId = eventId;
+        _monsters.Add(mc);
+        return mc;
+    }
+
     IEnumerator DespawnRoutine()
     {
         var wait = new WaitForSeconds(DespawnCheckInterval);

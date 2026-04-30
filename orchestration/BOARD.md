@@ -1,9 +1,9 @@
 # Orchestration Board
 
-> **최종 업데이트:** 2026-04-30 (Supervisor — S-118 ✅ DONE 흡수: AudioManager.DuckBGM)
+> **최종 업데이트:** 2026-04-30 (Developer — S-084 Phase 2 In Review: EventOriginId 태깅 + Spawner 구독 정리 + EditMode 4건)
 > **프로젝트:** GENWorld
-> **현재 상태:** Stabilize (Done 150건+8, In Progress 1건(P3 재개 가능), In Review 0건, Rejected 0건)
-> **📌 Client 리뷰 대기:** 없음. *S-101 v3 후속:* 다음 루프 Unity Editor 실 컴파일 + EditMode test 4건 실행 검증(SPEC §7 #1/#2/#7 마무리), `MonsterAttackPatternSelector` 정의 위치 추적(별도 태스크 회부 권장). *S-124 후속:* 드래그 중 인벤토리 강제 닫힘 시 CancelDrag 안전망(P3), ghost alpha const 분리(P3), drop pop 애니메이션(P3). *S-118 후속:* DuckBGM API 다른 진입점 재사용 (NPC 대화 시작 -3dB sustain → S-142, 보스 처치 → S-140).
+> **현재 상태:** Stabilize (Done 150건+8, In Progress 0건, In Review 1건, Rejected 0건)
+> **📌 Client 리뷰 대기:** S-084 Phase 2 — `MonsterController.EventOriginId` 추가 + `MonsterSpawner.OnEnable`에서 `WorldEventEndEvent` 구독 → `DespawnEventMonsters(eventId)` 자동 호출. SPEC 부재(specs 참조 N). spawn 측(`SpawnEventMonster`)은 API만 노출, 프로덕션 호출처 0(향후 invasion/elite_spawn 핸들러 SPEC 시 연결). 분할 PR 적정성 판단 요청. *S-101 v3 후속:* Unity Editor 실 컴파일 + EditMode test 4건 실행 검증(SPEC §7 #1/#2/#7 마무리), `MonsterAttackPatternSelector` 정의 위치 추적. *S-124 후속:* 드래그 중 강제 닫힘 CancelDrag 안전망(P3), ghost alpha const 분리(P3), drop pop 애니메이션(P3). *S-118 후속:* DuckBGM API 다른 진입점 재사용 (NPC 대화 -3dB sustain → S-142, 보스 처치 → S-140).
 
 ---
 
@@ -12,7 +12,7 @@
 | #   | 태스크                                   | 우선순위 | 상태  | 비고                                       |
 | --- | ------------------------------------- | ---- | --- | ---------------------------------------- |
 | 1   | S-101: 회피 기능 수행 시 몬스터 리셋 버그 수정        | high | ✅  | APPROVE (REVIEW-S-101-v3, [깊은 리뷰], 4/4 페르소나) — 5373b76 |
-| 2   | S-084: WorldEventSystem 종료 잔존 오브젝트 정리 | P3   | 🔧  | 보류 해제 — S-101 v3 머지 완료. ForceEndActiveEvent 인프라 1차 후 본 작업 재개 가능 |
+| 2   | S-084: WorldEventSystem 종료 잔존 오브젝트 정리 | P3   | 👀  | Phase 2 In Review — EventOriginId 태깅 + Spawner 구독 정리 + EditMode 4건 (1차 cf72a6a, 2차 본 PR) |
 | 3   | S-114: 🎨 회피 모션 잔상 이펙트 스프라이트         | P2   | ✅  | APPROVE (REVIEW-S-114-v1) — 6ab7a5c                |
 | 4   | S-115: 🎨 데미지 텍스트 폰트 아웃라인/그림자 강화      | P2   | ✅  | APPROVE (REVIEW-S-115-v1) — edae030               |
 | 5   | S-116: 🎨 스킬 쿨다운 회복 SFX                     | P2   | ✅  | DONE — sfx_cooldown_ready.wav + HUD 트리거 (cfce018) |
@@ -34,7 +34,6 @@
 
 | 태스크 | 우선순위 | 담당 | 시작일 | 비고 |
 | --- | ---- | --- | --- | --- |
-| S-084 WorldEventSystem 종료 잔존 오브젝트 정리 | P3 | Developer | 2026-04-30 | ForceEndActiveEvent 인프라 1차 완료(cf72a6a). S-101 v3 ✅ APPROVE 머지 — Developer 본 작업 재개 가능 (EventOriginId 태깅 + Spawner 구독 정리). |
 
 ---
 
@@ -42,6 +41,7 @@
 
 | 태스크 | 우선순위 | 완료일 | 결과 | 비고 |
 | --- | ---- | --- | --- | --- |
+| S-084 WorldEventSystem 종료 잔존 오브젝트 정리 (Phase 2) | P3 | 2026-04-30 | 대기 | EventOriginId 태깅 + Spawner OnEnable 구독 + DespawnEventMonsters/SpawnEventMonster API. EditMode 테스트 4건 신규 (`WorldEventCleanupTests`). 1차 cf72a6a, 2차 본 PR. SPEC 부재 — spawn 측(`SpawnEventMonster`) 프로덕션 호출처 0, 향후 SPEC 기반 invasion/elite_spawn 핸들러 연결 예정. 분할 PR 적정성 판단 요청. |
 
 ---
 

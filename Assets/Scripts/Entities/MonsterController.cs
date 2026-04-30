@@ -12,6 +12,10 @@ public class MonsterController : MonoBehaviour
     public EffectHolder Effects { get; } = new();
     public MonsterAIState AIState { get; private set; } = MonsterAIState.Patrol;
 
+    // S-084: WorldEvent로 스폰된 몬스터를 식별. null이면 일반 리전 스폰.
+    // WorldEventEndEvent 발행 시 일치하는 ID의 몬스터만 정리됨.
+    public string EventOriginId { get; set; }
+
     // Test-only mutator — production code MUST NOT call this. Intended for EditMode tests
     // that need to drive Return / Chase transitions deterministically without simulating
     // distance/cooldown windows.
