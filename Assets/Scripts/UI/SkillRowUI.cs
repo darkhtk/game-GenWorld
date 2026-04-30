@@ -87,15 +87,16 @@ public class SkillRowUI : MonoBehaviour
         {
             if (isMaxed) costText.text = "";
             else if (canLearn) { costText.text = $"<b><color=#ffd900>{requiredPoints}pt</color></b>"; costText.color = Color.white; }
-            else if (playerLevel > 0 && playerLevel < requiredLevel)
-            {
-                costText.text = $"<color=#ff6655>Lv.<b>{requiredLevel}</b>+</color>";
-                costText.color = Color.white;
-            }
             else
             {
-                int deficit = requiredPoints - playerSkillPoints;
-                costText.text = $"<color=#ff6655><b>-{deficit}pt</b></color>";
+                bool levelShort = playerLevel > 0 && playerLevel < requiredLevel;
+                bool pointsShort = playerSkillPoints < requiredPoints;
+                string levelPart = levelShort ? $"Lv.<b>{requiredLevel}</b>+" : null;
+                string pointsPart = pointsShort ? $"<b>-{requiredPoints - playerSkillPoints}pt</b>" : null;
+                string combined =
+                    levelPart != null && pointsPart != null ? $"{levelPart} {pointsPart}" :
+                    levelPart ?? pointsPart ?? $"<b>{requiredPoints}pt</b>";
+                costText.text = $"<color=#ff6655>{combined}</color>";
                 costText.color = Color.white;
             }
         }
