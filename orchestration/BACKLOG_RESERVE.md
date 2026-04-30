@@ -17,7 +17,7 @@
 | ~~S-118~~ | ~~🎨 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4초)~~ ✅ 2026-04-30 | P3   | Audio   | DONE — AudioManager.DuckBGM(-6f, 0.4f) coroutine + CombatRewardHandler drops>0 호출. AudioMixer 미사용으로 BGM source volume × _duckMultiplier 직접 조작, 0.08s fade in/hold/0.08s fade out |
 | ~~S-119~~ | ~~🎨 레벨업 파티클 이펙트~~ ✅ 2026-04-30                  | P2   | VFX     | DONE — vfx_levelup_burst 8f sprite + LevelUpVFX 16-spark 방사 (1.0s) |
 | ~~S-120~~ | ~~🎨 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)~~ ✅ 2026-04-30          | P3   | Audio   | DONE — GameConfig.Audio 신규(BossRegionIds/BgmTransitionBossEnter=1.5s/Default=1.0s/CrossfadeDualSource=true) + AudioManager.bgmSourceB + CrossfadeBGMDual(동시 ramp, 무음 갭 X) + GameManager.PlayRegionBGM fadeTime 분기. DuckBGM과 충돌 없음(크로스페이드 활성 시 _duckMultiplier만 갱신, 매 프레임 BgmTargetVolume 재계산). EditMode 7건. |
-| S-121 | 🎨 NPC 대화 시작/종료 SFX                                    | P3   | SFX     | DialogueUI Show/Hide 진입점에 훅                        |
+| ~~S-121~~ | ~~🎨 NPC 대화 시작/종료 SFX~~ ✅ 2026-04-30                  | P3   | SFX     | DONE — sfx_dialogue_open.wav (200ms paper-flip) + sfx_dialogue_close.wav (180ms book-thud) Generated+Resources 양쪽 배치, GameConfig.Audio 5상수, AudioManager.PlaySFXScaled 신규 (volumeScale 오버로드), DialogueUI.Show/Hide 훅. 부수: S-117 코인 SFX Resources 누락 fixup(런타임 PlaySFX no-op 버그). EditMode `DialogueAudioConfigTests` 5건. |
 | S-122 | 🎨 UI 버튼 호버/클릭 SFX 통일 (UIButton 컴포넌트)                  | P2   | UI/SFX  | 일부 버튼만 사운드 있음. 공통 UIButton 만들고 일괄 부착                |
 | S-123 | 🎨 인벤토리 빈 슬롯 그래픽 톤다운 (alpha 0.3)                       | P3   | UI      | 채워진 슬롯과 시각 구분 약함                                    |
 | S-140 | 🎨 보스 처치 시 화면 흔들림 + 승리 코드 SFX (sfx_boss_die_chord 1.2s) | P2   | VFX/SFX | 보스 처치가 일반 몬스터와 동일 피드백. CinemachineImpulse + 코드 진행 SFX |

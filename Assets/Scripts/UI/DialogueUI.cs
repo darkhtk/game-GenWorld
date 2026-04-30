@@ -61,6 +61,8 @@ public class DialogueUI : MonoBehaviour
     NpcDef _currentNpc;
     Coroutine _loadingCoroutine;
 
+    public bool IsOpen => panel != null && panel.activeSelf;
+
     static readonly string[] ThinkingPhrases =
     {
         "생각 중...", "흠...", "잠시만...",
@@ -94,6 +96,11 @@ public class DialogueUI : MonoBehaviour
         _currentNpc = npcDef;
         gameObject.SetActive(true);
         if (panel != null) panel.SetActive(true);
+
+        if (GameConfig.Audio.DialogueSfxEnabled)
+            AudioManager.Instance?.PlaySFXScaled(
+                GameConfig.Audio.DialogueOpenSfxName,
+                GameConfig.Audio.DialogueOpenSfxVolume);
 
         if (npcNameText != null)
         {
@@ -136,6 +143,12 @@ public class DialogueUI : MonoBehaviour
         if (loadingPanel != null) loadingPanel.SetActive(false);
         if (questProposalPanel != null) questProposalPanel.SetActive(false);
         if (freeInputField != null) freeInputField.gameObject.SetActive(false);
+
+        if (GameConfig.Audio.DialogueSfxEnabled)
+            AudioManager.Instance?.PlaySFXScaled(
+                GameConfig.Audio.DialogueCloseSfxName,
+                GameConfig.Audio.DialogueCloseSfxVolume);
+
         if (panel != null) panel.SetActive(false);
         gameObject.SetActive(false);
         _currentNpc = null;

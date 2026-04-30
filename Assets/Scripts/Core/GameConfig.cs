@@ -56,6 +56,13 @@ public static class GameConfig
 
         public static float BgmFadeTimeFor(string regionId) =>
             IsBossRegion(regionId) ? BgmTransitionBossEnter : BgmTransitionDefault;
+
+        // S-121: NPC dialogue start/end SFX (UI feedback, separate from per-line sfx_speech).
+        public const string DialogueOpenSfxName    = "sfx_dialogue_open";
+        public const string DialogueCloseSfxName   = "sfx_dialogue_close";
+        public const float  DialogueOpenSfxVolume  = 0.85f;
+        public const float  DialogueCloseSfxVolume = 0.70f;
+        public const bool   DialogueSfxEnabled     = true;
     }
 
     // Single source of truth for monster aggression / engagement timing windows.

@@ -194,6 +194,15 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(clip, _sfxVolume * _masterVolume);
     }
 
+    // S-121: Scaled-volume one-shot. Per-call volume scale (0..1) on top of sfxVolume*masterVolume.
+    public void PlaySFXScaled(string clipName, float volumeScale)
+    {
+        var clip = GetClip($"Audio/SFX/{clipName}");
+        if (clip == null) return;
+        sfxSource.pitch = 1f;
+        sfxSource.PlayOneShot(clip, _sfxVolume * _masterVolume * Mathf.Clamp01(volumeScale));
+    }
+
     public void PlaySFXAt(string clipName, Vector2 worldPos)
     {
         var clip = GetClip($"Audio/SFX/{clipName}");

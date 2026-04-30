@@ -1,8 +1,8 @@
 # Supervisor Log
 
 > **최종 실행:** 2026-04-30
-> **모드:** /loop 2m (cron `248ec8f7`)
-> **상태:** ✅ ACTIVE — S-120 보스룸 BGM 트랜지션 완료
+> **모드:** /loop 2m (cron `81cc26c4`)
+> **상태:** ✅ ACTIVE — S-121 NPC 대화 시작/종료 SFX 완료 + S-117 Resources 누락 fixup
 
 ## 이번 루프 결과
 
@@ -10,69 +10,99 @@
 - BOARD.md 헤더 정상. FREEZE 공지 없음 → 진행.
 
 ### Step 0.5 — 토론 확인
-- `orchestration/discussions/` 폴더 미존재 (Glob 0 hit) → 응답 대기 0건.
+- `orchestration/discussions/` 폴더 미존재 → 응답 대기 0건.
 
 ### Step 1 — 🎨 태스크 픽업
-- 직전 루프(S-118) 완료. RESERVE 🎨 미완료 최상단 = **S-120 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)** (P3, Audio, SPEC-S-120 작성됨).
+- 직전 루프(S-120) 완료, S-125 Developer 처리(BOARD In Review APPROVE).
+- RESERVE 🎨 미완료 최상단 = **S-121 NPC 대화 시작/종료 SFX** (P3, SFX, SPEC-S-121 작성됨, Coordinator 4회차 선제).
 - 본 루프 픽업 → 실행.
 
 ### Step 2 — 실행 결과
 
-**(a) 신규 데이터 — `Assets/Scripts/Core/GameConfig.cs`**
-- 정적 클래스 `GameConfig.Audio` 신규.
-  - `BgmTransitionDefault = 1.0f` — 일반 지역 트랜지션 (마을/숲/늪/동굴).
-  - `BgmTransitionBossEnter = 1.5f` — 보스룸 진입 (volcano/dragon_lair).
-  - `BgmTransitionBossExit = 1.0f` — 보스룸 이탈 (현재 동일, 추후 조정 여지).
-  - `BgmCrossfadeDualSource = true` — dual-source 동시 페이드 활성. false 시 legacy 시퀀셜 fallback.
-  - `BossRegionIds = { "volcano", "dragon_lair" }` — `GameManager.PlayRegionBGM` 매핑(316~317행)과 1대1 일치.
-  - 헬퍼 `IsBossRegion(string)` (null/empty 안전), `BgmFadeTimeFor(string)` (boss → 1.5f / else → 1.0f).
+**(a) 자산 합성 스크립트 — `orchestration/scripts/gen_dialogue_sfx.py`**
+- 결정론적(seed 20121 / 20122), 16-bit PCM mono 44.1kHz.
+- `sfx_dialogue_open` (200ms): 0~50ms HP-필터드(800Hz) 노이즈 버스트(종이 펄럭) + 50~150ms 1200→600Hz 펄크 + 150~200ms LP(1600Hz) 테일.
+- `sfx_dialogue_close` (180ms): 0~30ms 600→300Hz 머트 어택(책 닫힘) + 30~140ms LP(600Hz) 노이즈 데크레센도 + 140~180ms 자연 페이드아웃.
+- `normalize(buf, peak=0.85/0.78)` 적용, 클리핑 없음.
 
-**(b) AudioManager dual-source — `Assets/Scripts/Systems/AudioManager.cs`**
-- SerializeField `bgmSourceB` 추가 + `Awake`에서 `CreateSource("BGM_B", true)` 자동 생성.
-- 활성 소스 추적 `bool _useSourceA` + 프로퍼티 `ActiveBgm`/`IdleBgm`.
-- 신규 헬퍼 `ApplyBgmVolume(float)` — 양 소스 동일 볼륨 일괄 적용.
-- 신규 코루틴 `CrossfadeBGMDual(AudioClip, float)`:
-  - incoming = IdleBgm: clip 설정 + volume=0 + Play
-  - outgoing = ActiveBgm: 시작 볼륨 캡처
-  - `for t in [0, fadeTime)`: outgoing → 0, incoming → `BgmTargetVolume()` (매 프레임 재계산 → S-118 DuckBGM 충돌 회피)
-  - 종료 시 outgoing.Stop() + clip null + `_useSourceA = !_useSourceA` 토글.
-- `PlayBGM(name, fadeTime)`이 `BgmCrossfadeDualSource && bgmSourceB != null`이면 dual, 아니면 legacy `CrossfadeBGM` 실행.
-- `CrossfadeBGM`(legacy)도 `ActiveBgm` 기반으로 변경 + 종료 시 `_fadeCoroutine = null` 해제.
-- `StopBGM`/`FadeOut`도 `ActiveBgm` 사용 + null guard + `_fadeCoroutine` 해제.
+**(b) 자산 — `Assets/Audio/Generated/` + `Assets/Resources/Audio/SFX/`**
+- `sfx_dialogue_open.wav` (17684 bytes) — 양쪽 배치.
+- `sfx_dialogue_close.wav` (15920 bytes) — 양쪽 배치.
+- `.meta` 4개 신규(Generated 2 + Resources 2). Unity AudioImporter 표준(loadType=0 DecompressOnLoad, sampleRate=44100, compressionFormat=1 PCM, 3D=1 등).
 
-**(c) BgmTargetVolume 호출지 dual 적용 (7곳 통합)**
-- `SetBGMVolume`, `SetMasterVolume`, `LoadVolumeSettings`, `DuckRoutine` 4구간(fade-in / target / hold / fade-out)에서 `bgmSource.volume = BgmTargetVolume()` → `ApplyBgmVolume(BgmTargetVolume())`.
-- DuckRoutine은 `_fadeCoroutine != null` (크로스페이드 활성) 시 `_duckMultiplier`만 갱신하고 ApplyBgmVolume 호출 생략 — 크로스페이드가 매 프레임 `BgmTargetVolume()` 재계산하므로 자연스럽게 multiplier 반영.
-- `OnSceneChanged`도 `bgmSourceB.clip` keep 추가.
+> **중요(설계 결정):** AudioManager.GetClip은 `Resources.Load<AudioClip>("Audio/SFX/{name}")` 만 사용. `Generated/`는 작업 소스(실제 런타임 로드 X). 따라서 양쪽 배치 필수 — Generated는 git에 결정론적 합성 결과 보관 + Resources는 런타임 로드.
 
-**(d) GameManager fadeTime 분기 — `Assets/Scripts/Core/GameManager.cs:328`**
-- `AudioManager.Instance?.PlayBGM(bgm)` → `PlayBGM(bgm, GameConfig.Audio.BgmFadeTimeFor(region))` 1라인.
+**(c) GameConfig.Audio — 5상수 추가**
+- `DialogueOpenSfxName = "sfx_dialogue_open"`.
+- `DialogueCloseSfxName = "sfx_dialogue_close"`.
+- `DialogueOpenSfxVolume = 0.85f` — 음성보다 약간 작게.
+- `DialogueCloseSfxVolume = 0.70f` — 종료는 더 약하게.
+- `DialogueSfxEnabled = true` — 옵션창 토글 향후 추가 시 reuse.
 
-**(e) EditMode 테스트 — `Assets/Tests/EditMode/AudioConfigTests.cs` (신규, 7건)**
-1. `IsBossRegion_VolcanoTrue` — volcano → true.
-2. `IsBossRegion_DragonLairTrue` — dragon_lair → true.
-3. `IsBossRegion_VillageFalse` — village → false.
-4. `IsBossRegion_EmptyOrNullFalse` — "" / null → false (NRE 가드 검증).
-5. `BgmFadeTimeFor_BossRegionUses1_5s` — volcano/dragon_lair → 1.5f (상수 자체 + 리터럴 양쪽 검증).
-6. `BgmFadeTimeFor_NormalRegionUses1s` — village/forest/cave → 1.0f.
-7. `BossRegionIds_ContainsExactlyVolcanoAndDragonLair` — 길이 2 + 두 항목 포함.
+**(d) AudioManager — `PlaySFXScaled(string, float)` 신규**
+- 기존 `PlaySFX(string, float pitchVariation = 0f)` 시그니처와 충돌 회피 위해 별도 메서드 추가(2번째 float 인자 의미 모호 회피).
+- 동작: `sfxSource.PlayOneShot(clip, _sfxVolume * _masterVolume * Mathf.Clamp01(volumeScale))`.
+- pitch는 1.0 고정.
 
-(SPEC §7 #3/#4의 코루틴 시뮬레이션 테스트는 EditMode에서 `Time.unscaledDeltaTime` 시뮬레이션 + AudioSource MonoBehaviour 의존이라 PlayMode 또는 사용자 수동 검증으로 미룸.)
+**(e) DialogueUI — Show/Hide 훅**
+- `Show(npcDef, conditional)` panel.SetActive(true) 직후, NPC 데이터 세팅 전에 `PlaySFXScaled(DialogueOpenSfxName, 0.85f)` 호출(`DialogueSfxEnabled` 가드).
+- `Hide()` panel.SetActive(false) 직전에 `PlaySFXScaled(DialogueCloseSfxName, 0.70f)` 호출(가드 동일).
+- 기존 `sfx_speech` 호출(line 129) 그대로 유지 — open SFX(0ms)와 sfx_speech(약 50~80ms 후) 50~80ms 차로 거의 동시 재생, OneShot 자연 겹침.
+- AudioManager.Instance null 안전(Editor/씬 미초기화 시 `?.` no-op).
 
-### Step 2.5 — RESERVE 보충
-- 미완료 17건 (🎨 6건 + 🐛 11건) → 10건 초과 → 보충 보류.
+### Step 2-부수 — S-117 Resources 누락 fixup (코드 품질 감사)
+- 감사 중 발견: `sfx_coin_small/pile/burst.wav`가 `Assets/Audio/Generated/`만 있고 `Assets/Resources/Audio/SFX/`에 누락 → CombatRewardHandler:88-92의 `AudioManager.PlaySFX(coinSfx)` 런타임에 `Resources.Load<AudioClip>("Audio/SFX/sfx_coin_small")` null 반환 → silently no-op (S-117 BOARD ✅이지만 실제 게임에서 코인 SFX 재생 안 됨).
+- 수정: 3종 wav를 Resources/Audio/SFX/로 복사 + .meta 3개 신규.
+- Generated/Resources 비교 결과 sfx 파일 차이 = 정확히 이 3개. 다른 누락 없음.
 
-### Step 3 — 로그
-- 본 파일 덮어쓰기 완료.
+### Step 3 — EditMode 테스트
+- `Assets/Tests/EditMode/DialogueAudioConfigTests.cs` 신규(5건):
+  1. `DialogueOpenSfxName_IsCorrect` — name 상수 = "sfx_dialogue_open".
+  2. `DialogueCloseSfxName_IsCorrect` — name 상수 = "sfx_dialogue_close".
+  3. `DialogueOpenSfxVolume_InRangeAndQuieterThanFull` — 0..1 범위 + 0.85 정확.
+  4. `DialogueCloseSfxVolume_QuieterThanOpen` — 0..1 범위 + 0.70 정확 + open(0.85) > close(0.70) 단언.
+  5. `DialogueSfxEnabled_DefaultsTrue` — true 단언.
+- SPEC §7 §1~§3 (Show/Hide PlaySFX 호출 카운트) Behavioural 검증은 DI 시스템 부재로 PlayMode(DoD §6)로 deferred — 로그에 명시.
 
-### Step 4 — git
-- 다음.
+### Step 4 — RESERVE / BOARD 동기화
+- `BACKLOG_RESERVE.md` S-121 → ~~취소선~~ + `✅ 2026-04-30` 마킹, 비고에 변경 산출물 7개 항목 요약.
+- `BOARD.md` In Review 컬럼에 S-121 신규 등재(완료일 2026-04-30, 결과 "대기" — Client 리뷰 대상).
+- BOARD 헤더 다음 루프 Coordinator가 카운트/문구 정정 예정(Supervisor는 동기화만).
 
-## 다음 루프 후보
-- 🎨 미완료 최상단 = **S-121 NPC 대화 시작/종료 SFX** (P3, SFX). DialogueUI Show/Hide 진입점 훅 + sfx_dialogue_open/close.wav 신규.
-- 또는 **S-122 UI 버튼 호버/클릭 SFX 통일** (P2, UI/SFX). 공통 UIButton 컴포넌트 + 일괄 부착 — 코드 변경 폭이 커서 SPEC 사전 작성 필요.
+### Step 5 — 산출 파일 목록
+| 파일 | 상태 | 비고 |
+| --- | --- | --- |
+| `orchestration/scripts/gen_dialogue_sfx.py` | 신규 | 결정론적, 105 LOC |
+| `Assets/Audio/Generated/sfx_dialogue_open.wav` | 신규 | 17684 bytes |
+| `Assets/Audio/Generated/sfx_dialogue_open.wav.meta` | 신규 | guid 000147a1977c45c4bb9125f88e484077 |
+| `Assets/Audio/Generated/sfx_dialogue_close.wav` | 신규 | 15920 bytes |
+| `Assets/Audio/Generated/sfx_dialogue_close.wav.meta` | 신규 | guid c4764b9fea674254ae3caaedb73a41c3 |
+| `Assets/Resources/Audio/SFX/sfx_dialogue_open.wav` | 신규 | 동일 바이트 |
+| `Assets/Resources/Audio/SFX/sfx_dialogue_open.wav.meta` | 신규 | guid b46ed1d3589c43d0affaf32f1be52f7a |
+| `Assets/Resources/Audio/SFX/sfx_dialogue_close.wav` | 신규 | 동일 바이트 |
+| `Assets/Resources/Audio/SFX/sfx_dialogue_close.wav.meta` | 신규 | guid 2404fe19160c478da6d4ea286212a145 |
+| `Assets/Resources/Audio/SFX/sfx_coin_small.wav` | 신규(fixup) | S-117 누락 보정 |
+| `Assets/Resources/Audio/SFX/sfx_coin_pile.wav` | 신규(fixup) | S-117 누락 보정 |
+| `Assets/Resources/Audio/SFX/sfx_coin_burst.wav` | 신규(fixup) | S-117 누락 보정 |
+| `Assets/Resources/Audio/SFX/sfx_coin_*.wav.meta` (3) | 신규(fixup) | guid 954aef38 / 8a5df5a6 / 60e6498a |
+| `Assets/Scripts/Core/GameConfig.cs` | 수정 | Audio 클래스에 5상수 |
+| `Assets/Scripts/Systems/AudioManager.cs` | 수정 | PlaySFXScaled 메서드 신규 |
+| `Assets/Scripts/UI/DialogueUI.cs` | 수정 | Show/Hide 2훅 |
+| `Assets/Tests/EditMode/DialogueAudioConfigTests.cs` | 신규 | 5건 |
+| `orchestration/BACKLOG_RESERVE.md` | 수정 | S-121 ✅ |
+| `orchestration/BOARD.md` | 수정 | In Review S-121 등재 |
+| `orchestration/logs/SUPERVISOR.md` | 수정 | 본 로그 |
 
-## DoD 잔여 (S-120, PlayMode/사용자 수동)
-- §6: village → volcano 진입 시 `bgm_forest` → `bgm_boss` 1.5s 부드러운 교차, 무음 갭 X 청취 검증.
-- §7: 보스 진입 직후 0.5s 시점 아이템 픽업 → 더킹이 새 active source(incoming)에 정상 적용.
-- 보스 진입 직후 다른 region 통과 (롤백 시나리오) → 코루틴 안전 종료.
+### 다음 루프 후보
+- RESERVE 🎨 다음: S-122 UI 버튼 호버/클릭 SFX 통일 (UIButton 컴포넌트, P2). UIButton 컴포넌트 신규 + 일괄 부착 → 광범위 변경, SPEC 권장.
+- 그 다음: S-123 인벤토리 빈 슬롯 그래픽 톤다운 (P3, UI alpha 0.3).
+- S-140 보스 처치 화면 흔들림 + 승리 코드(P2, VFX/SFX) — DuckBGM 재사용.
+
+### 리스크 / 노트
+- **`sfx_speech` 충돌:** open SFX 200ms + sfx_speech(NPC별 가변, 약 50~80ms 후 시작)이 50~80ms 차로 겹침. PlayMode 청취 검증 필요. 부적절 시 open 길이 200→150ms 단축 또는 sfx_speech 호출을 100ms 지연(SPEC §10).
+- **S-117 fixup 영향:** S-117은 BOARD에 ✅ APPROVE로 등재되어 있으나 실제로는 Resources 누락으로 런타임 작동 안 함. 본 루프 fixup으로 정상화 — 별도 회귀 테스트 권장(S-117 사후 검증 필요 시 신규 태스크 등재).
+- **EditMode 테스트 한계:** 동작 검증(PlaySFX 호출 카운트)는 AudioManager 싱글톤 직접 호출로 인해 mock 불가. PlayMode 수동 검증으로 deferred.
+
+### 메모 (다음 사이클 권고)
+- AudioManager에 IAudioPlayer 인터페이스 도입 + DialogueUI/CombatRewardHandler 등 클라이언트가 인터페이스 통해 호출 → EditMode mock 가능.
+- gen_*_sfx.py 패턴 통합(`orchestration/scripts/gen_audio_lib.py` 공통 헬퍼 — chirp/click_noise/normalize 중복).
