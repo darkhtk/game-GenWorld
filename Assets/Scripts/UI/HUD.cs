@@ -102,6 +102,9 @@ public class HUD : MonoBehaviour
     int _hoveredSkillSlot = -1;
     int _potionThrottle;
     int _questThrottle;
+    float[] _prevCooldownFractions;
+    bool _cooldownsInitialized;
+    const float CooldownReadyEpsilon = 0.001f;
 
     void Awake()
     {
@@ -282,12 +285,25 @@ public class HUD : MonoBehaviour
         float nowMs = Time.time * 1000f;
         float[] fractions = gm.Skills.GetCooldowns(nowMs);
 
+        if (_prevCooldownFractions == null || _prevCooldownFractions.Length != GameConfig.SkillSlotCount)
+            _prevCooldownFractions = new float[GameConfig.SkillSlotCount];
+
+        bool anyReadyThisFrame = false;
         for (int i = 0; i < GameConfig.SkillSlotCount; i++)
         {
             float f = i < fractions.Length ? fractions[i] : 0f;
             if (i < skillCooldownOverlays.Length && skillCooldownOverlays[i] != null)
                 skillCooldownOverlays[i].fillAmount = f;
+
+            float prev = _prevCooldownFractions[i];
+            if (_cooldownsInitialized && prev > CooldownReadyEpsilon && f <= CooldownReadyEpsilon)
+                anyReadyThisFrame = true;
+            _prevCooldownFractions[i] = f;
         }
+        _cooldownsInitialized = true;
+
+        if (anyReadyThisFrame && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX("sfx_cooldown_ready");
     }
 
     void UpdateBuffDurations()
