@@ -1,9 +1,9 @@
 # Orchestration Board
 
-> **최종 업데이트:** 2026-04-30 (Coordinator — S-101 v3 + S-124 + S-117 ✅ 흡수 → Done 이동)
+> **최종 업데이트:** 2026-04-30 (Supervisor — S-118 ✅ DONE 흡수: AudioManager.DuckBGM)
 > **프로젝트:** GENWorld
-> **현재 상태:** Stabilize (Done 150건+7, In Progress 1건(P3 재개 가능), In Review 0건, Rejected 0건)
-> **📌 Client 리뷰 대기:** 없음. *S-101 v3 후속:* 다음 루프 Unity Editor 실 컴파일 + EditMode test 4건 실행 검증(SPEC §7 #1/#2/#7 마무리), `MonsterAttackPatternSelector` 정의 위치 추적(별도 태스크 회부 권장). *S-124 후속:* 드래그 중 인벤토리 강제 닫힘 시 CancelDrag 안전망(P3), ghost alpha const 분리(P3), drop pop 애니메이션(P3).
+> **현재 상태:** Stabilize (Done 150건+8, In Progress 1건(P3 재개 가능), In Review 0건, Rejected 0건)
+> **📌 Client 리뷰 대기:** 없음. *S-101 v3 후속:* 다음 루프 Unity Editor 실 컴파일 + EditMode test 4건 실행 검증(SPEC §7 #1/#2/#7 마무리), `MonsterAttackPatternSelector` 정의 위치 추적(별도 태스크 회부 권장). *S-124 후속:* 드래그 중 인벤토리 강제 닫힘 시 CancelDrag 안전망(P3), ghost alpha const 분리(P3), drop pop 애니메이션(P3). *S-118 후속:* DuckBGM API 다른 진입점 재사용 (NPC 대화 시작 -3dB sustain → S-142, 보스 처치 → S-140).
 
 ---
 
@@ -19,6 +19,7 @@
 | 6   | S-119: 🎨 레벨업 파티클 이펙트                     | P2   | ✅  | DONE — vfx_levelup_burst + LevelUpVFX 16 spark (3fd219c) |
 | 7   | S-124: 인벤토리 드래그 앤 드롭 시각 피드백             | P2   | ✅  | APPROVE (REVIEW-S-124-v1, 4/4 페르소나) — ee545e1 |
 | 8   | S-117: 🎨 몬스터 처치 시 골드 드롭 사운드 (3등급)         | P3   | ✅  | DONE — sfx_coin_small/pile/burst.wav + CombatRewardHandler rank 분기 (6035926) |
+| 9   | S-118: 🎨 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4s)           | P3   | ✅  | DONE — AudioManager.DuckBGM coroutine + CombatRewardHandler 호출 |
 
 ---
 
@@ -65,6 +66,7 @@
 | S-101 회피 기능 수행 시 몬스터 리셋 버그 수정 (v3) | high | 2026-04-30 | APPROVE / 5373b76 (REVIEW-S-101-v3, [깊은 리뷰], 4/4 페르소나 APPROVE; v2 BLOCKER 5건 해소; SPEC §7 #1/#2/#7 Unity Editor 실 검증 다음 루프 잔여) |
 | S-124 인벤토리 드래그 앤 드롭 시각 피드백              | P2   | 2026-04-30 | APPROVE / ee545e1 (REVIEW-S-124-v1, 4/4 페르소나 APPROVE; null/index 가드 적절, RefreshGrid swap 후 alpha 자동 복원; P3 후속 3건 RESERVE 등재 검토) |
 | S-117 🎨 몬스터 처치 시 골드 드롭 사운드 (등급별 3종)    | P3   | 2026-04-30 | DONE / 6035926 (sfx_coin_small.wav 150ms + sfx_coin_pile.wav 280ms + sfx_coin_burst.wav 500ms + CombatRewardHandler.OnMonsterKilled def.rank 분기) |
+| S-118 🎨 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4s)          | P3   | 2026-04-30 | DONE (Supervisor) — AudioManager.DuckBGM(dropDb, duration, fadeTime=0.08s) coroutine: dB → linear (10^(dB/20)) × _duckMultiplier × _bgmVolume × _masterVolume, fade-in/hold/fade-out unscaled. CombatRewardHandler drops>0 분기에서 호출. SetBGMVolume/SetMasterVolume도 BgmTargetVolume() 통일. |
 
 ---
 

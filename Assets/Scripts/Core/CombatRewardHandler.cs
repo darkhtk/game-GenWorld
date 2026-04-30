@@ -106,7 +106,11 @@ public class CombatRewardHandler
 
         var drops = LootSystem.RollDrops(def.drops, null, dropMult);
         if (drops.Count > 0)
+        {
             AudioManager.Instance?.PlaySFX("sfx_item_acquire");
+            // S-118: duck BGM so the acquire SFX is not buried.
+            AudioManager.Instance?.DuckBGM(-6f, 0.4f);
+        }
         float itemOffset = 0.8f;
         foreach (var drop in drops)
         {

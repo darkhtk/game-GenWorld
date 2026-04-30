@@ -18,6 +18,10 @@ public class AudioManager : MonoBehaviour
 
     readonly Dictionary<string, AudioClip> _clipCache = new();
     Coroutine _fadeCoroutine;
+    Coroutine _duckCoroutine;
+    float _duckMultiplier = 1f;
+
+    float BgmTargetVolume() => _bgmVolume * _masterVolume * _duckMultiplier;
 
     void Awake()
     {
@@ -157,7 +161,7 @@ public class AudioManager : MonoBehaviour
     public void SetBGMVolume(float vol)
     {
         _bgmVolume = Mathf.Clamp01(vol);
-        bgmSource.volume = _bgmVolume * _masterVolume;
+        bgmSource.volume = BgmTargetVolume();
         PlayerPrefs.SetFloat("bgm_volume", _bgmVolume);
     }
 
@@ -170,9 +174,50 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float vol)
     {
         _masterVolume = Mathf.Clamp01(vol);
-        bgmSource.volume = _bgmVolume * _masterVolume;
+        bgmSource.volume = BgmTargetVolume();
         ambientSource.volume = 0.3f * _masterVolume;
         PlayerPrefs.SetFloat("master_volume", _masterVolume);
+    }
+
+    // S-118: BGM ducking - momentarily lower BGM so item-acquire SFX cuts through.
+    public void DuckBGM(float dropDb = -6f, float duration = 0.4f, float fadeTime = 0.08f)
+    {
+        if (bgmSource == null) return;
+        if (_duckCoroutine != null) StopCoroutine(_duckCoroutine);
+        _duckCoroutine = StartCoroutine(DuckRoutine(dropDb, duration, fadeTime));
+    }
+
+    IEnumerator DuckRoutine(float dropDb, float duration, float fadeTime)
+    {
+        float target = Mathf.Pow(10f, dropDb / 20f);
+        float startMult = _duckMultiplier;
+        fadeTime = Mathf.Min(fadeTime, duration * 0.5f);
+        float hold = Mathf.Max(0f, duration - fadeTime * 2f);
+
+        for (float t = 0f; t < fadeTime; t += Time.unscaledDeltaTime)
+        {
+            _duckMultiplier = Mathf.Lerp(startMult, target, t / fadeTime);
+            bgmSource.volume = BgmTargetVolume();
+            yield return null;
+        }
+        _duckMultiplier = target;
+        bgmSource.volume = BgmTargetVolume();
+
+        for (float h = 0f; h < hold; h += Time.unscaledDeltaTime)
+        {
+            bgmSource.volume = BgmTargetVolume();
+            yield return null;
+        }
+
+        for (float t = 0f; t < fadeTime; t += Time.unscaledDeltaTime)
+        {
+            _duckMultiplier = Mathf.Lerp(target, 1f, t / fadeTime);
+            bgmSource.volume = BgmTargetVolume();
+            yield return null;
+        }
+        _duckMultiplier = 1f;
+        bgmSource.volume = BgmTargetVolume();
+        _duckCoroutine = null;
     }
 
     public float BGMVolume => _bgmVolume;
@@ -184,7 +229,7 @@ public class AudioManager : MonoBehaviour
         _bgmVolume = PlayerPrefs.GetFloat("bgm_volume", 0.5f);
         _sfxVolume = PlayerPrefs.GetFloat("sfx_volume", 0.7f);
         _masterVolume = PlayerPrefs.GetFloat("master_volume", 1f);
-        bgmSource.volume = _bgmVolume * _masterVolume;
+        bgmSource.volume = BgmTargetVolume();
         ambientSource.volume = 0.3f * _masterVolume;
     }
 }
