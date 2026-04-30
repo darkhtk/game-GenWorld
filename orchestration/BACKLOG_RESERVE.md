@@ -37,6 +37,10 @@
 | S-133 | ItemDatabase 아이템 ID 충돌 검증 (시작 시 1회)                  | P3   | Data       | JSON 추가 시 사일런트 덮어쓰기 위험                            |
 | S-134 | Tilemap 청크 비활성화 거리 조정 (현재 너무 가까움)                   | P3   | Performance| LOD 거리 측정 후 +30%                                  |
 | S-135 | ParticleSystem 풀 사이즈 측정 → 보스전 동시 50+ 처리              | P3   | Performance| 보스 페이즈 전환 시 인스턴스화 스파이크                            |
+| S-136 | `MonsterAttackPatternSelector` 정의 위치 추적/누락 보정              | P2   | Systems    | REVIEW-S-101-v3 켄지 메모. MonsterController.cs:307 호출되나 클래스 정의 grep 미검출 — Unity Editor 컴파일 후 누락 확인 시 신규 클래스 작성 또는 호출부 정리 |
+| S-137 | 인벤토리 드래그 중 강제 닫힘 시 CancelDrag 안전망                    | P3   | UI         | REVIEW-S-124-v1 켄지 메모. 드래그 중 InventoryUI.Hide() 또는 씬 전환 시 dragIcon 잔존 위험 — OnDisable에서 CancelDrag 호출 보장 |
+| S-138 | InventoryUI ghost alpha const 분리 (`InventorySlotGhostAlpha=0.3f`)   | P3   | UI         | REVIEW-S-124-v1 하루카 메모. 매직 넘버 0.3f 직접 박혀있음 — `GameConfig.UI` 또는 InventorySlotUI const로 단일화 |
+| S-139 | 인벤토리 드롭 성공 시 pop 애니메이션 (scale 1.0→1.15→1.0, 0.12s)        | P3   | UI         | REVIEW-S-124-v1 하루카 제안. 드롭 직후 시각적 컨펌 부족 — DOTween 또는 코루틴 한 번 |
 
 ---
 
@@ -48,7 +52,7 @@
 
 ## 작성 가이드
 
-- 신규 항목 ID는 `S-XXX` 연속 (현재 S-135까지). 다음 번호 S-136부터.
+- 신규 항목 ID는 `S-XXX` 연속 (현재 S-139까지). 다음 번호 S-140부터.
 - `🎨` 태그는 신규 스프라이트/SFX/BGM/이펙트 자산이 필요한 태스크에만.
 - 우선순위: `high` > `P1` > `P2` > `P3`.
 - BOARD.md로 승격 시 이 표에서 제거하고 BOARD ❌/🔧/📋 컬럼에 등록.
