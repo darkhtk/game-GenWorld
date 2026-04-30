@@ -52,7 +52,7 @@ public class EventVFX : MonoBehaviour
     {
         var player = GetPlayer();
         if (player == null) return;
-        SkillVFX.ShowAtPosition(this, "vfx_heal", player.Position.x, player.Position.y + 0.5f);
+        LevelUpVFX.Spawn(this, player.Position);
         DamageText.SpawnText(this, player.Position + Vector2.up,
             $"<color=#ffd900><b>LEVEL UP!</b></color>  <color=#55ee88>Lv.<b>{e.level}</b></color>", Color.white);
     }

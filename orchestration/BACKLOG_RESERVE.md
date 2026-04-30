@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-30 (Supervisor — S-116 DONE: sfx_cooldown_ready.wav + HUD wiring)
+> **최종 갱신:** 2026-04-30 (Supervisor — S-119 DONE: vfx_levelup_burst.png + LevelUpVFX.cs 황금 파티클 16개 방사)
 > **방향:** polish (UX/UI > 비주얼/오디오 > 성능)
 > **태그 규약:** `🎨` = 에셋(스프라이트/SFX/BGM/이펙트) 동반 태스크. 감독관이 우선 픽업.
 
@@ -15,7 +15,7 @@
 | ~~S-116~~ | ~~🎨 스킬 쿨다운 회복 SFX 누락~~ ✅ 2026-04-30                | P2   | SFX     | DONE — sfx_cooldown_ready.wav (220ms 1320Hz 벨톤) + HUD.UpdateCooldowns transition trigger |
 | S-117 | 🎨 몬스터 처치 시 골드 드롭 사운드 (등급별 3종)                        | P3   | SFX     | 일반/엘리트/보스 차별화. coin_small/coin_pile/coin_burst     |
 | S-118 | 🎨 아이템 획득 팝업 BGM 더킹 (-6dB, 0.4초)                      | P3   | Audio   | 획득 SFX 묻힘. AudioMixer snapshot 전환                  |
-| S-119 | 🎨 레벨업 파티클 이펙트                                        | P2   | VFX     | 현재 텍스트만. 황금 파티클 + 빛 폭발 1초                          |
+| ~~S-119~~ | ~~🎨 레벨업 파티클 이펙트~~ ✅ 2026-04-30                  | P2   | VFX     | DONE — vfx_levelup_burst 8f sprite + LevelUpVFX 16-spark 방사 (1.0s) |
 | S-120 | 🎨 보스룸 진입 BGM 트랜지션 (크로스페이드 1.5s)                       | P3   | Audio   | 현재 컷 전환. RegionManager.OnRegionChanged             |
 | S-121 | 🎨 NPC 대화 시작/종료 SFX                                    | P3   | SFX     | DialogueUI Show/Hide 진입점에 훅                        |
 | S-122 | 🎨 UI 버튼 호버/클릭 SFX 통일 (UIButton 컴포넌트)                  | P2   | UI/SFX  | 일부 버튼만 사운드 있음. 공통 UIButton 만들고 일괄 부착                |
