@@ -1,6 +1,6 @@
 # Backlog Reserve
 
-> **최종 갱신:** 2026-04-30 (Supervisor — S-120 DONE: AudioManager dual-source CrossfadeBGMDual + GameConfig.Audio + GameManager fadeTime 분기 / EditMode 7건)
+> **최종 갱신:** 2026-04-30 (Coordinator 6회차 — S-084 Phase 2 APPROVE 후 Client 후속 권고 4건 흡수 신규 등재 S-144~S-147)
 > **방향:** polish (UX/UI > 비주얼/오디오 > 성능)
 > **태그 규약:** `🎨` = 에셋(스프라이트/SFX/BGM/이펙트) 동반 태스크. 감독관이 우선 픽업.
 
@@ -30,7 +30,7 @@
 | ID    | 태스크                                                  | 우선순위 | 영역         | 비고                                                |
 | ----- | --------------------------------------------------- | ---- | ---------- | ------------------------------------------------- |
 | ~~S-124~~ | ~~인벤토리 드래그 앤 드롭 시각 피드백~~ ✅ 2026-04-30 | P2   | UI         | DONE — REVIEW-S-124-v1 APPROVE / ee545e1 (BOARD ✅ 이동 완료) |
-| S-125 | SkillTree 미해금 노드 툴팁에 해금 조건 명시                       | P2   | UI         | 현재 "Locked"만 표시. 레벨/포인트/선행 스킬 표기                  |
+| ~~S-125~~ | ~~SkillTree 미해금 노드 해금 조건 결합 표시~~ 👀 2026-04-30      | P2   | UI         | In Review (Developer) — SkillRowUI.UpdateState 잠금 분기에서 레벨/포인트 deficit 결합 표기 (`Lv.5+ -2pt`). 선행 스킬은 SkillDef 미정의 → 향후 별도 SPEC. |
 | S-126 | 옵션창 ESC로 닫기 일관성 (현재 메뉴별 상이)                          | P2   | UI         | InputManager 메뉴 스택 활용                             |
 | S-127 | 미니맵 NPC 마커 색상 분리 (퀘스트/상점/기본)                        | P3   | UI         | MinimapIcon 컴포넌트에 type enum 추가                    |
 | S-128 | 퀘스트 추적 UI 진행률 바 (현재 숫자만)                            | P2   | UI         | "3/10 처치" → 게이지 바 추가                              |
@@ -45,6 +45,10 @@
 | S-137 | 인벤토리 드래그 중 강제 닫힘 시 CancelDrag 안전망                    | P3   | UI         | REVIEW-S-124-v1 켄지 메모. 드래그 중 InventoryUI.Hide() 또는 씬 전환 시 dragIcon 잔존 위험 — OnDisable에서 CancelDrag 호출 보장 |
 | S-138 | InventoryUI ghost alpha const 분리 (`InventorySlotGhostAlpha=0.3f`)   | P3   | UI         | REVIEW-S-124-v1 하루카 메모. 매직 넘버 0.3f 직접 박혀있음 — `GameConfig.UI` 또는 InventorySlotUI const로 단일화 |
 | S-139 | 인벤토리 드롭 성공 시 pop 애니메이션 (scale 1.0→1.15→1.0, 0.12s)        | P3   | UI         | REVIEW-S-124-v1 하루카 제안. 드롭 직후 시각적 컨펌 부족 — DOTween 또는 코루틴 한 번 |
+| S-144 | `MonsterSpawner.SpawnEventMonster` IsNullOrEmpty(eventId) 가드 + SkillVFX/AudioManager 호출 통합 | P3 | Systems | REVIEW-S-084-v2 ⚔️ 켄지 권고. 현재 `SpawnEventMonster(def, pos, eventId)`는 eventId 검증 없이 그대로 EventOriginId에 대입 → null/empty가 들어오면 untagged 몬스터와 식별 불가. 진입점에서 `string.IsNullOrEmpty(eventId)` 가드 + 같은 시점 SkillVFX/AudioManager.PlaySFX 트리거 통합(현재 분산). |
+| S-145 | `WorldEventEndEvent_PreservesUntaggedMonsters` 회귀 테스트 + `[SetUp] EventBus.Clear()` | P3 | Tests | REVIEW-S-084-v2 🔍 QA 권고. EditMode `WorldEventCleanupTests`에 untagged-preservation 직접 단언 부재 — eventId="raid_001" 정리 시 EventOriginId=null 몬스터가 보존되는지 명시 단언 추가. + `[SetUp]` 에 `EventBus.Clear()` 호출하여 테스트 간 핸들러 누수 방지. |
+| S-146 | invasion / elite_spawn / merchant 핸들러 SPEC 작성 → SpawnEventMonster 호출처 연결 | P2 | Systems/Spec | REVIEW-S-084-v2 🎮/⚔️ 권고. S-084 Phase 2가 cleanup 인프라만 깔고 spawn 측 프로덕션 호출처 0. WorldEventSystem이 emit하는 type별 핸들러(spawn 위치/수량/난이도 보정) SPEC 작성 후 `SpawnEventMonster` 연결. SPEC-S-146.md 신규 필요 — Coordinator 선제 작성 후보. |
+| S-147 | `RegionManager.SwitchRegion` / `SaveSystem.OnSceneUnload` → `WorldEventSystem.ForceEndActiveEvent` 와이어링 | P3 | Systems | REVIEW-S-084-v2 🔍 QA 권고. Phase 1에서 `ForceEndActiveEvent` 인프라 완성됐으나 호출처는 자연 만료(`EndEvent`)뿐 — 씬 전환/세이브 로드 시점에 강제 종료 호출 없음 → 잔존 이벤트 몬스터가 다음 씬으로 이월될 잠재 리스크. 1라인씩 훅 추가. |
 
 ---
 
@@ -56,7 +60,7 @@
 
 ## 작성 가이드
 
-- 신규 항목 ID는 `S-XXX` 연속 (현재 S-143까지). 다음 번호 S-144부터.
+- 신규 항목 ID는 `S-XXX` 연속 (현재 S-147까지). 다음 번호 S-148부터.
 - `🎨` 태그는 신규 스프라이트/SFX/BGM/이펙트 자산이 필요한 태스크에만.
 - 우선순위: `high` > `P1` > `P2` > `P3`.
 - BOARD.md로 승격 시 이 표에서 제거하고 BOARD ❌/🔧/📋 컬럼에 등록.
